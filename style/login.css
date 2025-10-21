@@ -20,6 +20,11 @@ body {
     --base: #001f54;
 }
 
+.school-login-icon {
+    width: 36px;
+    height: 36px;
+}
+
 .login-background {
     width: 100%;
     height: 100%;
@@ -58,6 +63,7 @@ body {
     align-items: center;
     margin: 10px 0;
     font-size: 20px;
+    text-decoration: none;
 }
 
 .login-heading-text {
@@ -70,6 +76,8 @@ body {
     line-height: 24px;
     color: #001F54;
     text-align: center;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .login-sign-text {
@@ -159,5 +167,3 @@ body {
     height: 25px;
     margin: 10px 0;
 }
-
-.forgot {}
