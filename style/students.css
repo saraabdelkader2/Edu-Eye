@@ -1,0 +1,199 @@
+/*بخلي الصوره في الاسايد سوده */
+
+aside a.active img {
+    filter: none;
+}
+
+.students-container {
+    position: absolute;
+    top: 66px;
+    left: 235px;
+    right: 0;
+    padding: 20px;
+    overflow-y: auto;
+    height: calc(100vh - 80px);
+    background-color: #f4f7f9;
+    z-index: 5;
+}
+
+.student-heading {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 31px;
+    line-height: 44px;
+    color: #1E457E;
+    margin: 10px 0 20px 10px;
+}
+
+.students-modify {
+    background-color: rgba(223, 223, 223, 1);
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 0;
+    min-height: 41px;
+    box-shadow: 0px 4px 3px rgba(0, 0, 0, 0.15);
+    margin: 0 10px 20px 0;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.students-modify button {
+    min-width: 130px;
+    border: none;
+    font-size: 18px;
+    padding: 10px 15px;
+    font-weight: 600;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+
+/*.students-modify button:hover {
+    background-color: rgba(244, 244, 244, 1);
+}*/
+
+.students-modify .active-button-student {
+    background-color: rgba(244, 244, 244, 1);
+    min-height: 41px;
+    min-width: 130px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.resgistered-student {
+    color: #1E457E;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    margin: 15px 0;
+    font-weight: 700;
+    font-size: 20px;
+    gap: 3px;
+}
+
+
+/* بغير لون الايقون الي هي لصوره للون الكلام */
+
+.resgistered-student img {
+    filter: brightness(0) saturate(100%) invert(12%) sepia(87%) saturate(3000%) hue-rotate(200deg) brightness(95%) contrast(90%);
+}
+
+.student-number {
+    margin: 10px 0;
+    font-weight: 400;
+    font-size: 18px;
+}
+
+.student-number input {
+    max-width: 50px;
+    outline: none;
+    border: 1px rgba(0, 0, 0, 0.15) solid;
+    border-radius: 4px;
+    padding: 2px;
+}
+
+.student-table {
+    width: 100%;
+    text-align: left;
+    border: 1px solid black;
+    border-radius: 8px;
+    overflow: hidden;
+    border-spacing: 0;
+    margin: 20px 0;
+}
+
+.student-table thead {
+    background-color: rgba(0, 31, 84, 1);
+    color: white;
+    border-spacing: 0;
+    font-size: 18px;
+}
+
+.student-table thead tr th:first-child {
+    border-top-left-radius: 8px;
+}
+
+.student-table thead tr th:last-child {
+    border-top-right-radius: 8px;
+}
+
+.student-table th {
+    padding: 12px 15px;
+    font-weight: 600;
+    text-align: left;
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+    border-left: 1px solid black;
+}
+
+.student-table td {
+    padding: 10px 15px;
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+    font-size: 14px;
+}
+
+.student-table td:first-child {
+    border-left: none;
+}
+
+.student-table td:last-child {
+    border-right: none;
+}
+
+.student-table tr:last-child td {
+    border-bottom: none;
+}
+
+.student-table th:nth-child(1),
+.student-table td:nth-child(1),
+.student-table th:nth-child(2),
+.student-table td:nth-child(2),
+.student-table th:nth-child(6),
+.student-table td:nth-child(6) {
+    text-align: center;
+}
+
+
+/* تلوين فئة التصنيف */
+
+.classification-superior {
+    color: #10b981;
+    font-weight: 500;
+}
+
+
+/* أخضر */
+
+.classification-weak {
+    color: #ef4444;
+    font-weight: 500;
+}
+
+
+/* أحمر */
+
+.classification-talented {
+    color: #3b82f6;
+    font-weight: 500;
+}
+
+
+/* أزرق */
+
+
+/* تظليل الصفوف الفردية للتمييز */
+
+.student-table tbody tr:nth-child(odd) {
+    background-color: #f8f8f8;
+}

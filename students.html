@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- font insertion -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
+    <!-- font awesome recalling -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="stylesheet" href="style/aside-header.css">
+
+    <link rel="stylesheet" href="style/students.css">
+    <title>Students</title>
+</head>
+
+<body>
+    <div class="header">
+        <div class="right-group">
+            <div class="back-icon"><img src="media/dashboard/arrow-right.png" alt="back"></div>
+            <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                <input type="search" class="search-box" placeholder="search">
+            </div>
+        </div>
+        <div class="icons left-group">
+            <div class="img-header-background"> <img src="media/dashboard/notification.png" alt="notification"></div>
+            <div class="img-header-background"> <img src="media/dashboard/message.png" alt="message" class="message-icon"></div>
+            <div class="img-header-background"> <img src="media/dashboard/setting-2.png" alt="setting"></div>
+
+
+        </div>
+
+    </div>
+    <div class="aside">
+        <h2><img src="media/dashboard/icon-park-solid_fire.png" alt="logo">My School</h2>
+        <div class="options">
+            <a href="#dashboard"><img src="media/dashboard/home-2.png" alt="home">Dashboard</a>
+            <a href="#students" class="active"><i class="fa-solid fa-user-tag"></i>Student</a>
+            <a href="#"><i class="fa-solid fa-person-chalkboard"></i>Teacher</a>
+            <a href="#"><img src="media/dashboard/Frame 32.png" alt="home">Classes</a>
+            <a href="#"><img src="media/dashboard/rupee_currency_icon_212106 1.png" alt="home">Payment</a>
+            <a href="#"><img src="media/dashboard/Group 77.png" alt="home">Timetable</a>
+            <a href="#"><img src="media/dashboard/setting-2.png" alt="home">Settings</a>
+        </div>
+    </div>
+
+    <div class="students-container" id="students">
+        <p class="student-heading"><i class="fas fa-user-tag" style="color:#36A2EB;"></i> Student</p>
+        <div class="students-modify">
+            <button class="active-button-student"> <img src="media/students/bxs_school.png" alt="student">All Students</button>
+            <button> + Add Students</button>
+        </div>
+        <p class="resgistered-student"><img src="media/students/bxs_school.png" alt="student"> Registered Students</p>
+
+
+        <p class="student-number">Show
+
+            <input type="number" name="studentnumber" placeholder="100" class="input-with-arrow"> enteries
+        </p>
+        <div>
+            <table class="student-table">
+
+                <!-- Table Header -->
+                <thead>
+                    <tr>
+                        <th scope="col">
+                            num
+                        </th>
+                        <th scope="col">
+                            ID Number
+                        </th>
+                        <th scope="col">
+                            Student Name
+                        </th>
+                        <th scope="col">
+                            Class
+                        </th>
+                        <th scope="col">
+                            Gender
+                        </th>
+                        <th scope="col">
+                            Attendence%
+                        </th>
+                        <th scope="col">
+                            Classification
+                        </th>
+                    </tr>
+                </thead>
+
+                <!-- Table Body -->
+                <tbody>
+                    <!-- Row 1 -->
+                    <tr>
+                        <td>1</td>
+                        <td>345699856</td>
+                        <td>Ahmed Belal Tarek</td>
+                        <td>4 - A</td>
+                        <td>Male</td>
+                        <td>90%</td>
+                        <td>Superior</td>
+                    </tr>
+                    <!-- Row 2 -->
+                    <tr>
+                        <td>2</td>
+                        <td>345699825</td>
+                        <td>Ahmed Belal Ali</td>
+                        <td>4 - A</td>
+                        <td>Male</td>
+                        <td>90%</td>
+                        <td>Superior</td>
+                    </tr>
+                    <!-- Row 3 -->
+                    <tr>
+                        <td>3</td>
+                        <td>345699874</td>
+                        <td>Ahmed Ali Tarek</td>
+                        <td>4 - A</td>
+                        <td>Male</td>
+                        <td>85%</td>
+                        <td>Weak</td>
+                    </tr>
+                    <!-- Row 4 -->
+                    <tr>
+                        <td>4</td>
+                        <td>345699811</td>
+                        <td>Ahmed Ibrahim Tarek</td>
+                        <td>4 - A</td>
+                        <td>Male</td>
+                        <td>90%</td>
+                        <td>Superior</td>
+                    </tr>
+                    <!-- Row 5 -->
+                    <tr>
+                        <td>5</td>
+                        <td>345699898</td>
+                        <td>Ahmed Belal Ibrahim</td>
+                        <td>4 - A</td>
+                        <td>Male</td>
+                        <td>65</td>
+                        <td>Weak</td>
+                    </tr>
+                    <!-- Row 6 -->
+                    <tr>
+                        <td>6</td>
+                        <td>345699854</td>
+                        <td>Ahmed Belal Salem</td>
+                        <td>4 - A</td>
+                        <td>Male</td>
+                        <td>80%</td>
+                        <td>Weak</td>
+                    </tr>
+                    <!-- Row 7 -->
+                    <tr>
+                        <td>7</td>
+                        <td>345699866</td>
+                        <td>Amany Diab Tarek</td>
+                        <td>4 - A</td>
+                        <td>Female</td>
+                        <td>90%</td>
+                        <td>Superior</td>
+                    </tr>
+                    <!-- Row 8 -->
+                    <tr>
+                        <td>8</td>
+                        <td>345699822</td>
+                        <td>Aya Salem Tarek</td>
+                        <td>4 - A</td>
+                        <td>Female</td>
+                        <td>90%</td>
+                        <td>Superior</td>
+                    </tr>
+                    <!-- Row 9 -->
+                    <tr>
+                        <td>9</td>
+                        <td>345699819</td>
+                        <td>Alia Eslam Tarek</td>
+                        <td>4 - A</td>
+                        <td>Female</td>
+                        <td>70%</td>
+                        <td>Weak</td>
+                    </tr>
+                    <!-- Row 10 -->
+                    <tr>
+                        <td>10</td>
+                        <td>345699818</td>
+                        <td>Ayat Belal Eslam</td>
+                        <td>4 - A</td>
+                        <td>Female</td>
+                        <td>90%</td>
+                        <td>Talented</td>
+                    </tr>
+                    <!-- Row 11 -->
+                    <tr>
+                        <td>11</td>
+                        <td>345699861</td>
+                        <td>Amina Belal Yehia</td>
+                        <td>4 - A</td>
+                        <td>Female</td>
+                        <td>100%</td>
+                        <td>Talented</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>
