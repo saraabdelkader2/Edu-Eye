@@ -10,7 +10,7 @@ aside a.active img {
     align-items: start;
 }
 
-.students-container {
+.teachers-container {
     position: absolute;
     top: 66px;
     left: 235px;
@@ -22,7 +22,7 @@ aside a.active img {
     z-index: 1;
 }
 
-.student-heading {
+.teacher-heading {
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -35,7 +35,7 @@ aside a.active img {
     margin: 10px 0 20px 10px;
 }
 
-.students-modify {
+.teachers-modify {
     background-color: rgba(223, 223, 223, 1);
     display: flex;
     justify-content: flex-start;
@@ -48,7 +48,7 @@ aside a.active img {
     overflow: hidden;
 }
 
-.students-modify button {
+.teachers-modify button {
     min-width: 130px;
     border: none;
     font-size: 18px;
@@ -63,11 +63,11 @@ aside a.active img {
 }
 
 
-/*.students-modify button:hover {
+/*.teachers-modify button:hover {
     background-color: rgba(244, 244, 244, 1);
 }*/
 
-.students-modify .active-button-student {
+.teachers-modify .active-button-teacher {
     background-color: rgba(244, 244, 244, 1);
     min-height: 41px;
     min-width: 130px;
@@ -76,7 +76,7 @@ aside a.active img {
     align-items: center;
 }
 
-.resgistered-student {
+.resgistered-teacher {
     color: #1E457E;
     display: flex;
     justify-content: start;
@@ -90,17 +90,17 @@ aside a.active img {
 
 /* بغير لون الايقون الي هي لصوره للون الكلام */
 
-.resgistered-student img {
+.resgistered-teacher img {
     filter: brightness(0) saturate(100%) invert(12%) sepia(87%) saturate(3000%) hue-rotate(200deg) brightness(95%) contrast(90%);
 }
 
-.student-number {
+.teacher-number {
     margin: 10px 0;
     font-weight: 400;
     font-size: 18px;
 }
 
-.student-number input {
+.teacher-number input {
     max-width: 50px;
     outline: none;
     border: 1px rgba(0, 0, 0, 0.15) solid;
@@ -108,7 +108,7 @@ aside a.active img {
     padding: 2px;
 }
 
-.student-table {
+.teacher-table {
     width: 100%;
     text-align: left;
     border: 1px solid black;
@@ -118,22 +118,22 @@ aside a.active img {
     margin: 20px 0;
 }
 
-.student-table thead {
+.teacher-table thead {
     background-color: rgba(0, 31, 84, 1);
     color: white;
     border-spacing: 0;
     font-size: 18px;
 }
 
-.student-table thead tr th:first-child {
+.teacher-table thead tr th:first-child {
     border-top-left-radius: 8px;
 }
 
-.student-table thead tr th:last-child {
+.teacher-table thead tr th:last-child {
     border-top-right-radius: 8px;
 }
 
-.student-table th {
+.teacher-table th {
     padding: 12px 15px;
     font-weight: 600;
     text-align: left;
@@ -142,31 +142,31 @@ aside a.active img {
     border-left: 1px solid black;
 }
 
-.student-table td {
+.teacher-table td {
     padding: 10px 15px;
     border-right: 1px solid black;
     border-bottom: 1px solid black;
     font-size: 14px;
 }
 
-.student-table td:first-child {
+.teacher-table td:first-child {
     border-left: none;
 }
 
-.student-table td:last-child {
+.teacher-table td:last-child {
     border-right: none;
 }
 
-.student-table tr:last-child td {
+.teacher-table tr:last-child td {
     border-bottom: none;
 }
 
-.student-table th:nth-child(1),
-.student-table td:nth-child(1),
-.student-table th:nth-child(2),
-.student-table td:nth-child(2),
-.student-table th:nth-child(6),
-.student-table td:nth-child(6) {
+.teacher-table th:nth-child(1),
+.teacher-table td:nth-child(1),
+.teacher-table th:nth-child(2),
+.teacher-table td:nth-child(2),
+.teacher-table th:nth-child(6),
+.teacher-table td:nth-child(6) {
     text-align: center;
 }
 
@@ -200,34 +200,33 @@ aside a.active img {
 
 /* تظليل الصفوف الفردية للتمييز */
 
-.student-table tbody tr:nth-child(odd) {
+.teacher-table tbody tr:nth-child(odd) {
     background-color: #f8f8f8;
 }
 
 
 /*
-when clicking to add student*/
+when clicking to add teacher*/
 
-
-/*.student-list-section {
+.teacher-list-section {
     display: none;
-}*/
+}
 
-.student-form-basic {
+.teacher-form-basic {
     /*background-color: red;*/
     /*width: fit-content;*/
     border: 1px solid grey;
     border-radius: 8px;
 }
 
-.student-form-header {
+.teacher-form-header {
     font-weight: 600;
     font-size: 24px;
     color: #1E457E;
     padding: 5px;
 }
 
-.student-basic-information-container {
+.teacher-basic-information-container {
     display: flex;
     justify-content: start;
     align-items: start;
@@ -235,13 +234,13 @@ when clicking to add student*/
     padding: 10px;
 }
 
-.input-student-login {
+.input-teacher-login {
     padding: 10px;
     flex-direction: column;
     gap: 10px;
 }
 
-.student-form-section label:not(.gender label) {
+.teacher-form-section label:not(.gender label) {
     display: block;
     margin: 8px 0;
 }
@@ -269,19 +268,18 @@ when clicking to add student*/
 
 /* formmmmmmmmmmmmmmmmmmmmmmmm */
 
-.student-form-section {
+.teacher-form-section {
     display: flex;
     flex-direction: column;
     gap: 25px;
     padding: 10px;
-    display: none;
 }
 
 
 /* الصف الأول والثاني */
 
-.student-row-top,
-.student-row-bottom {
+.teacher-row-top,
+.teacher-row-bottom {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
@@ -293,7 +291,7 @@ when clicking to add student*/
 
 /* كل فورم */
 
-.student-form-basic {
+.teacher-form-basic {
     border: 1px solid #ccc;
     border-radius: 8px;
     padding: 15px;
@@ -305,16 +303,16 @@ when clicking to add student*/
 
 /* Basic Information و Parent Details أوسع */
 
-.student-row-top .student-form-basic:first-child,
-.student-row-bottom .student-form-basic:first-child {
+.teacher-row-top .teacher-form-basic:first-child,
+.teacher-row-bottom .teacher-form-basic:first-child {
     flex: 0 0 63%;
 }
 
 
 /* Login و Contact Information أضيق */
 
-.student-row-top .student-form-basic:last-child,
-.student-row-bottom .student-form-basic:last-child {
+.teacher-row-top .teacher-form-basic:last-child,
+.teacher-row-bottom .teacher-form-basic:last-child {
     flex: 0 0 35%;
 }
 
@@ -376,7 +374,7 @@ when clicking to add student*/
     box-sizing: border-box;
 }
 
-.student-form-section input:not(.gender input) {
+.teacher-form-section input:not(.gender input) {
     width: 100%;
     padding: 8px 10px;
     border: 1px solid #ccc;
@@ -386,8 +384,8 @@ when clicking to add student*/
     transition: 0.2s ease;
 }
 
-.student-right-group,
-.student-left-group {
+.teacher-right-group,
+.teacher-left-group {
     flex: 1;
 }
 
@@ -403,11 +401,11 @@ when clicking to add student*/
 /* ==================== استجابة للموبايل ==================== */
 
 @media (max-width: 992px) {
-    .student-row-top,
-    .student-row-bottom {
+    .teacher-row-top,
+    .teacher-row-bottom {
         flex-direction: column;
     }
-    .student-form-basic {
+    .teacher-form-basic {
         flex: 1 1 100%;
     }
 }

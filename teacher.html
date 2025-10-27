@@ -14,8 +14,8 @@
 
     <link rel="stylesheet" href="style/aside-header.css">
 
-    <link rel="stylesheet" href="style/students.css">
-    <title>Students</title>
+    <link rel="stylesheet" href="style/teacher.css">
+    <title>Teachers</title>
 </head>
 
 <body>
@@ -40,8 +40,8 @@
         <h2><img src="media/dashboard/icon-park-solid_fire.png" alt="logo">My School</h2>
         <div class="options">
             <a href="#dashboard"><img src="media/dashboard/home-2.png" alt="home">Dashboard</a>
-            <a href="#students" class="active"><i class="fa-solid fa-user-tag"></i>Student</a>
-            <a href="#"><i class="fa-solid fa-person-chalkboard"></i>Teacher</a>
+            <a href="#teachers"><i class="fa-solid fa-user-tag"></i>teacher</a>
+            <a href="#" class="active"><i class="fa-solid fa-person-chalkboard"></i>Teacher</a>
             <a href="#"><img src="media/dashboard/Frame 32.png" alt="home">Classes</a>
             <a href="#"><img src="media/dashboard/rupee_currency_icon_212106 1.png" alt="home">Payment</a>
             <a href="#"><img src="media/dashboard/Group 77.png" alt="home">Timetable</a>
@@ -49,176 +49,162 @@
         </div>
     </div>
 
-    <div class="students-container" id="students">
-        <p class="student-heading"><i class="fas fa-user-tag" style="color:#36A2EB;"></i> Student</p>
-        <div class="students-modify">
-            <button class="active-button-student"> <img src="media/students/bxs_school.png" alt="student">All Students</button>
-            <button> + Add Student</button>
+    <div class="teachers-container" id="Teachers">
+        <p class="teacher-heading">
+            <i class="fa-solid fa-person-chalkboard" style="color:#36A2EB;"></i> Teachers</p>
+        <div class=" teachers-modify ">
+            <button class="active-button-teacher "> <img src="media/students/bxs_school.png " alt="teacher ">All Teachers</button>
+            <button> + Add Teacher</button>
         </div>
-        <div class="student-list-section">
+        <div class="teacher-list-section ">
 
-            <p class="resgistered-student"><img src="media/students/bxs_school.png" alt="student"> Registered Students</p>
+            <p class="resgistered-teacher "><img src="media/students/bxs_school.png " alt="teacher "> Registered Teachers</p>
 
 
-            <p class="student-number">Show
+            <p class="teacher-number ">Show
 
-                <input type="number" name="studentnumber" placeholder="100" class="input-with-arrow"> enteries
+                <input type="number " name="teachernumber " placeholder="100 " class="input-with-arrow "> enteries
             </p>
             <div>
-                <table class="student-table">
-
-                    <!-- Table Header -->
+                <table class="teacher-table ">
                     <thead>
                         <tr>
-                            <th scope="col">
+                            <th scope="col ">
                                 num
                             </th>
-                            <th scope="col">
-                                ID Number
+
+                            <th scope="col ">
+                                Teacher Name
                             </th>
-                            <th scope="col">
-                                Student Name
+                            <th scope="col ">
+                                Specialization
                             </th>
-                            <th scope="col">
+                            <th scope="col ">
                                 Class
                             </th>
-                            <th scope="col">
-                                Gender
+                            <th scope="col ">
+                                Gender </th>
+                            <th scope="col ">
+                                Age
                             </th>
-                            <th scope="col">
-                                Attendence%
-                            </th>
-                            <th scope="col">
-                                Classification
+                            <th scope="col ">
+                                Num. of Classes
                             </th>
                         </tr>
                     </thead>
 
-                    <!-- Table Body -->
                     <tbody>
-                        <!-- Row 1 -->
                         <tr>
                             <td>1</td>
-                            <td>345699856</td>
-                            <td>Ahmed Belal Tarek</td>
+                            <td>Ibrahim Ashraf</td>
+                            <td>Maths</td>
                             <td>4 - A</td>
                             <td>Male</td>
-                            <td>90%</td>
-                            <td>Superior</td>
+                            <td>43</td>
+                            <td>6</td>
                         </tr>
-                        <!-- Row 2 -->
                         <tr>
                             <td>2</td>
-                            <td>345699825</td>
-                            <td>Ahmed Belal Ali</td>
-                            <td>4 - A</td>
+                            <td>Ragab Mohammed</td>
+                            <td>Arabic</td>
+                            <td>5 - A</td>
                             <td>Male</td>
-                            <td>90%</td>
-                            <td>Superior</td>
+                            <td>33</td>
+                            <td>6</td>
                         </tr>
-                        <!-- Row 3 -->
                         <tr>
                             <td>3</td>
-                            <td>345699874</td>
-                            <td>Ahmed Ali Tarek</td>
-                            <td>4 - A</td>
-                            <td>Male</td>
-                            <td>85%</td>
-                            <td>Weak</td>
+                            <td>Hala Elsayed</td>
+                            <td>Maths</td>
+                            <td>4 - C</td>
+                            <td>Female</td>
+                            <td>36</td>
+                            <td>6</td>
                         </tr>
-                        <!-- Row 4 -->
                         <tr>
                             <td>4</td>
-                            <td>345699811</td>
-                            <td>Ahmed Ibrahim Tarek</td>
-                            <td>4 - A</td>
-                            <td>Male</td>
-                            <td>90%</td>
-                            <td>Superior</td>
+                            <td>Malak Mohand</td>
+                            <td>Science</td>
+                            <td>4 - B</td>
+                            <td>Female</td>
+                            <td>34</td>
+                            <td>7</td>
                         </tr>
-                        <!-- Row 5 -->
                         <tr>
                             <td>5</td>
-                            <td>345699898</td>
-                            <td>Ahmed Belal Ibrahim</td>
-                            <td>4 - A</td>
+                            <td>Omar Ali Atia</td>
+                            <td>Social Studies</td>
+                            <td>6 - A</td>
                             <td>Male</td>
-                            <td>65</td>
-                            <td>Weak</td>
+                            <td>45</td>
+                            <td>8</td>
                         </tr>
-                        <!-- Row 6 -->
                         <tr>
                             <td>6</td>
-                            <td>345699854</td>
-                            <td>Ahmed Belal Salem</td>
-                            <td>4 - A</td>
+                            <td>Eslam Mostafa</td>
+                            <td>English</td>
+                            <td>5 - C</td>
                             <td>Male</td>
-                            <td>80%</td>
-                            <td>Weak</td>
+                            <td>49</td>
+                            <td>7</td>
                         </tr>
-                        <!-- Row 7 -->
                         <tr>
                             <td>7</td>
-                            <td>345699866</td>
-                            <td>Amany Diab Tarek</td>
-                            <td>4 - A</td>
-                            <td>Female</td>
-                            <td>90%</td>
-                            <td>Superior</td>
+                            <td>Shady Samy</td>
+                            <td>English</td>
+                            <td>6 - B</td>
+                            <td>Male</td>
+                            <td>41</td>
+                            <td>6</td>
                         </tr>
-                        <!-- Row 8 -->
                         <tr>
                             <td>8</td>
-                            <td>345699822</td>
-                            <td>Aya Salem Tarek</td>
-                            <td>4 - A</td>
-                            <td>Female</td>
-                            <td>90%</td>
-                            <td>Superior</td>
+                            <td>Ali Youssef Ali</td>
+                            <td>English</td>
+                            <td>4 - D</td>
+                            <td>Male</td>
+                            <td>44</td>
+                            <td>8</td>
                         </tr>
-                        <!-- Row 9 -->
                         <tr>
                             <td>9</td>
-                            <td>345699819</td>
-                            <td>Alia Eslam Tarek</td>
-                            <td>4 - A</td>
-                            <td>Female</td>
-                            <td>70%</td>
-                            <td>Weak</td>
+                            <td>Adel Ibrahim</td>
+                            <td>Maths</td>
+                            <td>6 - C</td>
+                            <td>Male</td>
+                            <td>46</td>
+                            <td>6</td>
                         </tr>
-                        <!-- Row 10 -->
                         <tr>
                             <td>10</td>
-                            <td>345699818</td>
-                            <td>Ayat Belal Eslam</td>
-                            <td>4 - A</td>
-                            <td>Female</td>
-                            <td>90%</td>
-                            <td>Talented</td>
+                            <td>Emad Abdo Ahmed</td>
+                            <td>Science</td>
+                            <td>5 - B</td>
+                            <td>Male</td>
+                            <td>39</td>
+                            <td>8</td>
                         </tr>
-                        <!-- Row 11 -->
                         <tr>
                             <td>11</td>
-                            <td>345699861</td>
-                            <td>Amina Belal Yehia</td>
-                            <td>4 - A</td>
+                            <td>Noran Maged</td>
+                            <td>Social Studies</td>
+                            <td>6 - D</td>
                             <td>Female</td>
-                            <td>100%</td>
-                            <td>Talented</td>
+                            <td>32</td>
+                            <td>8</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
-
-        <div class="student-form-section">
-            <div class="student-form-basic">
+        <div class="teacher-form-section">
+            <div class="teacher-form-basic">
                 <form>
 
-                    <h2 class="student-form-header">Basic Information</h2>
+                    <h2 class="teacher-form-header">Basic Information</h2>
                     <hr>
-                    <div class="student-basic-information-container flex">
-                        <div class="student-right-group">
+                    <div class="teacher-basic-information-container flex">
+                        <div class="teacher-right-group">
                             <div class="first-name">
                                 <label>First Name</label>
                                 <input type="text" placeholder="First Name" />
@@ -236,7 +222,7 @@
                                 <label>Date of Birth</label>
                                 <input type="date" />
                             </div>
-                            <div class="student-class">
+                            <div class="teacher-class">
                                 <label>Class</label>
                                 <input list="Classes" name="Classes" placeholder=" Class" />
                                 <datalist id="Classes">
@@ -247,7 +233,7 @@
         <option value="E">
       </datalist>
                             </div>
-                            <div class="student-section">
+                            <div class="teacher-section">
                                 <label>Section</label>
                                 <input list="Section" name="Section" placeholder=" Section" />
                                 <datalist id="Section">
@@ -261,7 +247,7 @@
 
                         </div>
 
-                        <div class="student-left-group">
+                        <div class="teacher-left-group">
                             <div class="last-name">
                                 <label>Last Name</label>
                                 <input type="text" placeholder="Last Name" />
@@ -270,11 +256,11 @@
 
 
 
-                            <div class="student-file-attach">
+                            <div class="teacher-file-attach">
 
                                 <div class="upload-box flex">
                                     <i class="fa-solid fa-file-arrow-up upload-icon"></i>
-                                    <p>Drop your files to upload<br /><span>Select files</span></p>
+                                    <p>Drop your CV to upload<br /><span>Select files</span></p>
                                 </div>
                             </div>
                         </div>
@@ -282,52 +268,52 @@
 
                 </form>
             </div>
-            <div class=" student-form-basic  login-student ">
-                <h2 class="student-form-header">Login/Account Details</h2>
+            <div class=" teacher-form-basic  login-teacher ">
+                <h2 class="teacher-form-header">Login/Account Details</h2>
 
 
 
-                <div class="input-student-login flex">
+                <div class="input-teacher-login flex">
                     <input type="text" placeholder="User Name" />
                     <input type="password" placeholder="password" /></div>
 
             </div>
-            <div class=" student-form-basic">
+            <div class=" teacher-form-basic">
                 <form>
 
-                    <h2 class="student-form-header">Parent Details</h2>
+                    <h2 class="teacher-form-header">Qualifications and Experience</h2>
 
-                    <div class="student-basic-information-container flex">
-                        <div class="student-right-group">
-                            <div class="father-name">
-                                <label>Father Name</label>
-                                <input type="text" placeholder="Father Name" />
+                    <div class="teacher-basic-information-container flex">
+                        <div class="teacher-right-group">
+                            <div class="University-Name">
+                                <label>University Name</label>
+                                <input type="text" placeholder="University Name" />
                             </div>
-                            <div class="father-contact">
-                                <label>Father Contact</label>
-                                <input type="text" placeholder="Contact" />
+                            <div class="Teaching-Courses">
+                                <label>Teaching Courses</label>
+                                <input type="text" placeholder="Courses" />
                             </div>
-                            <div class="father-Occupation">
-                                <label>Father Occupation</label>
-                                <input type="text" placeholder="Ex: Business" />
+                            <div class="Subjects-taught">
+                                <label>Subjects taught</label>
+                                <input type="text" placeholder="Subjects" />
                             </div>
 
 
 
                         </div>
 
-                        <div class="student-left-group">
-                            <div class="Mother-name">
-                                <label>Mother Name</label>
-                                <input type="text" placeholder="Mother Name" />
+                        <div class="teacher-left-group">
+                            <div class="Specialization">
+                                <label>Specialization</label>
+                                <input type="text" placeholder="Specialization" />
                             </div>
-                            <div class="Mother-contact">
-                                <label>Mother Contact</label>
-                                <input type="text" placeholder="Contact" />
+                            <div class="Name-of-previous-school">
+                                <label>Name of previous school</label>
+                                <input type="text" placeholder="previous school" />
                             </div>
-                            <div class="anuual-encome">
-                                <label>Annual Income</label>
-                                <input type="text" placeholder="20,000" />
+                            <div class="Previous-work-period">
+                                <label>Previous work period</label>
+                                <input type="text" placeholder="From - To" />
                             </div>
                         </div>
 
@@ -338,12 +324,12 @@
                     </div>
             </div>
 
-            <div class="student-form-basic">
+            <div class="teacher-form-basic">
                 <form>
 
-                    <h2 class="student-form-header">Contact Information</h2>
+                    <h2 class="teacher-form-header">Contact Information</h2>
                     <hr>
-                    <div class="student-basic-information-container contact-Information flex">
+                    <div class="teacher-basic-information-container contact-Information flex">
                         <div class="contact-row-one flex">
                             <div class="first">
                                 <label>Phone</label>
@@ -370,6 +356,7 @@
                 </form>
             </div>
         </div>
+
 
 
 
