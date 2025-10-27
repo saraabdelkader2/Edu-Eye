@@ -4,6 +4,12 @@ aside a.active img {
     filter: none;
 }
 
+.flex {
+    display: flex;
+    justify-content: start;
+    align-items: start;
+}
+
 .students-container {
     position: absolute;
     top: 66px;
@@ -13,7 +19,7 @@ aside a.active img {
     overflow-y: auto;
     height: calc(100vh - 80px);
     background-color: #f4f7f9;
-    z-index: 5;
+    z-index: 1;
 }
 
 .student-heading {
@@ -58,7 +64,7 @@ aside a.active img {
 
 
 /*.students-modify button:hover {
-    background-color: rgba(244, 244, 244, 1);
+    background-color: rgba(244, 244, 244, 1);
 }*/
 
 .students-modify .active-button-student {
@@ -196,4 +202,210 @@ aside a.active img {
 
 .student-table tbody tr:nth-child(odd) {
     background-color: #f8f8f8;
+}
+
+
+/*
+when clicking to add student*/
+
+.student-list-section {
+    display: none;
+}
+
+.student-form-basic {
+    /*background-color: red;*/
+    /*width: fit-content;*/
+    border: 1px solid grey;
+    border-radius: 8px;
+}
+
+.student-form-header {
+    font-weight: 600;
+    font-size: 24px;
+    color: #1E457E;
+    padding: 5px;
+}
+
+.student-basic-information-container {
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    gap: 50px;
+    padding: 10px;
+}
+
+.input-student-login {
+    padding: 10px;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.student-form-section label:not(.gender label) {
+    display: block;
+    margin: 8px 0;
+}
+
+.upload-box {
+    border: 1px dashed grey;
+    margin-top: 10px;
+    padding: 20px;
+    height: 300px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+}
+
+.upload-box i {
+    font-size: 30px;
+    color: lightgrey;
+    margin-right: 10px;
+    transition: transform 0.3s ease, color 0.3s ease;
+    border-radius: 50%;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+
+/* formmmmmmmmmmmmmmmmmmmmmmmm */
+
+.student-form-section {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    padding: 10px;
+}
+
+
+/* الصف الأول والثاني */
+
+.student-row-top,
+.student-row-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 25px;
+    flex-wrap: wrap;
+    /* عشان الموبايل */
+}
+
+
+/* كل فورم */
+
+.student-form-basic {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 15px;
+    box-sizing: border-box;
+    background-color: #fff;
+    height: fit-content;
+}
+
+
+/* Basic Information و Parent Details أوسع */
+
+.student-row-top .student-form-basic:first-child,
+.student-row-bottom .student-form-basic:first-child {
+    flex: 0 0 63%;
+}
+
+
+/* Login و Contact Information أضيق */
+
+.student-row-top .student-form-basic:last-child,
+.student-row-bottom .student-form-basic:last-child {
+    flex: 0 0 35%;
+}
+
+
+/* Contact Information */
+
+.contact-Information {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.contact-row-one {
+    display: flex;
+    gap: 20px;
+}
+
+.contact-row-one>div {
+    flex: 1;
+}
+
+.contact-row-one label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.contact-row-one input {
+    width: 100%;
+    padding: 6px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+
+/* Address Section */
+
+.contact-row-two {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px 20px;
+}
+
+.contact-row2 p {
+    margin: 15px 0 8px 0;
+    font-weight: 600;
+}
+
+.contact-row-two input:first-of-type {
+    flex-basis: 100%;
+}
+
+.contact-row-two input {
+    flex: 1 1 calc(50% - 10px);
+    padding: 6px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.student-form-section input:not(.gender input) {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    outline: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: 0.2s ease;
+}
+
+.student-right-group,
+.student-left-group {
+    flex: 1;
+}
+
+.gender p {
+    margin: 8px 0;
+}
+
+.gender-options {
+    gap: 15px;
+}
+
+
+/* ==================== استجابة للموبايل ==================== */
+
+@media (max-width: 992px) {
+    .student-row-top,
+    .student-row-bottom {
+        flex-direction: column;
+    }
+    .student-form-basic {
+        flex: 1 1 100%;
+    }
 }
