@@ -404,6 +404,13 @@ when clicking to add class*/
     gap: 15px;
 }
 
+.class-form-basic {
+    width: 90%;
+    box-shadow: 0px 4px 3px rgba(0, 0, 0, 0.15);
+    border-radius: 30px;
+    padding: 15px;
+}
+
 
 /* ==================== استجابة للموبايل ==================== */
 
