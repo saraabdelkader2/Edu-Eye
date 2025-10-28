@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- font insertion -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style/aside-header.css">
+
+    <link rel="stylesheet" href="style/classes.css">
+    <!-- font awesome recalling -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <!-- google icons -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=payments" />
+    <title>Classes</title>
+</head>
+
+<body>
+    <div class="header">
+        <div class="right-group">
+            <div class="back-icon"><img src="media/dashboard/arrow-right.png" alt="back"></div>
+            <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                <input type="search" class="search-box" placeholder="search">
+            </div>
+        </div>
+        <div class="icons left-group">
+            <div class="img-header-background"> <img src="media/dashboard/notification.png" alt="notification"></div>
+            <div class="img-header-background"> <img src="media/dashboard/message.png" alt="message" class="message-icon"></div>
+            <div class="img-header-background"> <img src="media/dashboard/setting-2.png" alt="setting"></div>
+
+
+        </div>
+
+    </div>
+    <div class="aside">
+        <h2><img src="media/dashboard/icon-park-solid_fire.png" alt="logo">My School</h2>
+        <div class="options">
+            <a href="#dashboard"><img src="media/dashboard/home-2.png" alt="home">Dashboard</a>
+            <a href="#teachers"><i class="fa-solid fa-user-tag"></i>Students</a>
+            <a href="#"><i class="fa-solid fa-person-chalkboard"></i>Teacher</a>
+            <a href="#" class="active"><i class="fa-solid fa-book-open-reader"></i>Classes</a>
+            <a href="#"><span class="material-symbols-outlined">
+payments
+</span>Payment</a>
+            <a href="#"><img src="media/dashboard/Group 77.png" alt="home">Timetable</a>
+            <a href="#"><img src="media/dashboard/setting-2.png" alt="home">Settings</a>
+        </div>
+    </div>
+
+    <div class="classes-container" id="classes">
+        <p class="class-heading">
+            <i class="fa-solid fa-book-open-reader" style="color:#36A2EB;"></i> Classes</p>
+        <div class=" classes-modify ">
+            <button class="active-button-class"> <img src="media/students/bxs_school.png " alt="class ">All Classes</button>
+            <button> + Add Class</button>
+        </div>
+        <div class="class-list-section ">
+
+            <p class="resgistered-classes "><img src="media/students/bxs_school.png " alt="teacher "> Registered Classes</p>
+
+
+            <p class="class-number ">Show
+
+                <input type="number " name="classnumber " placeholder="100 " class="input-with-arrow "> enteries
+            </p>
+            <div>
+                <table class="class-table">
+                    <thead>
+                        <tr>
+                            <th scope="col">
+                                num
+                            </th>
+
+                            <th scope="col">
+                                Class
+                            </th>
+                            <th scope="col">
+                                The leading teacher
+                            </th>
+                            <th scope="col">
+                                Num of students
+                            </th>
+                            <th scope="col">
+                                Superior
+                            </th>
+                            <th scope="col">
+                                Talent
+                            </th>
+                            <th scope="col">
+                                Weak
+                            </th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>4 - A</td>
+                            <td>Ibrahim Ashraf Osama</td>
+                            <td>24</td>
+                            <td>1</td>
+                            <td>1</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>4 - B</td>
+                            <td>Ibrahim Mohammed Ibrahim</td>
+                            <td>24</td>
+                            <td>1</td>
+                            <td>1</td>
+                            <td>4</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>4 - C</td>
+                            <td>Ashraf Ali Mohammed</td>
+                            <td>30</td>
+                            <td>None</td>
+                            <td>3</td>
+                            <td>5</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>4 - D</td>
+                            <td>Elsayed Mahmoud Adel</td>
+                            <td>25</td>
+                            <td>2</td>
+                            <td>1</td>
+                            <td>3</td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>5 - A</td>
+                            <td>Hesham Mohammed Ali</td>
+                            <td>27</td>
+                            <td>2</td>
+                            <td>None</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td>5 - B</td>
+                            <td>Aya Mohammed ElSayed</td>
+                            <td>25</td>
+                            <td>1</td>
+                            <td>None</td>
+                            <td>5</td>
+                        </tr>
+                        <tr>
+                            <td>7</td>
+                            <td>5 - C</td>
+                            <td>Malak Ashraf</td>
+                            <td>25</td>
+                            <td>3</td>
+                            <td>None</td>
+                            <td>3</td>
+                        </tr>
+                        <tr>
+                            <td>8</td>
+                            <td>5 - D</td>
+                            <td>Malak Ahmed Mohammed</td>
+                            <td>26</td>
+                            <td>None</td>
+                            <td>3</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>9</td>
+                            <td>6 - A</td>
+                            <td>Noran Adel Ibrahim</td>
+                            <td>27</td>
+                            <td>None</td>
+                            <td>2</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>10</td>
+                            <td>6 - B</td>
+                            <td>Ahmed Awad Mostafa</td>
+                            <td>28</td>
+                            <td>None</td>
+                            <td>2</td>
+                            <td>5</td>
+                        </tr>
+                        <tr>
+                            <td>11</td>
+                            <td>6 - C</td>
+                            <td>Mostafa Mohammed Ali</td>
+                            <td>25</td>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>4</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="class-form-section ">
+            <div class="class-form-basic">
+                <form>
+                    <h2 class="class-form-header">New Class</h2>
+                    <hr>
+                    <div class="class-basic-information-container">
+                        <!-- Left group -->
+                        <div class="class-left-group">
+                            <div class="class-name">
+                                <label>Class Name</label>
+                                <input type="text" placeholder="Class Name" />
+                            </div>
+                            <div class="The-Leading-Teacher">
+                                <label>The Leading Teacher</label>
+                                <input type="text" placeholder="The Leading Teacher" />
+                            </div>
+                            <div class="Subjects">
+                                <label>Subjects</label>
+                                <input type="text" placeholder="Subjects" />
+                            </div>
+                            <div class="class-file-attach">
+                                <div class="upload-box flex">
+                                    <i class="fa-solid fa-file-arrow-up upload-icon"></i>
+                                    <p>Drop your CSV to upload<br /><span>Select files</span></p>
+                                </div>
+                                <p class="csv">File format : CSV - must include name, ID and grade colums</p>
+                            </div>
+                        </div>
+
+                        <!-- Right group -->
+                        <div class="class-right-group">
+                            <div class="Grade">
+                                <label>Grade</label>
+                                <input type="text" placeholder="Grade" />
+                            </div>
+                            <div class="Number-of-student">
+                                <label>Number of student</label>
+                                <input type="text" placeholder="Number of student" />
+                            </div>
+                            <div class="Schedule">
+                                <label>Schedule</label>
+                                <input type="text" placeholder="From - To" />
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+
+
+
+        </div>
+    </div>
+    </div>
+
+
+
+
+
+</body>
+
+</html>
+
+</html>

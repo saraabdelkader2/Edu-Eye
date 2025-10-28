@@ -1,0 +1,418 @@
+aside a.active img {
+    filter: none;
+}
+
+.flex {
+    display: flex;
+    justify-content: start;
+    align-items: start;
+}
+
+.classes-container {
+    position: absolute;
+    top: 66px;
+    left: 235px;
+    right: 0;
+    padding: 20px;
+    overflow-y: auto;
+    height: calc(100vh - 80px);
+    background-color: #f4f7f9;
+    z-index: 1;
+}
+
+.class-heading {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 31px;
+    line-height: 44px;
+    color: #1E457E;
+    margin: 10px 0 20px 10px;
+}
+
+.classes-modify {
+    background-color: rgba(223, 223, 223, 1);
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 0;
+    min-height: 41px;
+    box-shadow: 0px 4px 3px rgba(0, 0, 0, 0.15);
+    margin: 0 10px 20px 0;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.classes-modify button {
+    min-width: 130px;
+    border: none;
+    font-size: 18px;
+    padding: 10px 15px;
+    font-weight: 600;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+
+/*.students-modify button:hover {
+    background-color: rgba(244, 244, 244, 1);
+}*/
+
+.classes-modify .active-button-class {
+    background-color: rgba(244, 244, 244, 1);
+    min-height: 41px;
+    min-width: 130px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.resgistered-classes {
+    color: #1E457E;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    margin: 15px 0;
+    font-weight: 700;
+    font-size: 20px;
+    gap: 3px;
+}
+
+
+/* بغير لون الايقون الي هي لصوره للون الكلام */
+
+.resgistered-classes img {
+    filter: brightness(0) saturate(100%) invert(12%) sepia(87%) saturate(3000%) hue-rotate(200deg) brightness(95%) contrast(90%);
+}
+
+.class-number {
+    margin: 10px 0;
+    font-weight: 400;
+    font-size: 18px;
+}
+
+.class-number input {
+    max-width: 50px;
+    outline: none;
+    border: 1px rgba(0, 0, 0, 0.15) solid;
+    border-radius: 4px;
+    padding: 2px;
+}
+
+.class-table {
+    width: 100%;
+    text-align: left;
+    border: 1px solid black;
+    border-radius: 8px;
+    overflow: hidden;
+    border-spacing: 0;
+    margin: 20px 0;
+}
+
+.class-table thead {
+    background-color: rgba(0, 31, 84, 1);
+    color: white;
+    border-spacing: 0;
+    font-size: 18px;
+}
+
+.class-table thead tr th:first-child {
+    border-top-left-radius: 8px;
+}
+
+.class-table thead tr th:last-child {
+    border-top-right-radius: 8px;
+}
+
+.class-table th {
+    padding: 12px 15px;
+    font-weight: 600;
+    text-align: left;
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+    border-left: 1px solid black;
+}
+
+.class-table td {
+    padding: 10px 15px;
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+    font-size: 14px;
+}
+
+.class-table td:first-child {
+    border-left: none;
+}
+
+.class-table td:last-child {
+    border-right: none;
+}
+
+.class-table tr:last-child td {
+    border-bottom: none;
+}
+
+.class-table th:nth-child(1),
+.class-table td:nth-child(1),
+.class-table th:nth-child(2),
+.class-table td:nth-child(2),
+.class-table th:nth-child(6),
+.class-table td:nth-child(6) {
+    text-align: center;
+}
+
+
+/* تلوين فئة التصنيف */
+
+.classification-superior {
+    color: #10b981;
+    font-weight: 500;
+}
+
+
+/* أخضر */
+
+.classification-weak {
+    color: #ef4444;
+    font-weight: 500;
+}
+
+
+/* أحمر */
+
+.classification-talented {
+    color: #3b82f6;
+    font-weight: 500;
+}
+
+
+/* أزرق */
+
+
+/* تظليل الصفوف الفردية للتمييز */
+
+.class-table tbody tr:nth-child(odd) {
+    background-color: #f8f8f8;
+}
+
+.material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24
+}
+
+
+/*
+when clicking to add class*/
+
+.class-list-section {
+    display: none;
+}
+
+.class-form-basic {
+    /*background-color: red;*/
+    /*width: fit-content;*/
+    border: 1px solid grey;
+    border-radius: 8px;
+}
+
+.class-form-header {
+    font-weight: 600;
+    font-size: 24px;
+    color: #1E457E;
+    padding: 5px;
+}
+
+.class-basic-information-container {
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    gap: 50px;
+    padding: 10px;
+}
+
+.input-class-login {
+    padding: 10px;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.class-form-section label:not(.gender label) {
+    display: block;
+    margin: 8px 0;
+}
+
+.upload-box {
+    border: 1px dashed grey;
+    margin-top: 20px;
+    padding: 20px;
+    height: 300px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+}
+
+.upload-box i {
+    font-size: 30px;
+    color: lightgrey;
+    margin-right: 10px;
+    transition: transform 0.3s ease, color 0.3s ease;
+    border-radius: 50%;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.csv {
+    margin: 8px 5px 5px 8px;
+    color: #1E457E;
+}
+
+
+/* formmmmmmmmmmmmmmmmmmmmmmmm */
+
+.class-form-section {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    padding: 10px;
+}
+
+
+/* الصف الأول والثاني */
+
+.class-row-top,
+.class-row-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 25px;
+    flex-wrap: wrap;
+    /* عشان الموبايل */
+}
+
+
+/* كل فورم */
+
+.class-form-basic {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 15px;
+    box-sizing: border-box;
+    background-color: #fff;
+    height: fit-content;
+}
+
+
+/* Basic Information و Parent Details أوسع */
+
+.class-row-top .class-form-basic:first-child,
+.class-row-bottom .class-form-basic:first-child {
+    flex: 0 0 63%;
+}
+
+
+/* Login و Contact Information أضيق */
+
+.class-row-top .class-form-basic:last-child,
+.class-row-bottom .class-form-basic:last-child {
+    flex: 0 0 35%;
+}
+
+
+/* Contact Information */
+
+.contact-Information {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.contact-row-one {
+    display: flex;
+    gap: 20px;
+}
+
+.contact-row-one>div {
+    flex: 1;
+}
+
+.contact-row-one label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.contact-row-one input {
+    width: 100%;
+    padding: 6px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+
+/* Address Section */
+
+.contact-row-two {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px 20px;
+}
+
+.contact-row2 p {
+    margin: 15px 0 8px 0;
+    font-weight: 600;
+}
+
+.contact-row-two input:first-of-type {
+    flex-basis: 100%;
+}
+
+.contact-row-two input {
+    flex: 1 1 calc(50% - 10px);
+    padding: 6px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.class-form-section input:not(.gender input) {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    outline: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: 0.2s ease;
+}
+
+.class-right-group,
+.class-left-group {
+    flex: 1;
+}
+
+.gender p {
+    margin: 8px 0;
+}
+
+.gender-options {
+    gap: 15px;
+}
+
+
+/* ==================== استجابة للموبايل ==================== */
+
+@media (max-width: 992px) {
+    .class-row-top,
+    .class-row-bottom {
+        flex-direction: column;
+    }
+    .class-form-basic {
+        flex: 1 1 100%;
+    }
+}
