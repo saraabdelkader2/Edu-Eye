@@ -56,12 +56,12 @@ aside a.active img {
     align-items: center;
 }
 
-.payment-buttons {
+.add-buttons {
     gap: 20px;
     margin-right: 10px;
 }
 
-.payment-buttons button {
+.add-buttons button {
     padding: 10px 20px;
     border: 1px solid rgba(0, 0, 0, 0.05);
     border-radius: 52px;
@@ -69,7 +69,7 @@ aside a.active img {
     background-color: white;
 }
 
-.payment-buttons .save-button {
+.add-buttons .save-button {
     background: linear-gradient(90deg, #4A90E2 8.17%, #1A3E73 94.23%);
     border-radius: 52px;
     color: white;
@@ -236,7 +236,7 @@ aside a.active img {
     background-color: #f8f8f8;
 }
 
-.payment-list-section {
+.hide {
     display: none;
 }
 
