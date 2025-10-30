@@ -1,0 +1,118 @@
+/*بخلي الصوره في الاسايد سوده */
+
+.aside a.active img {
+    filter: brightness(0) saturate(100%);
+}
+
+.flex {
+    display: flex;
+    justify-content: start;
+    align-items: start;
+}
+
+.material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24
+}
+
+.settings-container {
+    position: absolute;
+    top: 66px;
+    left: 235px;
+    right: 0;
+    padding: 20px;
+    overflow-y: auto;
+    height: calc(100vh - 80px);
+    background-color: #f4f7f9;
+    z-index: 1;
+}
+
+.settings-heading {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 31px;
+    line-height: 44px;
+    color: #1E457E;
+    margin: 10px 0 20px 10px;
+}
+
+.settings-header {
+    justify-content: space-between;
+    align-items: center;
+}
+
+.hide {
+    display: none;
+}
+
+.settings-form-basic {
+    border: 1px solid grey;
+    border-radius: 8px;
+    margin: 0 0 25px 0;
+    padding: 10px;
+    width: 80%;
+}
+
+.settings-form-header {
+    font-weight: 600;
+    font-size: 24px;
+    color: #1E457E;
+    padding: 5px;
+}
+
+.settings-basic-information-container {
+    padding: 0 10px;
+}
+
+.settings-form-section label {
+    display: block;
+    margin: 20px 0 8px 0;
+}
+
+.settings-form-section input {
+    width: 50%;
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    outline: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: 0.2s ease;
+}
+
+.inputs-dis {
+    width: 80%;
+    gap: 20px;
+}
+
+.inputs-dis input {
+    width: 100%;
+}
+
+.inputs-dis * {
+    flex: 1;
+}
+
+.settings-form-basic-selection {
+    padding: 15px 15px;
+    width: 40%;
+    gap: 10px;
+    padding-top: 0;
+}
+
+.settings-form-basic-selection input {
+    width: 100%;
+}
+
+.settings-form-basic-selection * {
+    flex: 1;
+}
+
+.settings-form-basic-selection label {
+    color: #1E457E;
+    font-weight: 550;
+    font-size: 18px;
+    margin-bottom: 8px;
+}
