@@ -38,33 +38,34 @@
 
     </div>
     <div class="aside">
-        <h2><img src="media/dashboard/icon-park-solid_fire.png" alt="logo">My School</h2>
+        <h2><img src="media/dashboard/icon-park-solid_fire.png" alt="logo"> Edu Eye</h2>
         <div class="options">
             <a href="dashboard.html"><img src="media/dashboard/home-2.png" alt="home">Dashboard</a>
-            <a href="students.html"><i class="fa-solid fa-user-tag"></i>Students</a>
-            <a href="teacher.html"><i class="fa-solid fa-person-chalkboard"></i>Teachers</a>
-            <a href="classes.html" class="active"><i class="fa-solid fa-book-open-reader"></i>Classes</a>
+            <a href="students.html"><img src="media/dashboard/profile-2user.png" alt="">Students</a>
+            <a href="teacher.html"><img src="media/dashboard/teacher.png" alt="">Teachers</a>
+            <a href="classes.html" class="active"><img src="media/dashboard/Frame 32.png" alt="home">Classes</a>
             <a href="payment.html"><span class="material-symbols-outlined">
-payments
-</span>Payment</a>
+                                        add_card
+                                    </span>Payment</a>
             <a href="Timetable.html"><img src="media/dashboard/Group 77.png" alt="home">Timetable</a>
             <a href="settings.html"><img src="media/dashboard/setting-2.png" alt="home">Settings</a>
         </div>
     </div>
 
+
     <div class="classes-container" id="classes">
 
         <div class="class-header flex">
             <p class="class-heading">
-                <i class="fa-solid fa-book-open-reader" style="color:#36A2EB;"></i>Classes
+                <img src="media/dashboard/Frame 32.png" alt="home" style="filter: invert(63%) sepia(83%) saturate(3847%) hue-rotate(184deg) brightness(102%) contrast(98%); ">Classes
             </p>
-            <div class="add-buttons flex"><button>Cancel</button>
+            <div class="add-buttons flex "><button>Cancel</button>
                 <button>Reset</button>
-                <button class="save-button">Save</button></div>
+                <button class="save-button ">Save</button></div>
         </div>
-        <div class=" classes-modify ">
-            <button class="active-button-class"> <img src="media/students/bxs_school.png " alt="class ">All Classes</button>
-            <button> + Add Class</button>
+        <div class="classes-modify ">
+            <div class="modify-content flex"> <button class="active-button-class "> <img src="media/students/bxs_school.png " alt="student ">All Classes</button>
+                <button> + Add Class</button></div>
         </div>
         <div class="class-list-section ">
 
@@ -76,29 +77,29 @@ payments
                 <input type="number " name="classnumber " placeholder="100 " class="input-with-arrow "> enteries
             </p>
             <div>
-                <table class="class-table">
+                <table class="class-table ">
                     <thead>
                         <tr>
-                            <th scope="col">
+                            <th scope="col ">
                                 num
                             </th>
 
-                            <th scope="col">
+                            <th scope="col ">
                                 Class
                             </th>
-                            <th scope="col">
+                            <th scope="col ">
                                 The leading teacher
                             </th>
-                            <th scope="col">
+                            <th scope="col ">
                                 Num of students
                             </th>
-                            <th scope="col">
+                            <th scope="col ">
                                 Superior
                             </th>
-                            <th scope="col">
+                            <th scope="col ">
                                 Talent
                             </th>
-                            <th scope="col">
+                            <th scope="col ">
                                 Weak
                             </th>
                         </tr>
@@ -209,47 +210,47 @@ payments
             </div>
         </div>
         <div class="class-form-section ">
-            <div class="class-form-basic">
+            <div class="class-form-basic ">
                 <form>
-                    <h2 class="class-form-header">New Class</h2>
+                    <h2 class="class-form-header ">New Class</h2>
                     <hr>
-                    <div class="class-basic-information-container">
+                    <div class="class-basic-information-container ">
                         <!-- Left group -->
-                        <div class="class-left-group">
-                            <div class="class-name">
+                        <div class="class-left-group ">
+                            <div class="class-name ">
                                 <label>Class Name</label>
-                                <input type="text" placeholder="Class Name" />
+                                <input type="text " placeholder="Class Name " />
                             </div>
-                            <div class="The-Leading-Teacher">
+                            <div class="The-Leading-Teacher ">
                                 <label>The Leading Teacher</label>
-                                <input type="text" placeholder="The Leading Teacher" />
+                                <input type="text " placeholder="The Leading Teacher " />
                             </div>
-                            <div class="Subjects">
+                            <div class="Subjects ">
                                 <label>Subjects</label>
-                                <input type="text" placeholder="Subjects" />
+                                <input type="text " placeholder="Subjects " />
                             </div>
-                            <div class="class-file-attach">
-                                <div class="upload-box flex">
-                                    <i class="fa-solid fa-file-arrow-up upload-icon"></i>
+                            <div class="class-file-attach ">
+                                <div class="upload-box flex ">
+                                    <i class="fa-solid fa-file-arrow-up upload-icon "></i>
                                     <p>Drop your CSV to upload<br /><span>Select files</span></p>
                                 </div>
-                                <p class="csv">File format : CSV - must include name, ID and grade colums</p>
+                                <p class="csv ">File format : CSV - must include name, ID and grade colums</p>
                             </div>
                         </div>
 
                         <!-- Right group -->
-                        <div class="class-right-group">
-                            <div class="Grade">
+                        <div class="class-right-group ">
+                            <div class="Grade ">
                                 <label>Grade</label>
-                                <input type="text" placeholder="Grade" />
+                                <input type="text " placeholder="Grade " />
                             </div>
-                            <div class="Number-of-student">
+                            <div class="Number-of-student ">
                                 <label>Number of student</label>
-                                <input type="text" placeholder="Number of student" />
+                                <input type="text " placeholder="Number of student " />
                             </div>
-                            <div class="Schedule">
+                            <div class="Schedule ">
                                 <label>Schedule</label>
-                                <input type="text" placeholder="From - To" />
+                                <input type="text " placeholder="From - To " />
                             </div>
                         </div>
                     </div>

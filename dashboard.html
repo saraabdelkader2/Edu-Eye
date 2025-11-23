@@ -39,99 +39,164 @@
 
     </div>
     <div class="aside">
-        <h2><img src="media/dashboard/icon-park-solid_fire.png" alt="logo">My School</h2>
+        <h2><img src="media/dashboard/icon-park-solid_fire.png" alt="logo"> Edu Eye</h2>
         <div class="options">
             <a href="dashboard.html" class="active"><img src="media/dashboard/home-2.png" alt="home">Dashboard</a>
-            <a href="students.html"><i class="fa-solid fa-user-tag"></i>Students</a>
-            <a href="teacher.html"><i class="fa-solid fa-person-chalkboard"></i>Teachers</a>
+            <a href="students.html"><img src="media/dashboard/profile-2user.png" alt="">Students</a>
+            <a href="teacher.html"><img src="media/dashboard/teacher.png" alt="">Teachers</a>
             <a href="classes.html"><img src="media/dashboard/Frame 32.png" alt="home">Classes</a>
-            <a href="payment.html"> <span class="material-symbols-outlined  ">payments</span>Payment</a>
+            <a href="payment.html"><span class="material-symbols-outlined">
+                                        add_card
+                                    </span>Payment</a>
             <a href="Timetable.html"><img src="media/dashboard/Group 77.png" alt="home">Timetable</a>
             <a href="settings.html"><img src="media/dashboard/setting-2.png" alt="home">Settings</a>
         </div>
     </div>
+
+
+
     <div class="dashboard-container" id="dashboard">
 
         <div class="dashboard-grid">
 
             <div class="top-stats-row">
                 <div class="card stat-card bordered">
-                    <p><i class="fa-solid fa-user-tag" style="color:#36A2EB;"></i> Students</p>
-                    <div class="stat-value">5891</div>
+                    <p>
+                        <i class="fa-solid fa-user-tag"></i> Students</p>
+                    <div class="stat-value ">5891</div>
                 </div>
-                <div class="card stat-card bordered">
-                    <p><i class="fa-solid fa-person-chalkboard" style="color:#FF6384;"></i> Teachers</p>
-                    <div class="stat-value">45</div>
+                <div class="card stat-card bordered ">
+                    <p><i class="fa-solid fa-person-chalkboard"></i> Teachers</p>
+                    <div class="stat-value ">45</div>
                 </div>
-                <div class="card stat-card bordered">
-                    <p><i class="fas fa-book" style="color:#FF9F40;"></i> classes</p>
-                    <div class="stat-value">30</div>
+                <div class="card stat-card bordered ">
+                    <p><i class="fas fa-book "></i> classes</p>
+                    <div class="stat-value ">30</div>
                 </div>
-                <div class="card stat-card bordered">
-                    <p><i class="fas fa-user-tie" style="color:#50C878;"></i> Staff</p>
-                    <div class="stat-value">75</div>
+                <div class="card stat-card bordered ">
+                    <p><i class="fas fa-user-tie "></i> Staff</p>
+                    <div class="stat-value ">75</div>
 
                 </div>
-                <div class="card calendar-widget calender">
-                    <h3 style="margin-bottom: 10px; text-align: center;">October</h3>
-                    <div style="display: grid; grid-template-columns: repeat(7, 1fr); text-align: center; font-size: 14px; gap: 5px;">
-                        <span>SUN</span><span>MON</span><span>TUE</span><span>WED</span><span>THU</span><span style="color: #FF6384;">FRI</span><span>SAT</span>
+                <div class="card calendar-widget calender ">
+                    <h3 style="margin-bottom: 10px; text-align: center; ">October</h3>
+                    <div style="display: grid; grid-template-columns: repeat(7, 1fr); text-align: center; font-size: 14px; gap: 5px; ">
+                        <span>SUN</span><span>MON</span><span>TUE</span><span>WED</span><span>THU</span><span style="color: #FF6384; ">FRI</span><span>SAT</span>
                         <span>28</span><span>29</span><span>30</span><span>1</span><span>2</span><span>3</span><span>4</span>
                         <span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span>
-                        <span>12</span><span>13</span><span>14</span><span>15</span><span style="background-color: #FF9F40; border-radius: 5px; color: white;">16</span><span>17</span><span>18</span>
+                        <span>12</span><span>13</span><span>14</span><span>15</span><span style="background-color: #FF9F40; border-radius: 5px; color: white; ">16</span><span>17</span><span>18</span>
                         <span>19</span><span>20</span><span>21</span><span>22</span><span>23</span><span>24</span><span>25</span>
                         <span>26</span><span>27</span><span>28</span><span>29</span><span>30</span><span>31</span><span>1</span>
                     </div>
                 </div>
             </div>
 
-            <div class="card attendance-bar">
+            <div class="card attendance-bar ">
                 <h3>Attendance</h3>
-                <canvas id="attendanceBarChart" style="margin-top: 15px;"></canvas>
             </div>
 
-            <div class="card attendance-doughnut">
-                <h3>Attendance</h3>
-                <div class="chart-wrapper">
-                    <canvas id="attendanceDoughnutChart"></canvas>
-                    <div class="percentage-overlay">80%</div>
+            <div class="card attendance-doughnut ">
+                <div class="doughnut-heading ">
+                    <h3>Attendence</h3><i class="fa-solid fa-ellipsis "></i></div>
+                <ul>
+                    <li class="attend ">Attend</li>
+                    <li class="absent ">Absent</li>
+                </ul>
+                <div class="doughnut ">
+                    <svg>
+                    <circle cx="55 " cy="55 " r="55 "></circle>							
+                </svg>
+                    <div class="number ">
+                        <p>81%</p>
+                    </div>
+
                 </div>
                 <small>October 2025 | Class 10th</small>
             </div>
 
-            <div class="right-column-group">
+            <div class="right-column-group ">
 
 
-                <div class="card payments-widget payment">
+                <div class="card payments-widget payment ">
                     <h3>Payments</h3>
-                    <div style="margin-top: 15px; padding: 10px; background: #FFFACD; border-radius: 8px;">Bus Fees: 200 EGP</div>
-                    <div style="margin-top: 10px; padding: 10px; background: #E0FFFF; border-radius: 8px;">School Fees: 3,500 EGP</div>
+                    <div class="Bus ">
+                        <i class="fa-regular fa-bell "></i>
+                        <div class="middle ">
+                            <p>Bus Fees</p>
+                            <p class="text-muted ">1000 students have paid </p>
+                        </div>
+                        <div class="right ">
+                            <p> 200 EGP</p>
+                            <i class="fa-solid fa-check "></i> </div>
+                    </div>
+                    <div class="School ">
+                        <i class="fa-regular fa-bell "></i>
+                        <div class="middle ">
+                            <p>School Fees</p>
+                            <p class="text-muted ">3,156 students have paid </p>
+                        </div>
+                        <div class="right ">
+                            <p> 3,500 EGP</p>
+                            <i class="fa-solid fa-check "></i> </div>
+                    </div>
                 </div>
             </div>
 
-            <div class="card students-stats">
-                <h3>Students</h3>
-                <div style="display: flex; justify-content: space-around; width: 100%;">
-                    <div class="chart-wrapper" style="width: 120px; height: 120px;">
-                        <canvas id="boysDoughnut"></canvas>
-                        <div class="percentage-overlay" style="color: #36A2EB; font-size: 20px;">53%</div>
+            <div class="card students-stats ">
+
+                <div class="students-heading ">
+                    <h3>Students</h3><i class="fa-solid fa-ellipsis "></i></div>
+                <div class="students-gender ">
+
+                    <div class="gendered ">
+                        <svg>
+                    <circle cx="55 " cy="55 " r="55 "></circle>							
+                </svg>
+                        <div class="boys gender "><i class="fa-solid fa-child "></i>
+                            <p>81%</p>
+                        </div>
+
                     </div>
-                    <div class="chart-wrapper" style="width: 120px; height: 120px;">
-                        <canvas id="girlsDoughnut"></canvas>
-                        <div class="percentage-overlay" style="color: #FF6384; font-size: 20px;">47%</div>
+                    <div class="gendered ">
+                        <svg>
+                    <circle cx="55 " cy="55 " r="55 "></circle>							
+                </svg>
+                        <div class="girls gender ">
+                            <i class="fa-solid fa-child-dress "></i>
+                            <p>81%</p>
+                        </div>
+
                     </div>
                 </div>
-            </div>
-
-            <div class="card recent-updates">
-                <h3>Recent Updates</h3>
-                <ul style="list-style: disc; padding-right: 20px; margin-top: 15px; font-size: 14px; color: #555;">
-                    <li>New class added</li>
-                    <li>New student enrolled</li>
-                    <li>New teacher appointed</li>
-                    <li>Honoring ceremony for top students on Sunday, the 26th</li>
-                    <li>The school announces a trip to the zoo next Thursday</li>
+                <ul class="genders ">
+                    <li class="boy ">3,178 ( boys )</li>
+                    <li class="girl ">2,731 ( Girls )</li>
                 </ul>
+            </div>
+
+
+            <div class="card school-events ">
+                <h3>School Events</h3>
+                <div class="events ">
+                    <div class="event ">
+                        <div class="event-date ">
+                            <p>10 NOV</p>
+                        </div>
+                        <div class="event-left ">
+                            <h4>Client Meeting</h4>
+                            <p>03.00 PM</p>
+                        </div>
+                    </div>
+                    <div class="event ">
+                        <div class="event-date ">
+                            <p>18 NOV</p>
+                        </div>
+                        <div class="event-left ">
+                            <h4>Design Review</h4>
+                            <p>10:00 AM - 11:30 AM</p>
+                        </div>
+                    </div>
+                </div>
             </div>
 
         </div>

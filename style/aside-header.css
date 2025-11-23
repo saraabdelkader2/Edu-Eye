@@ -2,7 +2,6 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    /* تحديد الخط */
     font-family: "Inria Sans", sans-serif;
 }
 
@@ -10,6 +9,10 @@ body {
     width: 100vw;
     height: 100vh;
     background-color: #f4f7f9;
+}
+
+:root {
+    --color-primary: #f7b731;
 }
 
 .material-symbols-outlined {
@@ -92,9 +95,6 @@ a {
     color: rgba(110, 109, 113, 1);
 }
 
-
-/* توحيد شكل أيقونة الرسائل مع باقي أيقونات الهيدر */
-
 .message-icon {
     width: 22px;
     height: 22px;
@@ -131,7 +131,7 @@ a {
     font-size: 24px;
     color: #FFFFFF;
     text-transform: uppercase;
-    margin: 30px 0 40px 0;
+    margin: 41px 0 24px 0;
     padding: 0 15px;
     display: flex;
     align-items: center;
@@ -153,7 +153,7 @@ a {
     align-items: center;
     gap: 15px;
     padding: 12px 15px;
-    margin: 4px 10px;
+    margin: 21px 10px;
     width: calc(100% - 20px);
     text-decoration: none;
     color: #FFFFFF;
@@ -161,6 +161,7 @@ a {
     font-weight: 500;
     border-radius: 8px;
     transition: background-color 0.3s, color 0.3s;
+    position: relative;
 }
 
 .aside a img {
@@ -169,12 +170,40 @@ a {
     filter: brightness(0) invert(1);
 }
 
-.aside a.active {
+
+/*.aside a.active {
     background-color: #f7b731;
     color: #000000;
     font-weight: 700;
+}*/
+
+.aside a.active::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 6px;
+    height: 100%;
+    background-color: var(--color-primary);
+    border-radius: 4px;
 }
 
+
+/* عند التحويم على الرابط */
+
+.aside a:hover {
+    transform: translateX(10px);
+    /* يتحرك 10px لليمين */
+    background-color: rgba(247, 183, 49, 0.1);
+    /* تأثير لون خفيف عند hover */
+}
+
+.fa-wallet {
+    font-size: 200;
+}
+
+
+/*
 .aside a.active img {
     filter: none;
-}
+}*/

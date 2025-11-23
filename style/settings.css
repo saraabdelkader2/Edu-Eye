@@ -1,9 +1,3 @@
-/*بخلي الصوره في الاسايد سوده */
-
-.aside a.active img {
-    filter: brightness(0) saturate(100%);
-}
-
 .flex {
     display: flex;
     justify-content: start;

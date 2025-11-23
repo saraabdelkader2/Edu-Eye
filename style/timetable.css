@@ -1,17 +1,7 @@
-/*بخلي الصوره في الاسايد سوده */
-
-.aside a.active img {
-    filter: brightness(0) saturate(100%);
-}
-
 .flex {
     display: flex;
     justify-content: start;
     align-items: start;
-}
-
-.material-symbols-outlined {
-    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24
 }
 
 .timetable-container {
@@ -55,6 +45,7 @@
     border-radius: 52px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
     background-color: white;
+    cursor: pointer;
 }
 
 .add-buttons .save-button {
@@ -83,12 +74,16 @@
     padding: 10px 15px;
     font-weight: 600;
     background-color: transparent;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     cursor: pointer;
     transition: background-color 0.2s ease;
-    gap: 7px;
+    gap: 4px;
+    flex: 1;
+}
+
+.modify-content {
+    width: 40%;
+    justify-content: start;
+    align-items: center;
 }
 
 

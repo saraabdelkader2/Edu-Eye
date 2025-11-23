@@ -1,306 +1,483 @@
-    /* ------------------------------------------------ */
-    /* GLOBAL RESET AND BASE STYLES - إعادة الضبط والأساسيات */
-    /* ------------------------------------------------ */
-    
-    .dashboard-container {
-        position: absolute;
-        top: 66px;
-        left: 235px;
-        right: 0;
-        padding: 20px;
-        overflow-y: auto;
-        height: calc(100vh - 80px);
-        background-color: #f4f7f9;
-        z-index: 1;
-    }
-    
-    .dashboard-grid {
-        display: grid;
-        /* 3 أعمدة متساوية */
-        grid-template-columns: repeat(3, 1fr);
-        gap: 20px;
-        /* 3 صفوف: الصف الأول للإحصائيات، والباقي للمحتوى */
-        grid-template-rows: auto auto auto;
-        align-items: start;
-    }
-    /* تنسيق البطاقات العامة */
-    
-    .card {
-        background-color: #FFFFFF;
-        padding: 20px;
-        border-radius: 12px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-        font-weight: 500;
-        color: #001F54;
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-    }
-    
-    .card h3 {
-        color: #001F54;
-        font-weight: 600;
-        margin-bottom: 15px;
-    }
-    /* 1. صف الإحصائيات العلوي (يمتد على 3 أعمدة) */
-    
-    .top-stats-row {
-        grid-column: 1 / span 3;
-        grid-row: 1;
-        display: grid;
-        /* 5 أعمدة: 4 إحصائيات + 1 تقويم */
-        grid-template-columns: repeat(5, 1fr);
-        gap: 20px;
-        margin-bottom: 5px;
-    }
-    
-    .stat-card {
-        height: 110px;
-        text-align: left;
-        justify-content: space-between;
-    }
-    
-    .stat-card p {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        font-size: 16px;
-        color: #666;
-        font-weight: 500;
-    }
-    
-    .stat-card i {
-        font-size: 18px;
-    }
-    
-    .card .stat-value {
-        font-size: 32px;
-        font-weight: 800;
-        color: #001F54;
-    }
-    /* تنسيق التقويم (Calendar Widget) */
-    
-    .calendar-widget {
-        grid-column: 5 / span 1;
-        padding: 10px 15px;
-        height: 110px;
-        display: block;
-        overflow: hidden;
-        text-align: center;
-    }
-    
-    .calendar-widget h3 {
-        margin-bottom: 8px !important;
-        font-size: 14px;
-        text-align: right;
-        width: 100%;
-    }
-    
-    .calendar-widget>div {
-        display: grid;
-        grid-template-columns: repeat(7, 1fr);
-        text-align: center;
-        font-size: 11px;
-        gap: 1px;
-    }
-    
-    .calendar-widget>div span {
-        padding: 2px 0;
-        line-height: 1;
-        color: #333;
-    }
-    /* تنسيق رؤوس الأيام */
-    
-    .calendar-widget>div span:nth-child(-n+7) {
-        font-weight: 700;
-        color: #999;
-    }
-    /* إخفاء الأيام الزائدة لتناسب الارتفاع */
-    
-    .calendar-widget>div span:nth-child(n+29) {
-        display: none;
-    }
-    /* تمييز اليوم النشط (16) */
-    
-    .calendar-widget>div span[style*="#FF9F40"] {
-        background-color: #f7b731 !important;
-        color: #000 !important;
-        font-weight: 700;
-    }
-    /* ------------------------------------------------ */
-    /* التعديل الرئيسي في توزيع Grid لمطابقة الصورة الجديدة */
-    /* ------------------------------------------------ */
-    /* 2. الرسم البياني العمودي (Attendance Bar) - الصف 2، العمود 1 */
-    
-    .attendance-bar {
-        grid-column: 1;
-        grid-row: 2;
-        height: 380px;
-        align-items: center;
-    }
-    
-    .attendance-bar h3 {
-        width: 100%;
-        text-align: left;
-    }
-    /* 3. الرسم البياني الدائري (Attendance Doughnut) - الصف 2، العمود 2 */
-    
-    .attendance-doughnut {
-        grid-column: 2;
-        grid-row: 2;
-        height: 380px;
-        align-items: center;
-        justify-content: center;
-    }
-    
-    .attendance-doughnut h3 {
-        width: 100%;
-        text-align: left;
-    }
-    /* 4. ويدجت المدفوعات (Payments Widget) - الصف 2، العمود 3 */
-    
-    .payments-widget {
-        grid-column: 3;
-        grid-row: 2;
-        height: 380px;
-        /* ارتفاع ثابت */
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-    }
-    
-    .payments-widget>div {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 100%;
-        margin-top: 10px;
-        padding: 15px;
-        border-radius: 8px;
-        font-size: 15px;
-        font-weight: 600;
-    }
-    
-    .payment,
-    .calender {
-        height: fit-content;
-    }
-    /* تنسيق specific payment boxes */
-    
-    .payments-widget>div:nth-child(2) {
-        /* Bus Fees */
-        background: #FFFACD;
-        color: #F7B731;
-    }
-    
-    .payments-widget>div:nth-child(3) {
-        /* School Fees */
-        background: #E0FFFF;
-        color: #001F54;
-    }
-    /* 5. إحصائيات الطلاب (Students Stats) - الصف 3، العمود 1 */
-    
-    .students-stats {
-        grid-column: 1;
-        grid-row: 3;
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-        align-items: center;
-    }
-    
-    .students-stats h3 {
-        width: 100%;
-        text-align: left;
-    }
-    /* 6. التحديثات الأخيرة (Recent Updates) - الصف 3، العمود 2 */
-    
-    .recent-updates {
-        grid-column: 2;
-        grid-row: 3;
-        height: auto;
-        width: 600px;
-    }
-    
-    .recent-updates h3 {
-        width: 100%;
-        text-align: left;
-    }
-    
-    .recent-updates ul {
-        list-style: none;
-        padding-left: 0;
-        margin-top: 15px;
-        font-size: 15px;
-        color: #555;
-    }
-    
-    .recent-updates ul li {
-        padding-left: 1.2em;
-        text-indent: -1.2em;
-        margin-bottom: 10px;
-        font-weight: 400;
-    }
-    
-    .recent-updates ul li::before {
-        content: "•";
-        color: #4BC0C0;
-        font-weight: 900;
-        display: inline-block;
-        width: 1em;
-        margin-left: -1em;
-        font-size: 1.2em;
-        line-height: 1;
-    }
-    /* 7. تنسيق الأرقام المئوية والمخططات */
-    
-    .chart-wrapper {
-        position: relative;
-        width: 200px;
-        height: 200px;
-        margin: 30px auto 15px;
-    }
-    
-    .percentage-overlay {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-size: 36px;
-        font-weight: 800;
-        color: #4BC0C0;
-    }
-    /* تعديل حجم مخططات الطلاب لتناسب التصميم */
-    
-    .students-stats .chart-wrapper {
-        width: 140px;
-        height: 140px;
-        margin: 0;
-    }
-    
-    .students-stats .percentage-overlay {
-        font-size: 28px;
-    }
-    /* 8. تنسيق بطاقات الإحصائيات العلوية */
-    
-    .stat-card.bordered {
-        border: 1px solid #ddd;
-        box-shadow: none;
-        padding: 15px;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-    }
-    
-    .stat-card.bordered p i {
-        font-size: 24px;
-    }
-    
-    .stat-card.bordered .stat-value {
-        font-size: 28px;
-    }
-    
-    .right-column-group {
-        /* تم إزالة الحاجة لهذا المحدد؛ تركت لكي لا تحدث مشكلة إذا كان موجوداً في HTML */
-        display: contents;
-    }
+:root {
+    --color-primary: #FFB74D;
+    --color-light: rgba(132, 139, 200, 0.18);
+    --box-shadow: 0 2rem 3rem var(--color-light);
+    --green-color: rgba(101, 217, 115, 1);
+    --red-color: rgba(225, 89, 80, 1);
+    --done-color: rgba(35, 180, 10, 1);
+    --text-muted: rgba(123, 123, 123, 1);
+    --school-fees-background: rgba(214, 218, 255, 1);
+    --school-fees-border: rgba(105, 111, 193, 1);
+    --light-background: rgba(237, 237, 237, 1);
+    --boys-color: rgba(74, 144, 226, 1);
+    --girls-color: rgba(255, 99, 153, 1);
+    --events-background: rgba(244, 247, 252, 1);
+}
+
+
+/* icons in the top styling */
+
+.top-stats-row .fa-user-tag {
+    color: #36A2EB;
+}
+
+.top-stats-row .fa-person-chalkboard {
+    color: #FF6384;
+}
+
+.top-stats-row .fa-book {
+    color: #FF9F40;
+}
+
+.top-stats-row .fa-user-tie {
+    color: #50C878;
+}
+
+.dashboard-container {
+    position: absolute;
+    top: 66px;
+    left: 235px;
+    right: 0;
+    padding: 20px;
+    overflow-y: auto;
+    height: calc(100vh - 80px);
+    background-color: #f4f7f9;
+    z-index: 1;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    grid-template-rows: auto auto auto;
+    align-items: start;
+}
+
+.card {
+    background-color: #FFFFFF;
+    padding: 20px;
+    border-radius: 12px;
+    font-weight: 500;
+    color: #001F54;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    box-shadow: none;
+    transition: all 300ms ease;
+}
+
+.card:hover {
+    box-shadow: var(--box-shadow);
+}
+
+.card h3 {
+    color: #001F54;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.top-stats-row {
+    grid-column: 1 / span 3;
+    grid-row: 1;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+    margin-bottom: 5px;
+}
+
+.stat-card {
+    height: 110px;
+    text-align: left;
+    justify-content: space-between;
+}
+
+.stat-card p {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+    color: #666;
+    font-weight: 500;
+}
+
+.stat-card i {
+    font-size: 18px;
+}
+
+.card .stat-value {
+    font-size: 32px;
+    font-weight: 800;
+    color: #001F54;
+}
+
+.calendar-widget {
+    grid-column: 5 / span 1;
+    padding: 10px 15px;
+    height: 110px;
+    display: block;
+    overflow: hidden;
+    text-align: center;
+}
+
+.calendar-widget h3 {
+    margin-bottom: 8px !important;
+    font-size: 14px;
+    text-align: right;
+    width: 100%;
+}
+
+.calendar-widget>div {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+    font-size: 11px;
+    gap: 1px;
+}
+
+.calendar-widget>div span {
+    padding: 2px 0;
+    line-height: 1;
+    color: #333;
+    font-size: 12px;
+}
+
+.calendar-widget>div span:nth-child(-n+7) {
+    font-weight: 700;
+    color: #999;
+    font-size: 10px;
+}
+
+.calendar-widget>div span:nth-child(n+29) {
+    display: none;
+}
+
+.calendar-widget>div span[style*="#FF9F40"] {
+    background-color: #f7b731 !important;
+    color: #000 !important;
+    font-weight: 700;
+}
+
+.attendance-bar {
+    grid-column: 1;
+    grid-row: 2;
+    height: 380px;
+    align-items: center;
+}
+
+.attendance-bar h3 {
+    width: 100%;
+    text-align: left;
+}
+
+.attendance-doughnut {
+    grid-column: 2;
+    grid-row: 2;
+    height: 380px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.doughnut {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.attendance-doughnut ul {
+    width: 60%;
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+}
+
+.doughnut-heading,
+.students-heading {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.attend {
+    color: var(--green-color);
+    font-size: 19px;
+}
+
+.absent {
+    color: var(--red-color);
+    font-size: 19px;
+}
+
+svg {
+    width: 14rem;
+    height: 14rem;
+}
+
+svg circle {
+    fill: none;
+    stroke: var(--green-color);
+    stroke-width: 14;
+    stroke-linecap: round;
+    transform: translate(57px, 52px);
+    stroke-dasharray: 300;
+    stroke-dashoffset: 20;
+}
+
+.doughnut {
+    position: relative;
+    display: inline-block;
+}
+
+.doughnut .number {
+    position: absolute;
+    top: 47%;
+    left: 52%;
+    transform: translate(-50%, -50%);
+    font-size: 29px;
+    font-weight: 600;
+    color: #001F54;
+    pointer-events: none;
+}
+
+.attendance-doughnut h3 {
+    width: 100%;
+    text-align: left;
+    font-size: 20px;
+}
+
+.payments-widget {
+    grid-column: 3;
+    grid-row: 2;
+    height: 380px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.payments-widget>div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-top: 10px;
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.payments-widget>div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid rgba(132, 139, 200, 0.18);
+    font-size: 16px;
+}
+
+.fa-bell {
+    padding: 15px;
+    border-radius: 10px;
+    background-color: #FFFACD;
+    color: rgba(252, 165, 43, 1);
+}
+
+.School .fa-bell {
+    padding: 15px;
+    border-radius: 10px;
+    background-color: var(--school-fees-background);
+    color: var(--school-fees-border);
+}
+
+.fa-check {
+    background-color: var(--done-color);
+    color: white;
+    border-radius: 50%;
+    padding: 4px;
+    font-size: 10px;
+}
+
+.text-muted {
+    font-size: 10px;
+    margin-top: 5px;
+    color: var(--text-muted);
+}
+
+.payments-widget .Bus {
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.payments-widget .school {
+    margin-top: 10px;
+    padding: 10px;
+    background: #E0FFFF;
+    border-radius: 8px;
+}
+
+.payment,
+.calender {
+    height: fit-content;
+}
+
+.students-stats {
+    grid-column: 1;
+    grid-row: 3;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+}
+
+.students-stats {
+    width: 100%;
+    text-align: left;
+}
+
+.students-gender {
+    display: flex;
+    align-items: center;
+    gap: 42px;
+}
+
+.students-gender svg {
+    width: 6rem;
+    /* حجم أصغر */
+    height: 6rem;
+}
+
+.students-gender svg circle {
+    fill: none;
+    stroke: var(--light-background);
+    stroke-width: 8;
+    /* أقل سمك يناسب الحجم الجديد */
+    stroke-linecap: round;
+    transform: translate(-13px, -8px);
+    /* تعديل ليكون المركز مناسب */
+    r: 35;
+    /* نصف القطر أصغر ليناسب الحجم */
+    stroke-dasharray: 220;
+    /* تقريبا محيط الدائرة */
+    stroke-dashoffset: 20;
+    /* يحدد النسبة */
+}
+
+.gendered {
+    position: relative;
+    display: inline-block;
+}
+
+.girls,
+.boys {
+    position: absolute;
+    top: 47%;
+    left: 44%;
+    transform: translate(-50%, -50%);
+    font-size: 16px;
+    font-weight: 600;
+    color: #001F54;
+    pointer-events: none;
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    justify-content: center;
+}
+
+.boys i,
+.boy {
+    color: var(--boys-color);
+}
+
+.girls i,
+.girl {
+    color: var(--girls-color);
+}
+
+.students-stats ul {
+    display: flex;
+    justify-content: space-between;
+    width: 61%;
+}
+
+.school-events {
+    width: 100%;
+}
+
+.school-events .events {
+    width: 90%;
+    margin: 0 auto;
+}
+
+.school-events h3 {
+    width: 100%;
+    text-align: center;
+}
+
+.school-events .event {
+    margin: 15px 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background-color: var(--events-background);
+}
+
+.school-events .event-date {
+    border: 1px solid var(--boys-color);
+    padding: 1rem;
+    border-radius: 0.5rem;
+}
+
+.chart-wrapper {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    margin: 30px auto 15px;
+}
+
+.percentage-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 36px;
+    font-weight: 800;
+    color: #4BC0C0;
+}
+
+.students-stats .chart-wrapper {
+    width: 140px;
+    height: 140px;
+    margin: 0;
+}
+
+.students-stats .percentage-overlay {
+    font-size: 28px;
+}
+
+.stat-card.bordered {
+    box-shadow: none;
+    padding: 15px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    transition: all 300ms ease;
+}
+
+.stat-card.bordered:hover {
+    box-shadow: var(--box-shadow);
+}
+
+.stat-card.bordered p i {
+    font-size: 24px;
+}
+
+.stat-card.bordered .stat-value {
+    font-size: 28px;
+}
+
+.right-column-group {
+    display: contents;
+}

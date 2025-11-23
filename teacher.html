@@ -38,32 +38,37 @@
 
     </div>
     <div class="aside">
-        <h2><img src="media/dashboard/icon-park-solid_fire.png" alt="logo">My School</h2>
+        <h2><img src="media/dashboard/icon-park-solid_fire.png" alt="logo"> Edu Eye</h2>
         <div class="options">
             <a href="dashboard.html"><img src="media/dashboard/home-2.png" alt="home">Dashboard</a>
-            <a href="students.html"><i class="fa-solid fa-user-tag"></i>Students</a>
-            <a href="teacher.html" class="active"><i class="fa-solid fa-person-chalkboard"></i>Teachers</a>
+            <a href="students.html"><img src="media/dashboard/profile-2user.png" alt="">Students</a>
+            <a href="teacher.html" class="active"><img src="media/dashboard/teacher.png" alt="">Teachers</a>
             <a href="classes.html"><img src="media/dashboard/Frame 32.png" alt="home">Classes</a>
-            <a href="payment.html"> <span class="material-symbols-outlined  ">payments</span>Payment</a>
+            <a href="payment.html"><span class="material-symbols-outlined">
+                                        add_card
+                                    </span>Payment</a>
             <a href="Timetable.html"><img src="media/dashboard/Group 77.png" alt="home">Timetable</a>
             <a href="settings.html"><img src="media/dashboard/setting-2.png" alt="home">Settings</a>
         </div>
     </div>
 
+
     <div class="teachers-container" id="Teachers">
 
         <div class="teacher-header flex">
             <p class="teacher-heading">
-                <i class="fa-solid fa-person-chalkboard" style="color:#36A2EB;"></i> Teachers</p>
+                <img src="media/dashboard/teacher.png" alt="" style="filter: invert(63%) sepia(83%) saturate(3847%) hue-rotate(184deg) brightness(102%) contrast(98%);"> Teachers
 
-            <div class="add-buttons flex"><button>Cancel</button>
+            </p>
+
+            <div class=" add-buttons flex "><button>Cancel</button>
                 <button>Reset</button>
-                <button class="save-button">Save</button></div>
+                <button class="save-button ">Save</button></div>
         </div>
 
-        <div class=" teachers-modify ">
-            <button class="active-button-teacher "> <img src="media/students/bxs_school.png " alt="teacher ">All Teachers</button>
-            <button> + Add Teacher</button>
+        <div class="teacher-modify ">
+            <div class="modify-content flex"> <button class="active-button-teacher "> <img src="media/students/bxs_school.png " alt="student ">All Teachers</button>
+                <button> + Add Teacher</button></div>
         </div>
         <div class="teacher-list-section ">
 
@@ -206,69 +211,69 @@
                 </table>
             </div>
         </div>
-        <div class="teacher-form-section">
-            <div class="teacher-form-basic">
+        <div class="teacher-form-section ">
+            <div class="teacher-form-basic ">
                 <form>
 
-                    <h2 class="teacher-form-header">Basic Information</h2>
+                    <h2 class="teacher-form-header ">Basic Information</h2>
                     <hr>
-                    <div class="teacher-basic-information-container flex">
-                        <div class="teacher-right-group">
-                            <div class="first-name">
+                    <div class="teacher-basic-information-container flex ">
+                        <div class="teacher-right-group ">
+                            <div class="first-name ">
                                 <label>First Name</label>
-                                <input type="text" placeholder="First Name" />
+                                <input type="text " placeholder="First Name " />
                             </div>
-                            <div class="gender">
-                                <p>Gender</p>
-                                <div class="gender-options flex">
-                                    <div class="option1"><input type="radio" id="Male" name="gender" value="Male" />
-                                        <label for="Male">Male</label></div>
-                                    <div class="option2"><input type="radio" id="Female" name="gender" value="Female" />
-                                        <label for="Female">Female</label></div>
+                            <div class="gender flex ">
+                                <p>Gender :</p>
+                                <div class="gender-options flex ">
+                                    <input type="radio" id="gender1" name="gender" value="Female">
+                                    <label for="gender1">Female</label><br>
+                                    <input type="radio" id="gender2" name="gender" value="Male">
+                                    <label for="gender2">Male</label><br>
                                 </div>
                             </div>
-                            <div class="date-of-birth">
+                            <div class="date-of-birth ">
                                 <label>Date of Birth</label>
-                                <input type="date" />
+                                <input type="date " />
                             </div>
-                            <div class="teacher-class">
+                            <div class="teacher-class ">
                                 <label>Class</label>
-                                <input list="Classes" name="Classes" placeholder=" Class" />
-                                <datalist id="Classes">
-        <option value="A">
-        <option value="B">
-        <option value="C">
-        <option value="D">
-        <option value="E">
+                                <input list="Classes " name="Classes " placeholder=" Class " />
+                                <datalist id="Classes ">
+        <option value="A ">
+        <option value="B ">
+        <option value="C ">
+        <option value="D ">
+        <option value="E ">
       </datalist>
                             </div>
-                            <div class="teacher-section">
+                            <div class="teacher-section ">
                                 <label>Section</label>
-                                <input list="Section" name="Section" placeholder=" Section" />
-                                <datalist id="Section">
-        <option value="A">
-        <option value="B">
-        <option value="C">
-        <option value="D">
-        <option value="E">
+                                <input list="Section " name="Section " placeholder=" Section " />
+                                <datalist id="Section ">
+        <option value="A ">
+        <option value="B ">
+        <option value="C ">
+        <option value="D ">
+        <option value="E ">
       </datalist>
                             </div>
 
                         </div>
 
-                        <div class="teacher-left-group">
-                            <div class="last-name">
+                        <div class="teacher-left-group ">
+                            <div class="last-name ">
                                 <label>Last Name</label>
-                                <input type="text" placeholder="Last Name" />
+                                <input type="text " placeholder="Last Name " />
                             </div>
 
 
 
 
-                            <div class="teacher-file-attach">
+                            <div class="teacher-file-attach ">
 
-                                <div class="upload-box flex">
-                                    <i class="fa-solid fa-file-arrow-up upload-icon"></i>
+                                <div class="upload-box flex ">
+                                    <i class="fa-solid fa-file-arrow-up upload-icon "></i>
                                     <p>Drop your CV to upload<br /><span>Select files</span></p>
                                 </div>
                             </div>
@@ -277,52 +282,52 @@
 
                 </form>
             </div>
-            <div class=" teacher-form-basic  login-teacher ">
-                <h2 class="teacher-form-header">Login/Account Details</h2>
+            <div class=" teacher-form-basic login-teacher ">
+                <h2 class="teacher-form-header ">Login/Account Details</h2>
 
 
 
-                <div class="input-teacher-login flex">
-                    <input type="text" placeholder="User Name" />
-                    <input type="password" placeholder="password" /></div>
+                <div class="input-teacher-login flex ">
+                    <input type="text " placeholder="User Name " />
+                    <input type="password " placeholder="password " /></div>
 
             </div>
-            <div class=" teacher-form-basic">
+            <div class=" teacher-form-basic ">
                 <form>
 
-                    <h2 class="teacher-form-header">Qualifications and Experience</h2>
+                    <h2 class="teacher-form-header ">Qualifications and Experience</h2>
 
-                    <div class="teacher-basic-information-container flex">
-                        <div class="teacher-right-group">
-                            <div class="University-Name">
+                    <div class="teacher-basic-information-container flex ">
+                        <div class="teacher-right-group ">
+                            <div class="University-Name ">
                                 <label>University Name</label>
-                                <input type="text" placeholder="University Name" />
+                                <input type="text " placeholder="University Name " />
                             </div>
-                            <div class="Teaching-Courses">
+                            <div class="Teaching-Courses ">
                                 <label>Teaching Courses</label>
-                                <input type="text" placeholder="Courses" />
+                                <input type="text " placeholder="Courses " />
                             </div>
-                            <div class="Subjects-taught">
+                            <div class="Subjects-taught ">
                                 <label>Subjects taught</label>
-                                <input type="text" placeholder="Subjects" />
+                                <input type="text " placeholder="Subjects " />
                             </div>
 
 
 
                         </div>
 
-                        <div class="teacher-left-group">
-                            <div class="Specialization">
+                        <div class="teacher-left-group ">
+                            <div class="Specialization ">
                                 <label>Specialization</label>
-                                <input type="text" placeholder="Specialization" />
+                                <input type="text " placeholder="Specialization " />
                             </div>
-                            <div class="Name-of-previous-school">
+                            <div class="Name-of-previous-school ">
                                 <label>Name of previous school</label>
-                                <input type="text" placeholder="previous school" />
+                                <input type="text " placeholder="previous school " />
                             </div>
-                            <div class="Previous-work-period">
+                            <div class="Previous-work-period ">
                                 <label>Previous work period</label>
-                                <input type="text" placeholder="From - To" />
+                                <input type="text " placeholder="From - To " />
                             </div>
                         </div>
 
@@ -333,31 +338,31 @@
                     </div>
             </div>
 
-            <div class="teacher-form-basic">
+            <div class="teacher-form-basic ">
                 <form>
 
-                    <h2 class="teacher-form-header">Contact Information</h2>
+                    <h2 class="teacher-form-header ">Contact Information</h2>
                     <hr>
-                    <div class="teacher-basic-information-container contact-Information flex">
-                        <div class="contact-row-one flex">
-                            <div class="first">
+                    <div class="teacher-basic-information-container contact-Information flex ">
+                        <div class="contact-row-one flex ">
+                            <div class="first ">
                                 <label>Phone</label>
-                                <input type="text" placeholder="Contact Number" />
+                                <input type="text " placeholder="Contact Number " />
 
                             </div>
-                            <div class="second">
+                            <div class="second ">
                                 <label>email</label>
-                                <input type="email" placeholder="xameple@gmail.com" /></div>
+                                <input type="email " placeholder="xameple@gmail.com " /></div>
                         </div>
 
 
-                        <div class="contact-row2">
+                        <div class="contact-row2 ">
                             <p>Addrees</p>
-                            <div class="contact-row-two"> <input type="text" placeholder="Area and Street" />
-                                <input type="text" placeholder="Location" />
-                                <input type="text" placeholder="District" />
-                                <input type="text" placeholder="Pincode" />
-                                <input type="text" placeholder="State" /></div>
+                            <div class="contact-row-two "> <input type="text " placeholder="Area and Street " />
+                                <input type="text " placeholder="Location " />
+                                <input type="text " placeholder="District " />
+                                <input type="text " placeholder="Pincode " />
+                                <input type="text " placeholder="State " /></div>
                         </div>
 
                     </div>
