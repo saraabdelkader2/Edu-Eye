@@ -17,20 +17,24 @@
 
 /* icons in the top styling */
 
-.top-stats-row .fa-user-tag {
-    color: #36A2EB;
+.top-stats-row .students {
+    filter: brightness(0) saturate(100%) invert(63%) sepia(92%) saturate(1760%) hue-rotate(178deg) brightness(98%) contrast(97%);
 }
 
-.top-stats-row .fa-person-chalkboard {
-    color: #FF6384;
+.top-stats-row .teachers {
+    filter: brightness(0) saturate(100%) invert(71%) sepia(45%) saturate(4275%) hue-rotate(309deg) brightness(101%) contrast(102%);
 }
 
-.top-stats-row .fa-book {
-    color: #FF9F40;
+.top-stats-row .classes {
+    filter: brightness(0) saturate(100%) invert(73%) sepia(57%) saturate(3388%) hue-rotate(327deg) brightness(101%) contrast(101%);
+    width: 24px;
+    height: 24px;
 }
 
-.top-stats-row .fa-user-tie {
-    color: #50C878;
+.top-stats-row .staff {
+    filter: brightness(0) saturate(100%) invert(76%) sepia(23%) saturate(1415%) hue-rotate(85deg) brightness(93%) contrast(95%);
+    width: 31px;
+    height: 28px;
 }
 
 .dashboard-container {
@@ -98,6 +102,10 @@
     font-size: 16px;
     color: #666;
     font-weight: 500;
+}
+
+.staffed p {
+    gap: 2px;
 }
 
 .stat-card i {
