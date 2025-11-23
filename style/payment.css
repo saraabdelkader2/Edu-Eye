@@ -1,3 +1,10 @@
+.material-symbols-outlined.icon {
+    color: #36A2EB;
+    font-size: 40px;
+    font-size: 35px;
+    margin: 11px 0;
+}
+
 .flex {
     display: flex;
     justify-content: start;

@@ -1,3 +1,48 @@
+:root {
+    --container-bg: #f4f7f9;
+    --main-heading-color: #1E457E;
+    --add-buttons-shade: rgba(0, 0, 0, 0.05);
+    --add-buttons-hover-bg: #f7f7f7;
+    --white: white;
+    --linear-gradient-1: #4A90E2;
+    --linear-gradient-1-hover: #3A7ACC;
+    --linear-gradient-2: #1A3E73;
+    --linear-gradient-2-hover: #15345C;
+    --students-modify-bg: rgba(223, 223, 223, 1);
+    --students-modify-hover-bg: rgba(244, 244, 244, 1);
+    --resgistered-student-color: #1E457E;
+    --icon-color: #1a3b6d;
+    --table-border: black;
+    --table-header-bg: rgba(0, 31, 84, 1);
+    --table-header-color: white;
+    --table-row-odd-bg: #f8f8f8;
+    --table-hover-bg: #fff2b2;
+    --classification-superior: #10b981;
+    --classification-weak: #ef4444;
+    --classification-talented: #3b82f6;
+    --trash-hover: darkred;
+    --pen-hover-transform: 1.5;
+    --slider-border: #15345C;
+    --slider-color: #15345C;
+    --slider-hover-bg: #15345C;
+    --slider-hover-color: white;
+    --gender-border: #ccc;
+    --gender-bg: #fff;
+    --gender-hover-bg: #f6f9fc;
+    --gender-hover-border: #4A90E2;
+    --gender-checked: #1E457E;
+    --gender-checked-text: #1A3E73;
+    --upload-box-border: grey;
+    --upload-box-icon: lightgrey;
+    --input-border: #ccc;
+    --input-box-shadow: rgba(0, 0, 0, 0.05);
+    --shadow-light: rgba(0, 0, 0, 0.05);
+    --shadow-medium: rgba(0, 0, 0, 0.15);
+    --shadow-strong: rgba(0, 0, 0, 0.3);
+    --shadow-much-strong: rgba(0, 0, 0, 0.1);
+    --font-black: #333;
+}
+
 .flex {
     display: flex;
     justify-content: start;
@@ -12,7 +57,7 @@
     padding: 20px;
     overflow-y: auto;
     height: calc(100vh - 80px);
-    background-color: #f4f7f9;
+    background-color: var(--container-bg);
     z-index: 1;
 }
 
@@ -25,7 +70,7 @@
     font-weight: 700;
     font-size: 31px;
     line-height: 44px;
-    color: #1E457E;
+    color: var(--main-heading-color);
     margin: 10px 0 20px 10px;
 }
 
@@ -41,21 +86,39 @@
 
 .add-buttons button {
     padding: 10px 20px;
-    border: 1px solid rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--add-buttons-shade);
     border-radius: 52px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    background-color: white;
+    box-shadow: 0 2px 4px var(--add-buttons-shade);
+    background-color: var(--white);
     cursor: pointer;
+    transition: all 300ms ease;
+}
+
+.add-buttons button:hover {
+    background-color: var(--add-buttons-hover-bg);
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 4px 12px var(--shadow-medium);
+    border-color: rgba(0, 0, 0, 0.1);
+    transform: scale(1.05);
 }
 
 .add-buttons .save-button {
-    background: linear-gradient(90deg, #4A90E2 8.17%, #1A3E73 94.23%);
+    background: linear-gradient(90deg, var(--linear-gradient-1) 8.17%, var(--linear-gradient-2) 94.23%);
     border-radius: 52px;
-    color: white;
+    color: var(--white);
+    cursor: pointer;
+    box-shadow: none;
+}
+
+.add-buttons .save-button:hover {
+    background: linear-gradient(90deg, var(--linear-gradient-1-hover) 8.17%, var(--linear-gradient-2-hover) 94.23%);
+    transform: scale(1.05);
+    box-shadow: 0 6px 15px var(--shadow-strong);
+    color: var(--white);
 }
 
 .students-modify {
-    background-color: rgba(223, 223, 223, 1);
+    background-color: var(--students-modify-bg);
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -92,7 +155,7 @@
 }*/
 
 .students-modify .active-button-student {
-    background-color: rgba(244, 244, 244, 1);
+    background-color: var(--students-modify-hover-bg);
     min-height: 41px;
     min-width: 130px;
     display: flex;
@@ -101,7 +164,7 @@
 }
 
 .resgistered-student {
-    color: #1E457E;
+    color: var(--resgistered-student-color);
     display: flex;
     justify-content: start;
     align-items: center;
@@ -119,7 +182,7 @@
 }
 
 .student-number {
-    margin: 10px 0;
+    margin: 10px;
     font-weight: 400;
     font-size: 18px;
 }
@@ -127,24 +190,49 @@
 .student-number input {
     max-width: 50px;
     outline: none;
-    border: 1px rgba(0, 0, 0, 0.15) solid;
+    border: 1px var(--shadow-medium) solid;
     border-radius: 4px;
     padding: 2px;
 }
 
+.actions i {
+    margin: 0 6px;
+    cursor: pointer;
+    color: var(--icon-color);
+    /* لون قريب من الهيدر */
+}
+
+.actions {
+    text-align: center;
+}
+
+
+/*.actions i:hover {
+    opacity: 0.7;
+}
+
+.actions {
+    opacity: 0;
+    transition: 0.3s;
+}
+
+tr:hover .actions {
+    opacity: 1;
+}*/
+
 .student-table {
     width: 100%;
     text-align: left;
-    border: 1px solid black;
+    border: 1px solid var(--table-border);
     border-radius: 8px;
     overflow: hidden;
     border-spacing: 0;
-    margin: 20px 0;
+    margin: 20px 10px;
 }
 
 .student-table thead {
-    background-color: rgba(0, 31, 84, 1);
-    color: white;
+    background-color: var(--table-header-bg);
+    color: var(--white);
     border-spacing: 0;
     font-size: 18px;
 }
@@ -155,22 +243,42 @@
 
 .student-table thead tr th:last-child {
     border-top-right-radius: 8px;
+    text-align: center;
 }
 
 .student-table th {
     padding: 12px 15px;
     font-weight: 600;
     text-align: left;
-    border-bottom: 1px solid black;
-    border-right: 1px solid black;
-    border-left: 1px solid black;
+    border-bottom: 1px solid var(--table-border);
+    border-right: 1px solid var(--table-border);
+    border-left: 1px solid var(--table-border);
 }
 
 .student-table td {
     padding: 10px 15px;
-    border-right: 1px solid black;
-    border-bottom: 1px solid black;
+    border-right: 1px solid var(--table-border);
+    border-bottom: 1px solid var(--table-border);
     font-size: 14px;
+    transition: all 300ms ease;
+}
+
+table tbody td:hover {
+    background-color: var(--table-hover-bg);
+}
+
+.fa-trash-can,
+.fa-pen-to-square {
+    transition: all 300ms ease;
+}
+
+.fa-trash-can:hover {
+    color: var(--trash-hover);
+    transform: scale(1.5);
+}
+
+.fa-pen-to-square:hover {
+    transform: scale(1.5);
 }
 
 .student-table td:first-child {
@@ -198,7 +306,7 @@
 /* تلوين فئة التصنيف */
 
 .classification-superior {
-    color: #10b981;
+    color: var(--classification-superior);
     font-weight: 500;
 }
 
@@ -206,7 +314,7 @@
 /* أخضر */
 
 .classification-weak {
-    color: #ef4444;
+    color: var(--classification-weak);
     font-weight: 500;
 }
 
@@ -214,7 +322,7 @@
 /* أحمر */
 
 .classification-talented {
-    color: #3b82f6;
+    color: var(--classification-talented);
     font-weight: 500;
 }
 
@@ -225,7 +333,7 @@
 /* تظليل الصفوف الفردية للتمييز */
 
 .student-table tbody tr:nth-child(odd) {
-    background-color: #f8f8f8;
+    background-color: var(--table-row-odd-bg);
 }
 
 
@@ -239,14 +347,14 @@ when clicking to add student*/
 .student-form-basic {
     /*background-color: red;*/
     /*width: fit-content;*/
-    border: 1px solid grey;
+    border: 1px solid var(--upload-box-border);
     border-radius: 8px;
 }
 
 .student-form-header {
     font-weight: 600;
     font-size: 24px;
-    color: #1E457E;
+    color: var(--gender-checked);
     padding: 5px;
 }
 
@@ -270,7 +378,7 @@ when clicking to add student*/
 }
 
 .upload-box {
-    border: 1px dashed grey;
+    border: 1px dashed var(--upload-box-border);
     margin-top: 10px;
     padding: 20px;
     height: 300px;
@@ -281,12 +389,12 @@ when clicking to add student*/
 
 .upload-box i {
     font-size: 30px;
-    color: lightgrey;
+    color: var(--light-grey);
     margin-right: 10px;
     transition: transform 0.3s ease, color 0.3s ease;
     border-radius: 50%;
     padding: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 2px 4px var(--upload-box-shadow);
 }
 
 
@@ -297,6 +405,7 @@ when clicking to add student*/
     flex-direction: column;
     gap: 25px;
     padding: 10px;
+    display: none;
 }
 
 
@@ -316,11 +425,11 @@ when clicking to add student*/
 /* كل فورم */
 
 .student-form-basic {
-    border: 1px solid #ccc;
+    border: 1px solid var(--gender-border);
     border-radius: 8px;
     padding: 15px;
     box-sizing: border-box;
-    background-color: #fff;
+    background-color: var(--gender-bg);
     height: fit-content;
 }
 
@@ -367,7 +476,7 @@ when clicking to add student*/
 .contact-row-one input {
     width: 100%;
     padding: 6px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--gender-border);
     border-radius: 4px;
     box-sizing: border-box;
 }
@@ -393,7 +502,7 @@ when clicking to add student*/
 .contact-row-two input {
     flex: 1 1 calc(50% - 10px);
     padding: 6px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--gender-border);
     border-radius: 4px;
     box-sizing: border-box;
 }
@@ -401,10 +510,10 @@ when clicking to add student*/
 .student-form-section input:not(.gender input) {
     width: 100%;
     padding: 8px 10px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--gender-border);
     border-radius: 6px;
     outline: none;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 2px 4px var(--add-buttons-shade);
     transition: 0.2s ease;
 }
 
@@ -420,7 +529,7 @@ when clicking to add student*/
 }
 
 .gender p {
-    color: #333;
+    color: var(--font-black);
     cursor: pointer;
     font-size: 17px;
     font-weight: 400;
@@ -442,14 +551,14 @@ when clicking to add student*/
     gap: 10px;
     padding: 10px 15px;
     /* Increased padding */
-    border: 1px solid #ccc;
+    border: 1px solid var(--gender-border);
     border-radius: 8px;
     /* Slightly more rounded corners */
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 1px 3px var(--add-buttons-shade);
     transition: all 0.2s ease-in-out;
     /* Smooth transition for hover/active states */
     cursor: pointer;
-    background-color: #fff;
+    background-color: var(--white);
     flex: 1;
     /* Makes them take up equal width */
     justify-content: center;
@@ -458,10 +567,10 @@ when clicking to add student*/
 
 .gender-options .option1:hover,
 .gender-options .option2:hover {
-    border-color: #4A90E2;
+    border-color: var(--linear-gradient-1);
     /* Lighter blue border on hover */
-    box-shadow: 0 2px 5px rgba(74, 144, 226, 0.2);
-    background-color: #f6f9fc;
+    box-shadow: 0 2px 5px var(--gender-option-box-shadow);
+    background-color: var(--gender-hover-bg);
     /* Slight background change on hover */
 }
 
@@ -476,12 +585,12 @@ when clicking to add student*/
     /* Custom radio button design */
     width: 18px;
     height: 18px;
-    border: 2px solid #aaa;
+    border: 2px solid var(--gender-option-border);
     border-radius: 50%;
     margin: 0;
     position: relative;
     cursor: pointer;
-    background-color: #fff;
+    background-color: var(--white);
     transition: all 0.2s ease-in-out;
     flex-shrink: 0;
     /* Prevents it from shrinking */
@@ -491,9 +600,9 @@ when clicking to add student*/
 /* Inner dot for checked state */
 
 .gender-options input[type="radio"]:checked {
-    border-color: #1E457E;
+    border-color: var(--resgistered-student-color);
     /* Dark blue border when checked */
-    background-color: #1E457E;
+    background-color: var(--resgistered-student-color);
     /* Dark blue background when checked */
 }
 
@@ -502,7 +611,7 @@ when clicking to add student*/
     display: block;
     width: 8px;
     height: 8px;
-    background-color: white;
+    background-color: var(w);
     border-radius: 50%;
     position: absolute;
     top: 50%;
@@ -511,7 +620,7 @@ when clicking to add student*/
 }
 
 .gender-options label {
-    color: #333;
+    color: var(--font-black);
     cursor: pointer;
     font-size: 16px;
     font-weight: 400;
@@ -523,7 +632,7 @@ when clicking to add student*/
 
 .gender-options input[type="radio"]:checked+label {
     font-weight: 600;
-    color: #1A3E73;
+    color: var(--linear-gradient-2);
 }
 
 .student-right-group,
@@ -537,6 +646,37 @@ when clicking to add student*/
 
 .gender-options {
     gap: 15px;
+}
+
+.slider {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border: 1px solid var(--linear-gradient-2-hover);
+    width: fit-content;
+    margin: 2rem auto 0 auto;
+    padding: 0.5rem 1rem;
+    gap: 20px;
+    border-radius: 1rem;
+    font-size: 14px;
+}
+
+.slider * {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    color: var(--linear-gradient-2-hover);
+}
+
+.slider *:hover {
+    background-color: var(--linear-gradient-2-hover);
+    color: white;
+    transform: scale(1.1);
 }
 
 
