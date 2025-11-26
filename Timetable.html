@@ -63,8 +63,9 @@ width: 30px; height: x;"> Timetable</p>
                 <button class="save-button">Save</button></div>
         </div>
         <div class="timetable-modify ">
-            <div class="modify-content flex"> <button class="active-button-timetable "> <img src="media/students/bxs_school.png " alt="student ">All Timetables</button>
-                <button> + Add Timetables</button></div>
+            <div class="modify-content flex">
+                <button id="all-timetables" class="timetable-button active-button-timetable"> <img src="media/students/bxs_school.png " alt="student ">All Timetables</button>
+                <button id="add-btn" class="timetable-button"> + Add Timetables</button></div>
         </div>
         <div class="timetable-addition ">
             <p>Add New Timetable</p>
@@ -144,7 +145,7 @@ width: 30px; height: x;"> Timetable</p>
                             <td>English<br>Ms: Malak</td>
                         </tr>
 
-                        <tr>
+                        <tr class="break">
                             <td>10:55 - 11:15 AM</td>
                             <td>Break</td>
                             <td>Break</td>

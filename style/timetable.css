@@ -1,3 +1,47 @@
+:root {
+    --container-bg: #f4f7f9;
+    --main-heading-color: #1E457E;
+    --add-buttons-hover-bg: #f7f7f7;
+    --white: white;
+    --linear-gradient-1: #4A90E2;
+    --linear-gradient-1-hover: #3A7ACC;
+    --linear-gradient-2: #1A3E73;
+    --linear-gradient-2-hover: #15345C;
+    --students-modify-bg: rgba(223, 223, 223, 1);
+    --students-modify-hover-bg: rgba(244, 244, 244, 1);
+    --icon-color: #1a3b6d;
+    --table-border: black;
+    --table-header-bg: rgba(0, 31, 84, 1);
+    --table-header-color: white;
+    --table-row-odd-bg: #f8f8f8;
+    --table-hover-bg: #fff2b2;
+    --classification-superior: #10b981;
+    --classification-weak: #ef4444;
+    --classification-talented: #3b82f6;
+    --trash-hover: darkred;
+    --pen-hover-transform: 1.5;
+    --slider-border: #15345C;
+    --slider-color: #15345C;
+    --slider-hover-bg: #15345C;
+    --slider-hover-color: white;
+    --gender-border: #ccc;
+    --gender-bg: #fff;
+    --gender-hover-bg: #f6f9fc;
+    --gender-hover-border: #4A90E2;
+    --gender-checked: #1E457E;
+    --gender-checked-text: #1A3E73;
+    --upload-box-border: grey;
+    --upload-box-icon: lightgrey;
+    --input-border: #ccc;
+    --input-box-shadow: rgba(0, 0, 0, 0.05);
+    --shadow-light: rgba(0, 0, 0, 0.05);
+    --shadow-medium: rgba(0, 0, 0, 0.15);
+    --shadow-strong: rgba(0, 0, 0, 0.3);
+    --shadow-much-strong: rgba(0, 0, 0, 0.1);
+    --font-black: #333;
+    --primary-color: #f7b731;
+}
+
 .flex {
     display: flex;
     justify-content: start;
@@ -12,7 +56,7 @@
     padding: 20px;
     overflow-y: auto;
     height: calc(100vh - 80px);
-    background-color: #f4f7f9;
+    background-color: var(--container-bg);
     z-index: 1;
 }
 
@@ -25,7 +69,7 @@
     font-weight: 700;
     font-size: 31px;
     line-height: 44px;
-    color: #1E457E;
+    color: var(--main-heading-color);
     margin: 10px 0 20px 10px;
 }
 
@@ -41,43 +85,74 @@
 
 .add-buttons button {
     padding: 10px 20px;
-    border: 1px solid rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--input-box-shadow);
     border-radius: 52px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    background-color: white;
+    box-shadow: 0 2px 4px var(--input-box-shadow);
+    background-color: var(--white);
     cursor: pointer;
+    transition: all 300ms ease;
+}
+
+.add-buttons button:hover {
+    background-color: var(--add-buttons-hover-bg);
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 4px 12px var(--shadow-medium);
+    border-color: var(--shadow-much-strong);
+    transform: scale(1.05);
 }
 
 .add-buttons .save-button {
-    background: linear-gradient(90deg, #4A90E2 8.17%, #1A3E73 94.23%);
+    background: linear-gradient(90deg, var(--linear-gradient-1) 8.17%, var(--linear-gradient-2) 94.23%);
     border-radius: 52px;
-    color: white;
+    color: var(--white);
+    cursor: pointer;
+    box-shadow: none;
+}
+
+.add-buttons .save-button:hover {
+    background: linear-gradient(90deg, var(--linear-gradient-1-hover) 8.17%, var(--linear-gradient-2-hover) 94.23%);
+    transform: scale(1.05);
+    box-shadow: 0 6px 15px var(--shadow-strong);
+    color: var(--white);
 }
 
 .timetable-modify {
-    background-color: rgba(223, 223, 223, 1);
+    background-color: var(--students-modify-bg);
     display: flex;
     justify-content: flex-start;
     align-items: center;
     gap: 0;
     min-height: 41px;
-    box-shadow: 0px 4px 3px rgba(0, 0, 0, 0.15);
+    box-shadow: 0px 4px 3px var(--shadow-medium);
     margin: 0 10px 20px 0;
     border-radius: 3px;
     overflow: hidden;
 }
 
 .timetable-modify button {
+    min-height: 41px;
     min-width: 130px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 300ms ease;
     border: none;
     font-size: 18px;
     padding: 10px 15px;
     font-weight: 600;
     background-color: transparent;
     cursor: pointer;
-    transition: background-color 0.2s ease;
+    transition: background-color 300ms ease;
     gap: 4px;
     flex: 1;
+}
+
+.timetable-modify button:hover {
+    background-color: var(--students-modify-hover-bg);
+}
+
+.timetable-modify .active-button-class {
+    background-color: var(--students-modify-hover-bg);
 }
 
 .modify-content {
@@ -86,13 +161,19 @@
     align-items: center;
 }
 
+.break {
+    background-color: var(--primary-color);
+    font-weight: 700;
+    padding: 1rem 0;
+}
+
 
 /*.timetable-modify button:hover {
     background-color: rgba(244, 244, 244, 1);
 }*/
 
 .timetable-modify .active-button-timetable {
-    background-color: rgba(244, 244, 244, 1);
+    background-color: var(--students-modify-hover-bg);
     min-height: 41px;
     min-width: 130px;
     display: flex;
@@ -101,7 +182,7 @@
 }
 
 .timetable-addition p {
-    color: #1A3E73;
+    color: var(--gender-checked-text);
     font-weight: 600;
     font-size: 20px;
     margin: 10px 0;
@@ -120,17 +201,17 @@
 .timetable-container input {
     width: 100%;
     padding: 8px 10px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--gender-border);
     border-radius: 6px;
     outline: none;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 2px 4px var(--shadow-light);
     transition: 0.2s ease;
 }
 
 .timetable-table {
     width: 100%;
     text-align: center;
-    border: 1px solid black;
+    border: 1px solid var(--table-border);
     border-radius: 8px;
     overflow: hidden;
     border-spacing: 0;
@@ -138,8 +219,8 @@
 }
 
 .timetable-table thead {
-    background-color: rgba(0, 31, 84, 1);
-    color: white;
+    background-color: var(--table-header-bg);
+    color: var(--white);
     border-spacing: 0;
     font-size: 18px;
 }
@@ -156,15 +237,15 @@
     padding: 12px 15px;
     font-weight: 600;
     text-align: left;
-    border-bottom: 1px solid black;
-    border-right: 1px solid black;
-    border-left: 1px solid black;
+    border-bottom: 1px solid var(--table-border);
+    border-right: 1px solid var(--table-border);
+    border-left: 1px solid var(--table-border);
 }
 
 .timetable-table td {
     padding: 10px 15px;
-    border-right: 1px solid black;
-    border-bottom: 1px solid black;
+    border-right: 1px solid var(--table-border);
+    border-bottom: 1px solid var(--table-border);
     font-size: 14px;
 }
 
@@ -180,47 +261,20 @@
     border-bottom: none;
 }
 
-.timetable-table th:nth-child(1),
-.timetable-table td:nth-child(1),
-.timetable-table th:nth-child(2),
-.timetable-table td:nth-child(2),
-.timetable-table th:nth-child(6),
-.timetable-table td:nth-child(6) {
+table tbody td:hover {
+    background-color: var(--table-hover-bg);
+}
+
+.timetable-table th,
+.timetable-table td {
     text-align: center;
 }
-
-
-/* تلوين فئة التصنيف */
-
-.classification-superior {
-    color: #10b981;
-    font-weight: 500;
-}
-
-
-/* أخضر */
-
-.classification-weak {
-    color: #ef4444;
-    font-weight: 500;
-}
-
-
-/* أحمر */
-
-.classification-talented {
-    color: #3b82f6;
-    font-weight: 500;
-}
-
-
-/* أزرق */
 
 
 /* تظليل الصفوف الفردية للتمييز */
 
 .timetable-table tbody tr:nth-child(odd) {
-    background-color: #f8f8f8;
+    background-color: var(--table-row-odd-bg);
 }
 
 

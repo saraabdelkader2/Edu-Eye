@@ -27,14 +27,14 @@
 
 .top-stats-row .classes {
     filter: brightness(0) saturate(100%) invert(73%) sepia(57%) saturate(3388%) hue-rotate(327deg) brightness(101%) contrast(101%);
-    width: 24px;
-    height: 24px;
+    width: 21px;
+    height: 21px;
 }
 
 .top-stats-row .staff {
     filter: brightness(0) saturate(100%) invert(76%) sepia(23%) saturate(1415%) hue-rotate(85deg) brightness(93%) contrast(95%);
-    width: 31px;
-    height: 28px;
+    width: 30px;
+    height: 26px;
 }
 
 .dashboard-container {
@@ -99,7 +99,7 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    font-size: 16px;
+    font-size: 18px;
     color: #666;
     font-weight: 500;
 }
@@ -113,7 +113,7 @@
 }
 
 .card .stat-value {
-    font-size: 32px;
+    font-size: 24px;
     font-weight: 800;
     color: #001F54;
 }

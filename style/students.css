@@ -1,7 +1,6 @@
 :root {
     --container-bg: #f4f7f9;
     --main-heading-color: #1E457E;
-    --add-buttons-shade: rgba(0, 0, 0, 0.05);
     --add-buttons-hover-bg: #f7f7f7;
     --white: white;
     --linear-gradient-1: #4A90E2;
@@ -10,7 +9,6 @@
     --linear-gradient-2-hover: #15345C;
     --students-modify-bg: rgba(223, 223, 223, 1);
     --students-modify-hover-bg: rgba(244, 244, 244, 1);
-    --resgistered-student-color: #1E457E;
     --icon-color: #1a3b6d;
     --table-border: black;
     --table-header-bg: rgba(0, 31, 84, 1);
@@ -86,9 +84,9 @@
 
 .add-buttons button {
     padding: 10px 20px;
-    border: 1px solid var(--add-buttons-shade);
+    border: 1px solid var(--input-box-shadow);
     border-radius: 52px;
-    box-shadow: 0 2px 4px var(--add-buttons-shade);
+    box-shadow: 0 2px 4px var(--input-box-shadow);
     background-color: var(--white);
     cursor: pointer;
     transition: all 300ms ease;
@@ -98,7 +96,7 @@
     background-color: var(--add-buttons-hover-bg);
     transform: translateY(-2px) scale(1.03);
     box-shadow: 0 4px 12px var(--shadow-medium);
-    border-color: rgba(0, 0, 0, 0.1);
+    border-color: var(--shadow-much-strong);
     transform: scale(1.05);
 }
 
@@ -124,7 +122,7 @@
     align-items: center;
     gap: 0;
     min-height: 41px;
-    box-shadow: 0px 4px 3px rgba(0, 0, 0, 0.15);
+    box-shadow: 0px 4px 3px var(--shadow-medium);
     margin: 0 10px 20px 0;
     border-radius: 3px;
     overflow: hidden;
@@ -154,17 +152,25 @@
     background-color: rgba(244, 244, 244, 1);
 }*/
 
-.students-modify .active-button-student {
-    background-color: var(--students-modify-hover-bg);
+.students-modify button {
     min-height: 41px;
     min-width: 130px;
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: all 300ms ease;
+}
+
+.students-modify button:hover {
+    background-color: var(--students-modify-hover-bg);
+}
+
+.students-modify .active-button-student {
+    background-color: var(--students-modify-hover-bg);
 }
 
 .resgistered-student {
-    color: var(--resgistered-student-color);
+    color: var(--main-heading-color);
     display: flex;
     justify-content: start;
     align-items: center;
@@ -345,8 +351,6 @@ when clicking to add student*/
 }
 
 .student-form-basic {
-    /*background-color: red;*/
-    /*width: fit-content;*/
     border: 1px solid var(--upload-box-border);
     border-radius: 8px;
 }
@@ -354,7 +358,7 @@ when clicking to add student*/
 .student-form-header {
     font-weight: 600;
     font-size: 24px;
-    color: var(--gender-checked);
+    color: var(--main-heading-color);
     padding: 5px;
 }
 
@@ -389,7 +393,7 @@ when clicking to add student*/
 
 .upload-box i {
     font-size: 30px;
-    color: var(--light-grey);
+    color: var(--upload-box-icon);
     margin-right: 10px;
     transition: transform 0.3s ease, color 0.3s ease;
     border-radius: 50%;
@@ -429,7 +433,7 @@ when clicking to add student*/
     border-radius: 8px;
     padding: 15px;
     box-sizing: border-box;
-    background-color: var(--gender-bg);
+    background-color: var(--white);
     height: fit-content;
 }
 
@@ -513,7 +517,7 @@ when clicking to add student*/
     border: 1px solid var(--gender-border);
     border-radius: 6px;
     outline: none;
-    box-shadow: 0 2px 4px var(--add-buttons-shade);
+    box-shadow: 0 2px 4px var(--input-box-shadow);
     transition: 0.2s ease;
 }
 
@@ -554,7 +558,7 @@ when clicking to add student*/
     border: 1px solid var(--gender-border);
     border-radius: 8px;
     /* Slightly more rounded corners */
-    box-shadow: 0 1px 3px var(--add-buttons-shade);
+    box-shadow: 0 1px 3px var(--input-box-shadow);
     transition: all 0.2s ease-in-out;
     /* Smooth transition for hover/active states */
     cursor: pointer;
@@ -590,7 +594,7 @@ when clicking to add student*/
     margin: 0;
     position: relative;
     cursor: pointer;
-    background-color: var(--white);
+    background-color: var(--shadow-light);
     transition: all 0.2s ease-in-out;
     flex-shrink: 0;
     /* Prevents it from shrinking */
@@ -600,9 +604,9 @@ when clicking to add student*/
 /* Inner dot for checked state */
 
 .gender-options input[type="radio"]:checked {
-    border-color: var(--resgistered-student-color);
+    border-color: var(--main-heading-color);
     /* Dark blue border when checked */
-    background-color: var(--resgistered-student-color);
+    background-color: var(--main-heading-color);
     /* Dark blue background when checked */
 }
 
@@ -611,7 +615,7 @@ when clicking to add student*/
     display: block;
     width: 8px;
     height: 8px;
-    background-color: var(w);
+    background-color: var(--white);
     border-radius: 50%;
     position: absolute;
     top: 50%;
@@ -675,7 +679,7 @@ when clicking to add student*/
 
 .slider *:hover {
     background-color: var(--linear-gradient-2-hover);
-    color: white;
+    color: var(--white);
     transform: scale(1.1);
 }
 

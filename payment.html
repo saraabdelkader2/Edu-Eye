@@ -63,8 +63,9 @@
                 <button class="save-button">Save</button></div>
         </div>
         <div class="payment-modify ">
-            <div class="modify-content flex"> <button class="active-button-payment "> <img src="media/students/bxs_school.png " alt="student ">All Payments</button>
-                <button> + Add Payment</button></div>
+            <div class="modify-content flex">
+                <button id="all-payments" class="payment-button active-button-payment"> <img src="media/students/bxs_school.png " alt="student ">All Payments</button>
+                <button id="add-btn" class="payment-button"> + Add Payment</button></div>
         </div>
         <div class="payment-sections">
             <div class="payment-list-section">
@@ -165,7 +166,7 @@
                                 <td>6 - B</td>
                                 <td>School+Bus</td>
                                 <td>3,700 EGP</td>
-                                <td>Un Paid</td>
+                                <td class="un-paid">Un Paid</td>
                                 <td>3 October 2025</td>
 
                             </tr>
@@ -174,7 +175,7 @@
                                 <td>5 - B</td>
                                 <td>School+Bus</td>
                                 <td>3,700 EGP</td>
-                                <td>Un Paid</td>
+                                <td class="un-paid">Un Paid</td>
                                 <td>4 October 2025</td>
 
                             </tr>
@@ -183,6 +184,17 @@
                         </tbody>
                     </table>
                 </div>
+                <div class="slider">
+                    <i class="fa-solid fa-chevron-left"></i>
+                    <p>1</p>
+                    <p>2</p>
+                    <p>3</p>
+                    <p>4</p>
+                    <p>5</p>
+                    <p>6</p>
+                    <p>7</p>
+                    <p>8</p>
+                    <i class="fa-solid fa-chevron-right"></i> </div>
             </div>
             <div class="payment-form-section ">
                 <div class="class-form-basic">
@@ -271,6 +283,7 @@
             </div>
         </div>
     </div>
+    <script src="script/payment.js" type="module"></script>
 </body>
 
 </html>
