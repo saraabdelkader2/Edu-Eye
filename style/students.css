@@ -15,9 +15,10 @@
     --table-header-color: white;
     --table-row-odd-bg: #f8f8f8;
     --table-hover-bg: #fff2b2;
-    --classification-superior: #10b981;
-    --classification-weak: #ef4444;
-    --classification-talented: #3b82f6;
+    --classification-superior: #28A745;
+    --classification-weak: #DC3545;
+    --classification-talented: #67B2D8;
+    --classification-developing: #FF8C00;
     --trash-hover: darkred;
     --pen-hover-transform: 1.5;
     --slider-border: #15345C;
@@ -39,6 +40,7 @@
     --shadow-strong: rgba(0, 0, 0, 0.3);
     --shadow-much-strong: rgba(0, 0, 0, 0.1);
     --font-black: #333;
+    --color-primary: #FFB74D;
 }
 
 .flex {
@@ -57,6 +59,113 @@
     height: calc(100vh - 80px);
     background-color: var(--container-bg);
     z-index: 1;
+}
+
+.notifications {
+    position: relative;
+}
+
+.notification-number {
+    position: absolute;
+    background-color: var(--classification-weak);
+    color: var(--white);
+    border-radius: 50%;
+    height: 19px;
+    width: 19px;
+    display: flex;
+    top: 0px;
+    right: -5px;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    /*display: none;*/
+}
+
+.left-icons {
+    position: relative;
+    /* background: red; */
+    padding-right: 10px;
+}
+
+.notification-content {
+    position: absolute;
+    height: fit-content;
+    min-width: 4rem;
+    background-color: rgba(236, 235, 241, 1);
+    margin-top: 1rem;
+    border-radius: 1rem;
+    left: -9px;
+    font-size: 14px;
+    display: none;
+}
+
+.notification-content::before {
+    content: '';
+    display: block;
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid rgba(236, 235, 241, 1);
+    /* لون المثلث */
+    position: absolute;
+    top: -10px;
+    /* فوق البوكس */
+    left: 15px;
+    /* ممكن تغيّري حسب المكان اللي عايزاها */
+    visibility: hidden;
+    /* نستخدم visibility لإخفائه */
+    opacity: 0;
+    transition: visibility 0s, opacity 0.2s linear;
+}
+
+.notifications.has-content .notification-content[style*="display: block"]::before {
+    visibility: visible;
+    opacity: 1;
+}
+
+.notification-content p {
+    padding: 10px 20px;
+}
+
+.notification-content p:not(:last-child) {
+    border-bottom: 2px solid var(--container-bg);
+    background-color: rgba(103, 178, 216, 0.2999);
+    /* 0.6 هي نسبة الشفافية، ممكن تغيّريها */
+}
+
+.notification-content :first-child {
+    border-top-right-radius: 0.5rem;
+    border-top-left-radius: 0.5rem;
+}
+
+.notification-content :last-child {
+    border-bottom-right-radius: 0.5rem;
+    border-bottom-left-radius: 0.5rem;
+}
+
+.shake-effect {
+    /* تغيير اسم الحركة إلى pulse */
+    animation: pulse 0.4s ease-out;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+        /* الحجم والشفافية الطبيعية */
+    }
+    50% {
+        transform: scale(1.2);
+        /* تكبر بنسبة 20% */
+        opacity: 0.6;
+        /* تصبح شفافة قليلاً */
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+        /* ترجع للحالة الأصلية */
+    }
 }
 
 .student-heading {
@@ -80,6 +189,7 @@
 .add-buttons {
     gap: 20px;
     margin-right: 10px;
+    display: none;
 }
 
 .add-buttons button {
@@ -100,7 +210,7 @@
     transform: scale(1.05);
 }
 
-.add-buttons .save-button {
+.add-buttons .save-form-button {
     background: linear-gradient(90deg, var(--linear-gradient-1) 8.17%, var(--linear-gradient-2) 94.23%);
     border-radius: 52px;
     color: var(--white);
@@ -108,7 +218,7 @@
     box-shadow: none;
 }
 
-.add-buttons .save-button:hover {
+.add-buttons .save-form-button:hover {
     background: linear-gradient(90deg, var(--linear-gradient-1-hover) 8.17%, var(--linear-gradient-2-hover) 94.23%);
     transform: scale(1.05);
     box-shadow: 0 6px 15px var(--shadow-strong);
@@ -193,38 +303,32 @@
     font-size: 18px;
 }
 
-.student-number input {
+
+/*.student-number input {
     max-width: 50px;
     outline: none;
     border: 1px var(--shadow-medium) solid;
     border-radius: 4px;
     padding: 2px;
-}
-
-.actions i {
-    margin: 0 6px;
-    cursor: pointer;
-    color: var(--icon-color);
-    /* لون قريب من الهيدر */
-}
-
-.actions {
-    text-align: center;
-}
-
-
-/*.actions i:hover {
-    opacity: 0.7;
-}
-
-.actions {
-    opacity: 0;
-    transition: 0.3s;
-}
-
-tr:hover .actions {
-    opacity: 1;
 }*/
+
+.registered-students-number {
+    display: inline-block;
+    /* مهم */
+    margin: 0 5px;
+    color: var(--font-black);
+    transition: transform 0.3s ease, color 0.3s ease;
+    cursor: pointer;
+    border: 1px solid var(--gender-border);
+    padding: 0px 9px;
+    border-radius: 5px;
+}
+
+.registered-students-number:hover {
+    transform: scale(1.3);
+    margin: 0 7px;
+    color: var(--icon-color);
+}
 
 .student-table {
     width: 100%;
@@ -309,33 +413,6 @@ table tbody td:hover {
 }
 
 
-/* تلوين فئة التصنيف */
-
-.classification-superior {
-    color: var(--classification-superior);
-    font-weight: 500;
-}
-
-
-/* أخضر */
-
-.classification-weak {
-    color: var(--classification-weak);
-    font-weight: 500;
-}
-
-
-/* أحمر */
-
-.classification-talented {
-    color: var(--classification-talented);
-    font-weight: 500;
-}
-
-
-/* أزرق */
-
-
 /* تظليل الصفوف الفردية للتمييز */
 
 .student-table tbody tr:nth-child(odd) {
@@ -378,20 +455,21 @@ when clicking to add student*/
 
 .student-form-section label:not(.gender label) {
     display: block;
-    margin: 8px 0;
+    margin: 20px 0 4px 0;
 }
 
 .upload-box {
     border: 1px dashed var(--upload-box-border);
-    margin-top: 10px;
+    margin-top: 24px;
     padding: 20px;
-    height: 300px;
+    height: 206px;
     justify-content: center;
     align-items: center;
     border-radius: 8px;
+    cursor: pointer;
 }
 
-.upload-box i {
+.upload-box .upload-icon {
     font-size: 30px;
     color: var(--upload-box-icon);
     margin-right: 10px;
@@ -399,6 +477,18 @@ when clicking to add student*/
     border-radius: 50%;
     padding: 10px;
     box-shadow: 0 2px 4px var(--upload-box-shadow);
+}
+
+.file-name {
+    margin-top: 5px;
+    display: block;
+    font-size: 14px;
+}
+
+.student-left-group .national-id .national-id-warning {
+    color: var(--classification-weak);
+    margin: 5px 0 0 5px;
+    display: none;
 }
 
 
@@ -677,11 +767,39 @@ when clicking to add student*/
     color: var(--linear-gradient-2-hover);
 }
 
-.slider *:hover {
+.pages *:hover,
+.active-page {
     background-color: var(--linear-gradient-2-hover);
     color: var(--white);
     transform: scale(1.1);
 }
+
+.pages {
+    width: 100%;
+    gap: 1rem;
+}
+
+
+/* تلوين فئة التصنيف */
+
+.classification-superior {
+    color: var(--classification-superior);
+    font-weight: 600;
+}
+
+.classification-talented {
+    color: var(--classification-talented);
+    font-weight: 600;
+}
+
+.classification-weak {
+    color: var(--classification-weak);
+    font-weight: 600;
+    font-size: 10px;
+}
+
+
+/* أزرق */
 
 
 /* ==================== استجابة للموبايل ==================== */
