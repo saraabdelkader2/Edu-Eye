@@ -8,33 +8,44 @@
     <!-- font insertion -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
     <!-- font awesome recalling -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- google icons -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
     <!-- css insertion -->
-    <link rel="stylesheet" href="style/aside-header.css">
     <link rel="stylesheet" href="style/students.css">
+    <link rel="stylesheet" href="style/aside-header.css">
+
     <title>Students</title>
 </head>
 
 <body>
     <div class="header">
         <div class="right-group">
-            <div class="back-icon"><img src="media/dashboard/arrow-right.png" alt="back"></div>
+            <div class="back-icon back-to-home"><img src="media/dashboard/arrow-right.png" alt="back"></div>
             <div class="search-box">
                 <i class="fa-solid fa-magnifying-glass search-icon"></i>
                 <input type="search" class="search-box" placeholder="search">
             </div>
         </div>
-        <div class="icons left-group">
-            <div class="img-header-background"> <img src="media/dashboard/notification.png" alt="notification"></div>
-            <div class="img-header-background"> <img src="media/dashboard/message.png" alt="message" class="message-icon"></div>
-            <div class="img-header-background"> <img src="media/dashboard/setting-2.png" alt="setting"></div>
+        <div class="left-icons">
+            <div class="icons left-group">
+                <div class="img-header-background notifications" class="notifications">
+                    <img src="media/dashboard/notification.png" alt="notification" class="notification-icon">
+                    <span class="notification-number">0</span>
+                </div>
+                <div class="img-header-background"> <img src="media/dashboard/message.png" alt="message" class="message-icon"></div>
+                <div class="img-header-background"> <img src="media/dashboard/setting-2.png" alt="setting"></div>
 
 
+            </div>
+            <div class="notification-content">
+
+            </div>
         </div>
+
+
 
     </div>
     <div class="aside">
@@ -59,16 +70,16 @@
                 <img src="media/dashboard/profile-2user.png" alt="" style="filter: invert(63%) sepia(83%) saturate(3847%) hue-rotate(184deg) brightness(102%) contrast(98%);
 "> Students</p>
 
-            <div class="add-buttons flex "><button>Cancel</button>
-                <button>Reset</button>
-                <button class="save-button ">Save</button></div>
+            <div class="add-buttons flex "><button class="cancel-form-button">Cancel</button>
+                <button class="reset-form-button">Reset</button>
+                <button class="save-form-button">Save</button></div>
         </div>
 
 
         <div class="students-modify ">
             <div class="modify-content flex">
                 <button id="all-students" class="student-button active-button-student ">
-                     <img src="media/students/bxs_school.png " alt="student ">All Students</button>
+                    <img src="media/students/bxs_school.png " alt="student ">All Students</button>
                 <button id="add-btn" class="student-button"> + Add Student</button></div>
         </div>
         <div class="student-list-section ">
@@ -78,8 +89,7 @@
 
             <p class="student-number ">Show
 
-                <input type="number " name="studentnumber " placeholder="100 " class="input-with-arrow "> enteries
-            </p>
+                <span class="registered-students-number">100</span>enteries</p>
             <div>
                 <table class="student-table ">
 
@@ -107,186 +117,29 @@
                             <th scope="col ">
                                 Classification
                             </th>
-                            <th>Actions</th>
 
                         </tr>
                     </thead>
 
                     <!-- Table Body -->
                     <tbody>
-                        <!-- Row 1 -->
-                        <tr>
-                            <td>1</td>
-                            <td>345699856</td>
-                            <td>Ahmed Belal Tarek</td>
-                            <td>4 - A</td>
-                            <td>Male</td>
-                            <td>90%</td>
-                            <td class="classification-superior">Superior</td>
-                            <td class="actions">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                                <i class="fa-regular fa-trash-can"></i>
-                            </td>
-                        </tr>
-                        <!-- Row 2 -->
-                        <tr>
-                            <td>2</td>
-                            <td>345699825</td>
-                            <td>Ahmed Belal Ali</td>
-                            <td>4 - A</td>
-                            <td>Male</td>
-                            <td>90%</td>
-                            <td class="classification-superior">Superior</td>
-                            <td class="actions">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                                <i class="fa-regular fa-trash-can"></i>
-                            </td>
-                        </tr>
-                        <!-- Row 3 -->
-                        <tr>
-                            <td>3</td>
-                            <td>345699874</td>
-                            <td>Ahmed Ali Tarek</td>
-                            <td>4 - A</td>
-                            <td>Male</td>
-                            <td>85%</td>
-                            <td class="classification-weak">Weak</td>
-                            <td class="actions">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                                <i class="fa-regular fa-trash-can"></i>
-                            </td>
-                        </tr>
-                        <!-- Row 4 -->
-                        <tr>
-                            <td>4</td>
-                            <td>345699811</td>
-                            <td>Ahmed Ibrahim Tarek</td>
-                            <td>4 - A</td>
-                            <td>Male</td>
-                            <td>90%</td>
-                            <td class="classification-superior">Superior</td>
-                            <td class="actions">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                                <i class="fa-regular fa-trash-can"></i>
-                            </td>
-                        </tr>
-                        <!-- Row 5 -->
-                        <tr>
-                            <td>5</td>
-                            <td>345699898</td>
-                            <td>Ahmed Belal Ibrahim</td>
-                            <td>4 - A</td>
-                            <td>Male</td>
-                            <td>65</td>
-                            <td class="classification-weak">Weak</td>
-                            <td class="actions">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                                <i class="fa-regular fa-trash-can"></i>
-                            </td>
-                        </tr>
-                        <!-- Row 6 -->
-                        <tr>
-                            <td>6</td>
-                            <td>345699854</td>
-                            <td>Ahmed Belal Salem</td>
-                            <td>4 - A</td>
-                            <td>Male</td>
-                            <td>80%</td>
-                            <td class="classification-weak">Weak</td>
-                            <td class="actions">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                                <i class="fa-regular fa-trash-can"></i>
-                            </td>
-                        </tr>
-                        <!-- Row 7 -->
-                        <tr>
-                            <td>7</td>
-                            <td>345699866</td>
-                            <td>Amany Diab Tarek</td>
-                            <td>4 - A</td>
-                            <td>Female</td>
-                            <td>90%</td>
-                            <td class="classification-superior">Superior</td>
-                            <td class="actions">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                                <i class="fa-regular fa-trash-can"></i>
-                            </td>
-                        </tr>
-                        <!-- Row 8 -->
-                        <tr>
-                            <td>8</td>
-                            <td>345699822</td>
-                            <td>Aya Salem Tarek</td>
-                            <td>4 - A</td>
-                            <td>Female</td>
-                            <td>90%</td>
-                            <td class="classification-superior">Superior</td>
-                            <td class="actions">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                                <i class="fa-regular fa-trash-can"></i>
-                            </td>
-                        </tr>
-                        <!-- Row 9 -->
-                        <tr>
-                            <td>9</td>
-                            <td>345699819</td>
-                            <td>Alia Eslam Tarek</td>
-                            <td>4 - A</td>
-                            <td>Female</td>
-                            <td>70%</td>
-                            <td class="classification-weak">Weak</td>
-                            <td class="actions">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                                <i class="fa-regular fa-trash-can"></i>
-                            </td>
-                        </tr>
-                        <!-- Row 10 -->
-                        <tr>
-                            <td>10</td>
-                            <td>345699818</td>
-                            <td>Ayat Belal Eslam</td>
-                            <td>4 - A</td>
-                            <td>Female</td>
-                            <td>90%</td>
-                            <td class="classification-talented">Talented</td>
-                            <td class="actions">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                                <i class="fa-regular fa-trash-can"></i>
-                            </td>
-                        </tr>
-                        <!-- Row 11 -->
-                        <tr>
-                            <td>11</td>
-                            <td>345699861</td>
-                            <td>Amina Belal Yehia</td>
-                            <td>4 - A</td>
-                            <td>Female</td>
-                            <td>100%</td>
-                            <td class="classification-talented">Talented</td>
-                            <td class="actions">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                                <i class="fa-regular fa-trash-can"></i>
-                            </td>
-                        </tr>
+
                     </tbody>
+
                 </table>
             </div>
             <div class="slider">
-                <i class="fa-solid fa-chevron-left"></i>
-                <p>1</p>
-                <p>2</p>
-                <p>3</p>
-                <p>4</p>
-                <p>5</p>
-                <p>6</p>
-                <p>7</p>
-                <p>8</p>
-                <i class="fa-solid fa-chevron-right"></i> </div>
+                <i class="fa-solid fa-chevron-left back-page"></i>
+                <div class="pages"></div>
+                <!-- هنا هنحط أرقام الصفحات -->
+                <i class="fa-solid fa-chevron-right after-page"></i>
+            </div>
+
         </div>
 
         <div class="student-form-section ">
             <div class="student-form-basic ">
-                <form>
+                <form id="student-form">
 
                     <h2 class="student-form-header ">Basic Information</h2>
                     <hr>
@@ -294,7 +147,7 @@
                         <div class="student-right-group ">
                             <div class="first-name ">
                                 <label>First Name</label>
-                                <input type="text " placeholder="First Name " />
+                                <input type="text" placeholder="First Name" name="studentFirstName" required/>
                             </div>
                             <div class="gender flex ">
                                 <p>Gender :</p>
@@ -306,30 +159,31 @@
                                 </div>
                             </div>
                             <div class="date-of-birth ">
-                                <label>Date of Birth</label>
-                                <input type="date " />
+                                <label for="dob">Date of Birth:</label>
+                                <input type="date" id="dob" name="dob" required>
+
                             </div>
                             <div class="student-class ">
                                 <label>Class</label>
-                                <input list="Classes " name="Classes " placeholder=" Class " />
-                                <datalist id="Classes ">
-        <option value="A ">
-        <option value="B ">
-        <option value="C ">
-        <option value="D ">
-        <option value="E ">
-      </datalist>
+                                <input list="Classes" name="Classes" placeholder="Class" required />
+                                <datalist id="Classes">
+                                    <option value="1">
+                                    <option value="2">
+                                    <option value="3">
+                                    <option value="4">
+                                    <option value="5">
+                                </datalist>
                             </div>
                             <div class="student-section ">
                                 <label>Section</label>
-                                <input list="Section " name="Section " placeholder=" Section " />
-                                <datalist id="Section ">
-        <option value="A ">
-        <option value="B ">
-        <option value="C ">
-        <option value="D ">
-        <option value="E ">
-      </datalist>
+                                <input list="Section" name="Section" placeholder="Section" required/>
+                                <datalist id="Section">
+                                    <option value="A">
+                                    <option value="B">
+                                    <option value="C">
+                                    <option value="D">
+                                    <option value="E">
+                                </datalist>
                             </div>
 
                         </div>
@@ -337,7 +191,13 @@
                         <div class="student-left-group ">
                             <div class="last-name ">
                                 <label>Last Name</label>
-                                <input type="text " placeholder="Last Name " />
+                                <input type="text " placeholder="Last Name " name="studentLastName" required />
+                            </div>
+                            <div class="national-id ">
+                                <label>National Id</label>
+                                <input type="text " placeholder="National Id" id="NationalId" name="NationalId" required />
+                                <p class="national-id-warning">
+                                </p>
                             </div>
 
 
@@ -345,9 +205,11 @@
 
                             <div class="student-file-attach ">
 
-                                <div class="upload-box flex ">
+                                <div class="upload-box flex " id="uploadBox">
                                     <i class="fa-solid fa-file-arrow-up upload-icon "></i>
-                                    <p>Drop your files to upload<br /><span>Select files</span></p>
+                                    <p>Drop your files to upload<br/><span class="file-name">Select files</span></p>
+                                    <input type="file" id="fileInput" style="display:none" required />
+
                                 </div>
                             </div>
                         </div>
@@ -361,8 +223,8 @@
 
 
                 <div class="input-student-login flex ">
-                    <input type="text " placeholder="User Name " />
-                    <input type="password " placeholder="password " /></div>
+                    <input type="email" placeholder="User Name" id="userName" />
+                    <input type="password " placeholder="password " id="password" /></div>
 
             </div>
             <div class=" student-form-basic ">
@@ -374,15 +236,15 @@
                         <div class="student-right-group ">
                             <div class="father-name ">
                                 <label>Father Name</label>
-                                <input type="text " placeholder="Father Name " />
+                                <input type="text " placeholder="Father Name " id="fatherName" />
                             </div>
                             <div class="father-contact ">
                                 <label>Father Contact</label>
-                                <input type="text " placeholder="Contact " />
+                                <input type="text" placeholder="Contact" id="fatherContact" />
                             </div>
                             <div class="father-Occupation ">
                                 <label>Father Occupation</label>
-                                <input type="text " placeholder="Ex: Business " />
+                                <input type="text " placeholder="Ex: Business " id="fatherOccupation" />
                             </div>
 
 
@@ -392,15 +254,15 @@
                         <div class="student-left-group ">
                             <div class="Mother-name ">
                                 <label>Mother Name</label>
-                                <input type="text " placeholder="Mother Name " />
+                                <input type="text " placeholder="Mother Name" id="motherName" />
                             </div>
                             <div class="Mother-contact ">
                                 <label>Mother Contact</label>
-                                <input type="text " placeholder="Contact " />
+                                <input type="text " placeholder="Contact " id="motherContact" />
                             </div>
                             <div class="anuual-encome ">
                                 <label>Annual Income</label>
-                                <input type="text " placeholder="20,000 " />
+                                <input type="text " placeholder="20,000 " id="annualIncome" />
                             </div>
                         </div>
 
@@ -420,22 +282,22 @@
                         <div class="contact-row-one flex ">
                             <div class="first ">
                                 <label>Phone</label>
-                                <input type="text " placeholder="Contact Number " />
+                                <input type="text " placeholder="Contact Number" id="studentPhone" />
 
                             </div>
                             <div class="second ">
                                 <label>email</label>
-                                <input type="email " placeholder="xameple@gmail.com " /></div>
+                                <input type="email " placeholder="exameple@gmail.com " id="studentMail" /></div>
                         </div>
 
 
                         <div class="contact-row2 ">
-                            <p>Addrees</p>
-                            <div class="contact-row-two "> <input type="text " placeholder="Area and Street " />
-                                <input type="text " placeholder="Location " />
-                                <input type="text " placeholder="District " />
-                                <input type="text " placeholder="Pincode " />
-                                <input type="text " placeholder="State " /></div>
+                            <p>Address</p>
+                            <div class="contact-row-two "> <input type="text " placeholder="Area and Street" id="areaAndStreet" />
+                                <input type="text " placeholder="Location " id="location" />
+                                <input type="text " placeholder="District " id="district" />
+                                <input type="text " placeholder="Pincode " id="pincode" />
+                                <input type="text " placeholder="State " id="state" /></div>
                         </div>
 
                     </div>
@@ -451,7 +313,7 @@
 
 
     </div>
-    <script src="script/students.js" type="module"></script>
+    <script type="module" src="script/students.js"></script>
 
 </body>
 
