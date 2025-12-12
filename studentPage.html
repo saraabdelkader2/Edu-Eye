@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- font insertion -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
+    <!-- font awesome recalling -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- google icons -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+    <!-- css insertion -->
+
+    <link rel="stylesheet" href="style/aside-header.css">
+    <link rel="stylesheet" href="style/studentPage.css">
+    <link rel="stylesheet" href="style/theme.css">
+
+    <title>Student page</title>
+    <!-- favicon -->
+    <link rel="icon" type="image/png" href="media/favicons/icons8-change-user-80.png" id="favicon">
+
+</head>
+
+<body>
+    <div class="header">
+        <div class="right-group">
+            <div class="back-icon back-to-home"><i class="fa-solid fa-arrow-left"></i></div>
+
+        </div>
+        <div class="left-icons">
+            <div class="icons left-group">
+                <div class="img-header-background notifications">
+                    <img src="media/dashboard/notification.png" alt="notification" class="notification-icon">
+                    <span class="notification-number">0</span>
+                </div>
+                <div class="img-header-background lock" id="lock">
+                    <span class="material-symbols-outlined">lock</span>
+                </div>
+                <div class="img-header-background" id="darkModeToggle">
+                    <span class="material-symbols-outlined">dark_mode</span>
+                </div>
+            </div>
+            <div class="notification-content"></div>
+        </div>
+
+
+
+    </div>
+    <div class="aside">
+        <h2><img src="media/dashboard/icon-park-solid_fire.png" alt="logo"> Edu Eye</h2>
+        <div class="options">
+            <a href="dashboard.html"><img src="media/dashboard/home-2.png" alt="home">Dashboard</a>
+            <a href="students.html" class="active"><img src="media/dashboard/profile-2user.png" alt="">Students</a>
+            <a href="teacher.html"><img src="media/dashboard/teacher.png" alt="">Teachers</a>
+            <a href="classes.html"><img src="media/dashboard/Frame 32.png" alt="home">Classes</a>
+            <a href="payment.html"><span class="material-symbols-outlined">
+                                        add_card
+                                    </span>Payment</a>
+            <a href="Timetable.html"><img src="media/dashboard/Group 77.png" alt="home">Timetable</a>
+            <a href="settings.html"><img src="media/dashboard/setting-2.png" alt="home">Settings</a>
+        </div>
+    </div>
+    <div class="studentPage-container" id="students">
+        <div class="student-primary-information flex " id="mainPrimary">
+            <div class="student-primary-info flex" id="studentPrimaryInfo">
+            </div>
+            <div class="buttons flex">
+                <button class="edit-button flex"><i class="fa-regular fa-pen-to-square"></i>Edit</button>
+            </div>
+
+        </div>
+        <div class="students-modify ">
+            <div class="modify-content flex">
+                <button class="over-view-button active-button-student-page " id="overViewButton">
+                    Overview</button>
+                <button class="acadmic-button" id="academicButton">Academic</button>
+                <button class="attendance-button" id="attendanceButton">Attendance</button>
+            </div>
+        </div>
+        <div class="information overview flex " id="overViewSection">
+
+        </div>
+        <div class="page-blur" id="blur-layer"></div>
+
+        <div class="reset-pop-up ">
+            <p class="warning-txt"> <span class="danger">Warning</span> You are about to permanently delete the student's record. All information will be lost and cannot be recovered. <br>Do you confirm the deletion?
+            </p>
+            <div class="pop-up-buttons">
+                <button id="yes">Yes</button>
+                <button id="no">No</button>
+            </div>
+        </div>
+
+        <div class="information academic flex " id="academicSection">
+            <div class="grades flex">
+                <div class="grades-column">
+                    <div class="grade-input-box flex">
+                        <label class="main">Grades</label>
+                        <select id="gradeMonth">
+                            <option value="" disabled selected hidden>Select Month</option>
+                            <option value="Sep">September</option>
+                            <option value="Oct">October</option>
+                            <option value="Nov">November</option>
+                            <option value="Dec">December</option>
+                            <option value="Jan">January</option>
+                            <option value="Feb">February</option>
+                            <option value="Mar">March</option>
+                            <option value="Apr">April</option>
+                            <option value="May">May</option>
+                            <option value="Jun">June</option>
+                        </select>
+
+                    </div>
+                    <table class="grade-table" id="gradeTable"></table>
+                </div>
+
+                <div class="grades-column">
+                    <div class="grade-input-box flex">
+                        <label class="main">Grades</label>
+                        <select id="examOverView">
+                            <option value="" disabled selected hidden>Select Subject</option>
+                            <option value="Sep">September</option>
+                            <option value="Oct">October</option>
+                            <option value="Nov">November</option>
+                            <option value="Dec">December</option>
+                            <option value="Jan">January</option>
+                            <option value="Feb">February</option>
+                            <option value="Mar">March</option>
+                            <option value="Apr">April</option>
+                            <option value="May">May</option>
+                            <option value="Jun">June</option>
+                        </select>
+
+                    </div>
+                    <table class="subject-table">
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="information attendance flex " id="attendanceSection">
+            <div class="attendance-heading flex">
+                <div class="attendance-month-selector">
+                    <label for="attendanceMonthSelect">Select Month:</label>
+                    <select id="attendanceMonthSelect">
+        <option value="" disabled selected hidden>Select Month</option>
+        <option value="Sep">September</option>
+        <option value="Oct">October</option>
+        <option value="Nov">November</option>
+        <option value="Dec">December</option>
+        <option value="Jan">January</option>
+        <option value="Feb">February</option>
+        <option value="Mar">March</option>
+        <option value="Apr">April</option>
+        <option value="May">May</option>
+        <option value="Jun">June</option>
+    </select>
+                </div>
+                <div class="color-map flex">
+                    <div class="flex color-box">
+                        <div class="status late"></div>
+                        Late
+                    </div>
+                    <div class="flex color-box">
+                        <div class="status holiday"></div>
+                        Holiday
+                    </div>
+                    <div class="flex color-box">
+                        <div class="status Apsent"></div>
+                        Apsent
+                    </div>
+                    <div class="flex color-box">
+                        <div class="status present"></div>
+                        Present
+                    </div>
+
+
+                </div>
+            </div>
+
+            <table class="attendance-table" id="attendanceTable">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td colspan="2" class="text-muted">Select a month to see attendance</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <script src="script/notifications.js" type="module"></script>
+        <script src="script/studentPage.js" type="module"></script>
+</body>
+
+</html>
