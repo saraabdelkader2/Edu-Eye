@@ -4,26 +4,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Students</title>
 
-    <!-- font insertion -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
-    <!-- font awesome recalling -->
+
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- google icons -->
+
+    <!-- Google Material Icons -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
-    <!-- css insertion -->
+
+    <!-- CSS -->
     <link rel="stylesheet" href="style/students.css">
     <link rel="stylesheet" href="style/aside-header.css">
+    <link rel="stylesheet" href="style/theme.css">
+    <!-- favicon -->
+    <link rel="icon" type="image/png" href="media/favicons/icons8-group-80.png" id="favicon">
 
-    <title>Students</title>
+
 </head>
 
 <body>
+    <!-- Header -->
     <div class="header">
         <div class="right-group">
-            <div class="back-icon back-to-home"><img src="media/dashboard/arrow-right.png" alt="back"></div>
+            <div class="back-icon back-to-home"><i class="fa-solid fa-arrow-left"></i></div>
             <div class="search-box">
                 <i class="fa-solid fa-magnifying-glass search-icon"></i>
                 <input type="search" class="search-box" placeholder="search">
@@ -31,23 +39,22 @@
         </div>
         <div class="left-icons">
             <div class="icons left-group">
-                <div class="img-header-background notifications" class="notifications">
+                <div class="img-header-background notifications">
                     <img src="media/dashboard/notification.png" alt="notification" class="notification-icon">
                     <span class="notification-number">0</span>
                 </div>
-                <div class="img-header-background"> <img src="media/dashboard/message.png" alt="message" class="message-icon"></div>
-                <div class="img-header-background"> <img src="media/dashboard/setting-2.png" alt="setting"></div>
-
-
+                <div class="img-header-background lock" id="lock">
+                    <span class="material-symbols-outlined">lock</span>
+                </div>
+                <div class="img-header-background">
+                    <span class="material-symbols-outlined" id="darkModeToggle">dark_mode</span>
+                </div>
             </div>
-            <div class="notification-content">
-
-            </div>
+            <div class="notification-content"></div>
         </div>
-
-
-
     </div>
+
+    <!-- Aside -->
     <div class="aside">
         <h2><img src="media/dashboard/icon-park-solid_fire.png" alt="logo"> Edu Eye</h2>
         <div class="options">
@@ -55,266 +62,305 @@
             <a href="students.html" class="active"><img src="media/dashboard/profile-2user.png" alt="">Students</a>
             <a href="teacher.html"><img src="media/dashboard/teacher.png" alt="">Teachers</a>
             <a href="classes.html"><img src="media/dashboard/Frame 32.png" alt="home">Classes</a>
-            <a href="payment.html"><span class="material-symbols-outlined">
-                                        add_card
-                                    </span>Payment</a>
+            <a href="payment.html"><span class="material-symbols-outlined">add_card</span>Payment</a>
             <a href="Timetable.html"><img src="media/dashboard/Group 77.png" alt="home">Timetable</a>
             <a href="settings.html"><img src="media/dashboard/setting-2.png" alt="home">Settings</a>
         </div>
     </div>
 
+    <!-- Students Container -->
     <div class="students-container" id="students">
-
+        <!-- Header -->
         <div class="student-header flex">
             <p class="student-heading">
-                <img src="media/dashboard/profile-2user.png" alt="" style="filter: invert(63%) sepia(83%) saturate(3847%) hue-rotate(184deg) brightness(102%) contrast(98%);
-"> Students</p>
-
-            <div class="add-buttons flex "><button class="cancel-form-button">Cancel</button>
+                <img src="media/dashboard/profile-2user.png" alt="" style="filter: invert(63%) sepia(83%) saturate(3847%) hue-rotate(184deg) brightness(102%) contrast(98%);"> Students
+            </p>
+            <div class="add-buttons flex">
+                <button class="cancel-form-button">Cancel</button>
                 <button class="reset-form-button">Reset</button>
-                <button class="save-form-button">Save</button></div>
+                <button class="save-form-button">Save</button>
+            </div>
         </div>
 
-
-        <div class="students-modify ">
+        <!-- Modify buttons -->
+        <div class="students-modify">
             <div class="modify-content flex">
-                <button id="all-students" class="student-button active-button-student ">
-                    <img src="media/students/bxs_school.png " alt="student ">All Students</button>
-                <button id="add-btn" class="student-button"> + Add Student</button></div>
+                <button id="all-students" class="student-button active-button-student">
+                    <img src="media/students/bxs_school.png" alt="student">All Students
+                </button>
+                <button id="add-btn" class="student-button">+ Add Student</button>
+            </div>
         </div>
-        <div class="student-list-section ">
 
-            <p class="resgistered-student "><img src="media/students/bxs_school.png " alt="student "> Registered Students</p>
-
-
-            <p class="student-number ">Show
-
-                <span class="registered-students-number">100</span>enteries</p>
+        <!-- Student List -->
+        <div class="student-list-section">
+            <p class="resgistered-student"><img src="media/students/bxs_school.png" alt="student"> Registered Students</p>
+            <p class="student-number">Show <span class="registered-students-number">100</span> entries</p>
             <div>
-                <table class="student-table ">
-
-                    <!-- Table Header -->
+                <table class="student-table">
                     <thead>
                         <tr>
-                            <th scope="col ">
-                                num
-                            </th>
-                            <th scope="col ">
-                                ID Number
-                            </th>
-                            <th scope="col ">
-                                Student Name
-                            </th>
-                            <th scope="col ">
-                                Class
-                            </th>
-                            <th scope="col ">
-                                Gender
-                            </th>
-                            <th scope="col ">
-                                Attendence%
-                            </th>
-                            <th scope="col ">
-                                Classification
-                            </th>
-
+                            <th scope="col">num</th>
+                            <th scope="col">ID Number</th>
+                            <th scope="col">Student Name</th>
+                            <th scope="col">Class</th>
+                            <th scope="col">Gender</th>
+                            <th scope="col">Attendence%</th>
+                            <th scope="col">Classification</th>
                         </tr>
                     </thead>
-
-                    <!-- Table Body -->
-                    <tbody>
-
-                    </tbody>
-
+                    <tbody></tbody>
                 </table>
             </div>
             <div class="slider">
                 <i class="fa-solid fa-chevron-left back-page"></i>
                 <div class="pages"></div>
-                <!-- هنا هنحط أرقام الصفحات -->
                 <i class="fa-solid fa-chevron-right after-page"></i>
             </div>
-
         </div>
 
-        <div class="student-form-section ">
-            <div class="student-form-basic ">
-                <form id="student-form">
+        <!-- Student Form -->
+        <div class="student-form-section">
+            <div class="page-blur" id="blur-layer"></div>
 
-                    <h2 class="student-form-header ">Basic Information</h2>
+            <div class="reset-pop-up ">
+                Are you sure you want to reset the form? All data will be lost.
+                <div class="pop-up-buttons">
+                    <button id="yes">Yes</button>
+                    <button id="no">No</button>
+                </div>
+            </div>
+            <div class="student-form-basic">
+                <form id="student-form">
+                    <h2 class="student-form-header main">Basic Information</h2>
                     <hr>
-                    <div class="student-basic-information-container flex ">
-                        <div class="student-right-group ">
-                            <div class="first-name ">
+                    <div class="student-basic-information-container flex">
+                        <div class="row flex">
+                            <div class="first-name">
                                 <label>First Name</label>
-                                <input type="text" placeholder="First Name" name="studentFirstName" required/>
+                                <input type="text" placeholder="First Name" name="studentFirstName" required />
+                                <p class="warning warning-firstname"></p>
                             </div>
-                            <div class="gender flex ">
+                            <div class="last-name">
+                                <label>Last Name</label>
+                                <input type="text" placeholder="Last Name" name="studentLastName" required />
+                                <p class="warning warning-lastname"></p>
+                            </div>
+                        </div>
+
+                        <div class="row flex">
+                            <div class="gender flex">
                                 <p>Gender :</p>
-                                <div class="gender-options flex ">
+                                <div class="gender-options flex">
                                     <input type="radio" id="gender1" name="gender" value="Female">
-                                    <label for="gender1">Female</label><br>
+                                    <label for="gender1">Female</label>
                                     <input type="radio" id="gender2" name="gender" value="Male">
-                                    <label for="gender2">Male</label><br>
+                                    <label for="gender2">Male</label>
                                 </div>
                             </div>
-                            <div class="date-of-birth ">
+
+                            <div class="nationality">
+                                <label>Nationality</label>
+                                <input type="text" placeholder="Nationality" id="Nationality" name="studentNationality" required />
+                                <p class="warning warning-nationality"></p>
+                            </div>
+                        </div>
+
+                        <div class="row flex">
+                            <div class="date-of-birth">
                                 <label for="dob">Date of Birth:</label>
                                 <input type="date" id="dob" name="dob" required>
-
-                            </div>
-                            <div class="student-class ">
-                                <label>Class</label>
-                                <input list="Classes" name="Classes" placeholder="Class" required />
-                                <datalist id="Classes">
-                                    <option value="1">
-                                    <option value="2">
-                                    <option value="3">
-                                    <option value="4">
-                                    <option value="5">
-                                </datalist>
-                            </div>
-                            <div class="student-section ">
-                                <label>Section</label>
-                                <input list="Section" name="Section" placeholder="Section" required/>
-                                <datalist id="Section">
-                                    <option value="A">
-                                    <option value="B">
-                                    <option value="C">
-                                    <option value="D">
-                                    <option value="E">
-                                </datalist>
+                                <p class="warning warning-dob"></p>
                             </div>
 
+                            <div class="Religon">
+                                <label>Religon</label>
+                                <input type="text" placeholder="Religon" id="Religon" name="studentReligon" required />
+                                <p class="warning warning-religion"></p>
+                            </div>
                         </div>
 
-                        <div class="student-left-group ">
-                            <div class="last-name ">
-                                <label>Last Name</label>
-                                <input type="text " placeholder="Last Name " name="studentLastName" required />
-                            </div>
-                            <div class="national-id ">
-                                <label>National Id</label>
-                                <input type="text " placeholder="National Id" id="NationalId" name="NationalId" required />
-                                <p class="national-id-warning">
-                                </p>
-                            </div>
-
-
-
-
-                            <div class="student-file-attach ">
-
-                                <div class="upload-box flex " id="uploadBox">
-                                    <i class="fa-solid fa-file-arrow-up upload-icon "></i>
-                                    <p>Drop your files to upload<br/><span class="file-name">Select files</span></p>
-                                    <input type="file" id="fileInput" style="display:none" required />
-
+                        <div class="row flex">
+                            <div class="grade-class flex">
+                                <div class="student-class">
+                                    <label>Grade</label>
+                                    <input list="Grade" name="Grade" placeholder="Grade" required />
+                                    <datalist id="Grade">
+                                        <option value="1">
+                                        <option value="2">
+                                        <option value="3">
+                                        <option value="4">
+                                        <option value="5">
+                                        <option value="6">
+                                    </datalist>
+                                    <p class="warning warning-grade"></p>
+                                </div>
+                                <div class="student-Class">
+                                    <label>Class</label>
+                                    <input list="Class" name="Class" placeholder="Class" required />
+                                    <datalist id="Class">
+                                        <option value="A">
+                                        <option value="B">
+                                        <option value="C">
+                                        <option value="D">
+                                        <option value="E">
+                                    </datalist>
+                                    <p class="warning warning-class"></p>
                                 </div>
                             </div>
+
+                            <div class="national-id">
+                                <label>National Id</label>
+                                <input type="text" placeholder="National Id" id="NationalId" name="NationalId" required />
+                                <p class="warning warning-national-id"></p>
+                            </div>
+                        </div>
+
+                        <div class="row flex">
+                            <div class="date-of-join">
+                                <label>Date of Join</label>
+                                <input type="date" name="doj" placeholder="Join Date" required />
+                                <p class="warning warning-doj"></p>
+                            </div>
+                            <div class="Address">
+                                <label>Address</label>
+                                <input type="text" placeholder="Address" id="Address" name="studentAddress" required />
+                                <p class="warning warning-address"></p>
+                            </div>
                         </div>
                     </div>
 
-                </form>
             </div>
-            <div class=" student-form-basic login-student ">
-                <h2 class="student-form-header ">Login/Account Details</h2>
-
-
-
-                <div class="input-student-login flex ">
-                    <input type="email" placeholder="User Name" id="userName" />
-                    <input type="password " placeholder="password " id="password" /></div>
-
-            </div>
-            <div class=" student-form-basic ">
-                <form>
-
-                    <h2 class="student-form-header ">Parent Details</h2>
-
-                    <div class="student-basic-information-container flex ">
-                        <div class="student-right-group ">
-                            <div class="father-name ">
-                                <label>Father Name</label>
-                                <input type="text " placeholder="Father Name " id="fatherName" />
-                            </div>
-                            <div class="father-contact ">
-                                <label>Father Contact</label>
-                                <input type="text" placeholder="Contact" id="fatherContact" />
-                            </div>
-                            <div class="father-Occupation ">
-                                <label>Father Occupation</label>
-                                <input type="text " placeholder="Ex: Business " id="fatherOccupation" />
-                            </div>
-
-
-
-                        </div>
-
-                        <div class="student-left-group ">
-                            <div class="Mother-name ">
-                                <label>Mother Name</label>
-                                <input type="text " placeholder="Mother Name" id="motherName" />
-                            </div>
-                            <div class="Mother-contact ">
-                                <label>Mother Contact</label>
-                                <input type="text " placeholder="Contact " id="motherContact" />
-                            </div>
-                            <div class="anuual-encome ">
-                                <label>Annual Income</label>
-                                <input type="text " placeholder="20,000 " id="annualIncome" />
-                            </div>
-                        </div>
-
-
-
-
-
-                    </div>
-            </div>
-
+            <!-- Guardian count -->
             <div class="student-form-basic ">
-                <form>
-
-                    <h2 class="student-form-header ">Contact Information</h2>
-                    <hr>
-                    <div class="student-basic-information-container contact-Information flex ">
-                        <div class="contact-row-one flex ">
-                            <div class="first ">
-                                <label>Phone</label>
-                                <input type="text " placeholder="Contact Number" id="studentPhone" />
-
-                            </div>
-                            <div class="second ">
-                                <label>email</label>
-                                <input type="email " placeholder="exameple@gmail.com " id="studentMail" /></div>
+                <h2 class="student-form-header main">Guardians count</h2>
+                <hr>
+                <div class="gender flex gurdian-number">
+                    <div class="gender-options flex gurdian-options">
+                        <div class="option flex">
+                            <input type="radio" id="gurdian-1" name="gurdian" value="1">
+                            <label for="gurdian-1">1</label>
                         </div>
-
-
-                        <div class="contact-row2 ">
-                            <p>Address</p>
-                            <div class="contact-row-two "> <input type="text " placeholder="Area and Street" id="areaAndStreet" />
-                                <input type="text " placeholder="Location " id="location" />
-                                <input type="text " placeholder="District " id="district" />
-                                <input type="text " placeholder="Pincode " id="pincode" />
-                                <input type="text " placeholder="State " id="state" /></div>
+                        <div class="option flex">
+                            <input type="radio" id="gurdian-2" name="gurdian" value="2">
+                            <label for="gurdian-2">2</label>
                         </div>
-
                     </div>
+                    <p class="warning warning-gurdian"></p>
+                </div>
+            </div>
 
+            <!-- Primary Guardian -->
+            <div class="student-form-basic primary-guardian-form gurdian-section">
+                <form>
+                    <h2 class="student-form-header main">Primary Guardian</h2>
+                    <hr>
+                    <div class="student-basic-information-container flex">
+                        <div class="row flex">
+                            <div class="full-name">
+                                <label>Full Name</label>
+                                <input type="text" placeholder="Full Name" name="primaryGurdianFullName" id="primaryGurdianFullName" required/>
+                                <p class="warning warning-primary-fullname"></p>
+                            </div>
+                            <div class="Relationship">
+                                <label>Relationship</label>
+                                <input type="text" placeholder="Relationship" name="primaryseconaryGurdianRelationship" id="primaryseconaryGurdianRelationship" required />
+                                <p class="warning warning-primary-relationship"></p>
+                            </div>
+                        </div>
+                        <div class="row flex">
+                            <div class="National Id">
+                                <label>National Id</label>
+                                <input type="text" placeholder="National Id" name="primaryGurdianNationalId" id="primaryGurdianNationalId" required/>
+                                <p class="warning warning-primary-nationalid"></p>
+                            </div>
+                            <div class="phone">
+                                <label>Phone</label>
+                                <input type="text" placeholder="Phone" name="primaryGurdianPhone" id="primaryGurdianPhone" required />
+                                <p class="warning warning-primary-phone"></p>
+                            </div>
+                        </div>
+                        <div class="row flex">
+                            <div class="Profession">
+                                <label>Profession</label>
+                                <input type="text" placeholder="Profession" name="primaryGurdianProfession" id="primaryGurdianProfession" required/>
+                                <p class="warning warning-primary-profession"></p>
+                            </div>
+                            <div class="date-of-birth">
+                                <label>Date of Birth</label>
+                                <input type="date" name="primaryGurdianDob" id="primaryGurdianDob" required />
+                                <p class="warning warning-primary-dob"></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="email">
+                                <label>Email</label>
+                                <input type="email" placeholder="example@gmail.com" name="primaryGurdianEmail" id="primaryGurdianEmail" required/>
+                                <p class="warning warning-primary-email"></p>
+                            </div>
+                        </div>
+                    </div>
                 </form>
             </div>
+
+            <!-- Secondary Guardian -->
+            <div class="student-form-basic Secondary-guardian-form gurdian-section">
+                <form>
+                    <h2 class="student-form-header main">Secondary Guardian</h2>
+                    <hr>
+                    <div class="student-basic-information-container flex">
+                        <div class="row flex">
+                            <div class="full-name">
+                                <label>Full Name</label>
+                                <input type="text" placeholder="Full Name" name="seconaryGurdianFullName" id="seconaryGurdianFullName" required/>
+                                <p class="warning warning-secondary-fullname"></p>
+                            </div>
+                            <div class="Relationship">
+                                <label>Relationship</label>
+                                <input type="text" placeholder="Relationship" name="seconaryGurdianRelationship" id="seconaryGurdianRelationship" required />
+                                <p class="warning warning-secondary-relationship"></p>
+                            </div>
+                        </div>
+                        <div class="row flex">
+                            <div class="National Id">
+                                <label>National Id</label>
+                                <input type="text" placeholder="National Id" name="seconaryGurdianNationalId" id="seconaryGurdianNationalId" required/>
+                                <p class="warning warning-secondary-nationalid"></p>
+                            </div>
+                            <div class="phone">
+                                <label>Phone</label>
+                                <input type="text" placeholder="Phone" name="seconaryGurdianPhone" id="seconaryGurdianPhone" required/>
+                                <p class="warning warning-secondary-phone"></p>
+                            </div>
+                        </div>
+                        <div class="row flex">
+                            <div class="Profession">
+                                <label>Profession</label>
+                                <input type="text" placeholder="Profession" name="secondaryGurdianProfession" id="secondaryGurdianProfession" required/>
+                                <p class="warning warning-secondary-profession"></p>
+                            </div>
+                            <div class="date-of-birth">
+                                <label>Date of Birth</label>
+                                <input type="date" name="secondaryGurdianDob" id="secondaryGurdianDob" required/>
+                                <p class="warning warning-secondary-dob"></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="email">
+                                <label>Email</label>
+                                <input type="email" placeholder="example@gmail.com" name="seconaryGurdianEmail" id="seconaryGurdianEmail" required/>
+                                <p class="warning warning-secondary-email"></p>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            </form>
+
         </div>
-
-
-
-
-
-
-
     </div>
-    <script type="module" src="script/students.js"></script>
-
+    <script type="module" src="script/notifications.js" defer></script>
+    <script type="module" src="script/students.js" defer></script>
 </body>
 
 </html>
