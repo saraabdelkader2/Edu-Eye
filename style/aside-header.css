@@ -1,0 +1,219 @@
+:root {
+    --container-bg: #f4f7f9;
+    --aside-bg: #001F54;
+    --white-bg: #ffffff;
+    --shadow-much-strong: rgba(0, 0, 0, 0.1);
+    --search-bg: #EBEAEF;
+    --header-left-icons: rgba(110, 109, 113, 0.781);
+    --white-txt: #ffffff;
+    --aside-icon-filter: brightness(0) invert(1);
+    --color-primary: #f7b731;
+    --aside-hover-bg: rgba(247, 183, 49, 0.1);
+    --font-black: #333;
+    --search-icon: #888;
+    --img-white-bg: rgba(236, 235, 241, 1);
+    --shadow-light: rgba(0, 0, 0, 0.05);
+    --linear-gradient-2: #1A3E73;
+    --search-icon: #001F54;
+}
+
+;
+
+/* اللون المناسب للفاتح */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Inter", sans-serif;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--container-bg);
+}
+
+.material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+a {
+    text-decoration: none;
+}
+
+.header {
+    position: fixed;
+    height: 70px;
+    top: 0px;
+    left: 235px;
+    right: 0px;
+    display: flex;
+    align-items: center;
+    padding: 5px 20px;
+    justify-content: space-between;
+    background: var(--white-bg);
+    box-shadow: 0px 1px 4px var(--shadow-much-strong);
+    z-index: 50;
+}
+
+.right-group {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.back-icon i {
+    color: var(--search-icon);
+    transition: 0.2s ease;
+}
+
+.back-icon i:hover {
+    color: var(--search-icon);
+    transform: scale(1.3);
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+    padding: 8px 14px;
+    gap: 10px;
+    width: 346px;
+    height: 40px;
+    background: var(--search-bg);
+    border-radius: 20px;
+}
+
+.search-box input {
+    outline: none;
+    border: none;
+    background: transparent;
+    flex-grow: 1;
+    font-size: 14px;
+    color: var(--font-black);
+}
+
+.search-icon {
+    color: var(--search-icon);
+}
+
+.icons.left-group {
+    display: flex;
+    gap: 25px;
+}
+
+.img-header-background {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--img-white-bg);
+    padding: 10px;
+    border-radius: 50%;
+}
+
+.icons.left-group img,
+.icons.left-group span:first-child {
+    width: 22px;
+    height: 22px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    /* يمنع الطلوع لفوق */
+    font-size: 20px;
+    /* حسب شكل الأيقونة */
+    color: var(--header-left-icons);
+}
+
+.icons.left-group img:hover {
+    opacity: 1;
+    transform: scale(1.05);
+}
+
+.icons.left-group span:not(.notification-number):hover {
+    transform: scale(1.05);
+}
+
+.icons.left-group img {
+    width: 22px;
+    height: 22px;
+}
+
+
+/* aside styling */
+
+.aside {
+    position: fixed;
+    left: 0;
+    width: 235px;
+    height: 100vh;
+    top: 0;
+    background: var(--aside-bg);
+    padding: 0 0 20px 0;
+    display: flex;
+    flex-direction: column;
+    z-index: 100;
+    --box-shadow: 0 2rem 3rem var(--shadow-light)!important;
+}
+
+.aside h2 {
+    font-weight: 700;
+    font-size: 24px;
+    color: var(--white-txt);
+    text-transform: uppercase;
+    margin: 41px 0 24px 0;
+    padding: 0 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.aside h2 img {
+    width: 28px;
+    height: 28px;
+    filter: var(--aside-icon-filter);
+    transition: filter 0.3s;
+}
+
+.aside a {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 12px 15px;
+    margin: 21px 10px;
+    width: calc(100% - 20px);
+    text-decoration: none;
+    color: var(--white-txt);
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 8px;
+    transition: background-color 0.3s, color 0.3s;
+    position: relative;
+}
+
+.aside a img {
+    width: 20px;
+    height: 20px;
+    filter: var(--aside-icon-filter);
+}
+
+.aside a.active::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 6px;
+    height: 100%;
+    background-color: var(--color-primary);
+    border-radius: 4px;
+}
+
+.aside a:hover {
+    transform: translateX(10px);
+    background-color: var(--aside-hover-bg);
+}
+
+.fa-wallet {
+    font-size: 200;
+}
