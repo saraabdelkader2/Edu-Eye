@@ -863,17 +863,17 @@ input {
 /* تلوين فئة التصنيف */
 
 .classification-superior {
-    color: var(--classification-superior);
+    color: var(--classification-superior)!important;
     font-weight: 600;
 }
 
 .classification-talented {
-    color: var(--classification-talented);
+    color: var(--classification-talented) !important;
     font-weight: 600;
 }
 
 .classification-weak {
-    color: var(--classification-weak);
+    color: var(--classification-weak) !important;
     font-weight: 600;
     font-size: 10px;
 }

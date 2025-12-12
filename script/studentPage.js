@@ -259,6 +259,8 @@ function renderGradesForSelectedMonth() {
 }
 
 academicButton.addEventListener('click', () => {
+                    favicon.href="././media copy/favicons/icons8-change-user-80.png";
+
     renderStudentPage();
     modifyToggling(academicButton, academicSection);
     buttons.style.display = 'none';
@@ -287,9 +289,8 @@ editButton.addEventListener('click', () => {
     buttons.innerHTML += `
     <button class="save-button flex">Save</button>
     <button class="cancel-button flex">Cancel</button>
-    <button class="delete-button flex">Delete</button>
-    
-                        `;
+    <button class="delete-button flex">Delete</button>`;
+        favicon.href="././media copy/favicons/icons8-edit-profile-80.png";
 
     // 2. تحويل خلايا معلومات الطالب الأساسية والشخصية والولي إلى حقول إدخال (inputs)
     overViewSection.querySelectorAll('td:nth-child(2)').forEach((td, i) => {
@@ -329,6 +330,8 @@ editButton.addEventListener('click', () => {
     const jsButtons = buttons.querySelector('.js-buttons');
 
 saveButton.addEventListener('click', () => {
+            favicon.href="././media copy/favicons/icons8-checked-user-80.png";
+
         //  update Personal + Guardian 
         overViewSection.querySelectorAll('td:nth-child(2)').forEach((td, i) => {
             const inputs = td.querySelectorAll('input');
@@ -472,10 +475,14 @@ cancelButton.addEventListener('click',()=>{
 });
 
 overViewButton.addEventListener('click',()=>{
+                favicon.href="././media copy/favicons/icons8-change-user-80.png";
+
 modifyToggling(overViewButton,overViewSection);
 })
 
 attendanceButton.addEventListener('click' ,()=>{
+                    favicon.href="././media copy/favicons/icons8-change-user-80.png";
+
     renderStudentPage();
     buttons.style.display='none';
     modifyToggling(attendanceButton,attendanceSection);

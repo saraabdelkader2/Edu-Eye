@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
         setTimeout(() => {
-            window.location.href = lastPage ? lastPage : "/dashboard.html";
+            window.location.href = lastPage ? lastPage : "./dashboard.html";
         }, 700);
     });
 
@@ -95,3 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+if (localStorage.getItem('darkMode') === 'enabled') {
+    document.body.classList.add('dark-mode');
+}

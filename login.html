@@ -11,7 +11,14 @@
     <!-- font awesome recalling -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- style insertion -->
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="style/login.css">
+
+    <link rel="stylesheet" href="style/theme.css">
     <title>Login</title>
 </head>
 
@@ -25,14 +32,15 @@
                 <p class="login-sign-text">Sign in to School System</p>
                 <p class="login-enter-text">Enter your credentails to access the admin panel</p>
             </div>
-            <form>
+            <form class="login-form">
                 <div class="mail-section">
                     <p class="input-label">Email</p>
-                    <input type="email" placeholder="you@School.edu">
+                    <input type="email" placeholder="you@School.edu" name="adminMail">
                 </div>
                 <div class="password-section">
                     <p class="input-label">password</p>
-                    <input type="password" placeholder="password">
+                    <div style="position: relative;"> <input type="password" placeholder="password" name="adminPassword">
+                    </div>
                 </div>
                 <div class="remember-password-section">
                     <p class="square-password">Remeber me<span><i class="fa-regular fa-square"></i></span></p>
@@ -43,6 +51,7 @@
             </form>
         </div>
     </div>
+    <script src="script/login.js"></script>
 </body>
 
 </html>

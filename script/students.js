@@ -32,8 +32,8 @@ const slider = document.querySelector('.slider .pages');
 const firstPage = document.querySelector('.slider .first-page');
 const studentsTableBody = document.querySelector('tbody');
 updateSliderPages(studentSliderPages);
-const favicon1 = "././media copy copy/favicons/icons8-group-80.png";
-const favicon2 = "././media copy copy/favicons/stydent-add.png";
+const favicon1 = "././media copy/favicons/icons8-group-80.png";
+const favicon2 = "././media copy/favicons/stydent-add.png";
 
 //controlling student modify start and add buttons
 Modify(editConfirmButtons, addBtn, allBtn, studentList, studentForm, favicon, favicon1, favicon2); //controlling student modify end
@@ -244,16 +244,84 @@ const lockIcon = document.getElementById('lock');
 lockIcon.addEventListener('click', () => {
     window.location.href = './login.html'
 })
-searchInput.addEventListener('input', (e) => {
-    const query = e.target.value.toLowerCase(); // نص البحث يتحول للصغير للمطابقة بدون حساسية للحروف
-    const filteredStudents = students.filter(student => {
-        const fullName = `${student.firstName} ${student.lastName}`.toLowerCase();
-        const id = student.id.toLowerCase();
-        return fullName.includes(query) || id.includes(query);
+
+
+// ======= Search safety check =======
+
+if (!searchInput) {
+    console.warn('search input not found: check selector ".search-box input"');
+} else {
+    searchInput.addEventListener('input', (e) => {
+        const query = e.target.value.trim().toLowerCase();
+        if (!query) {
+            // لو الحقل فاضي، عرض كل الطلاب (الصفحة الحالية أو الصفحة الأولى)
+            showStudents(currentPage);
+            return;
+        }
+
+        const filteredStudents = students.filter(student => {
+            const fullName = `${student.firstName} ${student.lastName}`.toLowerCase();
+            // تأكد إن id سترينج قبل toLowerCase
+            const id = (student.id || '').toString().toLowerCase();
+            return fullName.includes(query) || id.includes(query);
+        });
+
+        showFilteredStudents(filteredStudents);
+    });
+}
+
+// ======= Helper: render filtered results =======
+function showFilteredStudents(list) {
+    // مسح الجدول
+    studentsTableBody.innerHTML = '';
+
+    if (!list || list.length === 0) {
+        studentsTableBody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding:12px;">No results</td></tr>`;
+        return;
+    }
+
+    list.forEach((student, idx) => {
+        // نفس منطق الألوان والتصنيفات
+        let classificationclass = '';
+        switch (student.classification) {
+            case 'superior':
+                classificationclass = 'classification-superior';
+                break;
+            case 'weak':
+                classificationclass = 'classification-weak';
+                break;
+            case 'talented':
+                classificationclass = 'classification-talented';
+                break;
+            default:
+                classificationclass = '';
+        }
+
+        studentsTableBody.insertAdjacentHTML('beforeend',
+            `<tr data-full-student-id="${student.id}">
+                <td>${idx + 1}</td>
+                <td>${student.id}</td>
+                <td>${student.firstName} ${student.lastName}</td>
+                <td>${student.grade} - ${student.class}</td>
+                <td>${student.gender}</td>
+                <td>${student.Attendance}</td>
+                <td class="${classificationclass}">${student.classification}</td>
+            </tr>`);
     });
 
-    showFilteredStudents(filteredStudents); // دالة هنعملها لعرض النتائج
-});
+    // أعدّ ربط أحداث النقر على الصفوف
+    const allRows = studentsTableBody.querySelectorAll('tr');
+    allRows.forEach(row => {
+        row.onclick = () => {
+            const studentId = row.getAttribute('data-full-student-id');
+            const clickedStudent = students.find(s => s.id === studentId);
+            if (clickedStudent) {
+                localStorage.setItem('selectedStudentData', JSON.stringify(clickedStudent));
+                window.location.href = "../studentPage.html";
+            }
+        };
+    });
+}
 
 //gender selection
 function getSelectedGender(genderRadios) {
