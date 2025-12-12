@@ -389,7 +389,7 @@ body {
 }
 
 .student-table {
-    width: 95%;
+    width: 98%;
     text-align: left;
     border: 1px solid var(--table-border-black);
     border-radius: 8px;
