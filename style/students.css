@@ -389,13 +389,13 @@ body {
 }
 
 .student-table {
-    width: 100%;
+    width: 95%;
     text-align: left;
     border: 1px solid var(--table-border-black);
     border-radius: 8px;
     overflow: hidden;
     border-spacing: 0;
-    margin: 20px 10px;
+    margin: 20px auto;
 }
 
 .student-table thead {
