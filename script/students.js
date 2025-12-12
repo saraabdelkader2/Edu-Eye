@@ -32,8 +32,8 @@ const slider = document.querySelector('.slider .pages');
 const firstPage = document.querySelector('.slider .first-page');
 const studentsTableBody = document.querySelector('tbody');
 updateSliderPages(studentSliderPages);
-const favicon1 = "././media/favicons/icons8-group-80.png";
-const favicon2 = "././media/favicons/stydent-add.png";
+const favicon1 = "././media copy copy/favicons/icons8-group-80.png";
+const favicon2 = "././media copy copy/favicons/stydent-add.png";
 
 //controlling student modify start and add buttons
 Modify(editConfirmButtons, addBtn, allBtn, studentList, studentForm, favicon, favicon1, favicon2); //controlling student modify end
@@ -77,7 +77,7 @@ const gurdianSection = document.querySelectorAll(".gurdian-section");
 const genderRadios = document.querySelectorAll('input[name="gender"]');
 
 saveButton.addEventListener('click', () => {
-    favicon.href = "././media/favicons/icons8-checked-user-80.png"
+    favicon.href = "././media copy copy/favicons/icons8-checked-user-80.png"
 
     if (!validateForm()) return; // التحقق من الحقول العامة
 

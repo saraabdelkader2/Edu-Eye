@@ -443,7 +443,7 @@ deleteButton.addEventListener('click', () => {
     const canceled = document.getElementById('no');
     
     confirmed.addEventListener('click',()=>{
-        favicon.href="././media/favicons/icons8-remove-user-40.png";
+        favicon.href="././media copy/favicons/icons8-remove-user-40.png";
         document.title=`${studentData.firstName} ${studentData.lastName} student is removed `;
         addNotification(`${studentData.firstName} ${studentData.lastName} student is removed`);
 
@@ -581,9 +581,9 @@ function getSubjectsByGrade(grade) {
 
 function controllingPhoto(gender) {
     if (gender === "female") {
-        studentImageGenderBased = "media/students/icons8-person-female-skin-type-4-80.png";
+        studentImageGenderBased = "media copy/students/icons8-person-female-skin-type-4-80.png";
     } else if (gender === "male") {
-        studentImageGenderBased = "media/students/icons8-person-male-skin-type-4-80.png";
+        studentImageGenderBased = "media copy/students/icons8-person-male-skin-type-4-80.png";
     }
 }
 
