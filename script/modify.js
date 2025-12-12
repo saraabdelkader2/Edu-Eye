@@ -67,6 +67,7 @@ export function Modify(editConfirmButtons, addBtn, allBtn, studentList, studentF
 
     // --- Button Clicks ---
     addBtn.addEventListener('click', () => {
+        document.title = `Add Students`;
         studentList.style.display = 'none';
         studentForm.style.display = 'flex';
         editConfirmButtons.style.display = 'flex';
@@ -79,6 +80,7 @@ export function Modify(editConfirmButtons, addBtn, allBtn, studentList, studentF
     });
 
     allBtn.addEventListener('click', () => {
+        document.title = `All Students`;
         studentList.style.display = 'block';
         studentForm.style.display = 'none';
         editConfirmButtons.style.display = 'none';

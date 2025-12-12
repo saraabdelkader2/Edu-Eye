@@ -77,7 +77,6 @@ const gurdianSection = document.querySelectorAll(".gurdian-section");
 const genderRadios = document.querySelectorAll('input[name="gender"]');
 
 saveButton.addEventListener('click', () => {
-    favicon.href = "././media copy copy/favicons/icons8-checked-user-80.png"
 
     if (!validateForm()) return; // التحقق من الحقول العامة
 
@@ -172,6 +171,8 @@ saveButton.addEventListener('click', () => {
     reassignIdAndSorting(students);
     updateDisplayAfterAddition();
     form.reset();
+    favicon.href = "././media copy/favicons/icons8-checked-user-80.png"
+
 
     // اخفاء السكشن بعد الحفظ
     gurdianSection.forEach(section => section.style.display = 'none');

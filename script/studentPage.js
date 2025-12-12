@@ -636,3 +636,5 @@ darkModeToggle.addEventListener('click', () => {
         localStorage.setItem('darkMode', 'disabled');
     }
 });
+
+document.title=`${studentData.firstName} ${studentData.lastName}`;
