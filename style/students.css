@@ -309,18 +309,7 @@ body {
     width: 98%;
 }
 
-.students-modify button {
-    min-width: 130px;
-    border: none;
-    font-size: 18px;
-    padding: 10px 15px;
-    font-weight: 600;
-    background-color: transparent;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-    gap: 4px;
-    flex: 1;
-}
+.students-modify button {}
 
 .modify-content {
     width: 40%;
@@ -329,15 +318,21 @@ body {
 }
 
 .students-modify button {
-    min-height: 41px;
     min-width: 130px;
+    border: none;
+    padding: 10px 15px;
+    font-weight: 600;
+    cursor: pointer;
+    gap: 4px;
+    flex: 1;
+    min-height: 41px;
+    font-size: 18px;
     display: flex;
     justify-content: center;
     align-items: center;
     transition: all 300ms ease;
     background-color: var(--students-modify-bg);
-    color: var(--main-heading-color);
-    /* تعيين اللون الداكن كافتراضي لغير النشط */
+    color: var(--font-black);
 }
 
 .students-modify button:hover {
@@ -438,22 +433,6 @@ table tbody td:hover {
     background-color: var(--table-hover-bg) !important;
     color: var(--hover-table-txt);
 }
-
-
-/* action column styling
-.fa-trash-can,
-.fa-pen-to-square {
-    transition: all 300ms ease;
-}
-
-.fa-trash-can:hover {
-    color: var(--trash-hover);
-    transform: scale(1.5);
-}
-
-.fa-pen-to-square:hover {
-    transform: scale(1.5);
-}*/
 
 .student-table td:first-child {
     border-left: none;
