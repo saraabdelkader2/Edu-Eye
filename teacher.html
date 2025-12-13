@@ -16,13 +16,16 @@
     <!-- css insertion -->
     <link rel="stylesheet" href="style/aside-header.css">
     <link rel="stylesheet" href="style/teacher.css">
+    <link rel="stylesheet" href="style/theme.css">
     <title>Teachers</title>
+    <link rel="icon" type="image/png" href="media copy/favicons/icons8-group-80.png" id="favicon">
+
 </head>
 
 <body>
     <div class="header">
         <div class="right-group">
-            <div class="back-icon"><img src="media copy/dashboard/arrow-right.png" alt="back"></div>
+            <div class="back-icon"><img src="media copy/dashboard/arrow-right.png" alt="back" class="back-to-home"></div>
             <div class="search-box">
                 <i class="fa-solid fa-magnifying-glass search-icon"></i>
                 <input type="search" class="search-box" placeholder="search">
@@ -77,10 +80,10 @@
 
         <div class="teachers-modify">
             <div class="modify-content flex">
-                <button id="all-students" class="student-button active-button-student">
+                <button id="all-teachers" class="teacher-button active-button-teacher">
                     <img src="media copy/students/bxs_school.png" alt="student">All Teachers
                 </button>
-                <button id="add-btn" class="student-button">+ Add Teacher</button>
+                <button id="add-btn" class="teacher-button">+ Add Teacher</button>
             </div>
         </div>
         <div class="teacher-list-section-1">
@@ -112,332 +115,196 @@
                         <th scope="col ">
                             Num. of Classes
                         </th>
-                        <th>Actions</th>
+
 
                     </tr>
                 </thead>
 
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Ibrahim Ashraf</td>
-                        <td>Maths</td>
-                        <td>4 - A</td>
-                        <td>Male</td>
-                        <td>43</td>
-                        <td>6</td>
-                        <td class="actions">
-                            <i class="fa-solid fa-pen-to-square"></i>
-                            <i class="fa-regular fa-trash-can"></i>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Ragab Mohammed</td>
-                        <td>Arabic</td>
-                        <td>5 - A</td>
-                        <td>Male</td>
-                        <td>33</td>
-                        <td>6</td>
-                        <td class="actions">
-                            <i class="fa-solid fa-pen-to-square"></i>
-                            <i class="fa-regular fa-trash-can"></i>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Hala Elsayed</td>
-                        <td>Maths</td>
-                        <td>4 - C</td>
-                        <td>Female</td>
-                        <td>36</td>
-                        <td>6</td>
-                        <td class="actions">
-                            <i class="fa-solid fa-pen-to-square"></i>
-                            <i class="fa-regular fa-trash-can"></i>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>Malak Mohand</td>
-                        <td>Science</td>
-                        <td>4 - B</td>
-                        <td>Female</td>
-                        <td>34</td>
-                        <td>7</td>
-                        <td class="actions">
-                            <i class="fa-solid fa-pen-to-square"></i>
-                            <i class="fa-regular fa-trash-can"></i>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>Omar Ali Atia</td>
-                        <td>Social Studies</td>
-                        <td>6 - A</td>
-                        <td>Male</td>
-                        <td>45</td>
-                        <td>8</td>
-                        <td class="actions">
-                            <i class="fa-solid fa-pen-to-square"></i>
-                            <i class="fa-regular fa-trash-can"></i>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>6</td>
-                        <td>Eslam Mostafa</td>
-                        <td>English</td>
-                        <td>5 - C</td>
-                        <td>Male</td>
-                        <td>49</td>
-                        <td>7</td>
-                        <td class="actions">
-                            <i class="fa-solid fa-pen-to-square"></i>
-                            <i class="fa-regular fa-trash-can"></i>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>7</td>
-                        <td>Shady Samy</td>
-                        <td>English</td>
-                        <td>6 - B</td>
-                        <td>Male</td>
-                        <td>41</td>
-                        <td>6</td>
-                        <td class="actions">
-                            <i class="fa-solid fa-pen-to-square"></i>
-                            <i class="fa-regular fa-trash-can"></i>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>8</td>
-                        <td>Ali Youssef Ali</td>
-                        <td>English</td>
-                        <td>4 - D</td>
-                        <td>Male</td>
-                        <td>44</td>
-                        <td>8</td>
-                        <td class="actions">
-                            <i class="fa-solid fa-pen-to-square"></i>
-                            <i class="fa-regular fa-trash-can"></i>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>9</td>
-                        <td>Adel Ibrahim</td>
-                        <td>Maths</td>
-                        <td>6 - C</td>
-                        <td>Male</td>
-                        <td>46</td>
-                        <td>6</td>
-                        <td class="actions">
-                            <i class="fa-solid fa-pen-to-square"></i>
-                            <i class="fa-regular fa-trash-can"></i>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>10</td>
-                        <td>Emad Abdo Ahmed</td>
-                        <td>Science</td>
-                        <td>5 - B</td>
-                        <td>Male</td>
-                        <td>39</td>
-                        <td>8</td>
-                        <td class="actions">
-                            <i class="fa-solid fa-pen-to-square"></i>
-                            <i class="fa-regular fa-trash-can"></i>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>11</td>
-                        <td>Noran Maged</td>
-                        <td>Social Studies</td>
-                        <td>6 - D</td>
-                        <td>Female</td>
-                        <td>32</td>
-                        <td>8</td>
-                        <td class="actions">
-                            <i class="fa-solid fa-pen-to-square"></i>
-                            <i class="fa-regular fa-trash-can"></i>
-                        </td>
-                    </tr>
-                </tbody>
+                <tbody></tbody>
             </table>
+            <div class="slider">
+                <i class="fa-solid fa-chevron-left back-page"></i>
+                <div class="pages"></div>
+                <i class="fa-solid fa-chevron-right after-page"></i>
+            </div>
         </div>
-        <div class="slider">
-            <i class="fa-solid fa-chevron-left"></i>
-            <p>1</p>
-            <p>2</p>
-            <p>3</p>
-            <p>4</p>
-            <p>5</p>
-            <p>6</p>
-            <p>7</p>
-            <p>8</p>
-            <i class="fa-solid fa-chevron-right"></i> </div>
 
+        <div class="teacher-form-section">
+            <div class="page-blur" id="blur-layer"></div>
 
-
-    </div>
-    <div class="teacher-form-section ">
-        <div class="teacher-form-basic ">
-            <form>
-
-                <h2 class="teacher-form-header ">Basic Information</h2>
-                <hr>
-                <div class="teacher-basic-information-container flex ">
-                    <div class="teacher-right-group ">
-                        <div class="first-name ">
-                            <label>First Name</label>
-                            <input type="text " placeholder="First Name " />
-                        </div>
-                        <div class="gender flex ">
-                            <p>Gender :</p>
-                            <div class="gender-options flex ">
-                                <input type="radio" id="gender1" name="gender" value="Female">
-                                <label for="gender1">Female</label><br>
-                                <input type="radio" id="gender2" name="gender" value="Male">
-                                <label for="gender2">Male</label><br>
+            <div class="reset-pop-up ">
+                Are you sure you want to reset the form? All data will be lost.
+                <div class="pop-up-buttons">
+                    <button id="yes">Yes</button>
+                    <button id="no">No</button>
+                </div>
+            </div>
+            <div class="teacher-form-basic">
+                <form id="teacher-form">
+                    <h2 class="teacher-form-header main">Basic Information</h2>
+                    <hr>
+                    <div class="teacher-basic-information-container flex">
+                        <div class="row flex">
+                            <div class="first-name">
+                                <label>First Name</label>
+                                <input type="text" placeholder="First Name" name="teacherFirstName" required />
+                                <p class="warning warning-firstname"></p>
+                            </div>
+                            <div class="last-name">
+                                <label>Last Name</label>
+                                <input type="text" placeholder="Last Name" name="teacherLastName" required />
+                                <p class="warning warning-lastname"></p>
                             </div>
                         </div>
-                        <div class="date-of-birth ">
-                            <label>Date of Birth</label>
-                            <input type="date " />
-                        </div>
-                        <div class="teacher-class ">
-                            <label>Class</label>
-                            <input list="Classes " name="Classes " placeholder=" Class " />
-                            <datalist id="Classes ">
-        <option value="A ">
-        <option value="B ">
-        <option value="C ">
-        <option value="D ">
-        <option value="E ">
-      </datalist>
-                        </div>
-                        <div class="teacher-section ">
-                            <label>Section</label>
-                            <input list="Section " name="Section " placeholder=" Section " />
-                            <datalist id="Section ">
-        <option value="A ">
-        <option value="B ">
-        <option value="C ">
-        <option value="D ">
-        <option value="E ">
-      </datalist>
+
+                        <div class="row flex">
+                            <div class="gender flex">
+                                <p>Gender :</p>
+                                <div class="gender-options flex">
+                                    <input type="radio" id="gender1" name="gender" value="Female">
+                                    <label for="gender1">Female</label>
+                                    <input type="radio" id="gender2" name="gender" value="Male">
+                                    <label for="gender2">Male</label>
+                                </div>
+                            </div>
+
+                            <div class="nationality">
+                                <label>Nationality</label>
+                                <input type="text" placeholder="Nationality" id="Nationality" name="teacherNationality" required />
+                                <p class="warning warning-nationality"></p>
+                            </div>
                         </div>
 
+                        <div class="row flex">
+                            <div class="date-of-birth">
+                                <label for="dob">Date of Birth:</label>
+                                <input type="date" id="dob" name="dob" required>
+                                <p class="warning warning-dob"></p>
+                            </div>
+
+                            <div class="Religon">
+                                <label>Religon</label>
+                                <input type="text" placeholder="Religon" id="Religon" name="teacherReligon" required />
+                                <p class="warning warning-religion"></p>
+                            </div>
+                        </div>
+
+                        <div class="row flex">
+                            <div class="grade-class flex">
+                                <div class="student-class">
+                                    <label>Grade</label>
+                                    <input list="Grade" name="Grade" placeholder="Grade" required />
+                                    <datalist id="Grade">
+                                        <option value="1">
+                                        <option value="2">
+                                        <option value="3">
+                                        <option value="4">
+                                        <option value="5">
+                                        <option value="6">
+                                    </datalist>
+                                    <p class="warning warning-grade"></p>
+                                </div>
+                                <div class="-Class">
+                                    <label>Class</label>
+                                    <input list="Class" name="Class" placeholder="Class" required />
+                                    <datalist id="Class">
+                                        <option value="A">
+                                        <option value="B">
+                                        <option value="C">
+                                        <option value="D">
+                                        <option value="E">
+                                    </datalist>
+                                    <p class="warning warning-class"></p>
+                                </div>
+                            </div>
+
+                            <div class="national-id">
+                                <label>National Id</label>
+                                <input type="text" placeholder="National Id" id="NationalId" name="NationalId" required />
+                                <p class="warning warning-national-id"></p>
+                            </div>
+                        </div>
+
+                        <div class="row flex">
+                            <div class="date-of-join">
+                                <label>Date of Join</label>
+                                <input type="date" name="doj" placeholder="Join Date" required />
+                                <p class="warning warning-doj"></p>
+                            </div>
+                            <div class="Address">
+                                <label>Address</label>
+                                <input type="text" placeholder="Address" id="Address" name="teacherAddress" required />
+                                <p class="warning warning-address"></p>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="teacher-left-group ">
-                        <div class="last-name ">
-                            <label>Last Name</label>
-                            <input type="text " placeholder="Last Name " />
+            </div>
+            <div class="teacher-form-basic ">
+                <h2 class="teacher-form-header main">Job Information</h2>
+                <hr>
+                <div class="teacher-basic-information-container flex">
+                    <div class="row flex">
+                        <div class="qualifications">
+                            <label>Qualifications</label>
+                            <input type="text" name="qualifications" placeholder="qualifications" required />
+                            <p class="warning warning-qualifications"></p>
                         </div>
-
-
-
-
-                        <div class="teacher-file-attach ">
-
-                            <div class="upload-box flex ">
-                                <i class="fa-solid fa-file-arrow-up upload-icon "></i>
-                                <p>Drop your CV to upload<br /><span>Select files</span></p>
+                        <div class="grade-class-2 flex">
+                            <div class="employment-type">
+                                <label>Employment Type</label>
+                                <input list="type" name="type" placeholder="Teacher by the class" required />
+                                <datalist id="type">
+                                        <option value="Teacher by the class">
+                                        <option value="permenant">
+                                     
+                                    </datalist>
+                                <p class="warning warning-grade"></p>
+                            </div>
+                            <div class="specification">
+                                <label>Specification</label>
+                                <input type="text" name="specification" placeholder="specification" required />
+                                <p class="warning warning-qualifications"></p>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="row flex">
 
-            </form>
-        </div>
-        <div class=" teacher-form-basic login-teacher ">
-            <h2 class="teacher-form-header ">Login/Account Details</h2>
+                    <div class="grade-class-2 flex">
+                        <div class="teacher-exp">
+                            <label>Experience</label>
+                            <input list="exp" name="exp" placeholder="Experience" required type="text" />
 
-
-
-            <div class="input-teacher-login flex ">
-                <input type="text " placeholder="User Name " />
-                <input type="password " placeholder="password " /></div>
-
-        </div>
-        <div class=" teacher-form-basic ">
-            <form>
-
-                <h2 class="teacher-form-header ">Qualifications and Experience</h2>
-
-                <div class="teacher-basic-information-container flex ">
-                    <div class="teacher-right-group ">
-                        <div class="University-Name ">
-                            <label>University Name</label>
-                            <input type="text " placeholder="University Name " />
+                            <p class="warning warning-grade"></p>
                         </div>
-                        <div class="Teaching-Courses ">
-                            <label>Teaching Courses</label>
-                            <input type="text " placeholder="Courses " />
-                        </div>
-                        <div class="Subjects-taught ">
-                            <label>Subjects taught</label>
-                            <input type="text " placeholder="Subjects " />
-                        </div>
-
-
-
-                    </div>
-
-                    <div class="teacher-left-group ">
-                        <div class="Specialization ">
-                            <label>Specialization</label>
-                            <input type="text " placeholder="Specialization " />
-                        </div>
-                        <div class="Name-of-previous-school ">
-                            <label>Name of previous school</label>
-                            <input type="text " placeholder="previous school " />
-                        </div>
-                        <div class="Previous-work-period ">
-                            <label>Previous work period</label>
-                            <input type="text " placeholder="From - To " />
+                        <div class="status">
+                            <label>Status</label>
+                            <input list="status" name="status" placeholder="Status" required />
+                            <datalist id="Status">
+                                        <option value="active">
+                                        <option value="no">
+                                    
+                                    </datalist>
+                            <p class="warning warning-class"></p>
                         </div>
                     </div>
-
-
-
-
-
-                </div>
-        </div>
-
-        <div class="teacher-form-basic ">
-            <form>
-
-                <h2 class="teacher-form-header ">Contact Information</h2>
-                <hr>
-                <div class="teacher-basic-information-container contact-Information flex ">
-                    <div class="contact-row-one flex ">
-                        <div class="first ">
-                            <label>Phone</label>
-                            <input type="text " placeholder="Contact Number " />
-
-                        </div>
-                        <div class="second ">
-                            <label>email</label>
-                            <input type="email " placeholder="xameple@gmail.com " /></div>
+                    <div class="email">
+                        <label>Email</label>
+                        <input type="email" name="Temail" placeholder="email@gmail.com" required />
+                        <p class="warning warning-email"></p>
                     </div>
-
-
-                    <div class="contact-row2 ">
-                        <p>Addrees</p>
-                        <div class="contact-row-two "> <input type="text " placeholder="Area and Street " />
-                            <input type="text " placeholder="Location " />
-                            <input type="text " placeholder="District " />
-                            <input type="text " placeholder="Pincode " />
-                            <input type="text " placeholder="State " /></div>
-                    </div>
-
                 </div>
 
-            </form>
+            </div>
+
+
         </div>
+
     </div>
+
+
+
 
 
 

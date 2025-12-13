@@ -1,4 +1,4 @@
-import { Modify } from "./modify.js";
+import { ModifyGeneric } from "./modify.js";
 import { students } from "./sList.js";
 import { addNotification } from "./notifications.js";
 import { subjectsByGrade } from "./Subjects.js";
@@ -9,6 +9,8 @@ const LOCAL_STORAGE_KEY = 'schoolStudentsList';
 let storedStudents = localStorage.getItem(LOCAL_STORAGE_KEY);
 const favicon = document.getElementById('favicon');
 const searchInput = document.querySelector('.search-box input');
+const darkModeToggle = document.getElementById('darkModeToggle');
+
 if (storedStudents) {
     // إذا وُجدت بيانات، استبدل القائمة الحالية بها
     students.splice(0, students.length, ...JSON.parse(storedStudents));
@@ -36,7 +38,19 @@ const favicon1 = "././media copy/favicons/icons8-group-80.png";
 const favicon2 = "././media copy/favicons/stydent-add.png";
 
 //controlling student modify start and add buttons
-Modify(editConfirmButtons, addBtn, allBtn, studentList, studentForm, favicon, favicon1, favicon2); //controlling student modify end
+ModifyGeneric({
+    addBtn,
+    allBtn,
+    listView: studentList,
+    formView: studentForm,
+    editConfirmButtons,
+    favicon,
+    listFavicon: './icons/students.ico',
+    formFavicon: './icons/add-student.ico',
+    listTitle: 'All Students',
+    formTitle: 'Add Student',
+    darkModeToggle
+});
 //default always show 1st page
 
 showStudents(0);
@@ -57,7 +71,7 @@ export const resgisteredStudentsCount = femaleCount + maleCount;
 export const femaleCounted = femaleCount;
 export const maleCounted = maleCount;
 registeredStudents.innerHTML = (femaleCount + maleCount);
-console.log(resgisteredStudentsCount, femaleCounted, maleCounted);
+
 
 
 //const uploadBox = document.querySelector('#uploadBox');
@@ -592,7 +606,6 @@ if (gurdianCount === "2") {
 
     return true; // كل شيء تمام
 }
-const darkModeToggle = document.getElementById('darkModeToggle');
 const body = document.body;
 
 // عند تحميل الصفحة، شوف لو المستخدم مفعل Dark Mode

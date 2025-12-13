@@ -1,27 +1,49 @@
-// Helper function to choose color based on mode
+// =============================
+// Color Helpers
+// =============================
 function getColor(lightColor, darkColor) {
     return document.body.classList.contains('dark-mode') ? darkColor : lightColor;
 }
 
-// Neutral active background for both modes
 function getActiveBg() {
     return document.body.classList.contains('dark-mode') ?
-        'rgba(255,255,255,0.12)' // واضح على الداكن
-        :
-        'rgba(0,0,0,0.07)'; // واضح على الفاتح
+        'rgba(255,255,255,0.12)' :
+        'rgba(0,0,0,0.07)';
 }
 
-export function Modify(editConfirmButtons, addBtn, allBtn, studentList, studentForm, favicon, favicon1, favicon2, themeToggleBtn) {
+// =============================
+// Generic Modify Function
+// =============================
+export function ModifyGeneric({
+    addBtn,
+    allBtn,
+    listView,
+    formView,
+    editConfirmButtons,
+    favicon,
+    listFavicon,
+    formFavicon,
+    listTitle = 'All',
+    formTitle = 'Add',
+    themeToggleBtn,
+    activeClass = 'active-button'
+}) {
 
-    // --- Hover Function ---
+    // -------------------------
+    // Hover Effect
+    // -------------------------
     function hoverEffect(btn) {
         btn.addEventListener('mouseenter', () => {
-            if (!btn.classList.contains('active-button-student')) {
-                btn.style.backgroundColor = getColor('rgba(230,230,230,1)', '#2d2d2d');
+            if (!btn.classList.contains(activeClass)) {
+                btn.style.backgroundColor = getColor(
+                    'rgba(230,230,230,1)',
+                    '#2d2d2d'
+                );
             }
         });
+
         btn.addEventListener('mouseleave', () => {
-            if (btn.classList.contains('active-button-student')) {
+            if (btn.classList.contains(activeClass)) {
                 btn.style.backgroundColor = getActiveBg();
                 btn.style.color = getColor('#000', '#f5f5f5');
             } else {
@@ -34,21 +56,32 @@ export function Modify(editConfirmButtons, addBtn, allBtn, studentList, studentF
     hoverEffect(addBtn);
     hoverEffect(allBtn);
 
-    // --- Set Default Colors ---
-    function setDefaultColors() {
-        allBtn.classList.add('active-button-student');
+    // -------------------------
+    // Default State
+    // -------------------------
+    function setDefault() {
+        allBtn.classList.add(activeClass);
         allBtn.style.backgroundColor = getActiveBg();
         allBtn.style.color = getColor('#000', '#f5f5f5');
 
-        addBtn.classList.remove('active-button-student');
+        addBtn.classList.remove(activeClass);
         addBtn.style.backgroundColor = 'transparent';
         addBtn.style.color = getColor('#000', '#f5f5f5');
+
+        listView.style.display = 'block';
+        formView.style.display = 'none';
+        if (editConfirmButtons) editConfirmButtons.style.display = 'none';
+
+        document.title = listTitle;
+        if (favicon && listFavicon) favicon.href = listFavicon;
     }
 
-    // --- Refresh Theme Function ---
+    // -------------------------
+    // Refresh Theme
+    // -------------------------
     function refreshTheme() {
         [addBtn, allBtn].forEach(btn => {
-            if (btn.classList.contains('active-button-student')) {
+            if (btn.classList.contains(activeClass)) {
                 btn.style.backgroundColor = getActiveBg();
                 btn.style.color = getColor('#000', '#f5f5f5');
             } else {
@@ -58,41 +91,40 @@ export function Modify(editConfirmButtons, addBtn, allBtn, studentList, studentF
         });
     }
 
-    // --- Initial State ---
-    studentList.style.display = 'block';
-    studentForm.style.display = 'none';
-    editConfirmButtons.style.display = 'none';
-    favicon.href = favicon1;
-    setDefaultColors();
-
-    // --- Button Clicks ---
+    // -------------------------
+    // Events
+    // -------------------------
     addBtn.addEventListener('click', () => {
-        document.title = `Add Students`;
-        studentList.style.display = 'none';
-        studentForm.style.display = 'flex';
-        editConfirmButtons.style.display = 'flex';
+        listView.style.display = 'none';
+        formView.style.display = 'flex';
+        if (editConfirmButtons) editConfirmButtons.style.display = 'flex';
 
-        addBtn.classList.add('active-button-student');
-        allBtn.classList.remove('active-button-student');
+        addBtn.classList.add(activeClass);
+        allBtn.classList.remove(activeClass);
+
+        document.title = formTitle;
+        if (favicon && formFavicon) favicon.href = formFavicon;
 
         refreshTheme();
-        favicon.href = favicon2;
     });
 
     allBtn.addEventListener('click', () => {
-        document.title = `All Students`;
-        studentList.style.display = 'block';
-        studentForm.style.display = 'none';
-        editConfirmButtons.style.display = 'none';
+        listView.style.display = 'block';
+        formView.style.display = 'none';
+        if (editConfirmButtons) editConfirmButtons.style.display = 'none';
 
-        allBtn.classList.add('active-button-student');
-        addBtn.classList.remove('active-button-student');
+        allBtn.classList.add(activeClass);
+        addBtn.classList.remove(activeClass);
+
+        document.title = listTitle;
+        if (favicon && listFavicon) favicon.href = listFavicon;
 
         refreshTheme();
-        favicon.href = favicon1;
     });
 
-    // --- Theme Toggle Click ---
+    // -------------------------
+    // Theme Toggle
+    // -------------------------
     if (themeToggleBtn) {
         themeToggleBtn.addEventListener('click', () => {
             document.body.classList.toggle('dark-mode');
@@ -100,6 +132,7 @@ export function Modify(editConfirmButtons, addBtn, allBtn, studentList, studentF
         });
     }
 
-    // --- Refresh Theme on Load (if body already has dark-mode) ---
+    // Init
+    setDefault();
     refreshTheme();
 }

@@ -232,7 +232,7 @@ body {
 .empty-message {
     padding: 10px;
     text-align: center;
-    color: var(--tim);
+    color: var(--font-black);
 }
 
 .teacher-heading {
@@ -445,7 +445,7 @@ body {
     font-size: 14px;
     transition: all 300ms ease;
     background: var(--white-bg);
-    color: var(--font-black);
+    color: var(--font-black) !important;
 }
 
 table tbody td:hover {
@@ -520,9 +520,35 @@ table tbody td:hover {
     color: var(--font-black);
 }
 
+.row {
+    width: 100%;
+    gap: 5%;
+}
+
+.row>*,
+.grade-class>*,
+.grade-class-2>* {
+    flex: 1;
+}
+
+.grade-class,
+.grade-class-2 {
+    gap: 20px;
+}
+
+.grade-class-2 {
+    padding-left: 10px;
+}
+
 .warning {
     color: var(--classification-weak);
     margin: 5px 0 0 5px;
+}
+
+.teacher-form-section {
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 30px;
 }
 
 
@@ -608,6 +634,8 @@ body.no-scroll {
     font-size: 14px;
 }
 
+
+/*
 .teacher-form-section {
     display: flex;
     flex-direction: column;
@@ -615,7 +643,7 @@ body.no-scroll {
     padding: 10px;
     display: none;
     margin-top: 10px;
-}
+}*/
 
 input[type="date"]::placeholder {
     color: var(--font-black);
@@ -639,22 +667,6 @@ input {
     color: var(--font-black);
 }
 
-
-/* الصف الأول والثاني */
-
-.teacher-row-top,
-.teacher-row-bottom {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 25px;
-    flex-wrap: wrap;
-    /* عشان الموبايل */
-}
-
-
-/* كل فورم */
-
 .teacher-form-basic {
     border: 1px solid var(--gender-border);
     border-radius: 8px;
@@ -664,81 +676,8 @@ input {
     height: fit-content;
 }
 
-
-/* Basic Information و Parent Details أوسع */
-
-.teacher-row-top .teacher-form-basic:first-child,
-.teacher-row-bottom .teacher-form-basic:first-child {
-    flex: 0 0 63%;
-}
-
-
-/* Login و Contact Information أضيق */
-
-.teacher-row-top .teacher-form-basic:last-child,
-.teacher-row-bottom .teacher-form-basic:last-child {
-    flex: 0 0 35%;
-}
-
-
-/* Contact Information */
-
-.contact-Information {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.contact-row-one {
-    display: flex;
-    gap: 20px;
-}
-
-.contact-row-one>div {
-    flex: 1;
-}
-
-.contact-row-one label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: 600;
-}
-
-.contact-row-one input {
-    width: 100%;
-    padding: 6px;
-    border: 1px solid var(--gender-border);
-    border-radius: 4px;
-    box-sizing: border-box;
-}
-
-
-/* Address Section */
-
-.contact-row-two {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px 20px;
-}
-
-.contact-row2 p {
-    margin: 15px 0 8px 0;
-    font-weight: 600;
-}
-
-.contact-row-two input:first-of-type {
-    flex-basis: 100%;
-}
-
-.contact-row-two input {
-    flex: 1 1 calc(50% - 10px);
-    padding: 6px;
-    border: 1px solid var(--gender-border);
-    border-radius: 4px;
-    box-sizing: border-box;
-}
-
-.teacher-form-section input:not(.gender input) {
+.teacher-form-section input:not(.gender input,
+.count) {
     width: 100%;
     padding: 8px 10px;
     border: 1px solid var(--gender-border);
@@ -749,20 +688,26 @@ input {
     background-color: var(--white-bg);
 }
 
-.teacher-right-group,
-.teacher-left-group {
-    flex: 1;
-}
-
-
-/* Updated/Refined CSS for Gender Selection */
-
 .gender {
     margin: 20px 0;
     padding: 0;
     align-items: center;
     gap: 25px;
     margin-top: 35px;
+}
+
+.gurdian-number {
+    margin: 12px;
+}
+
+.gurdian-options {
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+}
+
+.gender-options .option {
+    gap: 20px;
 }
 
 .gender p {
@@ -800,37 +745,11 @@ input {
 .gender-options .option1:hover,
 .gender-options .option2:hover {
     border-color: var(--linear-gradient-1);
-    border-color: var(--linear-gradient-1);
     box-shadow: 0 2px 5px var(--shadow-medium);
     background-color: var(--gender-hover-bg);
 }
 
-
-/* Style the actual radio input */
-
 .gender-options input[type="radio"] {
-    /* Reset default appearance */
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    /* Custom radio button design */
-    width: 18px;
-    height: 18px;
-    border: 2px solid var(--gender-option-border);
-    border-radius: 50%;
-    margin: 0;
-    position: relative;
-    cursor: pointer;
-    background-color: var(--shadow-light);
-    transition: all 0.2s ease-in-out;
-    flex-shrink: 0;
-    /* Prevents it from shrinking */
-}
-
-
-/* Inner dot for checked state */
-
-.gender-options input[type="radio"]:checked {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
@@ -846,6 +765,9 @@ input {
     flex-shrink: 0;
     /* Prevents it from shrinking */
 }
+
+
+/* Inner dot for checked state */
 
 .gender-options input[type="radio"]:checked {
     border-color: var(--main-heading-color);
@@ -874,6 +796,9 @@ input {
     font-weight: 400;
     transition: color 0.2s ease;
 }
+
+
+/* Highlight text when selected */
 
 .gender-options input[type="radio"]:checked+label {
     font-weight: 600;
