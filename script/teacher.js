@@ -141,49 +141,171 @@ function bindRowClicks() {
         };
     });
 }
+function clearWarnings() {
+    document.querySelectorAll('.warning').forEach(w => w.textContent = '');
+}
 
-// =============================
-// Save Teacher
-// =============================
+function showError(selector, message) {
+    const el = document.querySelector(selector);
+    if (el) el.textContent = message;
+}
+
+function validateTeacherForm(form) {
+    clearWarnings();
+    let isValid = true;
+
+    // First Name
+    if (!form.teacherFirstName.value.trim()) {
+        showError('.warning-firstname', 'First name is required');
+        isValid = false;
+    }
+
+    // Last Name
+    if (!form.teacherLastName.value.trim()) {
+        showError('.warning-lastname', 'Last name is required');
+        isValid = false;
+    }
+
+    // Gender
+    if (!form.querySelector('input[name="gender"]:checked')) {
+        showError('.warning-gender', 'Please select gender');
+        isValid = false;
+    }
+
+    // Nationality
+    if (!form.teacherNationality.value.trim()) {
+        showError('.warning-nationality', 'Nationality is required');
+        isValid = false;
+    }
+
+    // Religion
+    if (!form.teacherReligon.value.trim()) {
+        showError('.warning-religion', 'Religion is required');
+        isValid = false;
+    }
+
+    // Date of Birth
+    if (!form.dob.value) {
+        showError('.warning-dob', 'Date of birth is required');
+        isValid = false;
+    }
+
+    // Grade
+    if (!form.Grade.value.trim()) {
+        showError('.warning-grade', 'Grade is required');
+        isValid = false;
+    }
+
+    // Class
+    if (!form.Class.value.trim()) {
+        showError('.warning-class', 'Class is required');
+        isValid = false;
+    }
+
+    // National ID (14 digits)
+    const nationalId = form.NationalId.value.trim();
+    if (!/^\d{14}$/.test(nationalId)) {
+        showError('.warning-national-id', 'National ID must be 14 digits');
+        isValid = false;
+    }
+
+    // Date of Join
+    if (!form.doj.value) {
+        showError('.warning-doj', 'Join date is required');
+        isValid = false;
+    }
+
+    // Address
+    if (!form.teacherAddress.value.trim()) {
+        showError('.warning-address', 'Address is required');
+        isValid = false;
+    }
+
+    // Qualifications
+    if (!form.qualifications.value.trim()) {
+        showError('.warning-qualifications', 'Qualifications are required');
+        isValid = false;
+    }
+
+    // Employment Type
+    if (!form.type.value.trim()) {
+        showError('.warning-grade', 'Employment type is required');
+        isValid = false;
+    }
+
+    // Experience
+    if (!form.exp.value.trim()) {
+        showError('.warning-exp', 'Experience is required');
+        isValid = false;
+    }
+
+    // Status
+    if (!form.status.value.trim()) {
+        showError('.warning-status', 'Status is required');
+        isValid = false;
+    }
+
+    // Email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(form.Temail.value)) {
+        showError('.warning-email', 'Invalid email address');
+        isValid = false;
+    }
+
+    return isValid;
+}
+
 saveButton.addEventListener('click', (e) => {
     e.preventDefault();
 
+    // حساب العمر من تاريخ الميلاد
+    const calculatedAge = calculateAge(form.dob.value);
+     if (!validateTeacherForm(form)) return;
     const teacherData = {
         id: '',
         teacherFirstName: form.teacherFirstName.value.trim(),
         teacherLastName: form.teacherLastName.value.trim(),
-        Specialization: form.Specialization.value,
-        teacherClass: form.teacherClass.value,
-        teacherGrade: form.teacherGrade.value,
+
         teacherGender: form.gender.value,
-        teacherAge: form.teacherAge.value,
-        teacherNoOfClasses: form.teacherNoOfClasses.value,
         teacherNationality: form.teacherNationality.value,
-        teacherNationalId: form.teacherNationalId.value,
-        teacherReligion: form.teacherReligion.value,
-        teacherDateOfBirth: form.teacherDateOfBirth.value,
-        teacherDateOfBirthJoin: form.teacherDateOfBirthJoin.value,
+        teacherReligion: form.teacherReligon.value,
+
+        teacherDateOfBirth: form.dob.value,
+        teacherAge: calculatedAge,
+
+        teacherGrade: form.Grade.value,
+        teacherClass: form.Class.value,
+
+        teacherNationalId: form.NationalId.value,
         teacherAddress: form.teacherAddress.value,
-        teacherPhone: form.teacherPhone.value,
-        teacherQualification: form.teacherQualification.value,
-        teacherEmploymentType: form.teacherEmploymentType.value,
-        teacherExperience: form.teacherExperience.value,
-        teacherStatus: 'active',
-        teacherEmail: form.teacherEmail.value
+        teacherDateOfBirthJoin: form.doj.value,
+
+        teacherQualification: form.qualifications.value,
+        teacherEmploymentType: form.type.value,
+        teacherExperience: form.exp.value,
+        Specialization: form.specification.value,
+
+        teacherStatus: form.status.value,
+        teacherEmail: form.Temail.value,
+
+        teacherNoOfClasses: '0'
     };
 
     teachers.push(teacherData);
     reassignIdAndSorting();
-    pagesCount = Math.ceil(teachers.length / 10);
 
+    pagesCount = Math.ceil(teachers.length / 10);
     updateSliderPages();
     showTeachers(0);
+
     form.reset();
 
-    addNotification(`${teacherData.teacherName} added successfully`);
+    addNotification(
+        `${teacherData.teacherFirstName} ${teacherData.teacherLastName} Teacher added successfully`
+    );
 });
 
-// =============================
+
 // Reset / Cancel
 // =============================
 resetButton.addEventListener('click', (e) => {
@@ -197,9 +319,7 @@ cancelButton.addEventListener('click', () => {
     editConfirmButtons.style.display = 'none';
 });
 
-// =============================
-// Search
-// =============================
+
 if (searchInput) {
     searchInput.addEventListener('input', e => {
         const q = e.target.value.toLowerCase();
@@ -231,16 +351,11 @@ function renderFiltered(list) {
     });
 }
 
-// =============================
-// Dark Mode Restore
-// =============================
 if (localStorage.getItem('darkMode') === 'enabled') {
     document.body.classList.add('dark-mode');
 }
 
-// =============================
-// Init
-// =============================
+
 updateSliderPages();
 showTeachers(0);
 
@@ -290,3 +405,22 @@ darkModeToggle.addEventListener('click', () => {
 window.addEventListener('beforeunload', () => {
     localStorage.setItem('lastVisitedPage', window.location.pathname);
 });
+
+function calculateAge(dateOfBirth) {
+    if (!dateOfBirth) return '';
+
+    const birthDate = new Date(dateOfBirth);
+    const today = new Date();
+
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const monthDiff = today.getMonth() - birthDate.getMonth();
+
+    if (
+        monthDiff < 0 ||
+        (monthDiff === 0 && today.getDate() < birthDate.getDate())
+    ) {
+        age--;
+    }
+
+    return age;
+}
