@@ -129,6 +129,7 @@ function renderTeacherPage(editMode = false) {
 
 editButton.addEventListener('click', () => {
     renderTeacherPage(true);
+        favicon.href="././media copy/favicons/icons8-edit-profile-80.png";
 
     buttons.innerHTML = '';
     buttons.appendChild(editButton);
