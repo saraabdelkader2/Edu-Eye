@@ -150,6 +150,7 @@ body {
 .notification-item.unread {
     background-color: var(--unread-notification);
     font-weight: 600;
+    color: var(--white-txt);
 }
 
 .notification-item.read {
@@ -186,8 +187,12 @@ body {
     transition: background 0.2s ease;
 }
 
+.view-all-link a {
+    color: var(--main-heading-color);
+}
+
 .view-all-link:hover {
-    background-color: var(--viewlink-hover-bg);
+    background-color: var(--viewlink-hover-bg) !important;
 }
 
 .shake-effect {

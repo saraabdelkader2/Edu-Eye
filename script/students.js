@@ -34,8 +34,7 @@ const slider = document.querySelector('.slider .pages');
 const firstPage = document.querySelector('.slider .first-page');
 const studentsTableBody = document.querySelector('tbody');
 updateSliderPages(studentSliderPages);
-const favicon1 = "././media copy/favicons/icons8-group-80.png";
-const favicon2 = "././media copy/favicons/stydent-add.png";
+
 
 //controlling student modify start and add buttons
 ModifyGeneric({
@@ -45,8 +44,8 @@ ModifyGeneric({
     formView: studentForm,
     editConfirmButtons,
     favicon,
-    listFavicon: './icons/students.ico',
-    formFavicon: './icons/add-student.ico',
+    listFavicon: '/./media copy/favicons/icons8-group-80.png',
+    formFavicon: '././media copy/favicons/stydent-add.png',
     listTitle: 'All Students',
     formTitle: 'Add Student',
     darkModeToggle

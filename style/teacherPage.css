@@ -191,6 +191,7 @@
     .notification-item.unread {
         background-color: var(--unread-notification);
         font-weight: 600;
+        color: var(--white-txt)
     }
     
     .notification-item.read {
@@ -214,6 +215,10 @@
         font-size: 11px;
         color: var(--notification-time);
         align-self: flex-end;
+    }
+    
+    .view-all-link a {
+        color: var(--main-heading-color);
     }
     
     .view-all-link {

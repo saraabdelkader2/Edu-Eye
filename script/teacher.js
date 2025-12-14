@@ -49,8 +49,8 @@ ModifyGeneric({
     formView: teacherForm,
     editConfirmButtons,
     favicon,
-    listFavicon: './icons/teachers.svg',
-    formFavicon: './icons/add-teacher.svg',
+    listFavicon: '/./media copy/favicons/icons8-group-80.png',
+    formFavicon: '././media copy/favicons/stydent-add.png',
     listTitle: 'All Teachers',
     formTitle: 'Add Teacher',
     darkModeToggle

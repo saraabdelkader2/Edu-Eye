@@ -204,6 +204,8 @@ editButton.addEventListener('click', () => {
         confirmed.onclick = () => {
             let allTeachers = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)) || [];
             allTeachers = allTeachers.filter(t => String(t.id) !== String(teacherData.id));
+                    favicon.href="././media copy/favicons/icons8-remove-user-40.png";
+
             localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(allTeachers));
             localStorage.removeItem(teacherDataKey);
             document.title=`Teacher ${teacherData.teacherFirstName} ${teacherData.teacherLastName} is removed`;

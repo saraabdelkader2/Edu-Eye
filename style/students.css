@@ -150,6 +150,7 @@ body {
 .notification-item.unread {
     background-color: var(--unread-notification);
     font-weight: 600;
+    color: var(--white-txt);
 }
 
 .notification-item.read {
@@ -184,6 +185,10 @@ body {
     border-top: 1px solid var(--viewlink-top-border);
     border-radius: 0 0 12px 12px;
     transition: background 0.2s ease;
+}
+
+.view-all-link a {
+    color: var(--main-heading-color);
 }
 
 .view-all-link:hover {

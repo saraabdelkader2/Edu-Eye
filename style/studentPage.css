@@ -190,6 +190,11 @@ body {
 .notification-item.unread {
     background-color: var(--unread-notification);
     font-weight: 600;
+    color: var(--white-txt);
+}
+
+.view-all-link a {
+    color: var(--main-heading-color);
 }
 
 .notification-item.read {
