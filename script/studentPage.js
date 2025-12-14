@@ -32,7 +32,7 @@ modifyToggling(overViewButton, overViewSection);
 
 if (!studentData) {
     console.error("Student data not found in localStorage");
-    window.location.href = "students.html";
+    window.location.href = "./students.html";
 }
 
 //Rebuilding page
@@ -320,7 +320,7 @@ editButton.addEventListener('click', () => {
     if (gradeSection) {
         gradeSection.classList.add('disabled-hover');
     }
-    nameElem.innerHTML = `<input class="edit-input" value="${studentData.firstName} ${studentData.lastName}">`;
+    //nameElem.innerHTML = `<input class="edit-input" value="${studentData.firstName} ${studentData.lastName}">`;
     gradeElem.innerHTML = `<input class="edit-input" value="${studentData.grade}">`;
     classElem.innerHTML = `<input class="edit-input" value="${studentData.class}">`;
 
@@ -432,10 +432,10 @@ saveButton.addEventListener('click', () => {
         localStorage.setItem('selectedStudentData', JSON.stringify(studentData));
 
         renderStudentPage();
-        
-    
-
-    buttons.style.display='none';});
+        buttons.style.display='none';
+        addNotification(`Student ${studentData.firstName} ${studentData.lastName} updated successfully`);
+  
+});
 
 deleteButton.addEventListener('click', () => {
          document.body.style.overflow = 'hidden'; // يمنع السكرول
@@ -447,7 +447,7 @@ deleteButton.addEventListener('click', () => {
     
     confirmed.addEventListener('click',()=>{
         favicon.href="././media copy/favicons/icons8-remove-user-40.png";
-        document.title=`${studentData.firstName} ${studentData.lastName} student is removed `;
+        document.title=`Student  ${studentData.firstName} ${studentData.lastName}  is removed `;
         addNotification(`${studentData.firstName} ${studentData.lastName} student is removed`);
 
         const LOCAL_STORAGE_KEY = 'schoolStudentsList';
@@ -457,7 +457,7 @@ deleteButton.addEventListener('click', () => {
         localStorage.removeItem('selectedStudentData');
         
         setTimeout(() => {
-            window.location.href = "students.html";
+            window.location.href = "./students.html";
         }, 2000); 
             })
 
@@ -478,6 +478,7 @@ overViewButton.addEventListener('click',()=>{
                 favicon.href="././media copy/favicons/icons8-change-user-80.png";
 
 modifyToggling(overViewButton,overViewSection);
+editButton.style.display='flex';
 })
 
 attendanceButton.addEventListener('click' ,()=>{

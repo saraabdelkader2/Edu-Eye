@@ -25,7 +25,7 @@
 <body>
     <div class="header">
         <div class="right-group">
-            <div class="back-icon"><img src="media copy/dashboard/arrow-right.png" alt="back" class="back-to-home"></div>
+            <div class="back-icon back-to-home"><i class="fa-solid fa-arrow-left"></i></div>
             <div class="search-box">
                 <i class="fa-solid fa-magnifying-glass search-icon"></i>
                 <input type="search" class="search-box" placeholder="search">
@@ -244,6 +244,7 @@
                 <h2 class="teacher-form-header main">Job Information</h2>
                 <hr>
                 <div class="teacher-basic-information-container flex">
+
                     <div class="row flex">
                         <div class="qualifications">
                             <label>Qualifications</label>
@@ -268,34 +269,21 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row flex">
 
-                    <div class="grade-class-2 flex">
-                        <div class="teacher-exp">
-                            <label>Experience</label>
-                            <input list="exp" name="exp" placeholder="Experience" required type="text" />
 
-                            <p class="warning warning-grade"></p>
-                        </div>
+                    <div class="row flex">
                         <div class="status">
                             <label>Status</label>
-                            <input list="status" name="status" placeholder="Status" required />
-                            <datalist id="Status">
-                                        <option value="active">
-                                        <option value="no">
-                                    
-                                    </datalist>
-                            <p class="warning warning-class"></p>
+                            <input type="text" id="status" name="status" placeholder="status">
+                            <p class="warning warning-status"></p>
+                        </div>
+                        <div class="email">
+                            <label>Email</label>
+                            <input type="email" name="Temail" placeholder="email@gmail.com" required />
+                            <p class="warning warning-email"></p>
                         </div>
                     </div>
-                    <div class="email">
-                        <label>Email</label>
-                        <input type="email" name="Temail" placeholder="email@gmail.com" required />
-                        <p class="warning warning-email"></p>
-                    </div>
                 </div>
-
             </div>
 
 

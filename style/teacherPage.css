@@ -1,0 +1,914 @@
+    @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    body {
+        font-family: "Inter", sans-serif;
+        width: 100vw;
+    }
+    
+     :root {
+        --icon-color: #1a3b6d;
+        --container-bg: #f4f7f9;
+        --classification-weak: #DC3545;
+        --white-txt: white;
+        --shadow-much-strong: rgba(0, 0, 0, 0.1);
+        --white-bg: white;
+        --shadow-light: rgba(0, 0, 0, 0.05);
+        --unread-notification: rgba(173, 216, 230, 0.25);
+        --read-notification-bg: #f9f9f9;
+        --read-notification-txt: #555;
+        --notification-hover: rgba(173, 216, 230, 0.3);
+        --notification-time: #999;
+        --viewlink-bg: #f5f5f5;
+        --viewlink-hover-bg: #eaeaea;
+        --viewlink-top-border: #ddd;
+        --notification-delete: #888;
+        --box-shadow: 0 2rem 3rem var(--color-light);
+        --color-light: rgba(132, 139, 200, 0.18);
+        --linear-gradient-1: #4A90E2;
+        --linear-gradient-2: #1A3E73;
+        --linear-gradient-1-hover: #3A7ACC;
+        --linear-gradient-2-hover: #15345C;
+        --shadow-strong: rgba(0, 0, 0, 0.3);
+        --profile-pic-color: rgba(26, 59, 109, 0.08);
+        --profile-pic-hover: rgba(26, 59, 109, 0.5);
+        --text-muted: rgba(123, 123, 123, 1);
+        --students-modify-bg: rgba(223, 223, 223, 1);
+        --shadow-medium: rgba(0, 0, 0, 0.15);
+        --students-modify-hover-bg: rgba(244, 244, 244, 1);
+        --information-headings: #0f2f55;
+        --over-view-tr: #e6e6e6;
+        --over-view-td: #1c3d6e;
+        --font-black: #333;
+        --gender-border: #ccc;
+        --table-border: #E0E0E0;
+        --shadow-much-strong: rgba(0, 0, 0, 0.1);
+        --academic-head: #001F52;
+        --icon-color: #1a3b6d;
+        --unread-notification: rgba(173, 216, 230, 0.25);
+        --read-notification-bg: #f9f9f9;
+        --read-notification-txt: #555;
+        --notification-hover: rgba(173, 216, 230, 0.3);
+        --notification-time: #999;
+        --viewlink-bg: #f5f5f5;
+        --viewlink-hover-bg: #eaeaea;
+        --viewlink-top-border: #ddd;
+        --notification-delete: #888;
+        --table-hover-bg: #fff2b2;
+        --aside-hover-bg: rgba(173, 216, 230, 0.25);
+    }
+    
+    .flex {
+        display: flex;
+        justify-content: start;
+        align-items: start;
+    }
+    
+    .main {
+        color: var(--icon-color);
+    }
+    
+    .teacherPage-container {
+        position: absolute;
+        top: 66px;
+        left: 235px;
+        right: 0;
+        padding: 20px;
+        overflow-y: auto;
+        height: calc(100vh - 80px);
+        background-color: var(--container-bg);
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+    /* end of basic rules ********************************* */
+    
+    .notifications {
+        position: relative;
+    }
+    
+    .notification-number {
+        position: absolute;
+        background-color: var(--classification-weak);
+        color: var(--white);
+        border-radius: 50%;
+        height: 19px;
+        width: 19px;
+        display: flex;
+        top: 0px;
+        right: -5px;
+        justify-content: center;
+        align-items: center;
+        font-size: 12px;
+        /*display: none;*/
+    }
+    
+    .notifications {
+        position: relative;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    .notification-number {
+        position: absolute;
+        background-color: var(--classification-weak);
+        color: var(--white-txt);
+        border-radius: 50%;
+        height: 20px;
+        width: 20px;
+        display: flex;
+        top: -3px;
+        right: -8px;
+        justify-content: center;
+        align-items: center;
+        font-size: 12px;
+        font-weight: 600;
+        box-shadow: 0 2px 5px var(--shadow-much-strong);
+    }
+    
+    .left-icons {
+        position: relative;
+        padding-right: 12px;
+    }
+    
+    .notification-content {
+        position: absolute;
+        background: var(--white-bg);
+        margin-top: 1rem;
+        border-radius: 12px;
+        box-shadow: 0 6px 20px var(--shadow-much-strong), 0 1px 3px var(--shadow-light);
+        border: 1px solid var(--shadow-light);
+        font-size: 14px;
+        display: none;
+        max-height: 300px;
+        /* ارتفاع ثابت للصندوق */
+        overflow-y: auto;
+        /* يسمح بالتمرير عند طول الإشعارات */
+        width: 220px;
+        backdrop-filter: blur(6px);
+        right: -12px;
+        transition: all 0.2s ease-in-out;
+        z-index: 999;
+    }
+    
+    .notification-content::before {
+        content: '';
+        position: absolute;
+        top: -8px;
+        left: 20px;
+        width: 0;
+        height: 0;
+        border-left: 8px solid transparent;
+        border-right: 8px solid transparent;
+        border-bottom: 8px solid var(--white-bg);
+        filter: drop-shadow(0 1px 2px var(--shadow-much-strong));
+        visibility: hidden;
+        opacity: 0;
+        transition: opacity 0.15s ease;
+    }
+    
+    .notifications.has-content .notification-content[style*="display: block"]::before {
+        visibility: visible;
+        opacity: 1;
+    }
+    
+    .notification-item {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        padding: 8px 10px;
+        min-height: 50px;
+        border-bottom: 1px solid var(--container-bg);
+        border-radius: 8px;
+        transition: background 0.2s ease;
+    }
+    
+    .notification-item.unread {
+        background-color: var(--unread-notification);
+        font-weight: 600;
+    }
+    
+    .notification-item.read {
+        background-color: var(--read-notification-bg);
+        color: var(--read-notification-txt);
+        font-weight: 400;
+    }
+    
+    .notification-item:hover {
+        background-color: var(--notification-hover);
+        cursor: pointer;
+    }
+    
+    .notification-item .message {
+        flex: 1;
+        font-size: 13.5px;
+        line-height: 1.3;
+    }
+    
+    .notification-item .timestamp {
+        font-size: 11px;
+        color: var(--notification-time);
+        align-self: flex-end;
+    }
+    
+    .view-all-link {
+        padding: 8px 12px;
+        text-align: center;
+        background: var(--viewlink-bg);
+        cursor: pointer;
+        font-weight: 500;
+        border-top: 1px solid var(--viewlink-top-border);
+        border-radius: 0 0 12px 12px;
+        transition: background 0.2s ease;
+    }
+    
+    .view-all-link:hover {
+        background-color: var(--viewlink-hover-bg);
+    }
+    
+    .shake-effect {
+        animation: pulse 0.4s ease-out;
+    }
+    
+    @keyframes pulse {
+        0% {
+            transform: scale(1);
+            opacity: 1;
+        }
+        50% {
+            transform: scale(1.2);
+            opacity: 0.6;
+        }
+        100% {
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+    
+    .delete-notification {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        background: transparent;
+        border: none;
+        font-size: 14px;
+        color: var(--notification-delete);
+        cursor: pointer;
+        padding: 2px 6px;
+        border-radius: 50%;
+        transition: all 0.2s ease;
+        margin-left: 2px;
+    }
+    
+    .delete-notification:hover {
+        color: var(--classification-weak);
+        font-size: 18px;
+    }
+    
+    .empty-message {
+        padding: 10px;
+        text-align: center;
+        color: var(--notification-time);
+    }
+    /* basic istudent information (first container) ***********************************/
+    
+    .teacher-primary-information {
+        gap: 3rem;
+        align-items: center;
+    }
+    
+    .buttons {
+        gap: 20px;
+        flex-direction: column;
+    }
+    
+    .buttons button:not(.edit-button) {
+        padding: 10px;
+        border: none;
+        gap: 10px;
+        width: 65px;
+        height: 35px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: 300ms all ease;
+    }
+    
+    .cancel-button:hover {
+        background: linear-gradient(135deg, #ccc, #888);
+        transform: translateY(-4px);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        opacity: 0.95;
+    }
+    
+    .save-button:hover {
+        background: linear-gradient(135deg, #2ecc71, #27ae60, #1e8449);
+        transform: translateY(-4px);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        opacity: 0.95;
+    }
+    
+    .delete-button:hover {
+        background: linear-gradient(145deg, #e74c3c 0%, #c0392b 70%, #a93226 100%);
+        /* ألوان أحمر مع غامق */
+        transform: translateY(-4px);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        opacity: 0.95;
+    }
+    
+    .teacher-primary-info {
+        box-shadow: var(--box-shadow);
+        height: fit-content;
+        width: 86%;
+        border-radius: 1rem;
+        align-items: center;
+        gap: 3rem;
+        padding: 1rem;
+        margin-left: 10px;
+        background-color: var(--white-bg);
+    }
+    
+    .buttons button {
+        background: linear-gradient(90deg, var(--linear-gradient-1) 8.17%, var(--linear-gradient-2) 94.23%);
+        border-radius: 10px;
+        color: var(--white-txt);
+        cursor: pointer;
+        box-shadow: none;
+        gap: 10px;
+        border: none;
+        padding: 10px 13px;
+        font-size: 15px;
+    }
+    
+    .edit-button {
+        gap: 10px;
+    }
+    
+    .edit-button:hover {
+        background: linear-gradient(90deg, var(--linear-gradient-1-hover) 8.17%, var(--linear-gradient-2-hover) 94.23%);
+        transform: scale(1.05);
+        box-shadow: 0 6px 15px var(--shadow-strong);
+        color: var(--white-txt);
+    }
+    
+    .profile-photo {
+        width: 142px;
+        height: 142px;
+        border-radius: 50%;
+        transition: 300ms all ease;
+        box-shadow: 0 4px 12px var(--profile-pic-color);
+        margin-left: 1rem;
+        border: 1px solid var(--profile-pic-color);
+        ;
+    }
+    
+    .profile-photo:hover {
+        border: 2px solid var(--profile-pic-hover);
+    }
+    
+    .basic-primary-information * {
+        margin: 8px 0;
+    }
+    
+    .teacher-primary-info .main {
+        font-size: 24px;
+    }
+    
+    .basic-primary-information:not(:first-child) {
+        font-size: 17px;
+    }
+    
+    .text-muted {
+        color: var(--text-muted);
+    }
+    
+    .grade-and-section {
+        justify-content: space-between;
+        transition: 300ms all ease;
+        color: var(--font-black);
+        width: fit-content;
+        gap: 41px
+    }
+    
+    .grade-and-section.disabled-hover *:hover {
+        /* إلغاء التحويل (Scale) */
+        transform: none !important;
+        /* إلغاء تغيير اللون، يجب معرفة اللون الأصلي أو استخدام inherit */
+        color: inherit !important;
+        /* إلغاء تغيير الوزن، يجب معرفة الوزن الأصلي أو استخدام inherit */
+        font-weight: inherit !important;
+    }
+    
+    .grade-and-section *:hover {
+        color: var(--icon-color);
+        transform: scale(1.05);
+        font-weight: 600;
+    }
+    
+    .grade-and-section.disabled-hover *:hover {
+        /* إلغاء التحويل (Scale) */
+        transform: none !important;
+        /* إلغاء تغيير اللون، يجب معرفة اللون الأصلي أو استخدام inherit */
+        color: inherit !important;
+        /* إلغاء تغيير الوزن، يجب معرفة الوزن الأصلي أو استخدام inherit */
+        font-weight: inherit !important;
+    }
+    /*student modify*/
+    
+    .teachers-modify {
+        background-color: var(--students-modify-bg);
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 0;
+        min-height: 41px;
+        box-shadow: 0px 4px 3px var(--shadow-medium);
+        margin: 0 auto;
+        border-radius: 3px;
+        overflow: hidden;
+        width: 98%;
+    }
+    
+    .teachers-modify button {
+        min-width: 130px;
+        border: none;
+        font-size: 18px;
+        padding: 10px 15px;
+        font-weight: 600;
+        background-color: transparent;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+        gap: 4px;
+        flex: 1;
+        color: var(--font-black);
+    }
+    
+    .modify-content {
+        width: 60%;
+        justify-content: start;
+        align-items: center;
+    }
+    
+    .teachers-modify button {
+        min-height: 41px;
+        min-width: 130px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: all 300ms ease;
+    }
+    
+    .teachers-modify button:hover {
+        background-color: var(--students-modify-hover-bg);
+    }
+    
+    .teachers-modify .active-button-teacher-page {
+        background-color: var(--students-modify-hover-bg);
+        color: var(--icon-color);
+    }
+    /*student modify end*/
+    /*student information start*/
+    
+    .information {
+        width: 98%;
+        margin: 16px auto;
+        display: flex;
+        gap: 5%;
+        align-items: flex-start;
+    }
+    
+    .hide {
+        display: none;
+    }
+    
+    .information h3 {
+        margin: 0 0 16px;
+        font-size: 22px;
+        font-weight: 600;
+        color: var(--information-headings);
+    }
+    
+    .information>* {
+        flex: 1;
+    }
+    
+    .overview table {
+        width: 100%;
+        background: var(--white-bg);
+        border: 1px solid var(--viewlink-top-border);
+        border-radius: 16px;
+        padding: 12px 20px;
+        transition: all 300ms ease;
+        box-shadow: 0 4px 12px var(--shadow-light);
+    }
+    
+    .overview table:hover {
+        box-shadow: 0 4px 12px var(--shadow-light);
+    }
+    
+    .overview table tr {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 14px;
+        padding: 12px 0;
+    }
+    
+    .overview table tr:not(:last-child) {
+        border-bottom: 1px solid var(--over-view-tr);
+    }
+    
+    .overview table td:first-child {
+        color: var(--over-view-td);
+        font-weight: 600;
+    }
+    
+    .information table td:first-child,
+    .information table th:first-child {
+        width: 135px;
+        flex-shrink: 0;
+    }
+    
+    .overview table td:last-child {
+        flex: 1;
+        color: var(--font-black);
+    }
+    
+    .two-columns {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        gap: 25px;
+    }
+    
+    .two-columns span {
+        flex: 1;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    /*academic page*/
+    
+    .academic {
+        display: none;
+    }
+    
+    .grades>* {
+        align-items: center;
+        width: 31%;
+        gap: 9px;
+    }
+    
+    .academic input {
+        padding: 8px 10px;
+        border: 1px solid var(--gender-border);
+        border-radius: 6px;
+        outline: none;
+        box-shadow: 0 2px 4px var(--shadow-light);
+        transition: 0.2s ease;
+        margin: 10px 0;
+    }
+    
+    .academic label {
+        font-weight: 600;
+    }
+    
+    .grades {
+        gap: 10%;
+        padding-left: 2rem;
+    }
+    
+    .grades-column .grade-input-box {
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .academic table,
+    .grades-column table {
+        border-collapse: collapse;
+        border-spacing: 0;
+        border-radius: 1rem;
+        overflow: hidden;
+        border: 1px solid var(--table-border);
+        width: 100%;
+        margin-top: 13px;
+        box-shadow: 0 4px 6px var(--shadow-much-strong);
+        transition: all 300ms ease;
+    }
+    
+    .academic table:hover {
+        box-shadow: 0 4px 6px var(--shadow-strong);
+    }
+    
+    .academic table thead,
+    .grades-column table thead {
+        background-color: var(--academic-head);
+        color: var(--white-txt);
+        text-align: left;
+    }
+    
+    .academic table td,
+    .grades-column table td {
+        padding: 12px 20px;
+        text-align: center;
+        border: 1px solid var(--table-border);
+        color: var(--font-black);
+    }
+    
+    .academic table th,
+    .grades-column table th {
+        padding: 12px 20px;
+        text-align: center;
+        border: 1px solid var(--table-border);
+    }
+    
+    .academic table tr:last-child td,
+    .grades-column table tr:last-child td {
+        border-bottom: none;
+        background: var(--white-bg);
+    }
+    
+    .grade-table th:first-child,
+    .grade-table td:first-child,
+    .academic table th:first-child,
+    .academic table td:first-child {
+        width: 156px;
+    }
+    
+    .academic table th:first-child,
+    .academic table td:first-child {
+        text-align: left;
+    }
+    
+    .edit-input {
+        width: 95%;
+        padding: 5px;
+        border: 1px solid var(--gender-border);
+        border-radius: 5px;
+        font-size: 14px;
+        box-shadow: var(--box-shadow);
+        background: var(--white-bg);
+        color: var(--font-black);
+    }
+    /* select styling */
+    /* الشكل الأساسي للـ select */
+    
+    #gradeMonth,
+    #examOverView,
+    #attendanceMonthSelect {
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        background-color: var(--container-bg);
+        border: 1px solid var(--gender-border);
+        border-radius: 8px;
+        padding: 6px 6px;
+        font-size: 16px;
+        color: var(--font-black);
+        width: fit-content;
+        cursor: pointer;
+        outline: none;
+        text-align: center;
+        box-shadow: var(--box-shadow);
+    }
+    /* تأثير عند المرور بالماوس */
+    
+    #examOverView:hover,
+    #gradeMonth:hover {
+        border-color: var(--linear-gradient-1);
+    }
+    /* تأثير عند التركيز */
+    
+    #examOverView:focus,
+    #gradeMonth:focus {
+        border-color: var(--academic-head);
+        box-shadow: 0 0 5px var(--profile-pic-color);
+    }
+    
+    #gradeMonth-wrapper,
+    #examOverView-wrapper {
+        position: relative;
+        display: inline-block;
+    }
+    
+    #gradeMonth-wrapper::after,
+    #examOverView-wrapper::after {
+        content: '▼';
+        position: absolute;
+        right: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        pointer-events: none;
+        color: var(--font-black);
+    }
+    /*pop up*/
+    
+    .no-scroll {
+        overflow: hidden !important;
+        height: 100% !important;
+        /* مهم أيضاً لمنع السكرول على iOS */
+    }
+    
+    .page-blur {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        backdrop-filter: blur(4px);
+        background: rgba(0, 0, 0, -6.9);
+        display: none;
+        z-index: 998;
+        /* أقل من البوب أب */
+    }
+    
+    .reset-pop-up {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        backdrop-filter: blur(5px);
+        background-color: var(--students-modify-bg);
+        padding: 20px;
+        border-radius: 1rem;
+        z-index: 1000;
+        display: none;
+        flex-direction: column;
+        gap: 15px;
+        align-items: center;
+    }
+    
+    .pop-up-buttons button {
+        border: none;
+        padding: 9px 17px;
+        border-radius: 0.5rem;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: 300ms all ease;
+    }
+    
+    .pop-up-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+    }
+    
+    body.no-scroll {
+        overflow: hidden;
+    }
+    
+    #yes {
+        transition: all 0.3s ease-in-out;
+    }
+    
+    #yes:hover {
+        background-color: var(--classification-weak);
+        color: var(--white-txt);
+        font-size: 14px;
+    }
+    
+    #no {
+        background: linear-gradient(90deg, var(--linear-gradient-1) 8.17%, var(--linear-gradient-2) 94.23%);
+        color: var(--white-txt);
+        transition: all 0.3s ease-in-out;
+    }
+    
+    #no:hover {
+        font-size: 14px;
+    }
+    
+    .danger {
+        color: var(--classification-weak);
+        font-size: 22px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 8px;
+        display: block;
+    }
+    
+    .warning-txt {
+        font-size: 15px;
+        font-weight: 400;
+        line-height: 1.6;
+        color: var(--font-black, #555);
+        text-align: center;
+        padding: 0 10px;
+        margin-bottom: 25px;
+    }
+    
+    .dangered {
+        color: var(--classification-weak);
+        font-weight: 700;
+    }
+    /*.status-present {
+    color: green !important;
+}
+
+.status-absent {
+    color: var(--classification-weak) !important;
+}
+
+.status-late {
+    color: orange !important;
+}
+
+.status-holiday {
+    color: pink !important;
+}*/
+    
+    .dark-mode {
+        --icon-color: #a0b2d1;
+        --container-bg: #121212;
+        --classification-weak: #ff6b6b;
+        --white-txt: #f5f5f5;
+        --shadow-much-strong: rgba(0, 0, 0, 0.5);
+        --white-bg: #1c1c1c;
+        --shadow-light: rgba(0, 0, 0, 0.03);
+        --unread-notification: rgba(50, 130, 200, 0.25);
+        --read-notification-bg: #2c2c2c;
+        --read-notification-txt: #ccc;
+        --notification-hover: rgba(50, 130, 200, 0.3);
+        --notification-time: #aaa;
+        --viewlink-bg: #2a2a2a;
+        --viewlink-hover-bg: #3a3a3a;
+        --viewlink-top-border: #444;
+        --notification-delete: #bbb;
+        --box-shadow: 0 2rem 3rem rgba(0, 0, 0, 0.9);
+        --color-light: rgba(50, 50, 70, 0.18);
+        --linear-gradient-1: #2b5db0;
+        --linear-gradient-2: #11294b;
+        --linear-gradient-1-hover: #1d3e7a;
+        --linear-gradient-2-hover: #0d1f3c;
+        --shadow-strong: rgba(0, 0, 0, 0.7);
+        --profile-pic-color: rgba(26, 59, 109, 0.2);
+        --profile-pic-hover: rgba(26, 59, 109, 0.7);
+        --text-muted: rgba(180, 180, 180, 1);
+        --students-modify-bg: rgba(40, 40, 40, 1);
+        --shadow-medium: rgba(0, 0, 0, 0.5);
+        --students-modify-hover-bg: rgba(55, 55, 55, 1);
+        --information-headings: #cce0ff;
+        --over-view-tr: #555555;
+        --over-view-td: #cce0ff;
+        --font-black: #f5f5f5;
+        --gender-border: #555;
+        --table-border: #444;
+        --academic-head: #a0c4ff;
+    }
+    
+    .schedule {
+        width: 100%;
+    }
+    
+    .schedule-table {
+        width: 96%;
+        max-width: 1000px;
+        min-width: 622px;
+        table-layout: fixed;
+        margin: 0 auto;
+        border-collapse: collapse;
+        border-radius: 0.5rem;
+        overflow: hidden;
+        transition: 300ms all ease;
+    }
+    
+    .schedule-table:hover {
+        box-shadow: var(--box-shadow);
+    }
+    
+    .schedule-table th {
+        background-color: var(--icon-color);
+        color: var(--white-txt)!important;
+        padding: 15px 10px;
+    }
+    
+    .schedule-table th,
+    .schedule-table td {
+        border: 1px solid var(--gender-border);
+        text-align: center;
+        padding: 15px 10px;
+    }
+    
+    .schedule-table td:hover {
+        background-color: var(--table-hover-bg);
+    }
+    
+    .time-cell {
+        font-weight: 550;
+        background-color: var(--aside-hover-bg);
+    }
+    
+    .lesson-cell strong {
+        color: var(--linear-gradient-2);
+    }
+    
+    .schedule-table td {
+        color: var(--font-black) !important;
+    }
