@@ -122,7 +122,7 @@ function showTeachers(page) {
                 <td>${start + idx + 1}</td>
                 <td>${`${teacher.teacherFirstName} ${teacher.teacherLastName}`}</td>
                 <td>${teacher.Specialization}</td>
-                <td>${teacher.teacherGrade} - ${teacher.teacherClass}</td>
+             
                 <td>${teacher.teacherGender}</td>
                 <td>${teacher.teacherAge}</td>
                 <td>${teacher.teacherNoOfClasses}</td>
@@ -172,7 +172,6 @@ function renderFiltered(list) {
                 <td>${idx + 1}</td>
                 <td>${teacher.teacherFirstName} ${teacher.teacherLastName}</td>
                 <td>${teacher.Specialization}</td>
-                <td>${teacher.teacherGrade} - ${teacher.teacherClass}</td>
                 <td>${teacher.teacherGender}</td>
                 <td>${teacher.teacherAge}</td>
                 <td>${teacher.teacherNoOfClasses}</td>
@@ -210,8 +209,7 @@ saveButton.addEventListener('click', (e) => {
         teacherReligion: form.teacherReligon.value,
         teacherDateOfBirth: form.dob.value,
         teacherAge: calculateAge(form.dob.value),
-        teacherGrade: form.Grade.value,
-        teacherClass: form.Class.value,
+      
         teacherNationalId: newNationalId,
         teacherAddress: form.teacherAddress.value,
         teacherDateOfJoin: form.doj.value,
@@ -224,7 +222,8 @@ saveButton.addEventListener('click', (e) => {
     };
 
     teachers.push(teacherData);
-    reassignIdAndSorting();
+    reassignIdAndSorting();const counts = updateTeacherCounts();
+
 
     pagesCount = Math.ceil(teachers.length / 10);
     updateSliderPages();
@@ -321,19 +320,21 @@ showTeachers(0);
 
 //count females and males count and total count
 const registeredTeachersD = document.querySelector('.registered-teachers-number');
-let femaleTCount = 0;
-let maleTCount = 0;
-teachers.forEach(element => {
-    if (element.teacherGender === 'Female') {
-        femaleTCount++;
-    } else {
-        maleTCount++;
-    }
-});
-export const registeredTeachers = femaleTCount + maleTCount;
-export const femaleTCounted = femaleTCount;
-export const maleTCounted = maleTCount;
-registeredTeachersD.innerHTML = (femaleTCount + maleTCount);
+function updateTeacherCounts() {
+    let femaleTCount = 0;
+    let maleTCount = 0;
+
+    teachers.forEach(t => {
+        if (t.teacherGender === 'Female') femaleTCount++;
+        else maleTCount++;
+    });
+
+    registeredTeachersD.innerHTML = femaleTCount + maleTCount;
+
+    // لو عايزة تصدرهم
+    return { total: femaleTCount + maleTCount, female: femaleTCount, male: maleTCount };
+}
+updateTeacherCounts();
 
 //helpers 
 

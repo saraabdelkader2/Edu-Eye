@@ -56,10 +56,7 @@ function renderHeader(editMode = false) {
             <h3 class="main">${teacherData.teacherFirstName} ${teacherData.teacherLastName}</h3>
             <p class="text-muted">ID: ${teacherData.id}</p>
             <p class="text-muted">Specialization: ${editMode ? `<input class="edit-input" name="Specialization" value="${teacherData.Specialization}">` : teacherData.Specialization}</p>
-            <div class="grade-and-section flex">
-                <p class="teacher-grade">Grade: ${editMode ? `<input class="edit-input" name="teacherGrade" value="${teacherData.teacherGrade}">` : teacherData.teacherGrade}</p>
-                <p class="teacher-class">Class: ${editMode ? `<input class="edit-input" name="teacherClass" value="${teacherData.teacherClass}">` : teacherData.teacherClass}</p>
-            </div>
+     
         </div>
     `;
 }
@@ -158,8 +155,7 @@ editButton.addEventListener('click', () => {
 
         const headerInputs = teacherPrimaryInfo.querySelectorAll('input.edit-input');
         teacherData.Specialization = headerInputs[0]?.value.trim() || '';
-        teacherData.teacherGrade = headerInputs[1]?.value.trim() || '';
-        teacherData.teacherClass = headerInputs[2]?.value.trim() || '';
+       
 
         const inputs = overViewSection.querySelectorAll('input.edit-input');
         inputs.forEach(input => {

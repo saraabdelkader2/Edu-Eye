@@ -104,9 +104,7 @@
                         <th scope="col ">
                             Specialization
                         </th>
-                        <th scope="col ">
-                            Class
-                        </th>
+
                         <th scope="col ">
                             Gender </th>
                         <th scope="col ">
@@ -190,32 +188,10 @@
                         </div>
 
                         <div class="row flex">
-                            <div class="grade-class flex">
-                                <div class="student-class">
-                                    <label>Grade</label>
-                                    <input list="Grade" name="Grade" placeholder="Grade" required />
-                                    <datalist id="Grade">
-                                        <option value="1">
-                                        <option value="2">
-                                        <option value="3">
-                                        <option value="4">
-                                        <option value="5">
-                                        <option value="6">
-                                    </datalist>
-                                    <p class="warning warning-grade"></p>
-                                </div>
-                                <div class="-Class">
-                                    <label>Class</label>
-                                    <input list="Class" name="Class" placeholder="Class" required />
-                                    <datalist id="Class">
-                                        <option value="A">
-                                        <option value="B">
-                                        <option value="C">
-                                        <option value="D">
-                                        <option value="E">
-                                    </datalist>
-                                    <p class="warning warning-class"></p>
-                                </div>
+                            <div class="date-of-join">
+                                <label>Date of Join</label>
+                                <input type="date" name="doj" placeholder="Join Date" required />
+                                <p class="warning warning-doj"></p>
                             </div>
 
                             <div class="national-id">
@@ -226,11 +202,7 @@
                         </div>
 
                         <div class="row flex">
-                            <div class="date-of-join">
-                                <label>Date of Join</label>
-                                <input type="date" name="doj" placeholder="Join Date" required />
-                                <p class="warning warning-doj"></p>
-                            </div>
+
                             <div class="Address">
                                 <label>Address</label>
                                 <input type="text" placeholder="Address" id="Address" name="teacherAddress" required />
