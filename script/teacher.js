@@ -33,6 +33,8 @@ const editConfirmButtons = document.querySelector('.add-buttons');
 
 const teachersTableBody = document.querySelector('tbody');
 const slider = document.querySelector('.slider .pages');
+const backBtn = document.querySelector('.back-page');
+const afterBtn = document.querySelector('.after-page');
 
 const form = document.getElementById('teacher-form');
 const saveButton = document.querySelector('.save-form-button');
@@ -88,10 +90,37 @@ let pagesCount = Math.ceil(teachers.length / 10);
 
 function updateSliderPages() {
     slider.innerHTML = '';
+
+    // تفعيل / تعطيل الأسهم
+    if (backBtn) backBtn.classList.toggle('disabled', currentPage === 0);
+    if (afterBtn) afterBtn.classList.toggle('disabled', currentPage >= pagesCount - 1);
+
     for (let i = 1; i <= pagesCount; i++) {
-        slider.innerHTML += `<p class="page ${i === 1 ? 'active-page' : ''}">${i}</p>`;
+        slider.innerHTML += `
+            <p class="page ${i === currentPage + 1 ? 'active-page' : ''}">${i}</p>
+        `;
     }
+
     bindSliderEvents();
+}
+
+if (backBtn) {
+    backBtn.addEventListener('click', () => {
+        if (currentPage > 0) {
+            currentPage--;
+            showTeachers(currentPage);
+            updateSliderPages();
+        }
+    });
+}
+if (afterBtn) {
+    afterBtn.addEventListener('click', () => {
+        if (currentPage < pagesCount - 1) {
+            currentPage++;
+            showTeachers(currentPage);
+            updateSliderPages();
+        }
+    });
 }
 
 function bindSliderEvents() {

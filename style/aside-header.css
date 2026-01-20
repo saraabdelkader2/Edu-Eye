@@ -176,6 +176,11 @@ a {
     transition: filter 0.3s;
 }
 
+.aside a .class {
+    width: 17px;
+    height: 18px;
+}
+
 .aside a {
     display: flex;
     align-items: center;

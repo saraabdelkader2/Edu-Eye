@@ -2,6 +2,7 @@ import { ModifyGeneric } from "./modify.js";
 import { students } from "./sList.js";
 import { addNotification } from "./notifications.js";
 import { subjectsByGrade } from "./Subjects.js";
+import { determineClassification } from "./sList.js";
 
 
 const ID_START = 345699855;
@@ -11,49 +12,27 @@ const favicon = document.getElementById('favicon');
 const searchInput = document.querySelector('.search-box input');
 const darkModeToggle = document.getElementById('darkModeToggle');
 
+// Sync the students array with stored data while maintaining the original array reference
 if (storedStudents) {
-    // إذا وُجدت بيانات، استبدل القائمة الحالية بها
     students.splice(0, students.length, ...JSON.parse(storedStudents));
 }
 
-//ترتيب الطلاب أبجدي و إعطائهم ID
-reassignIdAndSorting(students);
-
-let schoolStudents = students.length;
-let studentSliderPages = Math.ceil(schoolStudents / 10);
-
-//controlling student modify start
-const addBtn = document.querySelector('#add-btn');
-const allBtn = document.querySelector('#all-students');
-const studentList = document.querySelector('.student-list-section');
-const studentForm = document.querySelector('.student-form-section');
-const editConfirmButtons = document.querySelector('.add-buttons');
 
 //slider clicking
+let schoolStudents = students.length;
+let studentSliderPages = Math.ceil(schoolStudents / 10);
 const slider = document.querySelector('.slider .pages');
 const firstPage = document.querySelector('.slider .first-page');
 const studentsTableBody = document.querySelector('tbody');
+let currentPage = 0;
+
+controllingModify();
+//reassign students
+reassignIdAndSorting(students);
+//default always show 1st page
+showStudents(0);
 updateSliderPages(studentSliderPages);
 
-
-//controlling student modify start and add buttons
-ModifyGeneric({
-    addBtn,
-    allBtn,
-    listView: studentList,
-    formView: studentForm,
-    editConfirmButtons,
-    favicon,
-    listFavicon: '/./media copy/favicons/icons8-group-80.png',
-    formFavicon: '././media copy/favicons/stydent-add.png',
-    listTitle: 'All Students',
-    formTitle: 'Add Student',
-    darkModeToggle
-});
-//default always show 1st page
-
-showStudents(0);
-let currentPage = 0;
 
 //count females and males count and total count
 const registeredStudents = document.querySelector('.registered-students-number');
@@ -73,26 +52,21 @@ registeredStudents.innerHTML = (femaleCount + maleCount);
 
 
 
-//const uploadBox = document.querySelector('#uploadBox');
 const form = document.querySelector('#student-form');
 const saveButton = document.querySelector('.save-form-button');
 const resetButton = document.querySelector('.reset-form-button');
 const cancelButton = document.querySelector('.cancel-form-button');
 let matchedStudent;
-
-
-
-
 const gurdianRadios = document.querySelectorAll('input[name="gurdian"]');
 const primaryGurdianSection = document.querySelector(".primary-guardian-form");
 const secondaryyGurdianSection = document.querySelector(".Secondary-guardian-form");
 const gurdianSection = document.querySelectorAll(".gurdian-section");
 const genderRadios = document.querySelectorAll('input[name="gender"]');
 
+//add buttons control -------------------------------
 saveButton.addEventListener('click', () => {
 
-    if (!validateForm()) return; // التحقق من الحقول العامة
-
+    if (!validateForm()) return;
     const selectedGender = getSelectedGender(genderRadios);
     const selectedGurdianCount = getSelectedGurdian(gurdianRadios);
 
@@ -125,25 +99,28 @@ saveButton.addEventListener('click', () => {
 
         // التحقق من Secondary Guardian
         if (!secondaryGurdianFullName || !secondaryGurdianRelationship || !secondaryGurdianNationalId) {
-            showWarning("Please fill all required secondary guardian fields", document.getElementById('seconaryGurdianFullName'));
+            showWarning("Please fill all required secondary guardian fields",
+                document.getElementById('seconaryGurdianFullName'));
             return;
         }
     }
     // التحقق من Primary Guardian
     if (!primaryGurdianFullName || !primaryGurdianRelationship || !primaryGurdianNationalId) {
-        showWarning("Please fill all required primary guardian fields", document.getElementById('primaryGurdianFullName'));
+        showWarning("Please fill all required primary guardian fields",
+            document.getElementById('primaryGurdianFullName'));
         return;
     }
+    const gradeInput = document.querySelector('input[name="Grade"]').value;
 
-    // ---------------- STUDENT DATA ----------------
     const studentData = {
         id: '',
         firstName: form.studentFirstName.value.trim(),
         lastName: form.studentLastName.value.trim(),
         gender: selectedGender,
         dateOfBirth: form.dob.value,
-        grade: document.querySelector('input[name="Grade"]').value,
-        class: document.querySelector('input[name="Class"]').value,
+        grade: gradeInput.match(/\d+/) ?
+            gradeInput.match(/\d+/)[0] : gradeInput,
+        class: document.querySelector('input[name="Class"]').value.trim().toUpperCase(),
         dateOfJoin: form.doj.value,
         Nationality: form.studentNationality.value,
         Religon: form.studentReligon.value,
@@ -151,7 +128,6 @@ saveButton.addEventListener('click', () => {
         Address: form.studentAddress.value,
         GurdianCount: selectedGurdianCount,
         Attendance: '94%',
-        classification: 'talented',
         status: 'new',
 
         primaryGurdianFullName,
@@ -175,11 +151,12 @@ saveButton.addEventListener('click', () => {
 
     // إنشاء درجات ابتدائية صفرية
     studentData.grades = generateEmptyGrades(subjects);
+    studentData.classification = determineClassification(studentData.grades);
 
 
 
     students.push(studentData);
-    addNotification(`${studentData.firstName} ${studentData.lastName} "student is added" `);
+    addNotification(`Student ${studentData.firstName} ${studentData.lastName} is added `);
     saveStudentsToStorage();
     reassignIdAndSorting(students);
     updateDisplayAfterAddition();
@@ -191,47 +168,28 @@ saveButton.addEventListener('click', () => {
     gurdianSection.forEach(section => section.style.display = 'none');
 });
 
-
-const backToHome = document.querySelector('.back-to-home');
-backToHome.addEventListener('click', () => {
-    window.location.href = "/dashboard.html";
-    //backToHome.style.display='none';
-})
-
-
-function isNationalIdDuplicate(nationalId, studentsList) {
-    if (!nationalId) return false;
-    // .some() تبحث عن عنصر واحد يحقق الشرط وتوقف العملية (أسرع من forEach)
-    return studentsList.some(student => student.NationalId === nationalId);
-}
-
-
 resetButton.addEventListener('click', (e) => {
     e.preventDefault();
 
-    document.body.style.overflow = 'hidden'; // يمنع السكرول
+    document.body.style.overflow = 'hidden'; // no scroll
 
-    document.getElementById('blur-layer').style.display = 'block'; // يشغل البلور
-    document.querySelector('.reset-pop-up').style.display = 'flex'; // يعرض البوب أب
+    document.getElementById('blur-layer').style.display = 'block';
+
+    document.querySelector('.reset-pop-up').style.display = 'flex';
     const confirmed = document.getElementById('yes');
     const canceled = document.getElementById('no');
     confirmed.addEventListener('click', () => {
         document.getElementById('blur-layer').style.display = 'none';
         document.querySelector('.reset-pop-up').style.display = 'none';
 
-        form.reset(); // يمسح كل الـ inputs
-
-        // امسحي الجيندر
+        form.reset();
         genderRadios.forEach(radio => radio.checked = false);
 
-        // امسحي الجارديان (الراديو)
         gurdianRadios.forEach(radio => radio.checked = false);
 
-        // اخفي كل السكشنات
         primaryGurdianSection.style.display = 'none';
         secondaryyGurdianSection.style.display = 'none';
 
-        // يرجع السكرول
         document.body.style.overflow = 'auto';
     });
 
@@ -243,7 +201,6 @@ resetButton.addEventListener('click', (e) => {
 
 });
 
-
 cancelButton.addEventListener('click', () => {
 
     studentList.style.display = 'block';
@@ -252,41 +209,44 @@ cancelButton.addEventListener('click', () => {
 
     allBtn.style.backgroundColor = 'rgba(244, 244, 244, 1)';
     addBtn.style.backgroundColor = 'transparent';
-})
-
-const lockIcon = document.getElementById('lock');
-lockIcon.addEventListener('click', () => {
-    window.location.href = './login.html'
-})
-
+});
+//add buttons control  end-------------------------------
 
 // ======= Search safety check =======
-
 if (!searchInput) {
     console.warn('search input not found: check selector ".search-box input"');
 } else {
     searchInput.addEventListener('input', (e) => {
         const query = e.target.value.trim().toLowerCase();
+
         if (!query) {
-            // لو الحقل فاضي، عرض كل الطلاب (الصفحة الحالية أو الصفحة الأولى)
             showStudents(currentPage);
             return;
         }
 
         const filteredStudents = students.filter(student => {
+            // بيانات الاسم والـ ID
             const fullName = `${student.firstName} ${student.lastName}`.toLowerCase();
-            // تأكد إن id سترينج قبل toLowerCase
             const id = (student.id || '').toString().toLowerCase();
-            return fullName.includes(query) || id.includes(query);
+
+            // بيانات الصف والفصل (Grade & Class)
+            const grade = (student.grade || '').toString().toLowerCase();
+            const className = (student.class || '').toString().toLowerCase();
+            const gradeAndClass = `${grade}-${className}`.toLowerCase(); // يدعم البحث عن "1-a" مثلاً
+
+            // التحقق من وجود الكلمة في أي من هذه الحقول
+            return fullName.includes(query) ||
+                id.includes(query) ||
+                grade.includes(query) ||
+                className.includes(query) ||
+                gradeAndClass.includes(query);
         });
 
         showFilteredStudents(filteredStudents);
     });
 }
 
-// ======= Helper: render filtered results =======
 function showFilteredStudents(list) {
-    // مسح الجدول
     studentsTableBody.innerHTML = '';
 
     if (!list || list.length === 0) {
@@ -295,24 +255,16 @@ function showFilteredStudents(list) {
     }
 
     list.forEach((student, idx) => {
-        // نفس منطق الألوان والتصنيفات
-        let classificationclass = '';
-        switch (student.classification) {
-            case 'superior':
-                classificationclass = 'classification-superior';
-                break;
-            case 'weak':
-                classificationclass = 'classification-weak';
-                break;
-            case 'talented':
-                classificationclass = 'classification-talented';
-                break;
-            default:
-                classificationclass = '';
-        }
+        // تحديد كلاس التصنيف بناءً على الحالة
+        const statusMap = {
+            'superior': 'classification-superior',
+            'weak': 'classification-weak',
+            'talented': 'classification-talented'
+        };
+        const classificationclass = statusMap[student.classification] || '';
 
-        studentsTableBody.insertAdjacentHTML('beforeend',
-            `<tr data-full-student-id="${student.id}">
+        const rowHTML = `
+            <tr data-full-student-id="${student.id}" style="cursor: pointer;">
                 <td>${idx + 1}</td>
                 <td>${student.id}</td>
                 <td>${student.firstName} ${student.lastName}</td>
@@ -320,11 +272,18 @@ function showFilteredStudents(list) {
                 <td>${student.gender}</td>
                 <td>${student.Attendance}</td>
                 <td class="${classificationclass}">${student.classification}</td>
-            </tr>`);
+            </tr>`;
+
+        studentsTableBody.insertAdjacentHTML('beforeend', rowHTML);
     });
 
-    // أعدّ ربط أحداث النقر على الصفوف
-    const allRows = studentsTableBody.querySelectorAll('tr');
+    // ربط أحداث النقر
+    bindRowClicks();
+}
+
+// دالة مساعدة لربط النقر بعد البحث (عشان الكود ميتكررش)
+function bindRowClicks() {
+    const allRows = studentsTableBody.querySelectorAll('tr[data-full-student-id]');
     allRows.forEach(row => {
         row.onclick = () => {
             const studentId = row.getAttribute('data-full-student-id');
@@ -335,17 +294,6 @@ function showFilteredStudents(list) {
             }
         };
     });
-}
-
-//gender selection
-function getSelectedGender(genderRadios) {
-    let selected = Array.from(genderRadios).find(radio => radio.checked);
-    return selected ? selected.value : null;
-}
-
-function getSelectedGurdian(gurdianRadios) {
-    let selected = Array.from(gurdianRadios).find(radio => radio.checked);
-    return selected ? selected.value : null;
 }
 
 function updateDisplayAfterAddition() {
@@ -393,47 +341,20 @@ function saveStudentsToStorage() {
     }
 }
 
-// بخلي عدد الأرقام الي تبان ف السلايدر منيه علي عدد الطلاب
 function updateSliderPages(pagesCount) {
     slider.innerHTML = '';
     for (let i = 1; i <= pagesCount; i++) {
         slider.innerHTML += `<p class="first-page ${i === 1 ? 'active-page' : ''}">${i}</p>`;
     }
 
-    // ⚠️ الخطوة 2 هي الأهم: يجب إعادة ربط الـ listeners هنا
-    reinitializeSliderListeners(); // سيتم تعريفها في الخطوة 2
+    reinitializeSliderListeners();
 }
-
-//gurdian controlling
-
-// show/hide guardian sections based on selection
-gurdianSection.forEach(section => section.style.display = 'none'); // افتراضي مخفية
-// التحكم في ظهور السكشنات بعد اختيار العدد
-gurdianRadios.forEach(radio => {
-    radio.addEventListener('change', () => {
-        const selectedCount = getSelectedGurdian(gurdianRadios);
-        primaryGurdianSection.style.display = 'none';
-        secondaryyGurdianSection.style.display = 'none';
-
-        if (selectedCount === "1") {
-            primaryGurdianSection.style.display = 'block';
-        } else if (selectedCount === "2") {
-            primaryGurdianSection.style.display = 'block';
-            secondaryyGurdianSection.style.display = 'block';
-        }
-    });
-});
 //what is clicked from slider ?
 function reinitializeSliderListeners() {
-    // 1. إعادة تحديد العناصر بعد تحديث الـ DOM
     const clickedPageNew = document.querySelectorAll('.slider *');
-
-    // 2. إزالة الـ Listeners القديمة وإضافة الجديدة
     clickedPageNew.forEach(element => {
-        // نستخدم element.onclick لتجنب تعقيد removeEventListener
         element.onclick = () => {
             const content = element.innerHTML.trim();
-
             if (/^-?\d+(\.\d+)?$/.test(content)) {
                 currentPage = parseInt(content) - 1;
                 showStudents(currentPage);
@@ -455,6 +376,24 @@ function reinitializeSliderListeners() {
         };
     });
 }
+
+// show/hide guardian sections based on selection
+gurdianSection.forEach(section => section.style.display = 'none'); // افتراضي مخفية
+// التحكم في ظهور السكشنات بعد اختيار العدد
+gurdianRadios.forEach(radio => {
+    radio.addEventListener('change', () => {
+        const selectedCount = getSelectedGurdian(gurdianRadios);
+        primaryGurdianSection.style.display = 'none';
+        secondaryyGurdianSection.style.display = 'none';
+
+        if (selectedCount === "1") {
+            primaryGurdianSection.style.display = 'block';
+        } else if (selectedCount === "2") {
+            primaryGurdianSection.style.display = 'block';
+            secondaryyGurdianSection.style.display = 'block';
+        }
+    });
+});
 
 function showStudents(page) {
     let startIndex = page * 10;
@@ -605,8 +544,74 @@ if (gurdianCount === "2") {
 
     return true; // كل شيء تمام
 }
-const body = document.body;
 
+
+function generateEmptyGrades(subjects) {
+    const months = ['sep','oct','Nov','Dec','Jan','Feb','Mar','Apr','May','Jun'];
+    const grades = {};
+
+    months.forEach(month => {
+        grades[month] = {};
+        subjects.forEach(subject => {
+            grades[month][subject] = { week1: 0, week2: 0, week3: 0, week4: 0, final: 0 };
+        });
+    });
+
+    return grades;
+}
+
+//Helpers
+const backToHome = document.querySelector('.back-to-home');
+backToHome.addEventListener('click', () => {
+    window.location.href = "/dashboard.html";
+    //backToHome.style.display='none';
+})
+
+const lockIcon = document.getElementById('lock');
+lockIcon.addEventListener('click', () => {
+    window.location.href = './login.html'
+})
+
+//gender selection
+function getSelectedGender(genderRadios) {
+    let selected = Array.from(genderRadios).find(radio => radio.checked);
+    return selected ? selected.value : null;
+}
+
+function getSelectedGurdian(gurdianRadios) {
+    let selected = Array.from(gurdianRadios).find(radio => radio.checked);
+    return selected ? selected.value : null;
+}
+
+function controllingModify() {
+    //controlling student modify start
+    const addBtn = document.querySelector('#add-btn');
+    const allBtn = document.querySelector('#all-students');
+    const studentList = document.querySelector('.student-list-section');
+    const studentForm = document.querySelector('.student-form-section');
+    const editConfirmButtons = document.querySelector('.add-buttons');
+    //controlling student modify start and add buttons
+    ModifyGeneric({
+        addBtn,
+        allBtn,
+        listView: studentList,
+        formView: studentForm,
+        editConfirmButtons,
+        favicon,
+        listFavicon: '/./media copy/favicons/icons8-group-80.png',
+        formFavicon: '././media copy/favicons/stydent-add.png',
+        listTitle: 'All Students',
+        formTitle: 'Add Student',
+        darkModeToggle
+    });
+}
+function isNationalIdDuplicate(nationalId, studentsList) {
+    if (!nationalId) return false;
+    return studentsList.some(student => student.NationalId === nationalId);
+}
+
+//dark mode start--------------------------
+const body = document.body;
 // عند تحميل الصفحة، شوف لو المستخدم مفعل Dark Mode
 if (localStorage.getItem('darkMode') === 'enabled') {
     body.classList.add('dark-mode');
@@ -623,21 +628,10 @@ darkModeToggle.addEventListener('click', () => {
         localStorage.setItem('darkMode', 'disabled');
     }
 });
+
+//dark mode end -----------------------------
+
 // حفظ آخر صفحة مفتوحة عند الخروج أو إعادة تحميل الصفحة
 window.addEventListener('beforeunload', () => {
     localStorage.setItem('lastVisitedPage', window.location.pathname);
 });
-
-function generateEmptyGrades(subjects) {
-    const months = ['sep','oct','Nov','Dec','Jan','Feb','Mar','Apr','May','Jun'];
-    const grades = {};
-
-    months.forEach(month => {
-        grades[month] = {};
-        subjects.forEach(subject => {
-            grades[month][subject] = { week1: 0, week2: 0, week3: 0, week4: 0, final: 0 };
-        });
-    });
-
-    return grades;
-}

@@ -1,12 +1,10 @@
-// --- 1. تعريف دالة حساب التصنيف بناءً على الدرجات (تستخدم فقط حقل 'final') ---
 /**
- * تحسب المتوسط العام لدرجات الطالب وتحدد تصنيفه الأكاديمي، بالاعتماد على حقل 'final' لكل مادة.
  * @param {object} gradesObject - كائن الدرجات الذي يحتوي على الأشهر والمواد والدرجات الأسبوعية والنهائية.
  * @returns {string} - التصنيف (talented, average, needs improvement, أو N/A).
  */
-function determineClassification(gradesObject) {
-    // قائمة الأشهر التي يجب حساب الدرجات فيها
-    const SCHOOL_MONTHS = ['Sep', 'oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
+
+export function determineClassification(gradesObject) {
+    const SCHOOL_MONTHS = ['sep', 'oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
     let totalScore = 0;
     let totalSubjectsCount = 0;
 
@@ -27,15 +25,15 @@ function determineClassification(gradesObject) {
     });
 
     if (totalSubjectsCount === 0) {
-        return "N/A"; // لا يوجد درجات متاحة للحساب
+        return "developing";
     }
 
-    // حساب المتوسط العام
+    // counting average
     const overallAverage = totalScore / totalSubjectsCount;
 
-    // تحديد التصنيف:
+    // determine classification
     if (overallAverage >= 90) {
-        return "supreior"; // موهوب
+        return "superior"; // موهوب
     } else if (overallAverage >= 85) {
         return "talented"; // متوسط
     } else if (overallAverage >= 65) {
@@ -45,9 +43,7 @@ function determineClassification(gradesObject) {
     }
 }
 
-// ------------------------------------------------------------------
 
-// --- 2. مصفوفة الطلاب النهائية (ببيانات أولياء الأمور وتنسيق الدرجات الجديد) ---
 export let students = [{
         id: '700100001',
         firstName: 'Omar',
@@ -61,7 +57,8 @@ export let students = [{
         Address: 'Cairo',
         GurdianCount: 2,
         Attendance: '94%',
-        status: '',
+        busStatus: 'yes',
+        schoolStatus: 'no',
 
         grades: {
             sep: { 'English': { week1: 90, week2: 95, week3: 92, week4: 93, final: 92.5 }, 'Maths': { week1: 91, week2: 90, week3: 93, week4: 94, final: 92 }, 'Science': { week1: 92, week2: 93, week3: 94, week4: 95, final: 93.5 }, 'Arabic': { week1: 93, week2: 94, week3: 95, week4: 96, final: 94.5 }, 'Geography': { week1: 94, week2: 95, week3: 96, week4: 97, final: 95.5 }, 'Religion': { week1: 95, week2: 96, week3: 97, week4: 98, final: 96.5 } },
@@ -131,7 +128,8 @@ export let students = [{
             Jun: { 'English': { week1: 85, week2: 90, week3: 87, week4: 88, final: 87.5 }, 'Maths': { week1: 83, week2: 85, week3: 86, week4: 87, final: 85.25 }, 'Science': { week1: 86, week2: 87, week3: 88, week4: 89, final: 87.5 }, 'Arabic': { week1: 84, week2: 86, week3: 87, week4: 88, final: 86.25 }, 'Social Studies': { week1: 87, week2: 88, week3: 89, week4: 90, final: 88.5 }, 'Religion': { week1: 90, week2: 91, week3: 92, week4: 93, final: 91.5 } },
         },
         classification: "",
-        status: '',
+        busStatus: 'no',
+        schoolStatus: 'yes'
 
     },
     {
@@ -147,7 +145,8 @@ export let students = [{
         Address: 'Riyadh',
         GurdianCount: 1,
         Attendance: '96%',
-        status: '',
+        busStatus: 'yes',
+        schoolStatus: 'no',
 
         primaryGurdianFullName: 'Mohamed Ali Hassan',
         primaryGurdianEmail: 'Mohamed Ali HassanKhaled Mansour@gmail.com ',
@@ -185,7 +184,8 @@ export let students = [{
         Address: 'Dubai',
         GurdianCount: 2,
         Attendance: '88%',
-        status: '',
+        busStatus: 'yes',
+        schoolStatus: 'no',
 
         primaryGurdianFullName: 'Adel Sameh Fouad',
         primaryGurdianEmail: 'Adel Sameh Fouad@gmail.com',
@@ -221,14 +221,15 @@ export let students = [{
         lastName: 'Hassan Gaber',
         gender: 'Female',
         dateOfBirth: '2019-01-25',
-        grade: 1,
-        class: 'D',
+        grade: 2,
+        class: 'B',
         dateOfJoin: '2024-09-01',
         NationalId: '30201250199999',
         Address: 'Alexandria',
         GurdianCount: 1,
         Attendance: '99%',
-        status: '',
+        busStatus: 'no',
+        schoolStatus: 'yes',
 
         primaryGurdianFullName: 'Adel Sameh Fouad',
         primaryGurdianEmail: 'Adel Sameh Fouad@gmail.com',
@@ -271,7 +272,8 @@ export let students = [{
         Address: 'Doha',
         GurdianCount: 2,
         Attendance: '93%',
-        status: '',
+        busStatus: 'yes',
+        schoolStatus: 'no',
 
         primaryGurdianFullName: 'Adel Sameh Fouad',
         primaryGurdianEmail: 'Adel Sameh Fouad@gmail.com',
@@ -314,7 +316,8 @@ export let students = [{
         Address: 'Beirut',
         GurdianCount: 2,
         Attendance: '90%',
-        status: '',
+        busStatus: 'yes',
+        schoolStatus: 'no',
 
         primaryGurdianFullName: 'Adel Sameh Fouad',
         primaryGurdianEmail: 'Adel Sameh Fouad@gmail.com',
@@ -357,7 +360,8 @@ export let students = [{
         Address: 'Assiut',
         GurdianCount: 2,
         Attendance: '95%',
-        status: '',
+        busStatus: 'yes',
+        schoolStatus: 'no',
 
         primaryGurdianFullName: 'Adel Sameh Fouad',
         primaryGurdianEmail: 'Adel Sameh Fouad@gmail.com',
@@ -400,7 +404,8 @@ export let students = [{
         Address: 'Manama',
         GurdianCount: 1,
         Attendance: '92%',
-        status: '',
+        busStatus: 'yes',
+        schoolStatus: 'no',
 
         primaryGurdianFullName: 'Adel Sameh Fouad',
         primaryGurdianEmail: 'Adel Sameh Fouad@gmail.com',
@@ -437,7 +442,8 @@ export let students = [{
         Address: 'Cairo',
         GurdianCount: 2,
         Attendance: '85%',
-        status: '',
+        busStatus: 'yes',
+        schoolStatus: 'no',
 
         primaryGurdianFullName: 'Adel Sameh Fouad',
         primaryGurdianEmail: 'Adel Sameh Fouad@gmail.com',
@@ -480,7 +486,8 @@ export let students = [{
         Address: 'Amman',
         GurdianCount: 1,
         Attendance: '98%',
-        status: '',
+        busStatus: 'yes',
+        schoolStatus: 'no',
 
         primaryGurdianFullName: 'Adel Sameh Fouad',
         primaryGurdianEmail: 'Adel Sameh Fouad@gmail.com',
@@ -517,7 +524,8 @@ export let students = [{
         Address: 'Port Said',
         GurdianCount: 2,
         Attendance: '89%',
-        status: '',
+        busStatus: 'yes',
+        schoolStatus: 'no',
 
         primaryGurdianFullName: 'Adel Sameh Fouad',
         primaryGurdianEmail: 'Adel Sameh Fouad@gmail.com',
@@ -554,7 +562,7 @@ export let students = [{
         gender: 'Female',
         dateOfBirth: '2007-10-10',
         grade: 6,
-        class: 'D',
+        class: 'A',
         Nationality: 'Egyptian',
         dateOfJoin: '2013-09-01',
         NationalId: '40710100146802',
@@ -562,7 +570,8 @@ export let students = [{
         GurdianCount: 1,
         Attendance: '94%',
         Religion: 'islam',
-        status: '',
+        busStatus: 'yes',
+        schoolStatus: 'no',
 
         primaryGurdianFullName: 'Adel Sameh Fouad',
         primaryGurdianEmail: 'Adel Sameh Fouad@gmail.com',
@@ -599,7 +608,8 @@ export let students = [{
         Address: 'Suez',
         GurdianCount: 2,
         Attendance: '96%',
-        status: '',
+        busStatus: 'no',
+        schoolStatus: 'yes',
 
         primaryGurdianFullName: 'Adel Sameh Fouad',
         primaryGurdianEmail: 'Adel Sameh Fouad@gmail.com',
@@ -642,7 +652,8 @@ export let students = [{
         Address: 'Ismailia',
         GurdianCount: 1,
         Attendance: '91%',
-        status: '',
+        busStatus: 'yes',
+        schoolStatus: 'yes',
 
         primaryGurdianFullName: 'Adel Sameh Fouad',
         primaryGurdianEmail: 'Adel Sameh Fouad@gmail.com',
@@ -668,25 +679,9 @@ export let students = [{
     },
 ];
 
-// ------------------------------------------------------------------
 
-// --- 3. المرور على مصفوفة الطلاب وتحديث التصنيف بناءً على الدرجات ---
+//assign classification to each students
 students.forEach(student => {
-    // استدعاء الدالة لحساب التصنيف
     const calculatedClassification = determineClassification(student.grades);
-
-    // تحديث حقل classification في كائن الطالب
     student.classification = calculatedClassification;
 });
-
-// ------------------------------------------------------------------
-
-// الآن، مصفوفة 'students' جاهزة بالبيانات الكاملة والتصنيف المحسوب:
-// مثال للتحقق:
-// console.log(students[0].firstName, students[0].classification); // Omar, talented
-// console.log(students[2].firstName, students[2].classification); // Nour, needs improvement
-// console.log(students[6].firstName, students[6].classification); // Laila, needs improvement
-// console.log(students[11].firstName, students[11].classification); // Ahmed, average
-
-// إذا كنت بحاجة إلى طباعة المصفوفة النهائية بالكامل:
-// console.log(students);

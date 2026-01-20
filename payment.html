@@ -8,14 +8,19 @@
     <!-- font insertion -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
     <!-- css sheets -->
     <link rel="stylesheet" href="style/aside-header.css">
     <link rel="stylesheet" href="style/payment.css">
+    <link rel="stylesheet" href="style/theme.css">
+
     <!-- font awesome recalling -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-    <!-- google icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Google Material Icons -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+
     <link rel="icon" type="image/png" href="media copy/favicons/icons8-money-40.png" id="favicon">
 
 
@@ -25,20 +30,27 @@
 <body>
     <div class="header">
         <div class="right-group">
-            <div class="back-icon"><img src="media copy/dashboard/arrow-right.png" alt="back"></div>
+            <div class="back-icon back-to-home"><i class="fa-solid fa-arrow-left"></i></div>
             <div class="search-box">
                 <i class="fa-solid fa-magnifying-glass search-icon"></i>
                 <input type="search" class="search-box" placeholder="search">
             </div>
         </div>
-        <div class="icons left-group">
-            <div class="img-header-background"> <img src="media copy/dashboard/notification.png" alt="notification"></div>
-            <div class="img-header-background"> <img src="media copy/dashboard/message.png" alt="message" class="message-icon"></div>
-            <div class="img-header-background"> <img src="media copy/dashboard/setting-2.png" alt="setting"></div>
-
-
+        <div class="left-icons">
+            <div class="icons left-group">
+                <div class="img-header-background notifications">
+                    <img src="media copy/dashboard/notification.png" alt="notification" class="notification-icon">
+                    <span class="notification-number">0</span>
+                </div>
+                <div class="img-header-background lock" id="lock">
+                    <span class="material-symbols-outlined">lock</span>
+                </div>
+                <div class="img-header-background">
+                    <span class="material-symbols-outlined" id="darkModeToggle">dark_mode</span>
+                </div>
+            </div>
+            <div class="notification-content"></div>
         </div>
-
     </div>
     <div class="aside">
         <h2><img src="media copy/dashboard/icon-park-solid_fire.png" alt="logo"> Edu Eye</h2>
@@ -46,7 +58,7 @@
             <a href="dashboard.html"><img src="media copy/dashboard/home-2.png" alt="home">Dashboard</a>
             <a href="students.html"><img src="media copy/dashboard/profile-2user.png" alt="">Students</a>
             <a href="teacher.html"><img src="media copy/dashboard/teacher.png" alt="">Teachers</a>
-            <a href="classes.html"><img src="media copy/dashboard/Frame 32.png" alt="home">Classes</a>
+            <a href="classes.html"><img src="media copy/dashboard/Frame 32.png" alt="home" class="class">Classes</a>
             <a href="payment.html" class="active"><span class="material-symbols-outlined">
                                         add_card
                                     </span>Payment</a>
@@ -61,21 +73,20 @@
                                         add_card
                                     </span> Payment
             </p>
-            <div class="add-buttons flex"><button>Cancel</button>
+            <div class="add-buttons flex ">
+                <button>Cancel</button>
                 <button>Reset</button>
-                <button class="save-button">Save</button></div>
+                <button class="save-button save-form-button ">Save</button></div>
         </div>
         <div class="payment-modify ">
             <div class="modify-content flex">
                 <button id="all-payments" class="payment-button active-button-payment"> <img src="media copy/students/bxs_school.png " alt="student ">All Payments</button>
-                <button id="add-btn" class="payment-button"> + Add Payment</button></div>
+                <button id="add-btn" class="payment-button"> + Add Payment Record</button></div>
         </div>
         <div class="payment-sections">
             <div class="payment-list-section">
 
                 <p class="resgistered-payment "><img src="media copy/students/bxs_school.png " alt="payment "> Registered Payments</p>
-
-
                 <div class="payment-section-content flex">
                     <div class="total-students payment-section-content-box">
                         <p>Total Students</p>
@@ -206,74 +217,60 @@
                         <hr>
                         <div class="payment-basic-information-container">
                             <!-- Left group -->
-                            <div class="payment-left-group">
+                            <div class="payment-left-group flex">
                                 <div class="payment-name">
                                     <label>Student Name</label>
                                     <input type="text" placeholder="Name" />
                                 </div>
 
                                 <div class="fees">
-                                    <label>Section</label>
-                                    <input list="fees" name="fees" placeholder=" School" />
-                                    <datalist id="fees">
-        <option value="School">
-        <option value="School+Bus">
-     
-      </datalist>
+                                    <select name="fees" id="fees">
+                                    <option value="" disabled selected hidden>Fees Type</option>
+                                    <option value="school">School</option>
+                                    <option value="school&bus">School + Bus</option>
+                                    </select>
                                 </div>
                                 <div class="payment-date">
                                     <label>Payment Date</label>
-                                    <input type="text" placeholder="Date" />
+                                    <input type="date" placeholder="Date" />
                                 </div>
 
                                 <div class="payment-method">
-                                    <label>Payment Method</label>
-                                    <input list="method" name="method" placeholder=" Cash" />
-                                    <datalist id="method">
-        <option value="Cash">
-        <option value="Credit card">
-        <option value="Mobile payment apps, Apple Pay, Google Pay, Samsung Pay.">
-        <option value="Online wallets , PayPal, Revolut, Skrill, etc.">
-        <option value="Bank transfer , direct from bank to bank.">
-       
-      </datalist>
+                                    <select name="method" id="pay-methode">
+                                    <option value="" disabled selected hidden>Payment Methode</option>
+                                    <option value="1">Cash</option>
+                                    <option value="2">Credit Card</option>
+                                    <option value="3">Bank Transfer</option>
+                                    </select>
                                 </div>
                             </div>
 
                             <!-- Right group -->
-                            <div class="payment-right-group">
+                            <div class="payment-right-group flex">
                                 <div class="payment-class">
                                     <label>Class</label>
-                                    <input list="Classes" name="Classes" placeholder=" Class" />
-                                    <datalist id="Classes">
-        <option value="A">
-        <option value="B">
-        <option value="C">
-        <option value="D">
-        <option value="E">
-      </datalist>
+                                    <input type="text" name="Classes" placeholder=" Class" />
                                 </div>
                                 <div class="amout">
                                     <label>Amount</label>
                                     <input type="text" placeholder="Amount" />
                                 </div>
                                 <div class="payment-status">
-                                    <label>Status</label>
-                                    <input list="status" name="status" placeholder=" paid" />
-                                    <datalist id="status">
-        <option value="paid">
-        <option value="un paid ">
-       
-      </datalist>
+
+                                    <select name="status" id="status">
+                                        <option value="" disabled selected hidden>Select Status</option>                                       
+                                         <option value="paid">Paid</option>
+                                        <option value="un-paid">Un Paid</option>
+                                    </select>
                                 </div>
-                                <div class="payment-gender">
-                                    <label>gender</label>
-                                    <input list="gender" name="gender" placeholder=" Female" />
-                                    <datalist id="gender">
-        <option value="Female">
-        <option value="Male">
-       
-      </datalist>
+                                <div class="gender flex">
+                                    <p>Gender :</p>
+                                    <div class="gender-options flex">
+                                        <input type="radio" id="gender1" name="gender" value="Female">
+                                        <label for="gender1">Female</label>
+                                        <input type="radio" id="gender2" name="gender" value="Male">
+                                        <label for="gender2">Male</label>
+                                    </div>
                                 </div>
                             </div>
                         </div>

@@ -4,38 +4,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classes</title>
 
-    <!-- font insertion -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
-    <!-- css insertion -->
-    <link rel="stylesheet" href="style/aside-header.css">
-    <link rel="stylesheet" href="style/classes.css">
-    <!-- font awesome recalling -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-    <!-- google icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Google Material Icons -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
-    <title>Classes</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="style/classes.css">
+    <link rel="stylesheet" href="style/aside-header.css">
+    <link rel="stylesheet" href="style/theme.css">
+    <!-- favicon -->
+    <link rel="icon" type="image/png" href="media copy/favicons/icons8-class-80.png" id="favicon">
+
 </head>
 
 <body>
     <div class="header">
         <div class="right-group">
-            <div class="back-icon"><img src="media copy/dashboard/arrow-right.png" alt="back"></div>
+            <div class="back-icon back-to-home"><i class="fa-solid fa-arrow-left"></i></div>
             <div class="search-box">
                 <i class="fa-solid fa-magnifying-glass search-icon"></i>
                 <input type="search" class="search-box" placeholder="search">
             </div>
         </div>
-        <div class="icons left-group">
-            <div class="img-header-background"> <img src="media copy/dashboard/notification.png" alt="notification"></div>
-            <div class="img-header-background"> <img src="media copy/dashboard/message.png" alt="message" class="message-icon"></div>
-            <div class="img-header-background"> <img src="media copy/dashboard/setting-2.png" alt="setting"></div>
-
-
+        <div class="left-icons">
+            <div class="icons left-group">
+                <div class="img-header-background notifications">
+                    <img src="media copy/dashboard/notification.png" alt="notification" class="notification-icon">
+                    <span class="notification-number">0</span>
+                </div>
+                <div class="img-header-background lock" id="lock">
+                    <span class="material-symbols-outlined">lock</span>
+                </div>
+                <div class="img-header-background">
+                    <span class="material-symbols-outlined" id="darkModeToggle">dark_mode</span>
+                </div>
+            </div>
+            <div class="notification-content"></div>
         </div>
-
     </div>
     <div class="aside">
         <h2><img src="media copy/dashboard/icon-park-solid_fire.png" alt="logo"> Edu Eye</h2>
@@ -43,40 +56,43 @@
             <a href="dashboard.html"><img src="media copy/dashboard/home-2.png" alt="home">Dashboard</a>
             <a href="students.html"><img src="media copy/dashboard/profile-2user.png" alt="">Students</a>
             <a href="teacher.html"><img src="media copy/dashboard/teacher.png" alt="">Teachers</a>
-            <a href="classes.html" class="active"><img src="media copy/dashboard/Frame 32.png" alt="home">Classes</a>
-            <a href="payment.html"><span class="material-symbols-outlined">
-                                        add_card
-                                    </span>Payment</a>
+            <a href="classes.html" class="active"><img src="media copy/dashboard/Frame 32.png" alt="home" class="class">Classes</a>
+            <a href="payment.html"><span class="material-symbols-outlined">add_card</span>Payment</a>
             <a href="Timetable.html"><img src="media copy/dashboard/Group 77.png" alt="home">Timetable</a>
             <a href="settings.html"><img src="media copy/dashboard/setting-2.png" alt="home">Settings</a>
         </div>
     </div>
-
-
     <div class="classes-container" id="classes">
-
         <div class="class-header flex">
             <p class="class-heading">
                 <img src="media copy/dashboard/Frame 32.png" alt="home" style="filter: invert(63%) sepia(83%) saturate(3847%) hue-rotate(184deg) brightness(102%) contrast(98%); ">Classes
             </p>
-            <div class="add-buttons flex "><button>Cancel</button>
+            <div class="add-buttons flex ">
+                <button>Cancel</button>
                 <button>Reset</button>
-                <button class="save-button ">Save</button></div>
+                <button class="save-button save-form-button save-form-button">Save</button></div>
         </div>
+
         <div class="classes-modify ">
             <div class="modify-content flex">
                 <button id="all-classes" class="class-button active-button-class"> <img src=" media copy/students/bxs_school.png " alt="student ">All Classes</button>
                 <button id="add-btn" class="class-button"> + Add Class</button></div>
         </div>
+
+
         <div class="class-list-section ">
+            <div class="page-blur" id="blur-layer"></div>
 
-            <p class="resgistered-classes "><img src="media copy/students/bxs_school.png " alt="teacher "> Registered Classes</p>
-
-
-            <p class="class-number ">Show
-
-                <input type="number " name="classnumber " placeholder="100 " class="input-with-arrow "> enteries
-            </p>
+            <div class="reset-pop-up ">
+                <p class="warning-txt"> <span class="danger">Warning</span> You are about to permanently delete the student's record. All information will be lost and cannot be recovered. <br>Do you confirm the deletion?
+                </p>
+                <div class="pop-up-buttons">
+                    <button id="yes">Yes</button>
+                    <button id="no">No</button>
+                </div>
+            </div>
+            <p class="resgistered-classes"><img src="media copy/students/bxs_school.png " alt="teacher "> Registered Classes</p>
+            <p class="classes-number">Show <span class="registered-classes-number">100</span> entries</p>
             <div>
                 <table class="class-table ">
                     <thead>
@@ -103,6 +119,9 @@
                             <th scope="col ">
                                 Weak
                             </th>
+                            <th scope="col ">
+                                Actions
+                            </th>
                         </tr>
                     </thead>
 
@@ -115,6 +134,10 @@
                             <td>1</td>
                             <td>1</td>
                             <td>2</td>
+                            <td class="actions flex">
+                                <i class="fa-regular fa-trash-can"></i>
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </td>
                         </tr>
                         <tr>
                             <td>2</td>
@@ -124,6 +147,10 @@
                             <td>1</td>
                             <td>1</td>
                             <td>4</td>
+                            <td class="actions flex">
+                                <i class="fa-regular fa-trash-can"></i>
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </td>
                         </tr>
                         <tr>
                             <td>3</td>
@@ -133,6 +160,10 @@
                             <td>None</td>
                             <td>3</td>
                             <td>5</td>
+                            <td class="actions flex">
+                                <i class="fa-regular fa-trash-can"></i>
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </td>
                         </tr>
                         <tr>
                             <td>4</td>
@@ -142,6 +173,10 @@
                             <td>2</td>
                             <td>1</td>
                             <td>3</td>
+                            <td class="actions flex">
+                                <i class="fa-regular fa-trash-can"></i>
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </td>
                         </tr>
                         <tr>
                             <td>5</td>
@@ -151,6 +186,10 @@
                             <td>2</td>
                             <td>None</td>
                             <td>1</td>
+                            <td class="actions flex">
+                                <i class="fa-regular fa-trash-can"></i>
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </td>
                         </tr>
                         <tr>
                             <td>6</td>
@@ -160,6 +199,10 @@
                             <td>1</td>
                             <td>None</td>
                             <td>5</td>
+                            <td class="actions flex">
+                                <i class="fa-regular fa-trash-can"></i>
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </td>
                         </tr>
                         <tr>
                             <td>7</td>
@@ -169,6 +212,10 @@
                             <td>3</td>
                             <td>None</td>
                             <td>3</td>
+                            <td class="actions flex">
+                                <i class="fa-regular fa-trash-can"></i>
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </td>
                         </tr>
                         <tr>
                             <td>8</td>
@@ -178,6 +225,10 @@
                             <td>None</td>
                             <td>3</td>
                             <td>2</td>
+                            <td class="actions flex">
+                                <i class="fa-regular fa-trash-can"></i>
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </td>
                         </tr>
                         <tr>
                             <td>9</td>
@@ -187,6 +238,10 @@
                             <td>None</td>
                             <td>2</td>
                             <td>1</td>
+                            <td class="actions flex">
+                                <i class="fa-regular fa-trash-can"></i>
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </td>
                         </tr>
                         <tr>
                             <td>10</td>
@@ -196,6 +251,10 @@
                             <td>None</td>
                             <td>2</td>
                             <td>5</td>
+                            <td class="actions flex">
+                                <i class="fa-regular fa-trash-can"></i>
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </td>
                         </tr>
                         <tr>
                             <td>11</td>
@@ -205,67 +264,58 @@
                             <td>1</td>
                             <td>2</td>
                             <td>4</td>
+                            <td class="actions flex">
+                                <i class="fa-regular fa-trash-can"></i>
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-            <div class="slider ">
-                <i class="fa-solid fa-chevron-left "></i>
-                <p>1</p>
-                <p>2</p>
-                <p>3</p>
-                <p>4</p>
-                <p>5</p>
-                <p>6</p>
-                <p>7</p>
-                <p>8</p>
-                <i class="fa-solid fa-chevron-right "></i> </div>
-
+            <div class="slider">
+                <i class="fa-solid fa-chevron-left back-page"></i>
+                <div class="pages"></div>
+                <i class="fa-solid fa-chevron-right after-page"></i>
+            </div>
         </div>
-        <div class="class-form-section ">
-            <div class="class-form-basic ">
+
+        <div class="class-form-section">
+            <div class="class-form-basic">
                 <form>
-                    <h2 class="class-form-header ">New Class</h2>
+                    <h2 class="class-form-header">New Class</h2>
+                    <div id="form-warning" class="form-warning-message" style="display: none;"></div>
+
                     <hr>
-                    <div class="class-basic-information-container ">
-                        <!-- Left group -->
-                        <div class="class-left-group ">
-                            <div class="class-name ">
+                    <div class="class-basic-information-container">
+                        <div class="row flex">
+                            <div class="class-name row-item">
                                 <label>Class Name</label>
-                                <input type="text " placeholder="Class Name " />
+                                <input type="text" name="className" placeholder="A">
                             </div>
-                            <div class="The-Leading-Teacher ">
-                                <label>The Leading Teacher</label>
-                                <input type="text " placeholder="The Leading Teacher " />
+                            <div class="grade row-item">
+                                <label for="grade">Grade</label>
+                                <select id="grade" name="grade">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                </select>
                             </div>
-                            <div class="Subjects ">
-                                <label>Subjects</label>
-                                <input type="text " placeholder="Subjects " />
+
+                        </div>
+                        <div class="row flex ">
+                            <div class="leading-teacher row-item">
+                                <label>Leading Teacher</label>
+                                <input type="text" name="leadingTeacher" placeholder="Teacher">
                             </div>
-                            <div class="class-file-attach ">
-                                <div class="upload-box flex ">
-                                    <i class="fa-solid fa-file-arrow-up upload-icon "></i>
-                                    <p>Drop your CSV to upload<br /><span>Select files</span></p>
-                                </div>
-                                <p class="csv ">File format : CSV - must include name, ID and grade colums</p>
+                            <div class="number-of-students row-item">
+                                <label>Student Number</label>
+                                <input type="number" name="numberOfStudents" placeholder="Number" min="0">
                             </div>
                         </div>
 
-                        <!-- Right group -->
-                        <div class="class-right-group ">
-                            <div class="Grade ">
-                                <label>Grade</label>
-                                <input type="text " placeholder="Grade " />
-                            </div>
-                            <div class="Number-of-student ">
-                                <label>Number of student</label>
-                                <input type="text " placeholder="Number of student " />
-                            </div>
-                            <div class="Schedule ">
-                                <label>Schedule</label>
-                                <input type="text " placeholder="From - To " />
-                            </div>
-                        </div>
                     </div>
                 </form>
 
@@ -275,12 +325,8 @@
 
         </div>
     </div>
+    <script type="module" src="script/notifications.js" defer></script>
     <script src="script/classes.js" type="module"></script>
-
-
-
-
-
 </body>
 
 </html>

@@ -168,6 +168,7 @@ body {
     flex: 1;
     font-size: 13.5px;
     line-height: 1.3;
+    color: var(--read-notification-txt);
 }
 
 .notification-item .timestamp {
@@ -428,9 +429,14 @@ body {
     border-top-left-radius: 8px;
 }
 
+.teacher-table thead tr th:last-child,
+.teacher-table th:nth-child(5),
+.teacher-table td:nth-child(5) {
+    text-align: center;
+}
+
 .teacher-table thead tr th:last-child {
     border-top-right-radius: 8px;
-    text-align: center;
 }
 
 .teacher-table th {
@@ -816,6 +822,11 @@ input {
 
 .gender-options {
     gap: 15px;
+}
+
+.slider .disabled {
+    opacity: 0.3;
+    pointer-events: none;
 }
 
 .slider {
