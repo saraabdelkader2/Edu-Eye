@@ -45,7 +45,6 @@ export function determineClassification(gradesObject) {
 
 
 export let students = [{
-        id: '700100001',
         firstName: 'Omar',
         lastName: 'Mahmoud Fathy',
         gender: 'Male',
@@ -57,8 +56,12 @@ export let students = [{
         Address: 'Cairo',
         GurdianCount: 2,
         Attendance: '94%',
-        busStatus: 'yes',
-        schoolStatus: 'no',
+        busStatus: 'no',
+        schoolStatus: 'yes',
+        paymentDate: '2025-10-01',
+        paymentMethod: '',
+        status: '',
+
 
         grades: {
             sep: { 'English': { week1: 90, week2: 95, week3: 92, week4: 93, final: 92.5 }, 'Maths': { week1: 91, week2: 90, week3: 93, week4: 94, final: 92 }, 'Science': { week1: 92, week2: 93, week3: 94, week4: 95, final: 93.5 }, 'Arabic': { week1: 93, week2: 94, week3: 95, week4: 96, final: 94.5 }, 'Geography': { week1: 94, week2: 95, week3: 96, week4: 97, final: 95.5 }, 'Religion': { week1: 95, week2: 96, week3: 97, week4: 98, final: 96.5 } },
@@ -89,7 +92,6 @@ export let students = [{
         classification: ""
     },
     {
-        id: '700100002',
         firstName: 'Youssef',
         lastName: 'Khaled Mansour',
         gender: 'Male',
@@ -129,11 +131,14 @@ export let students = [{
         },
         classification: "",
         busStatus: 'no',
-        schoolStatus: 'yes'
+        schoolStatus: 'no',
+        paymentDate: '2025-9-01',
+        paymentMethod: '',
+        status: ''
+
 
     },
     {
-        id: '700100003',
         firstName: 'Nour',
         lastName: 'Mohamed Ali',
         gender: 'Female',
@@ -146,7 +151,10 @@ export let students = [{
         GurdianCount: 1,
         Attendance: '96%',
         busStatus: 'yes',
-        schoolStatus: 'no',
+        schoolStatus: 'yes',
+        paymentDate: '2025-10-11',
+        paymentMethod: '',
+        status: '',
 
         primaryGurdianFullName: 'Mohamed Ali Hassan',
         primaryGurdianEmail: 'Mohamed Ali HassanKhaled Mansour@gmail.com ',
@@ -172,7 +180,6 @@ export let students = [{
         classification: ""
     },
     {
-        id: '700100004',
         firstName: 'Ziad',
         lastName: 'Adel Sameh',
         gender: 'Male',
@@ -184,8 +191,11 @@ export let students = [{
         Address: 'Dubai',
         GurdianCount: 2,
         Attendance: '88%',
-        busStatus: 'yes',
-        schoolStatus: 'no',
+        busStatus: 'no',
+        schoolStatus: 'yes',
+        paymentDate: '2025-10-01',
+        paymentMethod: '',
+        status: '',
 
         primaryGurdianFullName: 'Adel Sameh Fouad',
         primaryGurdianEmail: 'Adel Sameh Fouad@gmail.com',
@@ -216,7 +226,7 @@ export let students = [{
         classification: ""
     },
     {
-        id: '700100005',
+
         firstName: 'Sara',
         lastName: 'Hassan Gaber',
         gender: 'Female',
@@ -229,7 +239,10 @@ export let students = [{
         GurdianCount: 1,
         Attendance: '99%',
         busStatus: 'no',
-        schoolStatus: 'yes',
+        schoolStatus: 'no',
+        paymentDate: '2025-11-01',
+        paymentMethod: '',
+        status: '',
 
         primaryGurdianFullName: 'Adel Sameh Fouad',
         primaryGurdianEmail: 'Adel Sameh Fouad@gmail.com',
@@ -260,7 +273,6 @@ export let students = [{
         classification: ""
     },
     {
-        id: '700100006',
         firstName: 'Ali',
         lastName: 'Ahmed Elsayed',
         gender: 'Male',
@@ -273,7 +285,10 @@ export let students = [{
         GurdianCount: 2,
         Attendance: '93%',
         busStatus: 'yes',
-        schoolStatus: 'no',
+        schoolStatus: 'yes',
+        paymentDate: '2025-10-15',
+        paymentMethod: '',
+        status: '',
 
         primaryGurdianFullName: 'Adel Sameh Fouad',
         primaryGurdianEmail: 'Adel Sameh Fouad@gmail.com',
@@ -304,7 +319,6 @@ export let students = [{
         classification: ""
     },
     {
-        id: '700100007',
         firstName: 'Laila',
         lastName: 'Ayman Mostafa',
         gender: 'Female',
@@ -316,8 +330,12 @@ export let students = [{
         Address: 'Beirut',
         GurdianCount: 2,
         Attendance: '90%',
-        busStatus: 'yes',
+        status: '',
+        busStatus: 'no',
         schoolStatus: 'no',
+        paymentDate: '2025-8-01',
+        paymentMethod: '',
+        status: '',
 
         primaryGurdianFullName: 'Adel Sameh Fouad',
         primaryGurdianEmail: 'Adel Sameh Fouad@gmail.com',
@@ -348,7 +366,6 @@ export let students = [{
         classification: ""
     },
     {
-        id: '700100008',
         firstName: 'Karim',
         lastName: 'Hossam Tawfik',
         gender: 'Male',
@@ -360,8 +377,12 @@ export let students = [{
         Address: 'Assiut',
         GurdianCount: 2,
         Attendance: '95%',
+        status: '',
+
         busStatus: 'yes',
-        schoolStatus: 'no',
+        schoolStatus: 'yes',
+        paymentDate: '2025-10-29',
+        paymentMethod: '',
 
         primaryGurdianFullName: 'Adel Sameh Fouad',
         primaryGurdianEmail: 'Adel Sameh Fouad@gmail.com',
@@ -392,7 +413,6 @@ export let students = [{
         classification: ""
     },
     {
-        id: '700100009',
         firstName: 'Mariam',
         lastName: 'Wael Mansour',
         gender: 'Female',
@@ -405,7 +425,11 @@ export let students = [{
         GurdianCount: 1,
         Attendance: '92%',
         busStatus: 'yes',
-        schoolStatus: 'no',
+        schoolStatus: 'yes',
+        paymentDate: '2025-9-20',
+        paymentMethod: '',
+        status: '',
+
 
         primaryGurdianFullName: 'Adel Sameh Fouad',
         primaryGurdianEmail: 'Adel Sameh Fouad@gmail.com',
@@ -430,7 +454,6 @@ export let students = [{
         classification: ""
     },
     {
-        id: '700100010',
         firstName: 'Fares',
         lastName: 'Samer Taha',
         gender: 'Male',
@@ -443,7 +466,10 @@ export let students = [{
         GurdianCount: 2,
         Attendance: '85%',
         busStatus: 'yes',
-        schoolStatus: 'no',
+        schoolStatus: 'yes',
+        paymentDate: '2025-11-01',
+        paymentMethod: '',
+        status: '',
 
         primaryGurdianFullName: 'Adel Sameh Fouad',
         primaryGurdianEmail: 'Adel Sameh Fouad@gmail.com',
@@ -474,7 +500,7 @@ export let students = [{
         classification: ""
     },
     {
-        id: '700100011',
+
         firstName: 'Hana',
         lastName: 'Tarek Ramzy',
         gender: 'Female',
@@ -487,7 +513,11 @@ export let students = [{
         GurdianCount: 1,
         Attendance: '98%',
         busStatus: 'yes',
-        schoolStatus: 'no',
+        schoolStatus: 'yes',
+        paymentDate: '2025-11-17',
+        paymentMethod: '',
+        status: '',
+
 
         primaryGurdianFullName: 'Adel Sameh Fouad',
         primaryGurdianEmail: 'Adel Sameh Fouad@gmail.com',
@@ -512,7 +542,6 @@ export let students = [{
         classification: ""
     },
     {
-        id: '700100012',
         firstName: 'Ahmed',
         lastName: 'Ibrahim Metwally',
         gender: 'Male',
@@ -524,8 +553,12 @@ export let students = [{
         Address: 'Port Said',
         GurdianCount: 2,
         Attendance: '89%',
-        busStatus: 'yes',
+        busStatus: 'no',
         schoolStatus: 'no',
+        paymentDate: '',
+        paymentMethod: '',
+        status: '',
+
 
         primaryGurdianFullName: 'Adel Sameh Fouad',
         primaryGurdianEmail: 'Adel Sameh Fouad@gmail.com',
@@ -556,7 +589,6 @@ export let students = [{
         classification: ""
     },
     {
-        id: '700100013',
         firstName: 'Nadine',
         lastName: 'Sameh Helal',
         gender: 'Female',
@@ -571,7 +603,12 @@ export let students = [{
         Attendance: '94%',
         Religion: 'islam',
         busStatus: 'yes',
-        schoolStatus: 'no',
+        schoolStatus: 'yes',
+        paymentDate: '2025-8-29',
+        paymentMethod: '',
+        status: '',
+
+
 
         primaryGurdianFullName: 'Adel Sameh Fouad',
         primaryGurdianEmail: 'Adel Sameh Fouad@gmail.com',
@@ -596,7 +633,6 @@ export let students = [{
         classification: ""
     },
     {
-        id: '700100014',
         firstName: 'Tarek',
         lastName: 'Mahmoud Foad',
         gender: 'Male',
@@ -610,6 +646,10 @@ export let students = [{
         Attendance: '96%',
         busStatus: 'no',
         schoolStatus: 'yes',
+        paymentDate: '2025-10-01',
+        paymentMethod: '',
+        status: '',
+
 
         primaryGurdianFullName: 'Adel Sameh Fouad',
         primaryGurdianEmail: 'Adel Sameh Fouad@gmail.com',
@@ -640,7 +680,6 @@ export let students = [{
         classification: ""
     },
     {
-        id: '700100015',
         firstName: 'Yasmine',
         lastName: 'Hosny Saad',
         gender: 'Female',
@@ -654,6 +693,10 @@ export let students = [{
         Attendance: '91%',
         busStatus: 'yes',
         schoolStatus: 'yes',
+        paymentDate: '2025-10-01',
+        paymentMethod: '',
+        status: '',
+
 
         primaryGurdianFullName: 'Adel Sameh Fouad',
         primaryGurdianEmail: 'Adel Sameh Fouad@gmail.com',

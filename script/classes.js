@@ -3,7 +3,7 @@ import { addNotification } from "./notifications.js";
 import { classes } from './clist.js';
 import { determineClassification } from "./sList.js";
 
-// --- 1. variables--
+// --- 1. variables ---
 const LOCAL_CLASSES_KEY = 'schoolClassesList';
 const LOCAL_STORAGE_KEY = 'schoolStudentsList';
 const ITEMS_PER_PAGE = 10;
@@ -21,19 +21,21 @@ const backBtn = document.querySelector('.back-page');
 const afterBtn = document.querySelector('.after-page');
 
 
-// --- 2. get information from storage ---
+// --- 2. get information from storage & calculate counts ---
 const students = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)) || [];
 const studentCounts = {};
 
-
 students.forEach(student => {
+    // تحديد التصنيف لكل طالب بناءً على درجاته
     student.classification = determineClassification(student.grades);
     const grade = student.grade ? student.grade.toString().trim() : '';
     const cls = student.class ? student.class.toString().trim().toUpperCase() : '';
     const key = `${grade}-${cls}`;
+
     if (!studentCounts[key]) {
         studentCounts[key] = { total: 0, superior: 0, talented: 0, weak: 0 };
     }
+
     studentCounts[key].total++;
     const status = (student.classification || "").toLowerCase().trim();
     if (status === 'superior') studentCounts[key].superior++;
@@ -41,9 +43,11 @@ students.forEach(student => {
     else if (status === 'weak') studentCounts[key].weak++;
 });
 
-// --- 3.make class rray and save it to storage---
+// --- 3. make/update class array and save it to storage ---
 export let classesArray = JSON.parse(localStorage.getItem(LOCAL_CLASSES_KEY));
+
 if (!classesArray) {
+    // إنشاء المصفوفة لأول مرة من ملف clist.js
     classesArray = classes.map(c => {
         const key = `${c.grade}-${c.class.trim().toUpperCase()}`;
         const counts = studentCounts[key] || { total: 0, superior: 0, talented: 0, weak: 0 };
@@ -57,8 +61,22 @@ if (!classesArray) {
             weak: counts.weak
         };
     });
-    saveToStorage();
+} else {
+    // تحديث الإحصائيات للفصول الموجودة بناءً على بيانات الطلاب الحالية (لحل مشكلة التصفير)
+    classesArray = classesArray.map(cls => {
+        const key = `${cls.grade}-${cls.className.trim().toUpperCase()}`;
+        const counts = studentCounts[key] || { total: 0, superior: 0, talented: 0, weak: 0 };
+        return {
+            ...cls,
+            total: counts.total,
+            superior: counts.superior,
+            talented: counts.talented,
+            weak: counts.weak
+        };
+    });
 }
+// حفظ البيانات المحدثة
+saveToStorage();
 
 function saveToStorage() {
     localStorage.setItem(LOCAL_CLASSES_KEY, JSON.stringify(classesArray));
@@ -91,10 +109,10 @@ function renderClasses() {
                 <td>${start + i + 1}</td>
                 <td><input type="text" value="${cls.grade}-${cls.className}" class="edit-input"></td>
                 <td><input type="text" value="${cls.leadingTeacher}" class="edit-input"></td>
-                <td><input type="number" value="${cls.total}" class="edit-input-num" min="0"></td>
-                <td><input type="number" value="${cls.superior}" class="edit-input-num" min="0"></td>
-                <td><input type="number" value="${cls.talented}" class="edit-input-num" min="0"></td>
-                <td><input type="number" value="${cls.weak}" class="edit-input-num" min="0"></td>
+                <td><input type="number" value="${cls.total}" class="edit-input-num" readonly style="background:#f0f0f0"></td>
+                <td><input type="number" value="${cls.superior}" class="edit-input-num" readonly style="background:#f0f0f0"></td>
+                <td><input type="number" value="${cls.talented}" class="edit-input-num" readonly style="background:#f0f0f0"></td>
+                <td><input type="number" value="${cls.weak}" class="edit-input-num" readonly style="background:#f0f0f0"></td>
                 <td class="actions flex">
                     <i class="fa-solid fa-check save-btn" title="Save"></i>
                     <i class="fa-solid fa-xmark cancel-btn" title="Cancel"></i>
@@ -132,15 +150,20 @@ function renderClasses() {
 function saveRow(index, rowElement) {
     const inputs = rowElement.querySelectorAll('input');
     const [grade, className] = inputs[0].value.split('-').map(s => s.trim());
+
+    // عند الحفظ، نعيد ربط البيانات بالإحصائيات الحقيقية لضمان عدم ضياعها
+    const key = `${grade}-${className.toUpperCase()}`;
+    const counts = studentCounts[key] || { total: 0, superior: 0, talented: 0, weak: 0 };
+
     classesArray[index] = {
         ...classesArray[index],
         grade: grade || '',
         className: className || '',
         leadingTeacher: inputs[1].value,
-        total: parseInt(inputs[2].value) || 0,
-        superior: parseInt(inputs[3].value) || 0,
-        talented: parseInt(inputs[4].value) || 0,
-        weak: parseInt(inputs[5].value) || 0
+        total: counts.total,
+        superior: counts.superior,
+        talented: counts.talented,
+        weak: counts.weak
     };
     delete classesArray[index].isEditing;
     saveToStorage();
@@ -173,7 +196,7 @@ function deleteRow(index) {
     }
 }
 
-// --- 5.no repeated classes ---
+// --- 5. add class form logic ---
 function initFormActions() {
     const classForm = document.querySelector('.class-form-section form');
     const warningElement = document.getElementById('form-warning');
@@ -182,25 +205,20 @@ function initFormActions() {
     const resetBtn = buttons[1];
     const saveBtn = buttons[2];
 
+    if (!saveBtn) return;
+
     saveBtn.onclick = (e) => {
         e.preventDefault();
         const classNameVal = classForm.querySelector('[name="className"]').value.trim().toUpperCase();
         const gradeVal = classForm.querySelector('[name="grade"]').value;
         const teacherVal = classForm.querySelector('[name="leadingTeacher"]').value.trim();
-        const studentsVal = parseInt(classForm.querySelector('[name="numberOfStudents"]').value) || 0;
 
-        // 1. إخفاء أي تحذير سابق في كل مرة نضغط فيها حفظ
-        if (warningElement) {
-            warningElement.style.display = 'none';
-            warningElement.style.backgroundColor = '#fff3cd'; // اللون الأصفر الافتراضي للتحذير
-            warningElement.style.color = '#856404';
-        }
+        if (warningElement) warningElement.style.display = 'none';
 
-        // 2. التحقق من الحقول الفارغة (تعديل الرسالة هنا)
-        if (!classNameVal || !teacherVal || !gradeVal || !studentsVal) {
+        if (!classNameVal || !teacherVal || !gradeVal) {
             if (warningElement) {
                 warningElement.textContent = 'Error: Please fill in all required fields.';
-                warningElement.style.backgroundColor = '#f8d7da'; // تغيير اللون للأحمر لأنها رسالة خطأ
+                warningElement.style.backgroundColor = '#f8d7da';
                 warningElement.style.color = '#721c24';
                 warningElement.style.display = 'block';
                 warningElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -208,7 +226,6 @@ function initFormActions() {
             return;
         }
 
-        // 3. التحقق من تكرار الفصل
         const isDuplicate = classesArray.some(cls =>
             cls.grade.toString() === gradeVal.toString() &&
             cls.className.toUpperCase() === classNameVal
@@ -217,23 +234,25 @@ function initFormActions() {
         if (isDuplicate) {
             if (warningElement) {
                 warningElement.textContent = `Warning: Class ${gradeVal}-${classNameVal} is already registered!`;
-                warningElement.style.backgroundColor = '#fff3cd'; // العودة للون الأصفر للتحذير
+                warningElement.style.backgroundColor = '#fff3cd';
                 warningElement.style.color = '#856404';
                 warningElement.style.display = 'block';
-                warningElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
             return;
         }
 
-        // --- إذا مر من كل الشروط السابقة، يتم الحفظ بشكل طبيعي ---
+        // حساب الإحصائيات للفصل الجديد إذا كان له طلاب مسبقاً
+        const key = `${gradeVal}-${classNameVal}`;
+        const counts = studentCounts[key] || { total: 0, superior: 0, talented: 0, weak: 0 };
+
         const newClass = {
             grade: gradeVal,
             className: classNameVal,
             leadingTeacher: teacherVal,
-            total: studentsVal,
-            superior: 0,
-            talented: 0,
-            weak: 0
+            total: counts.total,
+            superior: counts.superior,
+            talented: counts.talented,
+            weak: counts.weak
         };
 
         classesArray.push(newClass);
@@ -245,6 +264,7 @@ function initFormActions() {
         addNotification(`Class ${newClass.grade}-${newClass.className} is added successfully`, 'success');
         document.querySelector('#all-classes').click();
     };
+
     if (resetBtn) resetBtn.onclick = () => {
         classForm.reset();
         if (warningElement) warningElement.style.display = 'none';
@@ -260,10 +280,8 @@ function initFormActions() {
 // --- 6. الإدارة والتنسيق ---
 function updateSliderPages(totalPages) {
     slider.innerHTML = '';
-
     if (backBtn) backBtn.classList.toggle('disabled', currentPage === 0);
     if (afterBtn) afterBtn.classList.toggle('disabled', currentPage >= totalPages - 1);
-
     if (totalPages <= 1) return;
 
     for (let i = 1; i <= totalPages; i++) {
@@ -296,11 +314,9 @@ if (afterBtn) {
     });
 }
 
-
 function updateRegisteredClasses() {
     if (registeredClasses) registeredClasses.textContent = classesArray.length;
 }
-window.classesArray = classesArray;
 
 function getTotalPages() {
     const filteredData = classesArray.filter(cls => {
@@ -355,7 +371,8 @@ window.addEventListener('beforeunload', () => {
 });
 
 const backToHome = document.querySelector('.back-to-home');
-backToHome.addEventListener('click', () => {
-    window.location.href = "/dashboard.html";
-    //backToHome.style.display='none';
-})
+if (backToHome) {
+    backToHome.addEventListener('click', () => {
+        window.location.href = "/dashboard.html";
+    });
+}

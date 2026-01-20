@@ -1,6 +1,7 @@
-// =============================
 // Color Helpers
-// =============================
+const searchInput = document.querySelector('.search-box');
+
+
 function getColor(lightColor, darkColor) {
     return document.body.classList.contains('dark-mode') ? darkColor : lightColor;
 }
@@ -67,6 +68,7 @@ export function ModifyGeneric({
         addBtn.classList.remove(activeClass);
         addBtn.style.backgroundColor = 'transparent';
         addBtn.style.color = getColor('#000', '#f5f5f5');
+        searchInput.style.display = 'flex';
 
         listView.style.display = 'block';
         formView.style.display = 'none';
@@ -104,8 +106,9 @@ export function ModifyGeneric({
 
         document.title = formTitle;
         if (favicon && formFavicon) favicon.href = formFavicon;
-
+        searchInput.style.display = 'none';
         refreshTheme();
+
     });
 
     allBtn.addEventListener('click', () => {
@@ -115,6 +118,7 @@ export function ModifyGeneric({
 
         allBtn.classList.add(activeClass);
         addBtn.classList.remove(activeClass);
+        searchInput.style.display = 'flex';
 
         document.title = listTitle;
         if (favicon && listFavicon) favicon.href = listFavicon;

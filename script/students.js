@@ -3,10 +3,11 @@ import { students } from "./sList.js";
 import { addNotification } from "./notifications.js";
 import { subjectsByGrade } from "./Subjects.js";
 import { determineClassification } from "./sList.js";
+import { classes } from "./clist.js";
 
 
 const ID_START = 345699855;
-const LOCAL_STORAGE_KEY = 'schoolStudentsList';
+export const LOCAL_STORAGE_KEY = 'schoolStudentsList';
 let storedStudents = localStorage.getItem(LOCAL_STORAGE_KEY);
 const favicon = document.getElementById('favicon');
 const searchInput = document.querySelector('.search-box input');
@@ -16,7 +17,8 @@ const darkModeToggle = document.getElementById('darkModeToggle');
 if (storedStudents) {
     students.splice(0, students.length, ...JSON.parse(storedStudents));
 }
-
+const gradeSelect = document.getElementById('Grade');
+const classSelect = document.getElementById('Class');
 
 //slider clicking
 let schoolStudents = students.length;
@@ -110,7 +112,7 @@ saveButton.addEventListener('click', () => {
             document.getElementById('primaryGurdianFullName'));
         return;
     }
-    const gradeInput = document.querySelector('input[name="Grade"]').value;
+    const gradeInput = document.getElementById('Grade').value;
 
     const studentData = {
         id: '',
@@ -118,9 +120,8 @@ saveButton.addEventListener('click', () => {
         lastName: form.studentLastName.value.trim(),
         gender: selectedGender,
         dateOfBirth: form.dob.value,
-        grade: gradeInput.match(/\d+/) ?
-            gradeInput.match(/\d+/)[0] : gradeInput,
-        class: document.querySelector('input[name="Class"]').value.trim().toUpperCase(),
+        grade: gradeSelect.value, // القيمة ستكون "1" أو "2" إلخ
+        class: classSelect.value.toUpperCase(),
         dateOfJoin: form.doj.value,
         Nationality: form.studentNationality.value,
         Religon: form.studentReligon.value,
@@ -129,6 +130,10 @@ saveButton.addEventListener('click', () => {
         GurdianCount: selectedGurdianCount,
         Attendance: '94%',
         status: 'new',
+        busStatus: 'no',
+        schoolStatus: 'no',
+        paymentDate: '',
+        paymentMethod: '',
 
         primaryGurdianFullName,
         primaryGurdianEmail,
@@ -343,19 +348,34 @@ function saveStudentsToStorage() {
 
 function updateSliderPages(pagesCount) {
     slider.innerHTML = '';
+
+    // 🔒 تعطيل / تفعيل الأسهم
+    const backBtn = document.querySelector('.back-page');
+    const afterBtn = document.querySelector('.after-page');
+
+    if (backBtn) backBtn.classList.toggle('disabled', currentPage === 0);
+    if (afterBtn) afterBtn.classList.toggle('disabled', currentPage >= pagesCount - 1);
+
     for (let i = 1; i <= pagesCount; i++) {
-        slider.innerHTML += `<p class="first-page ${i === 1 ? 'active-page' : ''}">${i}</p>`;
+        slider.innerHTML += `
+            <p class="first-page ${i === currentPage + 1 ? 'active-page' : ''}">
+                ${i}
+            </p>`;
     }
 
     reinitializeSliderListeners();
 }
+
 //what is clicked from slider ?
 function reinitializeSliderListeners() {
     const clickedPageNew = document.querySelectorAll('.slider *');
     clickedPageNew.forEach(element => {
         element.onclick = () => {
+
+            if (element.classList.contains('disabled')) return;
+
             const content = element.innerHTML.trim();
-            if (/^-?\d+(\.\d+)?$/.test(content)) {
+            if (/^\d+$/.test(content)) {
                 currentPage = parseInt(content) - 1;
                 showStudents(currentPage);
             } else if (element.classList.contains('back-page')) {
@@ -366,15 +386,10 @@ function reinitializeSliderListeners() {
                 showStudents(currentPage);
             }
 
-            // تحديث الـ Active Class
-            clickedPageNew.forEach(el => el.classList.remove('active-page'));
-            const pageButton = Array.from(clickedPageNew).find(el => el.innerHTML.trim() == (currentPage + 1).toString());
-
-            if (pageButton) {
-                pageButton.classList.add('active-page');
-            }
+            updateSliderPages(studentSliderPages);
         };
     });
+
 }
 
 // show/hide guardian sections based on selection
@@ -471,6 +486,16 @@ function showWarning(message, inputElement = null) {
     }
 }
 function validateForm() {
+    const gradeSelect = document.getElementById('Grade');
+    const classSelect = document.getElementById('Class');
+    if (!gradeSelect.value) {
+        showWarning("Please select a Grade", gradeSelect);
+        return false;
+    }
+    if (!classSelect.value) {
+        showWarning("Please select a Class", classSelect);
+        return false;
+    }
     // 1. تحقق من جميع الحقول النصية المطلوبة
     const requiredInputs = form.querySelectorAll('input[required]');
     for (const input of requiredInputs) {
@@ -635,3 +660,57 @@ darkModeToggle.addEventListener('click', () => {
 window.addEventListener('beforeunload', () => {
     localStorage.setItem('lastVisitedPage', window.location.pathname);
 });
+// تحديث الفصول بناءً على المرحلة المختارة
+// 1. هنجيب الفصول من الـ Local Storage عشان نشوف "N" اللي ضفتيه
+const savedClasses = JSON.parse(localStorage.getItem('schoolClassesList')) || [];
+
+// 2. لما نختار الـ Grade
+if (gradeSelect) {
+    gradeSelect.addEventListener('change', function() {
+        const selectedGrade = this.value; // رقم المرحلة
+        
+        // مسح القديم
+        classSelect.innerHTML = '<option value="" disabled selected hidden>Class</option>';
+        
+        // فلترة من المصفوفة اللي جاية من الـ LocalStorage (اللي فيها N)
+        const available = savedClasses.filter(c => c.grade.toString() === selectedGrade.toString());
+        
+        if (available.length > 0) {
+            available.forEach(item => {
+                const option = document.createElement('option');
+                option.value = item.className; // تأكدي إنها className زي ما سميناها في المصفوفة
+                option.textContent = item.className;
+                classSelect.appendChild(option);
+            });
+            classSelect.disabled = false;
+        } else {
+            classSelect.disabled = true;
+        }
+    });
+}
+function updateClassOptions(gradeNumber) {
+    if (!classSelect) return;
+
+    // 1. مسح الفصول القديمة
+    classSelect.innerHTML = '<option value="" disabled selected hidden>Class</option>';
+
+    // 2. فلترة الفصول المتاحة للمرحلة دي من المصفوفة بتاعتك
+    const availableClasses = classes.filter(c => c.grade === gradeNumber);
+
+    // 3. إضافة الفصول المتاحة للقائمة
+    if (availableClasses.length > 0) {
+        availableClasses.forEach(item => {
+            const option = document.createElement('option');
+            option.value = item.class;
+            option.textContent = item.class;
+            classSelect.appendChild(option);
+        });
+        classSelect.disabled = false; // تفعيل القائمة
+    } else {
+        // لو مفيش فصول للمرحلة دي
+        const option = document.createElement('option');
+        option.textContent = "No classes available";
+        classSelect.appendChild(option);
+        classSelect.disabled = true; 
+    }
+}

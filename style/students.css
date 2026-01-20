@@ -500,6 +500,8 @@ table tbody td:hover {
 
 .grade-class {
     gap: 20px;
+    align-items: center;
+    margin-top: 46px;
 }
 
 .warning {
@@ -754,6 +756,24 @@ input {
 
 /* Highlight text when selected */
 
+select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: var(--container-bg);
+    border: 1px solid var(--gender-border);
+    border-radius: 8px;
+    padding: 6px 6px;
+    font-size: 16px;
+    color: var(--font-black);
+    width: 100%;
+    cursor: pointer;
+    outline: none;
+    text-align: center;
+    box-shadow: var(--box-shadow);
+    text-align: left;
+}
+
 .gender-options input[type="radio"]:checked+label {
     font-weight: 600;
     color: var(--linear-gradient-2);
@@ -765,6 +785,12 @@ input {
 
 .gender-options {
     gap: 15px;
+}
+
+.slider .disabled {
+    opacity: 0.3;
+    pointer-events: none;
+    cursor: not-allowed;
 }
 
 .slider {

@@ -183,7 +183,6 @@ function renderSubjectDetails() {
 }
 
 
-// --- 6. دالة عرض جدول الدرجات الشهرية (الجدول الأيمن) ---
 function renderGradesForSelectedMonth() {
 
     if (studentData.status && studentData.status.toLowerCase() === "new") {
