@@ -1,6 +1,6 @@
 import { addNotification } from "./notifications.js";
-import { periods } from "./periods.js";
 
+import { periods, masterSchedule } from "./periods.js";
 // ================== DOM Elements ==================
 const favicon = document.getElementById('favicon');
 const teacherPrimaryInfo = document.getElementById('teacherPrimaryInfo');
@@ -236,28 +236,62 @@ renderTeacherPage();
 modifyToggling(overViewButton, overViewSection);
 
 // ================== Schedule ==================
-function renderTeacherSchedule(teacher) {
-    const days = ["sunday", "monday", "tuesday", "wednesday", "thursday"];
+function renderTeacherSchedule(nationalId) {
+    const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"];
     const tbody = document.getElementById("scheduleBody");
+    
+    if (!tbody) return;
     tbody.innerHTML = "";
+
+    // للـ Debugging: عشان نتأكد إن الرقم وصل صح للدالة
+    console.log("Searching for National ID:", nationalId);
+
+    if (!nationalId) {
+        console.error("No ID provided to the function!");
+        return;
+    }
+
+    // فلترة الحصص: بنقارن الـ teacherId اللي في الجدول بالـ nationalId اللي باعتينه
+    const teacherLessons = masterSchedule.filter(lesson => 
+        String(lesson.teacherId).trim() === String(nationalId).trim()
+    );
+
+    console.log("Lessons found:", teacherLessons);
 
     periods.forEach(period => {
         const row = document.createElement("tr");
+        
+        // عمود الوقت
         row.innerHTML = `<td class="time-cell">${period.start} - ${period.end}</td>`;
+        
+        // أعمدة الأيام
         days.forEach(day => {
-            const lesson = teacher.schedule?.[day]?.find(l => l.periodId === period.id);
-            row.innerHTML += `<td class="lesson-cell">${lesson ? `<strong>${lesson.subject}</strong><br><small>${lesson.class}</small>` : "-"}</td>`;
+            const lesson = teacherLessons.find(l => 
+                l.day === day && String(l.periodId) === String(period.id)
+            );
+
+            if (lesson) {
+                row.innerHTML += `
+                    <td class="lesson-cell">
+                        <div class="lesson-box">
+                            <strong>${lesson.subject}</strong><br>
+                            <small>Grade ${lesson.grade}-${lesson.class}</small>
+                        </div>
+                    </td>`;
+            } else {
+                row.innerHTML += `<td class="lesson-cell empty">-</td>`;
+            }
         });
+        
         tbody.appendChild(row);
     });
 }
-
 scheduleTableButton.addEventListener('click', () => {
     modifyToggling(scheduleTableButton, scheduleSection);
-    renderTeacherSchedule(teacherData);
+    // أنت بتبعت teacherData.teacherNationalId هنا وده صح بناءً على الـ console بتاعك
+    renderTeacherSchedule(teacherData.teacherNationalId); 
     editButton.style.display = 'none';
 });
-
 overViewButton.addEventListener('click', () => {
     modifyToggling(overViewButton, overViewSection);
     renderTeacherPage(false);
