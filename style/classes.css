@@ -39,6 +39,7 @@
     --hover-clr: black;
     --trash-hover: #DC3545;
     --font-black-edit: #555;
+    --pop-up-shadow: 0 15px 40px rgba(0, 0, 0, .2);
 }
 
 body {
@@ -563,7 +564,8 @@ select {
     /* مهم أيضاً لمنع السكرول على iOS */
 }
 
-.page-blur {
+.page-blur,
+.page-blurr {
     position: fixed;
     top: 0;
     left: 0;
@@ -586,16 +588,15 @@ select {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    backdrop-filter: blur(5px);
-    background-color: var(--students-modify-bg);
+    background: var(--white-bg);
     padding: 20px;
-    border-radius: 1rem;
-    z-index: 1000;
-    display: none;
+    border-radius: 12px;
+    width: fit-content;
+    text-align: center;
+    box-shadow: var(--pop-up-shadow);
+    z-index: 1000 !important;
     flex-direction: column;
-    gap: 15px;
-    align-items: center;
-    color: var(--font-black)
+    display: none;
 }
 
 .pop-up-buttons button {
@@ -607,6 +608,8 @@ select {
     justify-content: center;
     align-items: center;
     transition: 300ms all ease;
+    flex: 1;
+    margin-top: 20px;
 }
 
 .pop-up-buttons {
@@ -619,23 +622,27 @@ body.no-scroll {
     overflow: hidden;
 }
 
-#yes {
+#yes,
+#yess {
     transition: all 0.3s ease-in-out;
 }
 
-#yes:hover {
+#yes:hover,
+#yess:hover {
     background-color: var(--classification-weak);
     color: var(--white-txt);
     font-size: 14px;
 }
 
-#no {
+#no,
+#noo {
     background: linear-gradient(90deg, var(--linear-gradient-1) 8.17%, var(--linear-gradient-2) 94.23%);
     color: var(--white-txt);
     transition: all 0.3s ease-in-out;
 }
 
-#no:hover {
+#no:hover,
+#noo:hover {
     font-size: 14px;
 }
 

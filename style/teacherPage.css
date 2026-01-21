@@ -60,6 +60,7 @@
         --notification-delete: #888;
         --table-hover-bg: #fff2b2;
         --aside-hover-bg: rgba(173, 216, 230, 0.25);
+        --pop-up-shadow: 0 15px 40px rgba(0, 0, 0, .2);
     }
     
     .flex {
@@ -739,14 +740,14 @@
         left: 50%;
         transform: translate(-50%, -50%);
         backdrop-filter: blur(5px);
-        background-color: var(--students-modify-bg);
+        background-color: var(--white-bg);
         padding: 20px;
         border-radius: 1rem;
         z-index: 1000;
         display: none;
         flex-direction: column;
-        gap: 15px;
         align-items: center;
+        box-shadow: var(--pop-up-shadow);
     }
     
     .pop-up-buttons button {
@@ -758,12 +759,15 @@
         justify-content: center;
         align-items: center;
         transition: 300ms all ease;
+        flex: 1;
     }
     
     .pop-up-buttons {
         display: flex;
         justify-content: center;
         gap: 10px;
+        width: 70%;
+        margin: 10px;
     }
     
     body.no-scroll {
@@ -807,7 +811,7 @@
         color: var(--font-black, #555);
         text-align: center;
         padding: 0 10px;
-        margin-bottom: 25px;
+        margin-bottom: 10px;
     }
     
     .dangered {
@@ -829,8 +833,7 @@
 .status-holiday {
     color: pink !important;
 }*/
-    
-    .dark-mode {
+    /*.dark-mode {
         --icon-color: #a0b2d1;
         --container-bg: #121212;
         --classification-weak: #ff6b6b;
@@ -868,6 +871,7 @@
         --table-border: #444;
         --academic-head: #a0c4ff;
     }
+    */
     
     .schedule {
         width: 100%;

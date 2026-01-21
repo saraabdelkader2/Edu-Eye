@@ -39,6 +39,7 @@
     --hover-clr: black;
     --trash-hover: #DC3545;
     --font-black-edit: #555;
+    --pop-up-shadow: 0 15px 40px rgba(0, 0, 0, .2);
 }
 
 body {
@@ -281,15 +282,16 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
     backdrop-filter: blur(5px);
-    background-color: var(--students-modify-bg);
-    padding: 20px;
+    background-color: var(--white-bg);
+    padding: 30px;
     border-radius: 1rem;
     z-index: 1000;
     display: none;
     flex-direction: column;
     gap: 15px;
     align-items: center;
-    color: var(--font-black)
+    color: var(--font-black);
+    box-shadow: var(--pop-up-shadow);
 }
 
 .pop-up-buttons button {
@@ -301,12 +303,15 @@ body {
     justify-content: center;
     align-items: center;
     transition: 300ms all ease;
+    flex: 1;
+    margin: 10px 0;
 }
 
 .pop-up-buttons {
     display: flex;
     justify-content: center;
     gap: 10px;
+    width: 80%;
 }
 
 body.no-scroll {

@@ -19,36 +19,36 @@ export const teachers = [{
     teacherEmploymentType: 'Full-Time',
     teacherStatus: 'active',
     teacherEmail: 'Ibrahimashraftech@std.sch.edu.eg',
-    schedule: {
-        sunday: [
-            { periodId: 1, subject: "Math", class: "6A" },
-            { periodId: 2, subject: "Math", class: "6B" },
-            { periodId: 4, subject: "Math", class: "5A" }
-        ],
+    //schedule: {
+    //    sunday: [
+    //        { periodId: 1, subject: "Math", class: "6A" },
+    //        { periodId: 2, subject: "Math", class: "6B" },
+    //        { periodId: 4, subject: "Math", class: "5A" }
+    //    ],
 
-        monday: [
-            { periodId: 1, subject: "Math", class: "5B" },
-            { periodId: 3, subject: "Math", class: "6A" },
-            { periodId: 5, subject: "Math", class: "4A" }
-        ],
+    //    monday: [
+    //        { periodId: 1, subject: "Math", class: "5B" },
+    //        { periodId: 3, subject: "Math", class: "6A" },
+    //        { periodId: 5, subject: "Math", class: "4A" }
+    //    ],
 
-        tuesday: [
-            { periodId: 2, subject: "Math", class: "6C" },
-            { periodId: 4, subject: "Math", class: "5A" },
-            { periodId: 6, subject: "Math", class: "4B" }
-        ],
+    //    tuesday: [
+    //        { periodId: 2, subject: "Math", class: "6C" },
+    //        { periodId: 4, subject: "Math", class: "5A" },
+    //        { periodId: 6, subject: "Math", class: "4B" }
+    //    ],
 
-        wednesday: [
-            { periodId: 1, subject: "Math", class: "6B" },
-            { periodId: 3, subject: "Math", class: "5C" },
-            { periodId: 7, subject: "Math", class: "4A" }
-        ],
+    //    wednesday: [
+    //        { periodId: 1, subject: "Math", class: "6B" },
+    //        { periodId: 3, subject: "Math", class: "5C" },
+    //        { periodId: 7, subject: "Math", class: "4A" }
+    //    ],
 
-        thursday: [
-            { periodId: 2, subject: "Math", class: "6A" },
-            { periodId: 4, subject: "Math", class: "5B" }
-        ]
-    }
+    //    thursday: [
+    //        { periodId: 2, subject: "Math", class: "6A" },
+    //        { periodId: 4, subject: "Math", class: "5B" }
+    //    ]
+    //}
 }, {
     id: '',
     teacherFirstName: 'Fatema',
@@ -70,36 +70,36 @@ export const teachers = [{
     teacherEmploymentType: 'Teacher by the class',
     teacherStatus: 'active',
     teacherEmail: 'fatema.ali@std.sch.edu.eg',
-    schedule: {
-        sunday: [
-            { periodId: 6, subject: "Math", class: "6A" },
-            { periodId: 2, subject: "Math", class: "6B" },
-            { periodId: 4, subject: "Math", class: "5A" }
-        ],
+    //schedule: {
+    //    sunday: [
+    //        { periodId: 6, subject: "Math", class: "6A" },
+    //        { periodId: 2, subject: "Math", class: "6B" },
+    //        { periodId: 4, subject: "Math", class: "5A" }
+    //    ],
 
-        monday: [
-            { periodId: 1, subject: "Math", class: "5B" },
-            { periodId: 3, subject: "Math", class: "6A" },
-            { periodId: 4, subject: "Math", class: "4A" }
-        ],
+    //    monday: [
+    //        { periodId: 1, subject: "Math", class: "5B" },
+    //        { periodId: 3, subject: "Math", class: "6A" },
+    //        { periodId: 4, subject: "Math", class: "4A" }
+    //    ],
 
-        tuesday: [
-            { periodId: 2, subject: "Math", class: "6C" },
-            { periodId: 4, subject: "Math", class: "5A" },
-            { periodId: 6, subject: "Math", class: "4B" }
-        ],
+    //    tuesday: [
+    //        { periodId: 2, subject: "Math", class: "6C" },
+    //        { periodId: 4, subject: "Math", class: "5A" },
+    //        { periodId: 6, subject: "Math", class: "4B" }
+    //    ],
 
-        wednesday: [
-            { periodId: 1, subject: "Math", class: "6B" },
-            { periodId: 3, subject: "Math", class: "5C" },
-            { periodId: 7, subject: "Math", class: "4A" }
-        ],
+    //    wednesday: [
+    //        { periodId: 1, subject: "Math", class: "6B" },
+    //        { periodId: 3, subject: "Math", class: "5C" },
+    //        { periodId: 7, subject: "Math", class: "4A" }
+    //    ],
 
-        thursday: [
-            { periodId: 2, subject: "Math", class: "6A" },
-            { periodId: 4, subject: "Math", class: "5B" }
-        ]
-    }
+    //    thursday: [
+    //        { periodId: 2, subject: "Math", class: "6A" },
+    //        { periodId: 4, subject: "Math", class: "5B" }
+    //    ]
+    //}
 }, {
     id: '',
     teacherFirstName: 'Ahmed',
@@ -121,43 +121,43 @@ export const teachers = [{
     teacherEmploymentType: 'Full-Time',
     teacherStatus: 'active',
     teacherEmail: 'ahmed.mahmoud@std.sch.edu.eg',
-    schedule: {
-        sunday: [
-            { periodId: 1, subject: "Math", class: "6A" },
-            { periodId: 2, subject: "Math", class: "6B" },
-            { periodId: 4, subject: "Math", class: "5A" }
-        ],
+    //schedule: {
+    //    sunday: [
+    //        { periodId: 1, subject: "Math", class: "6A" },
+    //        { periodId: 2, subject: "Math", class: "6B" },
+    //        { periodId: 4, subject: "Math", class: "5A" }
+    //    ],
 
-        monday: [
-            { periodId: 1, subject: "Math", class: "5B" },
-            { periodId: 3, subject: "Math", class: "6A" },
-            { periodId: 5, subject: "Math", class: "4A" }
-        ],
+    //    monday: [
+    //        { periodId: 1, subject: "Math", class: "5B" },
+    //        { periodId: 3, subject: "Math", class: "6A" },
+    //        { periodId: 5, subject: "Math", class: "4A" }
+    //    ],
 
-        tuesday: [
-            { periodId: 2, subject: "Math", class: "6C" },
-            { periodId: 4, subject: "Math", class: "5A" },
-            { periodId: 6, subject: "Math", class: "4B" }
-        ],
+    //    tuesday: [
+    //        { periodId: 2, subject: "Math", class: "6C" },
+    //        { periodId: 4, subject: "Math", class: "5A" },
+    //        { periodId: 6, subject: "Math", class: "4B" }
+    //    ],
 
-        wednesday: [
-            { periodId: 1, subject: "Math", class: "6B" },
-            { periodId: 3, subject: "Math", class: "5C" },
-            { periodId: 7, subject: "Math", class: "4A" }
-        ],
+    //    wednesday: [
+    //        { periodId: 1, subject: "Math", class: "6B" },
+    //        { periodId: 3, subject: "Math", class: "5C" },
+    //        { periodId: 7, subject: "Math", class: "4A" }
+    //    ],
 
-        thursday: [
-            { periodId: 2, subject: "Math", class: "6A" },
-            { periodId: 4, subject: "Math", class: "5B" }
-        ]
-    }
+    //    thursday: [
+    //        { periodId: 2, subject: "Math", class: "6A" },
+    //        { periodId: 4, subject: "Math", class: "5B" }
+    //    ]
+    //}
 }, {
     id: '',
     teacherFirstName: 'Sara',
     teacherLastName: 'Hassan',
     Specialization: 'English',
     teacherClass: 'D',
-    teacherGrade: '9',
+    teacherGrade: '3',
     teacherGender: 'female',
     teacherAge: '28',
     teacherNoOfClasses: '5',
@@ -172,42 +172,42 @@ export const teachers = [{
     teacherEmploymentType: 'Part-Time',
     teacherStatus: 'active',
     teacherEmail: 'sara.hassan@std.sch.edu.eg',
-    schedule: {
-        sunday: [
-            { periodId: 1, subject: "Math", class: "6A" },
-            { periodId: 2, subject: "Math", class: "6B" },
-            { periodId: 4, subject: "Math", class: "5A" }
-        ],
+    //schedule: {
+    //    sunday: [
+    //        { periodId: 1, subject: "Math", class: "6A" },
+    //        { periodId: 2, subject: "Math", class: "6B" },
+    //        { periodId: 4, subject: "Math", class: "5A" }
+    //    ],
 
-        monday: [
-            { periodId: 1, subject: "Math", class: "5B" },
-            { periodId: 3, subject: "Math", class: "6A" },
-            { periodId: 5, subject: "Math", class: "4A" }
-        ],
+    //    monday: [
+    //        { periodId: 1, subject: "Math", class: "5B" },
+    //        { periodId: 3, subject: "Math", class: "6A" },
+    //        { periodId: 5, subject: "Math", class: "4A" }
+    //    ],
 
-        tuesday: [
-            { periodId: 2, subject: "Math", class: "6C" },
-            { periodId: 4, subject: "Math", class: "5A" },
-            { periodId: 6, subject: "Math", class: "4B" }
-        ],
+    //    tuesday: [
+    //        { periodId: 2, subject: "Math", class: "6C" },
+    //        { periodId: 4, subject: "Math", class: "5A" },
+    //        { periodId: 6, subject: "Math", class: "4B" }
+    //    ],
 
-        wednesday: [
-            { periodId: 1, subject: "Math", class: "6B" },
-            { periodId: 3, subject: "Math", class: "5C" },
-            { periodId: 7, subject: "Math", class: "4A" }
-        ],
+    //    wednesday: [
+    //        { periodId: 1, subject: "Math", class: "6B" },
+    //        { periodId: 3, subject: "Math", class: "5C" },
+    //        { periodId: 7, subject: "Math", class: "4A" }
+    //    ],
 
-        thursday: [
-            { periodId: 2, subject: "Math", class: "6A" },
-            { periodId: 4, subject: "Math", class: "5B" }
-        ]
-    }
+    //    thursday: [
+    //        { periodId: 2, subject: "Math", class: "6A" },
+    //        { periodId: 4, subject: "Math", class: "5B" }
+    //    ]
+    //}
 }, {
     id: '',
     teacherFirstName: 'Mohamed',
     teacherLastName: 'Tarek',
     Specialization: 'Social Studies',
-    teacherClass: 'E',
+    teacherClass: 'A',
     teacherGrade: '5',
     teacherGender: 'male',
     teacherAge: '41',
@@ -223,43 +223,43 @@ export const teachers = [{
     teacherEmploymentType: 'Full-Time',
     teacherStatus: 'active',
     teacherEmail: 'mohamed.tarek@std.sch.edu.eg',
-    schedule: {
-        sunday: [
-            { periodId: 1, subject: "Math", class: "6A" },
-            { periodId: 2, subject: "Math", class: "6B" },
-            { periodId: 4, subject: "Math", class: "5A" }
-        ],
+    //schedule: {
+    //    sunday: [
+    //        { periodId: 1, subject: "Math", class: "6A" },
+    //        { periodId: 2, subject: "Math", class: "6B" },
+    //        { periodId: 4, subject: "Math", class: "5A" }
+    //    ],
 
-        monday: [
-            { periodId: 1, subject: "Math", class: "5B" },
-            { periodId: 3, subject: "Math", class: "6A" },
-            { periodId: 5, subject: "Math", class: "4A" }
-        ],
+    //    monday: [
+    //        { periodId: 1, subject: "Math", class: "5B" },
+    //        { periodId: 3, subject: "Math", class: "6A" },
+    //        { periodId: 5, subject: "Math", class: "4A" }
+    //    ],
 
-        tuesday: [
-            { periodId: 2, subject: "Math", class: "6C" },
-            { periodId: 4, subject: "Math", class: "5A" },
-            { periodId: 6, subject: "Math", class: "4B" }
-        ],
+    //    tuesday: [
+    //        { periodId: 2, subject: "Math", class: "6C" },
+    //        { periodId: 4, subject: "Math", class: "5A" },
+    //        { periodId: 6, subject: "Math", class: "4B" }
+    //    ],
 
-        wednesday: [
-            { periodId: 1, subject: "Math", class: "6B" },
-            { periodId: 3, subject: "Math", class: "5C" },
-            { periodId: 7, subject: "Math", class: "4A" }
-        ],
+    //    wednesday: [
+    //        { periodId: 1, subject: "Math", class: "6B" },
+    //        { periodId: 3, subject: "Math", class: "5C" },
+    //        { periodId: 7, subject: "Math", class: "4A" }
+    //    ],
 
-        thursday: [
-            { periodId: 2, subject: "Math", class: "6A" },
-            { periodId: 4, subject: "Math", class: "5B" }
-        ]
-    }
+    //    thursday: [
+    //        { periodId: 2, subject: "Math", class: "6A" },
+    //        { periodId: 4, subject: "Math", class: "5B" }
+    //    ]
+    //}
 
 }, {
     id: '',
     teacherFirstName: 'Nadia',
     teacherLastName: 'Soliman',
     Specialization: 'Art',
-    teacherClass: 'F',
+    teacherClass: 'A',
     teacherGrade: '2',
     teacherGender: 'female',
     teacherAge: '37',
@@ -275,44 +275,44 @@ export const teachers = [{
     teacherEmploymentType: 'Teacher by the class',
     teacherStatus: 'active',
     teacherEmail: 'nadia.soliman@std.sch.edu.eg',
-    schedule: {
-        sunday: [
-            { periodId: 1, subject: "Math", class: "6A" },
-            { periodId: 2, subject: "Math", class: "6B" },
-            { periodId: 4, subject: "Math", class: "5A" }
-        ],
+    //schedule: {
+    //    sunday: [
+    //        { periodId: 1, subject: "Math", class: "6A" },
+    //        { periodId: 2, subject: "Math", class: "6B" },
+    //        { periodId: 4, subject: "Math", class: "5A" }
+    //    ],
 
-        monday: [
-            { periodId: 1, subject: "Math", class: "5B" },
-            { periodId: 3, subject: "Math", class: "6A" },
-            { periodId: 5, subject: "Math", class: "4A" }
-        ],
+    //    monday: [
+    //        { periodId: 1, subject: "Math", class: "5B" },
+    //        { periodId: 3, subject: "Math", class: "6A" },
+    //        { periodId: 5, subject: "Math", class: "4A" }
+    //    ],
 
-        tuesday: [
-            { periodId: 2, subject: "Math", class: "6C" },
-            { periodId: 4, subject: "Math", class: "5A" },
-            { periodId: 6, subject: "Math", class: "4B" }
-        ],
+    //    tuesday: [
+    //        { periodId: 2, subject: "Math", class: "6C" },
+    //        { periodId: 4, subject: "Math", class: "5A" },
+    //        { periodId: 6, subject: "Math", class: "4B" }
+    //    ],
 
-        wednesday: [
-            { periodId: 1, subject: "Math", class: "6B" },
-            { periodId: 3, subject: "Math", class: "5C" },
-            { periodId: 7, subject: "Math", class: "4A" }
-        ],
+    //    wednesday: [
+    //        { periodId: 1, subject: "Math", class: "6B" },
+    //        { periodId: 3, subject: "Math", class: "5C" },
+    //        { periodId: 7, subject: "Math", class: "4A" }
+    //    ],
 
-        thursday: [
-            { periodId: 2, subject: "Math", class: "6A" },
-            { periodId: 4, subject: "Math", class: "5B" }
-        ]
-    }
+    //    thursday: [
+    //        { periodId: 2, subject: "Math", class: "6A" },
+    //        { periodId: 4, subject: "Math", class: "5B" }
+    //    ]
+    //}
 
 }, {
     id: '',
     teacherFirstName: 'Khaled',
     teacherLastName: 'Fouad',
     Specialization: 'Physics',
-    teacherClass: 'G',
-    teacherGrade: '11',
+    teacherClass: 'B',
+    teacherGrade: '1',
     teacherGender: 'male',
     teacherAge: '55',
     teacherNoOfClasses: '2',
@@ -327,44 +327,44 @@ export const teachers = [{
     teacherEmploymentType: 'Full-Time',
     teacherStatus: 'active',
     teacherEmail: 'khaled.fouad@std.sch.edu.eg',
-    schedule: {
-        sunday: [
-            { periodId: 1, subject: "Math", class: "6A" },
-            { periodId: 2, subject: "Math", class: "6B" },
-            { periodId: 4, subject: "Math", class: "5A" }
-        ],
+    //schedule: {
+    //    sunday: [
+    //        { periodId: 1, subject: "Math", class: "6A" },
+    //        { periodId: 2, subject: "Math", class: "6B" },
+    //        { periodId: 4, subject: "Math", class: "5A" }
+    //    ],
 
-        monday: [
-            { periodId: 1, subject: "Math", class: "5B" },
-            { periodId: 3, subject: "Math", class: "6A" },
-            { periodId: 5, subject: "Math", class: "4A" }
-        ],
+    //    monday: [
+    //        { periodId: 1, subject: "Math", class: "5B" },
+    //        { periodId: 3, subject: "Math", class: "6A" },
+    //        { periodId: 5, subject: "Math", class: "4A" }
+    //    ],
 
-        tuesday: [
-            { periodId: 2, subject: "Math", class: "6C" },
-            { periodId: 4, subject: "Math", class: "5A" },
-            { periodId: 6, subject: "Math", class: "4B" }
-        ],
+    //    tuesday: [
+    //        { periodId: 2, subject: "Math", class: "6C" },
+    //        { periodId: 4, subject: "Math", class: "5A" },
+    //        { periodId: 6, subject: "Math", class: "4B" }
+    //    ],
 
-        wednesday: [
-            { periodId: 1, subject: "Math", class: "6B" },
-            { periodId: 3, subject: "Math", class: "5C" },
-            { periodId: 7, subject: "Math", class: "4A" }
-        ],
+    //    wednesday: [
+    //        { periodId: 1, subject: "Math", class: "6B" },
+    //        { periodId: 3, subject: "Math", class: "5C" },
+    //        { periodId: 7, subject: "Math", class: "4A" }
+    //    ],
 
-        thursday: [
-            { periodId: 2, subject: "Math", class: "6A" },
-            { periodId: 4, subject: "Math", class: "5B" }
-        ]
-    }
+    //    thursday: [
+    //        { periodId: 2, subject: "Math", class: "6A" },
+    //        { periodId: 4, subject: "Math", class: "5B" }
+    //    ]
+    //}
 
 }, {
     id: '',
     teacherFirstName: 'Hoda',
     teacherLastName: 'Adel',
     Specialization: 'Chemistry',
-    teacherClass: 'H',
-    teacherGrade: '10',
+    teacherClass: 'B',
+    teacherGrade: '1',
     teacherGender: 'female',
     teacherAge: '35',
     teacherNoOfClasses: '4',
@@ -379,36 +379,36 @@ export const teachers = [{
     teacherEmploymentType: 'Full-Time',
     teacherStatus: 'active',
     teacherEmail: 'hoda.adel@std.sch.edu.eg',
-    schedule: {
-        sunday: [
-            { periodId: 1, subject: "Math", class: "6A" },
-            { periodId: 2, subject: "Math", class: "6B" },
-            { periodId: 4, subject: "Math", class: "5A" }
-        ],
+    //schedule: {
+    //    sunday: [
+    //        { periodId: 1, subject: "Math", class: "6A" },
+    //        { periodId: 2, subject: "Math", class: "6B" },
+    //        { periodId: 4, subject: "Math", class: "5A" }
+    //    ],
 
-        monday: [
-            { periodId: 1, subject: "Math", class: "5B" },
-            { periodId: 3, subject: "Math", class: "6A" },
-            { periodId: 5, subject: "Math", class: "4A" }
-        ],
+    //    monday: [
+    //        { periodId: 1, subject: "Math", class: "5B" },
+    //        { periodId: 3, subject: "Math", class: "6A" },
+    //        { periodId: 5, subject: "Math", class: "4A" }
+    //    ],
 
-        tuesday: [
-            { periodId: 2, subject: "Math", class: "6C" },
-            { periodId: 4, subject: "Math", class: "5A" },
-            { periodId: 6, subject: "Math", class: "4B" }
-        ],
+    //    tuesday: [
+    //        { periodId: 2, subject: "Math", class: "6C" },
+    //        { periodId: 4, subject: "Math", class: "5A" },
+    //        { periodId: 6, subject: "Math", class: "4B" }
+    //    ],
 
-        wednesday: [
-            { periodId: 1, subject: "Math", class: "6B" },
-            { periodId: 3, subject: "Math", class: "5C" },
-            { periodId: 7, subject: "Math", class: "4A" }
-        ],
+    //    wednesday: [
+    //        { periodId: 1, subject: "Math", class: "6B" },
+    //        { periodId: 3, subject: "Math", class: "5C" },
+    //        { periodId: 7, subject: "Math", class: "4A" }
+    //    ],
 
-        thursday: [
-            { periodId: 2, subject: "Math", class: "6A" },
-            { periodId: 4, subject: "Math", class: "5B" }
-        ]
-    }
+    //    thursday: [
+    //        { periodId: 2, subject: "Math", class: "6A" },
+    //        { periodId: 4, subject: "Math", class: "5B" }
+    //    ]
+    //}
 
 }, {
     id: '',
@@ -431,44 +431,44 @@ export const teachers = [{
     teacherEmploymentType: 'Teacher by the class',
     teacherStatus: 'active',
     teacherEmail: 'tamer.galal@std.sch.edu.eg',
-    schedule: {
-        sunday: [
-            { periodId: 1, subject: "Math", class: "6A" },
-            { periodId: 2, subject: "Math", class: "6B" },
-            { periodId: 4, subject: "Math", class: "5A" }
-        ],
+    //schedule: {
+    //    sunday: [
+    //        { periodId: 1, subject: "Math", class: "6A" },
+    //        { periodId: 2, subject: "Math", class: "6B" },
+    //        { periodId: 4, subject: "Math", class: "5A" }
+    //    ],
 
-        monday: [
-            { periodId: 1, subject: "Math", class: "5B" },
-            { periodId: 3, subject: "Math", class: "6A" },
-            { periodId: 5, subject: "Math", class: "4A" }
-        ],
+    //    monday: [
+    //        { periodId: 1, subject: "Math", class: "5B" },
+    //        { periodId: 3, subject: "Math", class: "6A" },
+    //        { periodId: 5, subject: "Math", class: "4A" }
+    //    ],
 
-        tuesday: [
-            { periodId: 2, subject: "Math", class: "6C" },
-            { periodId: 4, subject: "Math", class: "5A" },
-            { periodId: 6, subject: "Math", class: "4B" }
-        ],
+    //    tuesday: [
+    //        { periodId: 2, subject: "Math", class: "6C" },
+    //        { periodId: 4, subject: "Math", class: "5A" },
+    //        { periodId: 6, subject: "Math", class: "4B" }
+    //    ],
 
-        wednesday: [
-            { periodId: 1, subject: "Math", class: "6B" },
-            { periodId: 3, subject: "Math", class: "5C" },
-            { periodId: 7, subject: "Math", class: "4A" }
-        ],
+    //    wednesday: [
+    //        { periodId: 1, subject: "Math", class: "6B" },
+    //        { periodId: 3, subject: "Math", class: "5C" },
+    //        { periodId: 7, subject: "Math", class: "4A" }
+    //    ],
 
-        thursday: [
-            { periodId: 2, subject: "Math", class: "6A" },
-            { periodId: 4, subject: "Math", class: "5B" }
-        ]
-    }
+    //    thursday: [
+    //        { periodId: 2, subject: "Math", class: "6A" },
+    //        { periodId: 4, subject: "Math", class: "5B" }
+    //    ]
+    //}
 
 }, {
     id: '',
     teacherFirstName: 'Mai',
     teacherLastName: 'Emad',
     Specialization: 'Biology',
-    teacherClass: 'J',
-    teacherGrade: '12',
+    teacherClass: 'D',
+    teacherGrade: '2',
     teacherGender: 'female',
     teacherAge: '48',
     teacherNoOfClasses: '2',
@@ -483,43 +483,43 @@ export const teachers = [{
     teacherEmploymentType: 'Full-Time',
     teacherStatus: 'active',
     teacherEmail: 'mai.emad@std.sch.edu.eg',
-    schedule: {
-        sunday: [
-            { periodId: 1, subject: "Math", class: "6A" },
-            { periodId: 2, subject: "Math", class: "6B" },
-            { periodId: 4, subject: "Math", class: "5A" }
-        ],
+    //schedule: {
+    //    sunday: [
+    //        { periodId: 1, subject: "Math", class: "6A" },
+    //        { periodId: 2, subject: "Math", class: "6B" },
+    //        { periodId: 4, subject: "Math", class: "5A" }
+    //    ],
 
-        monday: [
-            { periodId: 1, subject: "Math", class: "5B" },
-            { periodId: 3, subject: "Math", class: "6A" },
-            { periodId: 5, subject: "Math", class: "4A" }
-        ],
+    //    monday: [
+    //        { periodId: 1, subject: "Math", class: "5B" },
+    //        { periodId: 3, subject: "Math", class: "6A" },
+    //        { periodId: 5, subject: "Math", class: "4A" }
+    //    ],
 
-        tuesday: [
-            { periodId: 2, subject: "Math", class: "6C" },
-            { periodId: 4, subject: "Math", class: "5A" },
-            { periodId: 6, subject: "Math", class: "4B" }
-        ],
+    //    tuesday: [
+    //        { periodId: 2, subject: "Math", class: "6C" },
+    //        { periodId: 4, subject: "Math", class: "5A" },
+    //        { periodId: 6, subject: "Math", class: "4B" }
+    //    ],
 
-        wednesday: [
-            { periodId: 1, subject: "Math", class: "6B" },
-            { periodId: 3, subject: "Math", class: "5C" },
-            { periodId: 7, subject: "Math", class: "4A" }
-        ],
+    //    wednesday: [
+    //        { periodId: 1, subject: "Math", class: "6B" },
+    //        { periodId: 3, subject: "Math", class: "5C" },
+    //        { periodId: 7, subject: "Math", class: "4A" }
+    //    ],
 
-        thursday: [
-            { periodId: 2, subject: "Math", class: "6A" },
-            { periodId: 4, subject: "Math", class: "5B" }
-        ]
-    }
+    //    thursday: [
+    //        { periodId: 2, subject: "Math", class: "6A" },
+    //        { periodId: 4, subject: "Math", class: "5B" }
+    //    ]
+    //}
 
 }, {
     id: '',
     teacherFirstName: 'Wael',
     teacherLastName: 'Sayed',
     Specialization: 'Physical Education',
-    teacherClass: 'K',
+    teacherClass: 'B',
     teacherGrade: '3',
     teacherGender: 'male',
     teacherAge: '31',
@@ -535,44 +535,44 @@ export const teachers = [{
     teacherEmploymentType: 'Part-Time',
     teacherStatus: 'active',
     teacherEmail: 'wael.sayed@std.sch.edu.eg',
-    schedule: {
-        sunday: [
-            { periodId: 1, subject: "Math", class: "6A" },
-            { periodId: 2, subject: "Math", class: "6B" },
-            { periodId: 4, subject: "Math", class: "5A" }
-        ],
+    //schedule: {
+    //    sunday: [
+    //        { periodId: 1, subject: "Math", class: "6A" },
+    //        { periodId: 2, subject: "Math", class: "6B" },
+    //        { periodId: 4, subject: "Math", class: "5A" }
+    //    ],
 
-        monday: [
-            { periodId: 1, subject: "Math", class: "5B" },
-            { periodId: 3, subject: "Math", class: "6A" },
-            { periodId: 5, subject: "Math", class: "4A" }
-        ],
+    //    monday: [
+    //        { periodId: 1, subject: "Math", class: "5B" },
+    //        { periodId: 3, subject: "Math", class: "6A" },
+    //        { periodId: 5, subject: "Math", class: "4A" }
+    //    ],
 
-        tuesday: [
-            { periodId: 2, subject: "Math", class: "6C" },
-            { periodId: 4, subject: "Math", class: "5A" },
-            { periodId: 6, subject: "Math", class: "4B" }
-        ],
+    //    tuesday: [
+    //        { periodId: 2, subject: "Math", class: "6C" },
+    //        { periodId: 4, subject: "Math", class: "5A" },
+    //        { periodId: 6, subject: "Math", class: "4B" }
+    //    ],
 
-        wednesday: [
-            { periodId: 1, subject: "Math", class: "6B" },
-            { periodId: 3, subject: "Math", class: "5C" },
-            { periodId: 7, subject: "Math", class: "4A" }
-        ],
+    //    wednesday: [
+    //        { periodId: 1, subject: "Math", class: "6B" },
+    //        { periodId: 3, subject: "Math", class: "5C" },
+    //        { periodId: 7, subject: "Math", class: "4A" }
+    //    ],
 
-        thursday: [
-            { periodId: 2, subject: "Math", class: "6A" },
-            { periodId: 4, subject: "Math", class: "5B" }
-        ]
-    }
+    //    thursday: [
+    //        { periodId: 2, subject: "Math", class: "6A" },
+    //        { periodId: 4, subject: "Math", class: "5B" }
+    //    ]
+    //}
 
 }, {
     id: '',
     teacherFirstName: 'Rania',
     teacherLastName: 'Ghorab',
     Specialization: 'German',
-    teacherClass: 'L',
-    teacherGrade: '7',
+    teacherClass: 'D',
+    teacherGrade: '4',
     teacherGender: 'female',
     teacherAge: '29',
     teacherNoOfClasses: '4',
@@ -587,43 +587,43 @@ export const teachers = [{
     teacherEmploymentType: 'Teacher by the class',
     teacherStatus: 'active',
     teacherEmail: 'rania.ghorab@std.sch.edu.eg',
-    schedule: {
-        sunday: [
-            { periodId: 1, subject: "Math", class: "6A" },
-            { periodId: 2, subject: "Math", class: "6B" },
-            { periodId: 4, subject: "Math", class: "5A" }
-        ],
+    //schedule: {
+    //    sunday: [
+    //        { periodId: 1, subject: "Math", class: "6A" },
+    //        { periodId: 2, subject: "Math", class: "6B" },
+    //        { periodId: 4, subject: "Math", class: "5A" }
+    //    ],
 
-        monday: [
-            { periodId: 1, subject: "Math", class: "5B" },
-            { periodId: 3, subject: "Math", class: "6A" },
-            { periodId: 5, subject: "Math", class: "4A" }
-        ],
+    //    monday: [
+    //        { periodId: 1, subject: "Math", class: "5B" },
+    //        { periodId: 3, subject: "Math", class: "6A" },
+    //        { periodId: 5, subject: "Math", class: "4A" }
+    //    ],
 
-        tuesday: [
-            { periodId: 2, subject: "Math", class: "6C" },
-            { periodId: 4, subject: "Math", class: "5A" },
-            { periodId: 6, subject: "Math", class: "4B" }
-        ],
+    //    tuesday: [
+    //        { periodId: 2, subject: "Math", class: "6C" },
+    //        { periodId: 4, subject: "Math", class: "5A" },
+    //        { periodId: 6, subject: "Math", class: "4B" }
+    //    ],
 
-        wednesday: [
-            { periodId: 1, subject: "Math", class: "6B" },
-            { periodId: 3, subject: "Math", class: "5C" },
-            { periodId: 7, subject: "Math", class: "4A" }
-        ],
+    //    wednesday: [
+    //        { periodId: 1, subject: "Math", class: "6B" },
+    //        { periodId: 3, subject: "Math", class: "5C" },
+    //        { periodId: 7, subject: "Math", class: "4A" }
+    //    ],
 
-        thursday: [
-            { periodId: 2, subject: "Math", class: "6A" },
-            { periodId: 4, subject: "Math", class: "5B" }
-        ]
-    }
+    //    thursday: [
+    //        { periodId: 2, subject: "Math", class: "6A" },
+    //        { periodId: 4, subject: "Math", class: "5B" }
+    //    ]
+    //}
 
 }, {
     id: '',
     teacherFirstName: 'Ehab',
     teacherLastName: 'Lotfy',
     Specialization: 'Maths',
-    teacherClass: 'M',
+    teacherClass: 'B',
     teacherGrade: '4',
     teacherGender: 'male',
     teacherAge: '44',
@@ -639,43 +639,43 @@ export const teachers = [{
     teacherEmploymentType: 'Full-Time',
     teacherStatus: 'active',
     teacherEmail: 'ehab.lotfy@std.sch.edu.eg',
-    schedule: {
-        sunday: [
-            { periodId: 1, subject: "Math", class: "6A" },
-            { periodId: 2, subject: "Math", class: "6B" },
-            { periodId: 4, subject: "Math", class: "5A" }
-        ],
+    //schedule: {
+    //    sunday: [
+    //        { periodId: 1, subject: "Math", class: "6A" },
+    //        { periodId: 2, subject: "Math", class: "6B" },
+    //        { periodId: 4, subject: "Math", class: "5A" }
+    //    ],
 
-        monday: [
-            { periodId: 1, subject: "Math", class: "5B" },
-            { periodId: 3, subject: "Math", class: "6A" },
-            { periodId: 5, subject: "Math", class: "4A" }
-        ],
+    //    monday: [
+    //        { periodId: 1, subject: "Math", class: "5B" },
+    //        { periodId: 3, subject: "Math", class: "6A" },
+    //        { periodId: 5, subject: "Math", class: "4A" }
+    //    ],
 
-        tuesday: [
-            { periodId: 2, subject: "Math", class: "6C" },
-            { periodId: 4, subject: "Math", class: "5A" },
-            { periodId: 6, subject: "Math", class: "4B" }
-        ],
+    //    tuesday: [
+    //        { periodId: 2, subject: "Math", class: "6C" },
+    //        { periodId: 4, subject: "Math", class: "5A" },
+    //        { periodId: 6, subject: "Math", class: "4B" }
+    //    ],
 
-        wednesday: [
-            { periodId: 1, subject: "Math", class: "6B" },
-            { periodId: 3, subject: "Math", class: "5C" },
-            { periodId: 7, subject: "Math", class: "4A" }
-        ],
+    //    wednesday: [
+    //        { periodId: 1, subject: "Math", class: "6B" },
+    //        { periodId: 3, subject: "Math", class: "5C" },
+    //        { periodId: 7, subject: "Math", class: "4A" }
+    //    ],
 
-        thursday: [
-            { periodId: 2, subject: "Math", class: "6A" },
-            { periodId: 4, subject: "Math", class: "5B" }
-        ]
-    }
+    //    thursday: [
+    //        { periodId: 2, subject: "Math", class: "6A" },
+    //        { periodId: 4, subject: "Math", class: "5B" }
+    //    ]
+    //}
 
 }, {
     id: '',
     teacherFirstName: 'Nour',
     teacherLastName: 'El-Hoda',
     Specialization: 'Science',
-    teacherClass: 'N',
+    teacherClass: 'C',
     teacherGrade: '6',
     teacherGender: 'female',
     teacherAge: '36',
@@ -691,44 +691,44 @@ export const teachers = [{
     teacherEmploymentType: 'Teacher by the class',
     teacherStatus: 'active',
     teacherEmail: 'nour.hoda@std.sch.edu.eg',
-    schedule: {
-        sunday: [
-            { periodId: 1, subject: "Math", class: "6A" },
-            { periodId: 2, subject: "Math", class: "6B" },
-            { periodId: 4, subject: "Math", class: "5A" }
-        ],
+    //schedule: {
+    //    sunday: [
+    //        { periodId: 1, subject: "Math", class: "6A" },
+    //        { periodId: 2, subject: "Math", class: "6B" },
+    //        { periodId: 4, subject: "Math", class: "5A" }
+    //    ],
 
-        monday: [
-            { periodId: 1, subject: "Math", class: "5B" },
-            { periodId: 3, subject: "Math", class: "6A" },
-            { periodId: 5, subject: "Math", class: "4A" }
-        ],
+    //    monday: [
+    //        { periodId: 1, subject: "Math", class: "5B" },
+    //        { periodId: 3, subject: "Math", class: "6A" },
+    //        { periodId: 5, subject: "Math", class: "4A" }
+    //    ],
 
-        tuesday: [
-            { periodId: 2, subject: "Math", class: "6C" },
-            { periodId: 4, subject: "Math", class: "5A" },
-            { periodId: 6, subject: "Math", class: "4B" }
-        ],
+    //    tuesday: [
+    //        { periodId: 2, subject: "Math", class: "6C" },
+    //        { periodId: 4, subject: "Math", class: "5A" },
+    //        { periodId: 6, subject: "Math", class: "4B" }
+    //    ],
 
-        wednesday: [
-            { periodId: 1, subject: "Math", class: "6B" },
-            { periodId: 3, subject: "Math", class: "5C" },
-            { periodId: 7, subject: "Math", class: "4A" }
-        ],
+    //    wednesday: [
+    //        { periodId: 1, subject: "Math", class: "6B" },
+    //        { periodId: 3, subject: "Math", class: "5C" },
+    //        { periodId: 7, subject: "Math", class: "4A" }
+    //    ],
 
-        thursday: [
-            { periodId: 2, subject: "Math", class: "6A" },
-            { periodId: 4, subject: "Math", class: "5B" }
-        ]
-    }
+    //    thursday: [
+    //        { periodId: 2, subject: "Math", class: "6A" },
+    //        { periodId: 4, subject: "Math", class: "5B" }
+    //    ]
+    //}
 
 }, {
     id: '',
     teacherFirstName: 'Youssef',
     teacherLastName: 'Gamal',
     Specialization: 'History',
-    teacherClass: 'O',
-    teacherGrade: '10',
+    teacherClass: 'A',
+    teacherGrade: '1',
     teacherGender: 'male',
     teacherAge: '52',
     teacherNoOfClasses: '2',
@@ -743,35 +743,87 @@ export const teachers = [{
     teacherEmploymentType: 'Full-Time',
     teacherStatus: 'active',
     teacherEmail: 'youssef.gamal@std.sch.edu.eg',
-    schedule: {
-        sunday: [
-            { periodId: 1, subject: "Math", class: "6A" },
-            { periodId: 2, subject: "Math", class: "6B" },
-            { periodId: 4, subject: "Math", class: "5A" }
-        ],
+    //schedule: {
+    //    sunday: [
+    //        { periodId: 1, subject: "Math", class: "6A" },
+    //        { periodId: 2, subject: "Math", class: "6B" },
+    //        { periodId: 4, subject: "Math", class: "5A" }
+    //    ],
 
-        monday: [
-            { periodId: 1, subject: "Math", class: "5B" },
-            { periodId: 3, subject: "Math", class: "6A" },
-            { periodId: 5, subject: "Math", class: "4A" }
-        ],
+    //    monday: [
+    //        { periodId: 1, subject: "Math", class: "5B" },
+    //        { periodId: 3, subject: "Math", class: "6A" },
+    //        { periodId: 5, subject: "Math", class: "4A" }
+    //    ],
 
-        tuesday: [
-            { periodId: 2, subject: "Math", class: "6C" },
-            { periodId: 4, subject: "Math", class: "5A" },
-            { periodId: 6, subject: "Math", class: "4B" }
-        ],
+    //    tuesday: [
+    //        { periodId: 2, subject: "Math", class: "6C" },
+    //        { periodId: 4, subject: "Math", class: "5A" },
+    //        { periodId: 6, subject: "Math", class: "4B" }
+    //    ],
 
-        wednesday: [
-            { periodId: 1, subject: "Math", class: "6B" },
-            { periodId: 3, subject: "Math", class: "5C" },
-            { periodId: 7, subject: "Math", class: "4A" }
-        ],
+    //    wednesday: [
+    //        { periodId: 1, subject: "Math", class: "6B" },
+    //        { periodId: 3, subject: "Math", class: "5C" },
+    //        { periodId: 7, subject: "Math", class: "4A" }
+    //    ],
 
-        thursday: [
-            { periodId: 2, subject: "Math", class: "6A" },
-            { periodId: 4, subject: "Math", class: "5B" }
-        ]
-    }
+    //    thursday: [
+    //        { periodId: 2, subject: "Math", class: "6A" },
+    //        { periodId: 4, subject: "Math", class: "5B" }
+    //    ]
+    //}
+
+}, {
+    id: '',
+    teacherFirstName: 'Mohammed',
+    teacherLastName: 'Gamal',
+    Specialization: 'Religion',
+    teacherClass: 'A',
+    teacherGrade: '1',
+    teacherGender: 'male',
+    teacherAge: '52',
+    teacherNoOfClasses: '2',
+    teacherNationality: 'Egyptian',
+    teacherNationalId: '27301250308902',
+    teacherReligion: 'Islam',
+    teacherDateOfBirth: '1973-01-25',
+    teacherDateOfBirthJoin: '1998-09-01',
+    teacherAddress: 'Qena',
+    teacherPhone: '01012345678',
+    teacherQualification: 'Faculty of Arts (History Dept), South Valley University, 1996',
+    teacherEmploymentType: 'Full-Time',
+    teacherStatus: 'active',
+    teacherEmail: 'youssef.gamal@std.sch.edu.eg',
+    //schedule: {
+    //    sunday: [
+    //        { periodId: 1, subject: "Math", class: "6A" },
+    //        { periodId: 2, subject: "Math", class: "6B" },
+    //        { periodId: 4, subject: "Math", class: "5A" }
+    //    ],
+
+    //    monday: [
+    //        { periodId: 1, subject: "Math", class: "5B" },
+    //        { periodId: 3, subject: "Math", class: "6A" },
+    //        { periodId: 5, subject: "Math", class: "4A" }
+    //    ],
+
+    //    tuesday: [
+    //        { periodId: 2, subject: "Math", class: "6C" },
+    //        { periodId: 4, subject: "Math", class: "5A" },
+    //        { periodId: 6, subject: "Math", class: "4B" }
+    //    ],
+
+    //    wednesday: [
+    //        { periodId: 1, subject: "Math", class: "6B" },
+    //        { periodId: 3, subject: "Math", class: "5C" },
+    //        { periodId: 7, subject: "Math", class: "4A" }
+    //    ],
+
+    //    thursday: [
+    //        { periodId: 2, subject: "Math", class: "6A" },
+    //        { periodId: 4, subject: "Math", class: "5B" }
+    //    ]
+    //}
 
 }];

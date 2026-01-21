@@ -37,6 +37,7 @@
     --viewlink-top-border: #ddd;
     --notification-delete: #888;
     --hover-clr: black;
+    --pop-up-shadow: 0 15px 40px rgba(0, 0, 0, .2);
 }
 
 body {
@@ -593,7 +594,7 @@ table tbody td:hover {
     left: 50%;
     transform: translate(-50%, -50%);
     backdrop-filter: blur(5px);
-    background-color: var(--students-modify-bg);
+    background-color: var(--white-bg);
     padding: 20px;
     border-radius: 1rem;
     z-index: 1000;
@@ -601,7 +602,8 @@ table tbody td:hover {
     flex-direction: column;
     gap: 15px;
     align-items: center;
-    color: var(--font-black)
+    color: var(--font-black);
+    box-shadow: var(--pop-up-shadow);
 }
 
 .pop-up-buttons button {
@@ -613,12 +615,15 @@ table tbody td:hover {
     justify-content: center;
     align-items: center;
     transition: 300ms all ease;
+    flex: 1 !important;
+    margin-top: 15px;
 }
 
 .pop-up-buttons {
     display: flex;
     justify-content: center;
     gap: 10px;
+    width: 80%;
 }
 
 body.no-scroll {

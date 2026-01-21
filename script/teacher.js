@@ -264,12 +264,39 @@ saveButton.addEventListener('click', (e) => {
 });
 
 
-// =============================
+
 // Reset / Cancel Form
-// =============================
+
 resetButton.addEventListener('click', (e) => {
-    e.preventDefault();
-    form.reset();
+   e.preventDefault();
+
+    document.body.style.overflow = 'hidden'; // no scroll
+
+    document.getElementById('blur-layer').style.display = 'block';
+
+    document.querySelector('.reset-pop-up').style.display = 'flex';
+    const confirmed = document.getElementById('yes');
+    const canceled = document.getElementById('no');
+    confirmed.addEventListener('click', () => {
+        document.getElementById('blur-layer').style.display = 'none';
+        document.querySelector('.reset-pop-up').style.display = 'none';
+
+        form.reset();
+        genderRadios.forEach(radio => radio.checked = false);
+
+        gurdianRadios.forEach(radio => radio.checked = false);
+
+        primaryGurdianSection.style.display = 'none';
+        secondaryyGurdianSection.style.display = 'none';
+
+        document.body.style.overflow = 'auto';
+    });
+
+    canceled.addEventListener('click', () => {
+        document.getElementById('blur-layer').style.display = 'none'; // يشغل البلور
+        document.querySelector('.reset-pop-up').style.display = 'none'; // يعرض البوب أب
+
+    });
 });
 
 cancelButton.addEventListener('click', () => {
@@ -278,9 +305,7 @@ cancelButton.addEventListener('click', () => {
     editConfirmButtons.style.display = 'none';
 });
 
-// =============================
 // Helpers
-// =============================
 function clearWarnings() {
     document.querySelectorAll('.warning').forEach(w => w.textContent = '');
 }
@@ -324,9 +349,8 @@ function calculateAge(dateOfBirth) {
     return age;
 }
 
-// =============================
+
 // Dark Mode & Back
-// =============================
 const body = document.body;
 if (localStorage.getItem('darkMode') === 'enabled') body.classList.add('dark-mode');
 
@@ -341,9 +365,8 @@ lockIcon.addEventListener('click', () => { window.location.href = './login.html'
 const backToHome = document.querySelector('.back-to-home');
 backToHome.addEventListener('click', () => { window.location.href = "/dashboard.html"; });
 
-// =============================
+
 // Initial Render
-// =============================
 updateSliderPages();
 showTeachers(0);
 
@@ -360,7 +383,6 @@ function updateTeacherCounts() {
 
     registeredTeachersD.innerHTML = femaleTCount + maleTCount;
 
-    // لو عايزة تصدرهم
     return { total: femaleTCount + maleTCount, female: femaleTCount, male: maleTCount };
 }
 updateTeacherCounts();
@@ -368,7 +390,6 @@ updateTeacherCounts();
 //helpers 
 
 
-// حفظ آخر صفحة مفتوحة عند الخروج أو إعادة تحميل الصفحة
 window.addEventListener('beforeunload', () => {
     localStorage.setItem('lastVisitedPage', window.location.pathname);
 });

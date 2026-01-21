@@ -266,7 +266,23 @@ function initFormActions() {
     };
 
     if (resetBtn) resetBtn.onclick = () => {
-        classForm.reset();
+        const popup = document.querySelector('#reset-pop-up');
+        const blurLayer = document.getElementById('blur-layerr');
+        if (popup && blurLayer) {
+            popup.style.display = 'flex';
+            blurLayer.style.display = 'block';
+        }
+        document.getElementById('yess').onclick = () => {
+            classForm.reset();
+            closePopup();
+        };
+        document.getElementById('noo').onclick = closePopup;
+
+        function closePopup() {
+            popup.style.display = 'none';
+            blurLayer.style.display = 'none';
+        }
+
         if (warningElement) warningElement.style.display = 'none';
     };
 
