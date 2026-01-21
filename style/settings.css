@@ -110,3 +110,8 @@
     font-size: 18px;
     margin-bottom: 8px;
 }
+
+.aside a .class {
+    width: 17px;
+    height: 18px;
+}

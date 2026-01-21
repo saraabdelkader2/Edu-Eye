@@ -363,3 +363,13 @@ function updateMainClassOptions(selectedGrade) {
         classSelect.appendChild(option);
     });
 }
+
+
+const lockIcon = document.getElementById('lock');
+if (lockIcon) {
+    lockIcon.addEventListener('click', () => { window.location.href = './login.html' });
+}
+
+window.addEventListener('beforeunload', () => {
+    localStorage.setItem('lastVisitedPage', window.location.pathname);
+});

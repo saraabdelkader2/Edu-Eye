@@ -55,6 +55,11 @@ body {
     align-items: start;
 }
 
+.aside a .class {
+    width: 17px;
+    height: 18px;
+}
+
 .timetable-container {
     position: absolute;
     top: 66px;

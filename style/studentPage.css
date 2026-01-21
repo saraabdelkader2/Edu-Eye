@@ -889,6 +889,11 @@ body.no-scroll {
     color: var(--academic-head);
 }
 
+.aside a .class {
+    width: 17px;
+    height: 18px;
+}
+
 
 /* Select input styling */
 
@@ -964,43 +969,4 @@ body.no-scroll {
 
 .status-holiday {
     color: pink !important;
-}
-
-.dark-mode {
-    --icon-color: #a0b2d1;
-    --container-bg: #121212;
-    --classification-weak: #ff6b6b;
-    --white-txt: #f5f5f5;
-    --shadow-much-strong: rgba(0, 0, 0, 0.5);
-    --white-bg: #1c1c1c;
-    --shadow-light: rgba(0, 0, 0, 0.03);
-    --unread-notification: rgba(50, 130, 200, 0.25);
-    --read-notification-bg: #2c2c2c;
-    --read-notification-txt: #ccc;
-    --notification-hover: rgba(50, 130, 200, 0.3);
-    --notification-time: #aaa;
-    --viewlink-bg: #2a2a2a;
-    --viewlink-hover-bg: #3a3a3a;
-    --viewlink-top-border: #444;
-    --notification-delete: #bbb;
-    --box-shadow: 0 2rem 3rem rgba(0, 0, 0, 0.9);
-    --color-light: rgba(50, 50, 70, 0.18);
-    --linear-gradient-1: #2b5db0;
-    --linear-gradient-2: #11294b;
-    --linear-gradient-1-hover: #1d3e7a;
-    --linear-gradient-2-hover: #0d1f3c;
-    --shadow-strong: rgba(0, 0, 0, 0.7);
-    --profile-pic-color: rgba(26, 59, 109, 0.2);
-    --profile-pic-hover: rgba(26, 59, 109, 0.7);
-    --text-muted: rgba(180, 180, 180, 1);
-    --students-modify-bg: rgba(40, 40, 40, 1);
-    --shadow-medium: rgba(0, 0, 0, 0.5);
-    --students-modify-hover-bg: rgba(55, 55, 55, 1);
-    --information-headings: #cce0ff;
-    --over-view-tr: #555555;
-    --over-view-td: #cce0ff;
-    --font-black: #f5f5f5;
-    --gender-border: #555;
-    --table-border: #444;
-    --academic-head: #a0c4ff;
 }

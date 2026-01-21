@@ -63,6 +63,11 @@
         --pop-up-shadow: 0 15px 40px rgba(0, 0, 0, .2);
     }
     
+    .aside a .class {
+        width: 17px;
+        height: 18px;
+    }
+    
     .flex {
         display: flex;
         justify-content: start;
