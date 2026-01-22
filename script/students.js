@@ -588,10 +588,14 @@ function generateEmptyGrades(subjects) {
 //Helpers
 const backToHome = document.querySelector('.back-to-home');
 backToHome.addEventListener('click', () => {
-    window.location.href = "/dashboard.html";
-    //backToHome.style.display='none';
-})
+    const lastPage = localStorage.getItem('lastVisitedPage');
 
+    if (lastPage && lastPage !== window.location.pathname) {
+        window.location.href = lastPage;
+    } else {
+        window.location.href = "/dashboard.html"; // fallback
+    }
+});
 const lockIcon = document.getElementById('lock');
 lockIcon.addEventListener('click', () => {
     window.location.href = './login.html'

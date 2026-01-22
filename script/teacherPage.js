@@ -226,10 +226,20 @@ darkModeToggle.addEventListener('click', () => {
     localStorage.setItem('darkMode', body.classList.contains('dark-mode') ? 'enabled' : 'disabled');
 });
 
-document.querySelector('.back-to-home').addEventListener('click', () => {
-    window.location.href = "./teacher.html";
+const backToHome = document.querySelector('.back-to-home');
+backToHome.addEventListener('click', () => {
+    const lastPage = localStorage.getItem('lastVisitedPage');
+
+    if (lastPage && lastPage !== window.location.pathname) {
+        window.location.href = lastPage;
+    } else {
+        window.location.href = "/dashboard.html"; // fallback
+    }
 });
 
+window.addEventListener('beforeunload', () => {
+    localStorage.setItem('lastVisitedPage', window.location.pathname);
+});
 document.title = `${teacherData.teacherFirstName} ${teacherData.teacherLastName}`;
 
 renderTeacherPage();

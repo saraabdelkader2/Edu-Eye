@@ -373,3 +373,14 @@ if (lockIcon) {
 window.addEventListener('beforeunload', () => {
     localStorage.setItem('lastVisitedPage', window.location.pathname);
 });
+
+const backToHome = document.querySelector('.back-to-home');
+backToHome.addEventListener('click', () => {
+    const lastPage = localStorage.getItem('lastVisitedPage');
+
+    if (lastPage && lastPage !== window.location.pathname) {
+        window.location.href = lastPage;
+    } else {
+        window.location.href = "/dashboard.html"; // fallback
+    }
+});

@@ -11,28 +11,42 @@
     <link href="https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
     <!-- font awesome recalling -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- google icons -->
+    <!-- Google Material Icons -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
 
-    <link rel="stylesheet" href="style/aside-header.css">
+    <!-- CSS -->
     <link rel="stylesheet" href="style/settings.css">
+    <link rel="stylesheet" href="style/aside-header.css">
+    <link rel="stylesheet" href="style/theme.css">
+
+    <!-- favicon -->
+    <link rel="icon" type="image/png" href="media copy/favicons/icons8-settings-300.png" id="favicon">
+
 </head>
 
 <body>
     <div class="header">
         <div class="right-group">
-            <div class="back-icon"><img src="media copy/dashboard/arrow-right.png" alt="back"></div>
-            <div class="search-box">
+            <div class="back-icon back-to-home"><i class="fa-solid fa-arrow-left"></i></div>
+            <!--<div class="search-box">
                 <i class="fa-solid fa-magnifying-glass search-icon"></i>
                 <input type="search" class="search-box" placeholder="search">
-            </div>
+            </div>-->
         </div>
-        <div class="icons left-group">
-            <div class="img-header-background"> <img src="media copy/dashboard/notification.png" alt="notification"></div>
-            <div class="img-header-background"> <img src="media copy/dashboard/message.png" alt="message" class="message-icon"></div>
-            <div class="img-header-background"> <img src="media copy/dashboard/setting-2.png" alt="setting"></div>
-
-
+        <div class="left-icons">
+            <div class="icons left-group">
+                <div class="img-header-background notifications">
+                    <img src="media copy/dashboard/notification.png" alt="notification" class="notification-icon">
+                    <span class="notification-number">0</span>
+                </div>
+                <div class="img-header-background lock" id="lock">
+                    <span class="material-symbols-outlined">lock</span>
+                </div>
+                <div class="img-header-background">
+                    <span class="material-symbols-outlined" id="darkModeToggle">dark_mode</span>
+                </div>
+            </div>
+            <div class="notification-content"></div>
         </div>
 
     </div>
@@ -53,72 +67,86 @@
     <div class="settings-container" id="setting">
         <div class="settings-header flex">
             <p class="settings-heading">
-                <img src="media copy/dashboard/setting-2.png" alt="home" style="filter: invert(61%) sepia(85%) saturate(2097%) hue-rotate(180deg) brightness(97%) contrast(97%); width: 30px; height: 28px;">Settings
+                <img src="media copy/dashboard/setting-2.png" alt="home" style="filter: invert(61%) sepia(85%) saturate(2097%) 
+                hue-rotate(180deg) brightness(97%) contrast(97%);">Settings
             </p>
 
         </div>
         <div class="settings-form-section ">
             <div class="settings-form-basic">
-                <form>
-                    <h2 class="settings-form-header">School information</h2>
-                    <hr>
-                    <div class="settings-dis">
-                        <div class="settings-basic-information-container">
-                            <div class="School-name">
-                                <label>School Name</label>
-                                <input type="text" placeholder="Al Huda Wel Nour Schools" />
-                            </div>
-                            <div class="School-address">
-                                <label>School Address</label>
-                                <input type="text" placeholder="Al-Huda Wal-Nour Street. Next to the Medical Center, Mansoura" />
-                            </div>
-                            <div class="inputs-dis flex">
-                                <div class="School-phone">
-                                    <label>School Phone</label>
-                                    <input type="text" placeholder="+201091284131" />
-                                </div>
-                                <div class="School-email">
-                                    <label>School Email</label>
-                                    <input type="email" placeholder="alhudawelnour@school.mans.edu" />
-                                </div>
-                            </div>
-
-
+                <h2 class="settings-form-header">School information</h2>
+                <hr class="main">
+                <div class="settings-dis">
+                    <div class="settings-basic-information-container">
+                        <div class="School-name row flex">
+                            <p class="imp">School Name</p>
+                            <p class="info">Al Huda Wel Nour Schools</p>
+                        </div>
+                        <hr>
+                        <div class="School-address row flex">
+                            <p class="imp">School Address</p>
+                            <p class="info">Al-Huda Wal-Nour Street. Next to the Medical Center, Mansoura </p>
+                        </div>
+                        <hr>
+                        <div class="School-phone row flex">
+                            <p class="imp">School Phone</p>
+                            <p class="info">01091254658</p>
+                        </div>
+                        <hr>
+                        <div class="School-mail row flex">
+                            <p class="imp">School Email</p>
+                            <p class="info">alhudawelnour@school.mans.edu </p>
                         </div>
 
 
-
                     </div>
-            </div>
-            <div class="settings-form-basic settings-form-basic-selection flex ">
-                <div class="apperance">
-                    <label>Apperance</label>
-                    <input list="Apperance" name="Apperance" placeholder="Apperance" />
-                    <datalist id="Apperance">
-                        <option value="Light Mode">
-                        <option value="Dark Mode">
-                       
-                    </datalist>
-                </div>
-                <div class="language">
-                    <label>Language</label>
-                    <input list="language" name="language" placeholder="Language" />
-                    <datalist id="language">
-                        <option value="English">
-                        <option value="Arabic">
-                       
-                    </datalist>
-                </div>
 
-            </div>
-            </form>
 
+
+                </div>
+            </div>
+            <div class="settings-form-basic">
+                <h2 class="settings-form-header">Academic Configuration</h2>
+                <hr class="main">
+                <div class="configiration flex">
+                    <div class="year">
+                        <p class="label">Academic Year</p>
+                        <p class="mute">2025-2026</p>
+                    </div>
+                    <div class="Semester">
+                        <p class="label">Semester</p>
+                        <p class="mute">1 <sup>st</sup> Term
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="settings-form-basic">
+                <h2 class="settings-form-header">System Modes</h2>
+                <hr class="main">
+                <div class="configiration flex">
+                    <div class="year">
+                        <p class="label">Apperance</p>
+                        <select id="apperance" name="apperance">
+                                        <!--<option value="" disabled selected hidden></option>-->
+                                        <option value="light">Light Mode</option>
+                                        <option value="dark">Dark Mode</option>
+                                        </select>
+                    </div>
+                    <div class="Semester">
+                        <p class="label">Language</p>
+                        <select id="lang" name="lang">
+                                        <!--<option value="" disabled selected hidden></option>-->
+                                        <option value="en">English</option>
+                                        <option value="ar">Arabic</option>
+                                        </select>
+                    </div>
+                </div>
+            </div>
         </div>
 
-
-
     </div>
-    </div>
+    <script src="script/settings.js" type="module"></script>
 
 </body>
 

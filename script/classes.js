@@ -142,6 +142,18 @@ function renderClasses() {
             row.querySelector('.delete-btn').onclick = () => deleteRow(actualIndex);
         }
         tableBody.appendChild(row);
+        row.style.cursor = 'pointer';
+
+        row.addEventListener('click', (e) => {
+            // امنعي فتح الفصل لو ضغط على edit أو delete
+            if (e.target.closest('.actions')) return;
+
+            const grade = cls.grade;
+            const className = cls.className;
+
+            window.location.href = `../classPage.html`;
+        });
+
     });
     updateRegisteredClasses();
     updateSliderPages(totalPages);
@@ -387,8 +399,12 @@ window.addEventListener('beforeunload', () => {
 });
 
 const backToHome = document.querySelector('.back-to-home');
-if (backToHome) {
-    backToHome.addEventListener('click', () => {
-        window.location.href = "/dashboard.html";
-    });
-}
+backToHome.addEventListener('click', () => {
+    const lastPage = localStorage.getItem('lastVisitedPage');
+
+    if (lastPage && lastPage !== window.location.pathname) {
+        window.location.href = lastPage;
+    } else {
+        window.location.href = "/dashboard.html"; // fallback
+    }
+});

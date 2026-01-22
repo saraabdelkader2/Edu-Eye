@@ -404,8 +404,16 @@ cancelButton.addEventListener('click', () => {
     document.querySelector('#all-payments').style.backgroundColor = 'var(--white-bg)';
     document.querySelector('#add-btn').style.backgroundColor = 'transparent';
 });
+window.addEventListener('beforeunload', () => {
+    localStorage.setItem('lastVisitedPage', window.location.pathname);
+});
 const backToHome = document.querySelector('.back-to-home');
 backToHome.addEventListener('click', () => {
-    window.location.href = "/dashboard.html";
-    //backToHome.style.display='none';
-})
+    const lastPage = localStorage.getItem('lastVisitedPage');
+
+    if (lastPage && lastPage !== window.location.pathname) {
+        window.location.href = lastPage;
+    } else {
+        window.location.href = "/dashboard.html"; // fallback
+    }
+});
