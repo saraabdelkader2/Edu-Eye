@@ -14,7 +14,7 @@ export const masterSchedule = [
     { day: "Sunday", periodId: 2, grade: "3", class: "B", teacherId: "28711050109012", subject: "Arabic" },
     { day: "Sunday", periodId: 3, grade: "2", class: "C", teacherId: "30402071203846", subject: "Math" },
     { day: "Sunday", periodId: 5, grade: "1", class: "A", teacherId: "27301250308902", subject: "Religion" },
-    { day: "Sunday", periodId: 6, grade: "4", class: "D", teacherId: "28608200408901", subject: "Computer Science" },
+    { day: "Sunday", periodId: 6, grade: "4", class: "A", teacherId: "28608200408901", subject: "Computer Science" },
     { day: "Sunday", periodId: 7, grade: "1", class: "A", teacherId: "30402071203846", subject: "Math" },
     { day: "Sunday", periodId: 1, grade: "2", class: "B", teacherId: "29703102404567", subject: "English" },
 
@@ -67,7 +67,7 @@ export const masterSchedule = [
     { day: "Monday", periodId: 1, grade: "1", class: "A", teacherId: "28711050109012", subject: "Arabic" },
     { day: "Monday", periodId: 2, grade: "1", class: "B", teacherId: "28711050109012", subject: "Arabic" },
     { day: "Monday", periodId: 3, grade: "1", class: "C", teacherId: "30402071203846", subject: "Math" },
-    { day: "Monday", periodId: 4, grade: "1", class: "D", teacherId: "29703102404567", subject: "English" },
+    { day: "Monday", periodId: 4, grade: "1", class: "A", teacherId: "29703102404567", subject: "English" },
     { day: "Monday", periodId: 5, grade: "1", class: "A", teacherId: "27301250308902", subject: "Religion" },
     { day: "Monday", periodId: 6, grade: "1", class: "A", teacherId: "28608200408901", subject: "Computer Science" },
     { day: "Monday", periodId: 7, grade: "1", class: "A", teacherId: "30402071203846", subject: "Math" },
@@ -97,12 +97,12 @@ export const masterSchedule = [
     { day: "Monday", periodId: 4, grade: "4", class: "B", teacherId: "30402071203846", subject: "Math" },
     { day: "Monday", periodId: 5, grade: "4", class: "A", teacherId: "28409151702345", subject: "Social Studies" },
     { day: "Monday", periodId: 6, grade: "4", class: "C", teacherId: "30402071203846", subject: "Math" },
-    { day: "Monday", periodId: 7, grade: "4", class: "D", teacherId: "28711050109012", subject: "Arabic" },
+    { day: "Monday", periodId: 7, grade: "4", class: "A", teacherId: "28711050109012", subject: "Arabic" },
 
     // --- GRADE 5 (الفصول A, B, C, D) ---
     { day: "Monday", periodId: 1, grade: "5", class: "B", teacherId: "28409151702345", subject: "Social Studies" },
     { day: "Monday", periodId: 2, grade: "5", class: "A", teacherId: "29703102404567", subject: "English" },
-    { day: "Monday", periodId: 3, grade: "5", class: "D", teacherId: "27301250308902", subject: "Religion" },
+    { day: "Monday", periodId: 3, grade: "5", class: "B", teacherId: "27301250308902", subject: "Religion" },
     { day: "Monday", periodId: 4, grade: "5", class: "A", teacherId: "29307201201567", subject: "Science" },
     { day: "Monday", periodId: 5, grade: "5", class: "C", teacherId: "28711050109012", subject: "Arabic" },
     { day: "Monday", periodId: 6, grade: "5", class: "A", teacherId: "30402071203846", subject: "Math" },
@@ -113,7 +113,7 @@ export const masterSchedule = [
     { day: "Monday", periodId: 2, grade: "6", class: "A", teacherId: "28409151702345", subject: "Social Studies" },
     { day: "Monday", periodId: 3, grade: "6", class: "A", teacherId: "28711050109012", subject: "Arabic" },
     { day: "Monday", periodId: 4, grade: "6", class: "B", teacherId: "29703102404567", subject: "English" },
-    { day: "Monday", periodId: 5, grade: "6", class: "D", teacherId: "30402071203846", subject: "Math" },
+    { day: "Monday", periodId: 5, grade: "6", class: "B", teacherId: "30402071203846", subject: "Math" },
     { day: "Monday", periodId: 6, grade: "6", class: "C", teacherId: "29307201201567", subject: "Science" },
     { day: "Monday", periodId: 7, grade: "6", class: "B", teacherId: "27702281801234", subject: "Biology" }
 

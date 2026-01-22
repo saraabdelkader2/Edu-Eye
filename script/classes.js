@@ -100,61 +100,71 @@ function renderClasses() {
     const totalPages = Math.ceil(filteredData.length / ITEMS_PER_PAGE);
     const start = currentPage * ITEMS_PER_PAGE;
     const pageData = filteredData.slice(start, start + ITEMS_PER_PAGE);
-
     pageData.forEach((cls, i) => {
         const actualIndex = classesArray.indexOf(cls);
         const row = document.createElement('tr');
+
         if (cls.isEditing) {
             row.innerHTML = `
-                <td>${start + i + 1}</td>
-                <td><input type="text" value="${cls.grade}-${cls.className}" class="edit-input"></td>
-                <td><input type="text" value="${cls.leadingTeacher}" class="edit-input"></td>
-                <td><input type="number" value="${cls.total}" class="edit-input-num" readonly style="background:#f0f0f0"></td>
-                <td><input type="number" value="${cls.superior}" class="edit-input-num" readonly style="background:#f0f0f0"></td>
-                <td><input type="number" value="${cls.talented}" class="edit-input-num" readonly style="background:#f0f0f0"></td>
-                <td><input type="number" value="${cls.weak}" class="edit-input-num" readonly style="background:#f0f0f0"></td>
-                <td class="actions flex">
-                    <i class="fa-solid fa-check save-btn" title="Save"></i>
-                    <i class="fa-solid fa-xmark cancel-btn" title="Cancel"></i>
-                </td>`;
-            row.querySelector('.save-btn').onclick = () => saveRow(actualIndex, row);
-            row.querySelector('.cancel-btn').onclick = () => {
+            <td>${start + i + 1}</td>
+            <td><input type="text" value="${cls.grade}-${cls.className}" class="edit-input"></td>
+            <td><input type="text" value="${cls.leadingTeacher}" class="edit-input"></td>
+            <td>${cls.total || 0}</td>
+            <td>${cls.superior || 0}</td>
+            <td>${cls.talented || 0}</td>
+            <td>${cls.weak || 0}</td>
+            <td class="actions flex">
+                <i class="fa-solid fa-check save-btn" title="Save"></i>
+                <i class="fa-solid fa-xmark cancel-btn" title="Cancel"></i>
+            </td>`;
+
+            const saveBtn = row.querySelector('.save-btn');
+            const cancelBtn = row.querySelector('.cancel-btn');
+
+            saveBtn.addEventListener('click', (e) => {
+                e.stopPropagation(); // يمنع event row
+                saveRow(actualIndex, row);
+            });
+
+            cancelBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
                 delete cls.isEditing;
                 renderClasses();
-            };
+            });
+
         } else {
             row.innerHTML = `
-                <td>${start + i + 1}</td>
-                <td>${cls.grade} - ${cls.className}</td>
-                <td>${cls.leadingTeacher}</td>
-                <td>${cls.total || 0}</td>
-                <td>${cls.superior || 0}</td>
-                <td>${cls.talented || 0}</td>
-                <td>${cls.weak || 0}</td>
-                <td class="actions flex">
-                    <i class="fa-regular fa-trash-can delete-btn"></i>
-                    <i class="fa-solid fa-pen-to-square edit-btn"></i>
-                </td>`;
-            row.querySelector('.edit-btn').onclick = () => {
+            <td>${start + i + 1}</td>
+            <td>${cls.grade} - ${cls.className}</td>
+            <td>${cls.leadingTeacher}</td>
+            <td>${cls.total || 0}</td>
+            <td>${cls.superior || 0}</td>
+            <td>${cls.talented || 0}</td>
+            <td>${cls.weak || 0}</td>
+            <td class="actions flex">
+                <i class="fa-regular fa-trash-can delete-btn"></i>
+                <i class="fa-solid fa-pen-to-square edit-btn"></i>
+            </td>`;
+
+            const editBtn = row.querySelector('.edit-btn');
+            const deleteBtn = row.querySelector('.delete-btn');
+
+            editBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
                 cls.isEditing = true;
                 renderClasses();
-            };
-            row.querySelector('.delete-btn').onclick = () => deleteRow(actualIndex);
+            });
+
+            deleteBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                deleteRow(actualIndex);
+            });
         }
+
         tableBody.appendChild(row);
         row.style.cursor = 'pointer';
-
-        row.addEventListener('click', (e) => {
-            // امنعي فتح الفصل لو ضغط على edit أو delete
-            if (e.target.closest('.actions')) return;
-
-            const grade = cls.grade;
-            const className = cls.className;
-
-            window.location.href = `../classPage.html`;
-        });
-
     });
+
     updateRegisteredClasses();
     updateSliderPages(totalPages);
 }
