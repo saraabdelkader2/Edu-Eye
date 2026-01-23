@@ -53,9 +53,27 @@
             <div class="notification-content"></div>
         </div>
     </div>
-
+    <div class="header-mobile flex">
+        <i class="fa-solid fa-bars mobile-aside"></i>
+        <h2>Edu Eye</h2>
+        <div class="left-icons">
+            <div class="icons left-group">
+                <div class="img-header-background notifications">
+                    <img src="media copy/dashboard/notification.png" alt="notification" class="notification-icon">
+                    <span class="notification-number">0</span>
+                </div>
+                <!--<div class="img-header-background lock" id="lock">
+                    <span class="material-symbols-outlined">lock</span>
+                </div>
+                <div class="img-header-background">
+                    <span class="material-symbols-outlined" id="darkModeToggle">dark_mode</span>
+                </div>-->
+            </div>
+            <div class="notification-content"></div>
+        </div>
+    </div>
     <!-- Aside -->
-    <div class="aside">
+    <div class="aside" id="aside">
         <h2><img src="media copy/dashboard/icon-park-solid_fire.png" alt="logo"> Edu Eye</h2>
         <div class="options">
             <a href="dashboard.html"><img src="media copy/dashboard/home-2.png" alt="home">Dashboard</a>
@@ -67,7 +85,18 @@
             <a href="settings.html"><img src="media copy/dashboard/setting-2.png" alt="home">Settings</a>
         </div>
     </div>
-
+    <div class="aside" id="aside-mobile">
+        <i class="fa-solid fa-xmark " id="aside-close"></i>
+        <div class="options">
+            <a href="dashboard.html"><img src="media copy/dashboard/home-2.png" alt="home">Dashboard</a>
+            <a href="students.html" class="active"><img src="media copy/dashboard/profile-2user.png" alt="">Students</a>
+            <a href="teacher.html"><img src="media copy/dashboard/teacher.png" alt="">Teachers</a>
+            <a href="classes.html"><img src="media copy/dashboard/Frame 32.png" alt="home" class="class">Classes</a>
+            <a href="payment.html"><span class="material-symbols-outlined">add_card</span>Payment</a>
+            <a href="Timetable.html"><img src="media copy/dashboard/Group 77.png" alt="home">Timetable</a>
+            <a href="settings.html"><img src="media copy/dashboard/setting-2.png" alt="home">Settings</a>
+        </div>
+    </div>
     <!-- Students Container -->
     <div class="students-container" id="students">
         <!-- Header -->
@@ -86,7 +115,7 @@
         <div class="students-modify">
             <div class="modify-content flex">
                 <button id="all-students" class="student-button active-button-student">
-                    <img src="media copy/students/bxs_school.png" alt="student">All Students
+                    <img src="media copy/students/bxs_school.png" alt="student" class="all-student-img">All Students
                 </button>
                 <button id="add-btn" class="student-button">+ Add Student</button>
             </div>
@@ -97,6 +126,39 @@
             <p class="resgistered-student">
                 <img src="media copy/students/bxs_school.png" alt="student"> Registered Students</p>
             <p class="student-number">Show <span class="registered-students-number">100</span> entries</p>
+            <div class="table-mobile flex">
+                <div class="student-card">
+                    <div class="card-header">
+                        <div class="user-icon flex">
+                            <img src="media copy/students/icons8-person-male-skin-type-4-80.png" alt="">
+                            <h4 class="student-name">Ahmed Belal Tarek</h2>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="info-row">
+                            <span class="label">ID Number</span>
+                            <span class="value">345699856</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="label">Class</span>
+                            <span class="value">4 - A</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="label">Gender</span>
+                            <span class="value">Male</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="label">Attendance%</span>
+                            <span class="value">90%</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="label">Classification</span>
+                            <span class="value">Superior</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div>
                 <table class="student-table">
                     <thead>

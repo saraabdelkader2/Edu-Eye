@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
-:root {
+ :root {
     --container-bg: #f4f7f9;
     --classification-weak: #DC3545;
     --white-bg: #fff;
@@ -852,4 +852,159 @@ select {
     color: var(--classification-weak) !important;
     font-weight: 600;
     font-size: 10px;
+}
+
+.header-mobile {
+    display: none;
+}
+
+#aside-mobile {
+    display: none;
+}
+
+.mobile-aside {
+    color: var(--main-heading-color);
+}
+
+.table-mobile {
+    display: none;
+}
+
+@media (max-width: 480px) {
+    .aside {
+        display: none !important;
+    }
+    .students-container {
+        left: -5px;
+        top: 20px;
+    }
+    .header {
+        display: none !important;
+    }
+    .header-mobile {
+        display: flex;
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        z-index: 1000;
+        align-items: center;
+        justify-content: space-between;
+        width: 90%;
+        margin: 0 auto;
+    }
+    .header-mobile .icons.left-group {
+        gap: 12px;
+    }
+    .img-header-background {
+        padding: 5px;
+    }
+    .header-mobile .img-header-background {
+        padding: 6px;
+    }
+    .header-mobile .icons.left-group img {
+        width: 17px;
+        height: 17px;
+    }
+    .header-mobile.icons.left-group img,
+    .icons.left-group span:first-child {
+        font-size: 17px !important;
+    }
+    .header-mobile .notification-number {
+        height: 15px;
+        width: 15px;
+        font-size: 10px;
+    }
+    .students-modify button {
+        font-size: 13px;
+    }
+    .all-student-img {
+        width: 19px;
+        height: 20px;
+    }
+    .student-heading {
+        margin: 17px 0 4px 0px;
+        font-size: 26px;
+    }
+    .resgistered-student {
+        font-size: 15px;
+        margin: 17px 0px 11px 2px;
+    }
+    .student-number {
+        display: none;
+    }
+    .student-table {
+        margin: 10px auto;
+    }
+    #aside-mobile {
+        left: 50% !important;
+        display: flex;
+        transform: translate(-50%, -50%) !important;
+        background: linear-gradient(135deg, var(--main-heading-color), var(--font-black)) !important;
+        opacity: 0.95;
+        /* شفافية بسيطة جداً */
+        top: 50% !important;
+        z-index: 10000 !important;
+        width: 100vw !important;
+        height: 100%;
+        align-items: center;
+    }
+    .options a {
+        color: var(--white-txt)!important;
+    }
+    .fa-xmark {
+        color: var(--white-txt);
+        position: fixed;
+        right: 20px;
+        top: 20px;
+        font-size: 18px;
+    }
+    .options {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    h2 {
+        color: var(--main-heading-color);
+    }
+    table {
+        display: none;
+    }
+    .slider {
+        display: none;
+    }
+    .table-mobile {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+    .table-mobile img {
+        width: 24px;
+        height: 24px;
+    }
+    .table-mobile h4 {
+        font-size: 12px;
+        color: var(--main-heading-color);
+    }
+    .table-mobile .label {
+        color: var(--main-heading-color);
+        font-weight: 600;
+    }
+    .table-mobile span {
+        font-size: 9px;
+        color: var(--font-black);
+    }
+    .user-icon {
+        align-items: center;
+        gap: 10px;
+    }
+    .student-card {
+        background-color: var(--white-bg);
+        box-shadow: var(--box-shadow);
+        padding: 10px;
+        border-radius: 5px;
+        width: 80%;
+        border: 1px solid var(--gender-border);
+    }
 }

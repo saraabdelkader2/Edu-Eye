@@ -423,66 +423,114 @@ gurdianRadios.forEach(radio => {
 });
 
 function showStudents(page) {
+    // 1. تحديد الطلاب لنسخة الديسكتوب (10 فقط)
     let startIndex = page * 10;
     let endIndex = startIndex + 10;
-    let studesOnThisPage = students.slice(startIndex, endIndex);
-    studentsTableBody.innerHTML = ``;
-    let rowsHtml = '';
-    studesOnThisPage.forEach((student, index) => {
-                //controlling color
-                let classificationclass = '';
-                switch (student.classification) {
-                    case 'superior':
-                        classificationclass = 'classification-superior';
-                        break;
-                    case 'weak':
-                        classificationclass = 'classification-weak';
-                        break;
-                    case 'talented':
-                        classificationclass = 'classification-talented';
-                        break;
+    let studentsOnThisPage = students.slice(startIndex, endIndex);
 
-                    case 'developing':
-                        classificationclass = '';
-                        break;
-                    default:
-                        classificationclass = ''; // لأي تصنيف آخر
+    const studentsTableBody = document.querySelector('tbody');
+    const mobileContainer = document.querySelector('.table-mobile');
+
+    // تفريغ المحتوى
+    studentsTableBody.innerHTML = '';
+    mobileContainer.innerHTML = '';
+
+    // --- أولاً: ملء الجدول (للديسك توب فقط - 10 طلاب) ---
+    studentsOnThisPage.forEach((student, index) => {
+        //controlling color
+        let classificationclass = '';
+        switch (student.classification) {
+            case 'superior':
+                classificationclass = 'classification-superior';
+                break;
+            case 'weak':
+                classificationclass = 'classification-weak';
+                break;
+            case 'talented':
+                classificationclass = 'classification-talented';
+                break;
+
+            case 'developing':
+                classificationclass = '';
+                break;
+            default:
+                classificationclass = ''; // لأي تصنيف آخر
+        }
 
 
-                }
-                studentsTableBody.innerHTML +=
-                    `<tr data-local-index="${index}" data-full-student-id="${student.id}">
-                            <td>${startIndex + index+1}</td>
-                            <td>${student.id}</td>
-                            <td>${`${student.firstName} ${student.lastName}`}</td>
-                            <td>${`${student.grade} - ${student.class}`}</td>
-                            <td>${student.gender}</td>
-                            <td>${student.Attendance}</td>
-                            <td class="${classificationclass}">${student.classification}</td>
-                        
-                        </tr>`;
-            const allRows = studentsTableBody.querySelectorAll('tr');
-                            allRows.forEach(row => {
-                                row.addEventListener('click', (event) => {
-                                    const studentId = row.getAttribute('data-full-student-id');
-            // 1. البحث عن الطالب بالـ ID
-            const clickedStudent = students.find(s => s.id === studentId);
-
-            if (clickedStudent) {
-                // 2. 🔑 تخزين بيانات الطالب في localStorage
-                localStorage.setItem('selectedStudentData', JSON.stringify(clickedStudent));
-
-                // 3. الانتقال إلى الصفحة الجديدة
-                window.location.href = "../studentPage.html";
-            }
-        });
-        });
+        const tr = document.createElement('tr');
+        tr.style.cursor = 'pointer';
+        tr.innerHTML = `
+            <td>${startIndex + index + 1}</td>
+            <td>${student.id}</td>
+            <td>${student.firstName} ${student.lastName}</td>
+            <td>${student.grade} - ${student.class}</td>
+            <td>${student.gender}</td>
+            <td>${student.Attendance}</td>
+            <td class="${classificationclass}">${student.classification}</td>
+        `;
+        tr.addEventListener('click', () => openStudentProfile(student));
+        studentsTableBody.appendChild(tr);
     });
-};
+    //`${}`
+    // --- ثانياً: ملء الكروت (للموبايل - كل الطلاب بدون تقيد بالصفحة) ---
+    // هنا نستخدم مصفوفة students الكاملة وليس الجزء المقطوع
+    students.forEach((student) => {
+        let classificationclass = '';
+        switch (student.classification) {
+            case 'superior':
+                classificationclass = 'classification-superior';
+                break;
+            case 'weak':
+                classificationclass = 'classification-weak';
+                break;
+            case 'talented':
+                classificationclass = 'classification-talented';
+                break;
+
+            case 'developing':
+                classificationclass = '';
+                break;
+            default:
+                classificationclass = ''; // لأي تصنيف آخر
+        }
+        const card = document.createElement('div');
+        let imgSrc = '';
+        card.className = 'student-card';
+        if (student.gender === 'female' || student.gender === 'Female') {
+            imgSrc = 'media copy/students/icons8-person-female-skin-type-4-80.png';
+        } else {
+            imgSrc = 'media copy/students/icons8-person-male-skin-type-4-80.png'
+        }
+        card.innerHTML = `
+            <div class="card-header">
+                <div class="user-icon flex">
+                    <img src="${imgSrc}" alt="">
+                    <h4 class="student-name">${student.firstName} ${student.lastName}</h4>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="info-row"><span class="label">ID Number</span> <span class="value">${student.id}</span></div>
+                <div class="info-row"><span class="label">Class</span> <span class="value">${student.grade}-${student.class}</span></div>
+                <div class="info-row"><span class="label">Attendance%</span> <span class="value">${student.Attendance}</span></div>
+                <div class="info-row"><span class="label">Classification</span> <span class="value ${classificationclass}">${student.classification}</span></div>
+            </div>
+        `;
+        card.addEventListener('click', () => openStudentProfile(student));
+        mobileContainer.appendChild(card);
+    });
+}
+
+// دالة موحدة لفتح الملف الشخصي
+function openStudentProfile(student) {
+    localStorage.setItem('selectedStudentData', JSON.stringify(student));
+    window.location.href = "../studentPage.html";
+}
+
 function showWarning(message, inputElement = null) {
-    const warningElement = inputElement 
-        ? inputElement.closest('div').querySelector('.warning') 
-        : document.querySelector('.form-warning');
+    const warningElement = inputElement ?
+        inputElement.closest('div').querySelector('.warning') :
+        document.querySelector('.form-warning');
 
     if (warningElement) {
         warningElement.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> ${message}`;
@@ -497,6 +545,7 @@ function showWarning(message, inputElement = null) {
         }, { once: true });
     }
 }
+
 function validateForm() {
     const gradeSelect = document.getElementById('Grade');
     const classSelect = document.getElementById('Class');
@@ -544,27 +593,27 @@ function validateForm() {
     } else if (gurdianCount === "2") {
         const primaryInputs = primaryGurdianSection.querySelectorAll('input[required]');
         const secondaryInputs = secondaryGurdianSection.querySelectorAll('input[required]');
-        for (const input of [...primaryInputs, ...secondaryInputs]) {
+        for (const input of[...primaryInputs, ...secondaryInputs]) {
             if (!input.value.trim()) {
                 showWarning(`Please fill in guardian field: ${input.placeholder || input.name}`, input);
                 return false;
             }
         }
     }
-// 6. تحقق من طول الرقم القومي للجارديان
-const primaryGurdianNationalId = document.getElementById('primaryGurdianNationalId').value.trim();
-if (primaryGurdianNationalId.length !== 14) {
-    showWarning("Primary Guardian National ID must be 14 digits", document.getElementById('primaryGurdianNationalId'));
-    return false;
-}
-
-if (gurdianCount === "2") {
-    const secondaryGurdianNationalId = document.getElementById('seconaryGurdianNationalId').value.trim();
-    if (secondaryGurdianNationalId.length !== 14) {
-        showWarning("Secondary Guardian National ID must be 14 digits", document.getElementById('seconaryGurdianNationalId'));
+    // 6. تحقق من طول الرقم القومي للجارديان
+    const primaryGurdianNationalId = document.getElementById('primaryGurdianNationalId').value.trim();
+    if (primaryGurdianNationalId.length !== 14) {
+        showWarning("Primary Guardian National ID must be 14 digits", document.getElementById('primaryGurdianNationalId'));
         return false;
     }
-}
+
+    if (gurdianCount === "2") {
+        const secondaryGurdianNationalId = document.getElementById('seconaryGurdianNationalId').value.trim();
+        if (secondaryGurdianNationalId.length !== 14) {
+            showWarning("Secondary Guardian National ID must be 14 digits", document.getElementById('seconaryGurdianNationalId'));
+            return false;
+        }
+    }
 
     // 5. تحقق من الرقم القومي
     const nationalId = form.NationalId.value;
@@ -584,7 +633,7 @@ if (gurdianCount === "2") {
 
 
 function generateEmptyGrades(subjects) {
-    const months = ['sep','oct','Nov','Dec','Jan','Feb','Mar','Apr','May','Jun'];
+    const months = ['sep', 'oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
     const grades = {};
 
     months.forEach(month => {
@@ -626,7 +675,7 @@ function getSelectedGurdian(gurdianRadios) {
 
 function controllingModify() {
     //controlling student modify start
-   
+
     //controlling student modify start and add buttons
     ModifyGeneric({
         addBtn,
@@ -642,6 +691,7 @@ function controllingModify() {
         darkModeToggle
     });
 }
+
 function isNationalIdDuplicate(nationalId, studentsList) {
     if (!nationalId) return false;
     return studentsList.some(student => student.NationalId === nationalId);
@@ -680,13 +730,13 @@ const savedClasses = JSON.parse(localStorage.getItem('schoolClassesList')) || []
 if (gradeSelect) {
     gradeSelect.addEventListener('change', function() {
         const selectedGrade = this.value; // رقم المرحلة
-        
+
         // مسح القديم
         classSelect.innerHTML = '<option value="" disabled selected hidden>Class</option>';
-        
+
         // فلترة من المصفوفة اللي جاية من الـ LocalStorage (اللي فيها N)
         const available = savedClasses.filter(c => c.grade.toString() === selectedGrade.toString());
-        
+
         if (available.length > 0) {
             available.forEach(item => {
                 const option = document.createElement('option');
@@ -700,6 +750,7 @@ if (gradeSelect) {
         }
     });
 }
+
 function updateClassOptions(gradeNumber) {
     if (!classSelect) return;
 
@@ -723,6 +774,16 @@ function updateClassOptions(gradeNumber) {
         const option = document.createElement('option');
         option.textContent = "No classes available";
         classSelect.appendChild(option);
-        classSelect.disabled = true; 
+        classSelect.disabled = true;
     }
 }
+const asideMobile = document.querySelector('.mobile-aside');
+const aside = document.getElementById('aside-mobile');
+const asideClose = document.getElementById('aside-close');
+asideMobile.addEventListener('click', () => {
+    aside.style.setProperty('display', 'flex', 'important');
+});
+asideClose.addEventListener('click', () => {
+    aside.style.setProperty('display', 'none', 'important');
+
+})
