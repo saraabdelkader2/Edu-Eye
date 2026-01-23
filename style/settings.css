@@ -429,7 +429,7 @@ select {
     border-radius: 8px;
     padding: 6px 6px;
     font-size: 16px;
-    color: var(--font-black);
+    color: var(--txt-muted);
     width: 100%;
     cursor: pointer;
     outline: none;

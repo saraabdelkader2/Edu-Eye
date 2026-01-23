@@ -417,3 +417,34 @@ backToHome.addEventListener('click', () => {
         window.location.href = "/dashboard.html"; // fallback
     }
 });
+
+const lockIcon = document.getElementById('lock');
+lockIcon.addEventListener('click', () => {
+    window.location.href = './login.html'
+});
+
+//dark mode start--------------------------
+const body = document.body;
+// عند تحميل الصفحة، شوف لو المستخدم مفعل Dark Mode
+if (localStorage.getItem('darkMode') === 'enabled') {
+    body.classList.add('dark-mode');
+}
+
+// Toggle عند الضغط على الزرار
+darkModeToggle.addEventListener('click', () => {
+    body.classList.toggle('dark-mode');
+
+    // حفظ الحالة في LocalStorage
+    if (body.classList.contains('dark-mode')) {
+        localStorage.setItem('darkMode', 'enabled');
+    } else {
+        localStorage.setItem('darkMode', 'disabled');
+    }
+});
+
+//dark mode end -----------------------------
+
+// حفظ آخر صفحة مفتوحة عند الخروج أو إعادة تحميل الصفحة
+window.addEventListener('beforeunload', () => {
+    localStorage.setItem('lastVisitedPage', window.location.pathname);
+});

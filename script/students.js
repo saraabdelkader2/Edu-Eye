@@ -12,6 +12,11 @@ let storedStudents = localStorage.getItem(LOCAL_STORAGE_KEY);
 const favicon = document.getElementById('favicon');
 const searchInput = document.querySelector('.search-box input');
 const darkModeToggle = document.getElementById('darkModeToggle');
+const addBtn = document.querySelector('#add-btn');
+const allBtn = document.querySelector('#all-students');
+const studentList = document.querySelector('.student-list-section');
+const studentForm = document.querySelector('.student-form-section');
+const editConfirmButtons = document.querySelector('.add-buttons');
 
 // Sync the students array with stored data while maintaining the original array reference
 if (storedStudents) {
@@ -196,6 +201,13 @@ resetButton.addEventListener('click', (e) => {
         secondaryyGurdianSection.style.display = 'none';
 
         document.body.style.overflow = 'auto';
+
+        studentList.style.display = 'block';
+        studentForm.style.display = 'none';
+        editConfirmButtons.style.display = 'none';
+
+        allBtn.style.backgroundColor = 'rgba(244, 244, 244, 1)';
+        addBtn.style.backgroundColor = 'transparent';
     });
 
     canceled.addEventListener('click', () => {
@@ -614,11 +626,7 @@ function getSelectedGurdian(gurdianRadios) {
 
 function controllingModify() {
     //controlling student modify start
-    const addBtn = document.querySelector('#add-btn');
-    const allBtn = document.querySelector('#all-students');
-    const studentList = document.querySelector('.student-list-section');
-    const studentForm = document.querySelector('.student-form-section');
-    const editConfirmButtons = document.querySelector('.add-buttons');
+   
     //controlling student modify start and add buttons
     ModifyGeneric({
         addBtn,
