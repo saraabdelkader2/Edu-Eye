@@ -60,147 +60,187 @@ registeredStudents.innerHTML = (femaleCount + maleCount);
 
 
 const form = document.querySelector('#student-form');
-const saveButton = document.querySelector('.save-form-button');
-const resetButton = document.querySelector('.reset-form-button');
-const cancelButton = document.querySelector('.cancel-form-button');
+const saveButtons = document.querySelectorAll('.save-form-button');
+const resetButtons = document.querySelectorAll('.reset-form-button');
+const cancelButtons = document.querySelectorAll('.cancel-form-button');
 let matchedStudent;
 const gurdianRadios = document.querySelectorAll('input[name="gurdian"]');
 const primaryGurdianSection = document.querySelector(".primary-guardian-form");
 const secondaryyGurdianSection = document.querySelector(".Secondary-guardian-form");
 const gurdianSection = document.querySelectorAll(".gurdian-section");
 const genderRadios = document.querySelectorAll('input[name="gender"]');
-
 //add buttons control -------------------------------
-saveButton.addEventListener('click', () => {
+saveButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
 
-    if (!validateForm()) return;
-    const selectedGender = getSelectedGender(genderRadios);
-    const selectedGurdianCount = getSelectedGurdian(gurdianRadios);
+        if (!validateForm()) return;
 
-    // بيانات Primary Guardian
-    const primaryGurdianFullName = document.getElementById('primaryGurdianFullName').value.trim();
-    const primaryGurdianRelationship = document.getElementById('primaryseconaryGurdianRelationship').value.trim();
-    const primaryGurdianNationalId = document.getElementById('primaryGurdianNationalId').value.trim();
-    const primaryGurdianPhone = document.getElementById('primaryGurdianPhone').value.trim();
-    const primaryGurdianProfession = document.getElementById('primaryGurdianProfession').value.trim();
-    const primaryGurdianDob = document.getElementById('primaryGurdianDob').value.trim();
-    const primaryGurdianEmail = document.getElementById('primaryGurdianEmail').value.trim();
+        const selectedGender = getSelectedGender(genderRadios);
+        const selectedGurdianCount = getSelectedGurdian(gurdianRadios);
 
-    // بيانات Secondary Guardian
-    let secondaryGurdianFullName = '';
-    let secondaryGurdianRelationship = '';
-    let secondaryGurdianNationalId = '';
-    let secondaryGurdianPhone = '';
-    let secondaryGurdianProfession = '';
-    let secondaryGurdianDob = '';
-    let secondaryGurdianEmail = '';
+        // بيانات Primary Guardian
+        const primaryGurdianFirstName = document.getElementById('primaryGurdianFirstName').value.trim();
+        const primaryGurdianSecondName = document.getElementById('primaryGurdianSecondName').value.trim();
+        const primaryGurdianRelationship = document.getElementById('primaryseconaryGurdianRelationship').value.trim();
+        const primaryGurdianNationalId = document.getElementById('primaryGurdianNationalId').value.trim();
+        const primaryGurdianPhone = document.getElementById('primaryGurdianPhone').value.trim();
+        const primaryGurdianProfession = document.getElementById('primaryGurdianProfession').value.trim();
+        const primaryGurdianDob = document.getElementById('primaryGurdianDob').value.trim();
+        const primaryGurdianEmail = document.getElementById('primaryGurdianEmail').value.trim();
+        const primaryGurdianAddress = document.getElementById('primaryGurdianAddress').value.trim();
 
-    if (selectedGurdianCount === "2") {
-        secondaryGurdianFullName = document.getElementById('seconaryGurdianFullName').value.trim();
-        secondaryGurdianRelationship = document.getElementById('seconaryGurdianRelationship').value.trim();
-        secondaryGurdianNationalId = document.getElementById('seconaryGurdianNationalId').value.trim();
-        secondaryGurdianPhone = document.getElementById('seconaryGurdianPhone').value.trim();
-        secondaryGurdianProfession = document.getElementById('secondaryGurdianProfession').value.trim();
-        secondaryGurdianDob = document.getElementById('secondaryGurdianDob').value.trim();
-        secondaryGurdianEmail = document.getElementById('seconaryGurdianEmail').value.trim();
+        // بيانات Secondary Guardian
+        let seconaryGurdianFirstName = '';
+        let seconaryGurdianSecondName = '';
+        let secondaryGurdianRelationship = '';
+        let secondaryGurdianNationalId = '';
+        let secondaryGurdianPhone = '';
+        let secondaryGurdianProfession = '';
+        let secondaryGurdianDob = '';
+        let secondaryGurdianEmail = '';
+        let secondaryGurdianAddress = '';
 
-        // التحقق من Secondary Guardian
-        if (!secondaryGurdianFullName || !secondaryGurdianRelationship || !secondaryGurdianNationalId) {
-            showWarning("Please fill all required secondary guardian fields",
-                document.getElementById('seconaryGurdianFullName'));
+        if (selectedGurdianCount === "2") {
+            seconaryGurdianFirstName = document.getElementById('seconaryGurdianFirstName').value.trim();
+            seconaryGurdianSecondName = document.getElementById('seconaryGurdianSecondName').value.trim();
+            secondaryGurdianRelationship = document.getElementById('seconaryGurdianRelationship').value.trim();
+            secondaryGurdianNationalId = document.getElementById('seconaryGurdianNationalId').value.trim();
+            secondaryGurdianPhone = document.getElementById('seconaryGurdianPhone').value.trim();
+            secondaryGurdianProfession = document.getElementById('secondaryGurdianProfession').value.trim();
+            secondaryGurdianDob = document.getElementById('secondaryGurdianDob').value.trim();
+            secondaryGurdianEmail = document.getElementById('seconaryGurdianEmail').value.trim();
+            secondaryGurdianAddress = document.getElementById('secondaryGurdianAddress').value.trim();
+
+            // التحقق من Secondary Guardian
+            if (!seconaryGurdianFirstName || !seconaryGurdianSecondName || !secondaryGurdianRelationship || !secondaryGurdianNationalId) {
+                showWarning(
+                    "Please fill all required secondary guardian fields",
+                    document.getElementById('seconaryGurdianFirstName')
+                );
+                document.getElementById('seconaryGurdianSecondName');
+                return;
+            }
+        }
+
+        // التحقق من Primary Guardian
+        if (!primaryGurdianFirstName || !primaryGurdianSecondName || !primaryGurdianRelationship || !primaryGurdianNationalId) {
+            showWarning(
+                "Please fill all required primary guardian fields",
+                document.getElementById('primaryGurdianFirstName')
+            );
+            document.getElementById('primaryGurdianSecondName');
             return;
         }
-    }
-    // التحقق من Primary Guardian
-    if (!primaryGurdianFullName || !primaryGurdianRelationship || !primaryGurdianNationalId) {
-        showWarning("Please fill all required primary guardian fields",
-            document.getElementById('primaryGurdianFullName'));
-        return;
-    }
-    const gradeInput = document.getElementById('Grade').value;
 
-    const studentData = {
-        id: '',
-        firstName: form.studentFirstName.value.trim(),
-        lastName: form.studentLastName.value.trim(),
-        gender: selectedGender,
-        dateOfBirth: form.dob.value,
-        grade: gradeSelect.value, // القيمة ستكون "1" أو "2" إلخ
-        class: classSelect.value.toUpperCase(),
-        dateOfJoin: form.doj.value,
-        Nationality: form.studentNationality.value,
-        Religon: form.studentReligon.value,
-        NationalId: form.NationalId.value,
-        Address: form.studentAddress.value,
-        GurdianCount: selectedGurdianCount,
-        Attendance: '94%',
-        status: 'new',
-        busStatus: 'no',
-        schoolStatus: 'no',
-        paymentDate: '',
-        paymentMethod: '',
+        const gradeInput = document.getElementById('Grade').value;
 
-        primaryGurdianFullName,
-        primaryGurdianEmail,
-        primaryGurdianNationalId,
-        primaryGurdianRelationShip: primaryGurdianRelationship,
-        primaryGurdianPhone,
-        primaryGurdianProffesion: primaryGurdianProfession,
-        primaryGurdianDateOfBirth: primaryGurdianDob,
+        const studentData = {
+            id: '',
+            firstName: form.studentFirstName.value.trim(),
+            lastName: form.studentLastName.value.trim(),
+            gender: selectedGender,
+            dateOfBirth: form.dob.value,
+            grade: gradeSelect.value,
+            class: classSelect.value.toUpperCase(),
+            dateOfJoin: form.doj.value,
+            Religon: form.studentReligon.value,
+            NationalId: form.NationalId.value,
+            //Address: form.studentAddress.value,
+            GurdianCount: selectedGurdianCount,
+            Attendance: '94%',
+            status: 'new',
+            busStatus: 'no',
+            schoolStatus: 'no',
+            paymentDate: '',
+            paymentMethod: '',
 
-        secondaryGurdianFullName,
-        secondaryGurdianEmail,
-        secondaryGurdianNationalId,
-        secondaryGurdianRelationShip: secondaryGurdianRelationship,
-        secondaryGurdianPhone,
-        secondaryGurdianProffesion: secondaryGurdianProfession,
-        secondaryGurdianDateOfBirth: secondaryGurdianDob,
-    };
-    const gradeObj = subjectsByGrade.find(g => g.grade === studentData.grade);
-    const subjects = gradeObj ? gradeObj.subjects : [];
+            primaryGurdianFirstName,
+            primaryGurdianSecondName,
+            primaryGurdianEmail,
+            primaryGurdianNationalId,
+            primaryGurdianRelationShip: primaryGurdianRelationship,
+            primaryGurdianPhone,
+            primaryGurdianProffesion: primaryGurdianProfession,
+            primaryGurdianDateOfBirth: primaryGurdianDob,
+            primaryGurdianAddress,
 
-    // إنشاء درجات ابتدائية صفرية
-    studentData.grades = generateEmptyGrades(subjects);
-    studentData.classification = determineClassification(studentData.grades);
+            seconaryGurdianFirstName,
+            seconaryGurdianSecondName,
+            secondaryGurdianEmail,
+            secondaryGurdianNationalId,
+            secondaryGurdianRelationShip: secondaryGurdianRelationship,
+            secondaryGurdianPhone,
+            secondaryGurdianProffesion: secondaryGurdianProfession,
+            secondaryGurdianDateOfBirth: secondaryGurdianDob,
+            secondaryGurdianAddress
+        };
 
+        const gradeObj = subjectsByGrade.find(g => g.grade === studentData.grade);
+        const subjects = gradeObj ? gradeObj.subjects : [];
 
+        // إنشاء درجات ابتدائية صفرية
+        studentData.grades = generateEmptyGrades(subjects);
+        studentData.classification = determineClassification(studentData.grades);
 
-    students.push(studentData);
-    addNotification(`Student ${studentData.firstName} ${studentData.lastName} is added `);
-    saveStudentsToStorage();
-    reassignIdAndSorting(students);
-    updateDisplayAfterAddition();
-    form.reset();
-    favicon.href = "././media copy/favicons/icons8-checked-user-80.png"
+        students.push(studentData);
+        addNotification(`Student ${studentData.firstName} ${studentData.lastName} is added `);
+        saveStudentsToStorage();
+        reassignIdAndSorting(students);
+        updateDisplayAfterAddition();
+        form.reset();
+        favicon.href = "././media copy/favicons/icons8-checked-user-80.png";
 
-
-    // اخفاء السكشن بعد الحفظ
-    gurdianSection.forEach(section => section.style.display = 'none');
+        // اخفاء السكشن بعد الحفظ
+        gurdianSection.forEach(section => section.style.display = 'none');
+    });
 });
 
-resetButton.addEventListener('click', (e) => {
-    e.preventDefault();
 
-    document.body.style.overflow = 'hidden'; // no scroll
 
-    document.getElementById('blur-layer').style.display = 'block';
+resetButtons.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        e.preventDefault();
 
-    document.querySelector('.reset-pop-up').style.display = 'flex';
-    const confirmed = document.getElementById('yes');
-    const canceled = document.getElementById('no');
-    confirmed.addEventListener('click', () => {
-        document.getElementById('blur-layer').style.display = 'none';
-        document.querySelector('.reset-pop-up').style.display = 'none';
+        document.body.style.overflow = 'hidden'; // no scroll
 
-        form.reset();
-        genderRadios.forEach(radio => radio.checked = false);
+        document.getElementById('blur-layer').style.display = 'block';
 
-        gurdianRadios.forEach(radio => radio.checked = false);
+        document.querySelector('.reset-pop-up').style.display = 'flex';
+        const confirmed = document.getElementById('yes');
+        const canceled = document.getElementById('no');
+        confirmed.addEventListener('click', () => {
+            document.getElementById('blur-layer').style.display = 'none';
+            document.querySelector('.reset-pop-up').style.display = 'none';
 
-        primaryGurdianSection.style.display = 'none';
-        secondaryyGurdianSection.style.display = 'none';
+            form.reset();
+            genderRadios.forEach(radio => radio.checked = false);
 
-        document.body.style.overflow = 'auto';
+            gurdianRadios.forEach(radio => radio.checked = false);
+
+            primaryGurdianSection.style.display = 'none';
+            secondaryyGurdianSection.style.display = 'none';
+
+            document.body.style.overflow = 'auto';
+
+            studentList.style.display = 'block';
+            studentForm.style.display = 'none';
+            editConfirmButtons.style.display = 'none';
+
+            allBtn.style.backgroundColor = 'rgba(244, 244, 244, 1)';
+            addBtn.style.backgroundColor = 'transparent';
+        });
+
+        canceled.addEventListener('click', () => {
+            document.getElementById('blur-layer').style.display = 'none'; // يشغل البلور
+            document.querySelector('.reset-pop-up').style.display = 'none'; // يعرض البوب أب
+
+        });
+
+    });
+})
+
+cancelButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
 
         studentList.style.display = 'block';
         studentForm.style.display = 'none';
@@ -209,24 +249,8 @@ resetButton.addEventListener('click', (e) => {
         allBtn.style.backgroundColor = 'rgba(244, 244, 244, 1)';
         addBtn.style.backgroundColor = 'transparent';
     });
+})
 
-    canceled.addEventListener('click', () => {
-        document.getElementById('blur-layer').style.display = 'none'; // يشغل البلور
-        document.querySelector('.reset-pop-up').style.display = 'none'; // يعرض البوب أب
-
-    });
-
-});
-
-cancelButton.addEventListener('click', () => {
-
-    studentList.style.display = 'block';
-    studentForm.style.display = 'none';
-    editConfirmButtons.style.display = 'none';
-
-    allBtn.style.backgroundColor = 'rgba(244, 244, 244, 1)';
-    addBtn.style.backgroundColor = 'transparent';
-});
 //add buttons control  end-------------------------------
 
 // ======= Search safety check =======

@@ -104,7 +104,7 @@
             <p class="student-heading">
                 <img src="media copy/dashboard/profile-2user.png" alt="" style="filter: invert(63%) sepia(83%) saturate(3847%) hue-rotate(184deg) brightness(102%) contrast(98%);"> Students
             </p>
-            <div class="add-buttons flex">
+            <div class="add-buttons add-buttons-desktop flex">
                 <button class="cancel-form-button">Cancel</button>
                 <button class="reset-form-button">Reset</button>
                 <button class="save-form-button">Save</button>
@@ -230,12 +230,16 @@
                                     <label for="gender2">Male</label>
                                 </div>
                             </div>
-
-                            <div class="nationality">
+                            <div class="national-id">
+                                <label>National Id</label>
+                                <input type="text" placeholder="National Id" id="NationalId" name="NationalId" required />
+                                <p class="warning warning-national-id"></p>
+                            </div>
+                            <!--<div class="nationality">
                                 <label>Nationality</label>
                                 <input type="text" placeholder="Nationality" id="Nationality" name="studentNationality" required />
                                 <p class="warning warning-nationality"></p>
-                            </div>
+                            </div>-->
                         </div>
 
                         <div class="row flex">
@@ -278,11 +282,7 @@
                                 </div>
                             </div>
 
-                            <div class="national-id">
-                                <label>National Id</label>
-                                <input type="text" placeholder="National Id" id="NationalId" name="NationalId" required />
-                                <p class="warning warning-national-id"></p>
-                            </div>
+
                         </div>
 
                         <div class="row flex">
@@ -291,11 +291,11 @@
                                 <input type="date" name="doj" placeholder="Join Date" required />
                                 <p class="warning warning-doj"></p>
                             </div>
-                            <div class="Address">
+                            <!--<div class="Address">
                                 <label>Address</label>
                                 <input type="text" placeholder="Address" id="Address" name="studentAddress" required />
                                 <p class="warning warning-address"></p>
-                            </div>
+                            </div>-->
                         </div>
                     </div>
 
@@ -326,28 +326,30 @@
                     <hr>
                     <div class="student-basic-information-container flex">
                         <div class="row flex">
-                            <div class="full-name">
-                                <label>Full Name</label>
-                                <input type="text" placeholder="Full Name" name="primaryGurdianFullName" id="primaryGurdianFullName" required/>
+                            <div class="first-name">
+                                <label>First Name</label>
+                                <input type="text" placeholder="First Name" name="primaryGurdianFirstName" id="primaryGurdianFirstName" required/>
                                 <p class="warning warning-primary-fullname"></p>
                             </div>
+                            <div class="first-name">
+                                <label>Second Name</label>
+                                <input type="text" placeholder="Second Name" name="primaryGurdianSecondName" id="primaryGurdianSecondName" required/>
+                                <p class="warning warning-primary-fullname"></p>
+                            </div>
+
+                        </div>
+                        <div class="row flex">
                             <div class="Relationship">
                                 <label>Relationship</label>
                                 <input type="text" placeholder="Relationship" name="primaryseconaryGurdianRelationship" id="primaryseconaryGurdianRelationship" required />
                                 <p class="warning warning-primary-relationship"></p>
                             </div>
-                        </div>
-                        <div class="row flex">
                             <div class="National Id">
                                 <label>National Id</label>
                                 <input type="text" placeholder="National Id" name="primaryGurdianNationalId" id="primaryGurdianNationalId" required/>
                                 <p class="warning warning-primary-nationalid"></p>
                             </div>
-                            <div class="phone">
-                                <label>Phone</label>
-                                <input type="text" placeholder="Phone" name="primaryGurdianPhone" id="primaryGurdianPhone" required />
-                                <p class="warning warning-primary-phone"></p>
-                            </div>
+
                         </div>
                         <div class="row flex">
                             <div class="Profession">
@@ -361,11 +363,25 @@
                                 <p class="warning warning-primary-dob"></p>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row flex">
                             <div class="email">
                                 <label>Email</label>
                                 <input type="email" placeholder="example@gmail.com" name="primaryGurdianEmail" id="primaryGurdianEmail" required/>
                                 <p class="warning warning-primary-email"></p>
+                            </div>
+                            <div class="phone">
+                                <label>Phone</label>
+                                <input type="text" placeholder="Phone" name="primaryGurdianPhone" id="primaryGurdianPhone" required />
+                                <p class="warning warning-primary-phone"></p>
+                            </div>
+
+
+                        </div>
+                        <div class="row">
+                            <div class="Address">
+                                <label>Address</label>
+                                <input type="text" placeholder="Address" id="primaryGurdianAddress" name="primaryGurdianAddress" required />
+                                <p class="warning warning-address"></p>
                             </div>
                         </div>
                     </div>
@@ -379,28 +395,30 @@
                     <hr>
                     <div class="student-basic-information-container flex">
                         <div class="row flex">
-                            <div class="full-name">
-                                <label>Full Name</label>
-                                <input type="text" placeholder="Full Name" name="seconaryGurdianFullName" id="seconaryGurdianFullName" required/>
+                            <div class="first-name">
+                                <label>First Name</label>
+                                <input type="text" placeholder="First Name" name="seconaryGurdianFirstName" id="seconaryGurdianFullName" required/>
                                 <p class="warning warning-secondary-fullname"></p>
                             </div>
+                            <div class="second-name">
+                                <label>Second Name</label>
+                                <input type="text" placeholder="Second Name" name="seconaryGurdianSecondName" id="seconaryGurdianFullName" required/>
+                                <p class="warning warning-secondary-fullname"></p>
+                            </div>
+
+                        </div>
+                        <div class="row flex">
                             <div class="Relationship">
                                 <label>Relationship</label>
                                 <input type="text" placeholder="Relationship" name="seconaryGurdianRelationship" id="seconaryGurdianRelationship" required />
                                 <p class="warning warning-secondary-relationship"></p>
                             </div>
-                        </div>
-                        <div class="row flex">
                             <div class="National Id">
                                 <label>National Id</label>
                                 <input type="text" placeholder="National Id" name="seconaryGurdianNationalId" id="seconaryGurdianNationalId" required/>
                                 <p class="warning warning-secondary-nationalid"></p>
                             </div>
-                            <div class="phone">
-                                <label>Phone</label>
-                                <input type="text" placeholder="Phone" name="seconaryGurdianPhone" id="seconaryGurdianPhone" required/>
-                                <p class="warning warning-secondary-phone"></p>
-                            </div>
+
                         </div>
                         <div class="row flex">
                             <div class="Profession">
@@ -414,15 +432,33 @@
                                 <p class="warning warning-secondary-dob"></p>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row flex">
                             <div class="email">
                                 <label>Email</label>
                                 <input type="email" placeholder="example@gmail.com" name="seconaryGurdianEmail" id="seconaryGurdianEmail" required/>
                                 <p class="warning warning-secondary-email"></p>
                             </div>
+                            <div class="phone">
+                                <label>Phone</label>
+                                <input type="text" placeholder="Phone" name="seconaryGurdianPhone" id="seconaryGurdianPhone" required/>
+                                <p class="warning warning-secondary-phone"></p>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="Address">
+                                <label>Address</label>
+                                <input type="text" placeholder="Address" id="secondaryGurdianAddress" name="secondaryGurdianAddress" required />
+                                <p class="warning warning-address"></p>
+                            </div>
                         </div>
                     </div>
                 </form>
+            </div>
+            <div class="add-buttons add-buttons-mobile flex">
+                <button class="cancel-form-button">Cancel</button>
+                <button class="reset-form-button">Reset</button>
+                <button class="save-form-button">Save</button>
             </div>
             </form>
 

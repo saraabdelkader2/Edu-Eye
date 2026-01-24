@@ -1,14 +1,14 @@
 const NOTIFICATION_KEY = 'globalNotificationsHistory';
 const MAX_NOTIFICATIONS = 50;
 
-const notificationsBell = document.querySelector('.notification-icon');
-const notificationNumber = document.querySelector('.notification-number');
-const notificationContent = document.querySelector('.notification-content');
-const notificationsContainer = document.querySelector('.notifications');
+// الحصول على كل العناصر (موبايل وديسكتوب)
+const notificationsBells = document.querySelectorAll('.notification-icon');
+const notificationNumbers = document.querySelectorAll('.notification-number');
+const notificationContents = document.querySelectorAll('.notification-content');
+const notificationsContainers = document.querySelectorAll('.notifications');
 
 let notificationSound = new Audio('./sounds/notification-sound-effect-372475.mp3');
 
-// إضافة notification جديدة
 export function addNotification(message) {
     let pending = JSON.parse(localStorage.getItem(NOTIFICATION_KEY) || '[]');
     const newNotification = {
@@ -23,126 +23,109 @@ export function addNotification(message) {
 
     updateNotificationBadge();
     renderNotificationContent();
-
-    // 🔔 تشغيل الصوت والتأثير فقط عند إشعار جديد
     triggerVisualEffect();
 }
 
-// تشغيل الصوت والتأثير البصري
 function triggerVisualEffect() {
-    if (!notificationsBell) return;
     try {
         notificationSound.currentTime = 0;
-        notificationSound.play().catch(() => {}); // لو المتصفح منع التشغيل
-        notificationsBell.classList.add('shake-effect');
-        setTimeout(() => notificationsBell.classList.remove('shake-effect'), 800);
-    } catch (e) {
-        console.error("Could not play sound or trigger effect:", e);
-    }
+        notificationSound.play().catch(() => {});
+        // عمل Loop على كل الأجراس لتفعيل التأثير
+        notificationsBells.forEach(bell => {
+            bell.classList.add('shake-effect');
+            setTimeout(() => bell.classList.remove('shake-effect'), 800);
+        });
+    } catch (e) { console.error(e); }
 }
 
-// تحديث badge
 function updateNotificationBadge() {
     const pending = JSON.parse(localStorage.getItem(NOTIFICATION_KEY) || '[]');
     const unreadCount = pending.filter(n => !n.read).length;
-    if (notificationNumber) {
-        notificationNumber.innerHTML = unreadCount;
-        notificationNumber.style.display = unreadCount > 0 ? 'flex' : 'none';
-    }
+
+    // الحل هنا: نمر على كل دائرة رقم ونحدثها
+    notificationNumbers.forEach(num => {
+        num.innerHTML = unreadCount;
+        num.style.display = unreadCount > 0 ? 'flex' : 'none';
+    });
 }
 
-// عرض محتوى الإشعارات
 function renderNotificationContent(showAll = false) {
     const pending = JSON.parse(localStorage.getItem(NOTIFICATION_KEY) || '[]');
-    if (!notificationContent) return;
 
-    notificationContent.innerHTML = '';
-    if (pending.length === 0) {
-        notificationContent.innerHTML = '<p class="empty-message">No current notifications</p>';
-        return;
-    }
+    // تحديث كل قوائم الإشعارات المفتوحة في الصفحة
+    notificationContents.forEach(content => {
+        content.innerHTML = '';
+        if (pending.length === 0) {
+            content.innerHTML = '<p class="empty-message">No current notifications</p>';
+            return;
+        }
 
-    const itemsToShow = showAll ? pending : pending.slice(0, 5);
+        const itemsToShow = showAll ? pending : pending.slice(0, 5);
+        itemsToShow.forEach(item => {
+            const itemClass = item.read ? 'read' : 'unread';
+            content.innerHTML += `
+                <div class="notification-item ${itemClass}" data-id="${item.id}">
+                    <p class="message">${item.message}</p>
+                    <span class="timestamp">${item.timestamp}</span>
+                    <button class="delete-notification" title="Delete">×</button>
+                </div>`;
+        });
 
-    itemsToShow.forEach(item => {
-        const itemClass = item.read ? 'read' : 'unread';
-        notificationContent.innerHTML += `
-            <div class="notification-item ${itemClass}" data-id="${item.id}">
-                <p class="message">${item.message}</p>
-                <span class="timestamp">${item.timestamp}</span>
-                <button class="delete-notification" title="Delete">×</button>
-            </div>
-        `;
+        // ربط زر "View All" بالكلاس وليس بالـ ID لأنه يتكرر
+        if (!showAll && pending.length > 5) {
+            const viewAllDiv = document.createElement('div');
+            viewAllDiv.classList.add('view-all-link');
+            viewAllDiv.innerHTML = `<a href="#" class="viewAllNotifications">View All (${pending.length})</a>`;
+            content.appendChild(viewAllDiv);
+        }
     });
 
-    // View All
-    if (!showAll && pending.length > 5) {
-        const viewAllDiv = document.createElement('div');
-        viewAllDiv.classList.add('view-all-link');
-        viewAllDiv.innerHTML = `<a href="#" id="viewAllNotifications">View All (${pending.length})</a>`;
-        notificationContent.appendChild(viewAllDiv);
-
-        const viewAllBtn = document.getElementById('viewAllNotifications');
-        if (viewAllBtn) {
-            viewAllBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                renderNotificationContent(true);
-            });
-        }
-    }
-
-    // حذف notifications
+    // إضافة أحداث الحذف
     document.querySelectorAll('.delete-notification').forEach(btn => {
-        btn.addEventListener('click', (e) => {
+        btn.onclick = (e) => {
             e.stopPropagation();
             const id = Number(e.target.closest('.notification-item').dataset.id);
-            let pending = JSON.parse(localStorage.getItem(NOTIFICATION_KEY) || '[]');
-            pending = pending.filter(n => n.id !== id);
-            localStorage.setItem(NOTIFICATION_KEY, JSON.stringify(pending));
+            let p = JSON.parse(localStorage.getItem(NOTIFICATION_KEY) || '[]');
+            p = p.filter(n => n.id !== id);
+            localStorage.setItem(NOTIFICATION_KEY, JSON.stringify(p));
             renderNotificationContent(showAll);
             updateNotificationBadge();
-        });
+        };
     });
 }
 
-// الضغط على الجرس
 function handleBellClick(event) {
     event.stopPropagation();
-    const isVisible = notificationContent.style.display === 'block';
-    notificationContent.style.display = isVisible ? 'none' : 'block';
+    // البحث عن قائمة الإشعارات القريبة من الزر الذي تم ضغطه
+    const parent = event.currentTarget.closest('.left-icons');
+    const currentContent = parent.querySelector('.notification-content');
+
+    const isVisible = currentContent.style.display === 'block';
+
+    // إغلاق كل القوائم الأخرى
+    document.querySelectorAll('.notification-content').forEach(c => c.style.display = 'none');
+
+    currentContent.style.display = isVisible ? 'none' : 'block';
 
     if (!isVisible) {
         renderNotificationContent();
-        let pending = JSON.parse(localStorage.getItem(NOTIFICATION_KEY) || '[]');
-        let shouldUpdate = false;
-
-        pending.forEach(n => {
-            if (!n.read) {
-                n.read = true;
-                shouldUpdate = true;
-            }
-        });
-
-        if (shouldUpdate) {
-            localStorage.setItem(NOTIFICATION_KEY, JSON.stringify(pending));
-        }
-
+        let p = JSON.parse(localStorage.getItem(NOTIFICATION_KEY) || '[]');
+        p.forEach(n => n.read = true);
+        localStorage.setItem(NOTIFICATION_KEY, JSON.stringify(p));
         updateNotificationBadge();
     }
 }
 
-// Initialize
 document.addEventListener('DOMContentLoaded', () => {
     updateNotificationBadge();
-    if (notificationsContainer) {
-        notificationsContainer.addEventListener('click', handleBellClick);
-    }
+    // ربط الحدث بكل الحاويات (ديسكتوب + موبايل)
+    notificationsContainers.forEach(container => {
+        container.addEventListener('click', handleBellClick);
+    });
 
     document.addEventListener('click', (e) => {
-        if (notificationContent && notificationContent.style.display === 'block' &&
-            !notificationsContainer.contains(e.target)) {
-            notificationContent.style.display = 'none';
+        if (!e.target.closest('.left-icons')) {
+            document.querySelectorAll('.notification-content').forEach(c => c.style.display = 'none');
         }
     });
 });
