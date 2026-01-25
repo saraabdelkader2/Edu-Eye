@@ -1,14 +1,12 @@
 import { ModifyGeneric } from "./modify.js";
-import { students } from "./sList.js";
 import { addNotification } from "./notifications.js";
 import { subjectsByGrade } from "./Subjects.js";
 import { determineClassification } from "./sList.js";
-import { classes } from "./clist.js";
 
-
+//DOM elements
+let students = [];
 const ID_START = 345699855;
 export const LOCAL_STORAGE_KEY = 'schoolStudentsList';
-let storedStudents = localStorage.getItem(LOCAL_STORAGE_KEY);
 const favicon = document.getElementById('favicon');
 const searchInput = document.querySelector('.search-box input');
 const darkModeToggle = document.getElementById('darkModeToggle');
@@ -17,47 +15,90 @@ const allBtn = document.querySelector('#all-students');
 const studentList = document.querySelector('.student-list-section');
 const studentForm = document.querySelector('.student-form-section');
 const editConfirmButtons = document.querySelector('.add-buttons');
-
-// Sync the students array with stored data while maintaining the original array reference
-if (storedStudents) {
-    students.splice(0, students.length, ...JSON.parse(storedStudents));
-}
 const gradeSelect = document.getElementById('Grade');
 const classSelect = document.getElementById('Class');
-
-//slider clicking
-let schoolStudents = students.length;
-let studentSliderPages = Math.ceil(schoolStudents / 10);
+const registeredStudents = document.querySelector('.registered-students-number');
 const slider = document.querySelector('.slider .pages');
 const firstPage = document.querySelector('.slider .first-page');
 const studentsTableBody = document.querySelector('tbody');
-let currentPage = 0;
 
-controllingModify();
-//reassign students
-reassignIdAndSorting(students);
-//default always show 1st page
-showStudents(0);
-updateSliderPages(studentSliderPages);
+const API_BASE = "https://ece2026.onrender.com/webapi";
 
+async function loadStudentsFromAPI() {
+    try {
+        const res = await fetch(`${API_BASE}/students`);
+        const data = await res.json();
 
-//count females and males count and total count
-const registeredStudents = document.querySelector('.registered-students-number');
-let femaleCount = 0;
-let maleCount = 0;
-students.forEach(element => {
-    if (element.gender === 'Female') {
-        femaleCount++;
-    } else {
-        maleCount++;
+        const listFromApi = data.studentlist || [];
+
+        const apiStudents = listFromApi.map(s => {
+            const fullName = s["Student Name"] || "Unknown Student";
+            const nameParts = fullName.split(" ");
+            return {
+                nationalId: s["ID Number"],
+                schoolId: s["SchoolID"] || s["ID Number"],
+                id: s["SchoolID"] || s["ID Number"],
+                firstName: nameParts[0] || "Unknown",
+                lastName: nameParts.slice(1).join(" ") || " ",
+                gender: s["Gender"] || "Male",
+                grade: s["ClassName"] ? s["ClassName"].split("-")[0].replace("G", "") : "1",
+                class: s["ClassName"] ? s["ClassName"].split("-")[1] : "A",
+                Attendance: (s["Attendance %"] || 0) + "%",
+                classification: s["Classification"] || determineClassification(s.grades || {})
+            };
+        });
+
+        students = apiStudents;
+
+        reassignSortingOnly(students);
+        updateDisplayAfterAddition();
+
+    } catch (err) {
+        console.error("API Error:", err);
+        addNotification("Failed to load students from server");
     }
-});
-export const resgisteredStudentsCount = femaleCount + maleCount;
-export const femaleCounted = femaleCount;
-export const maleCounted = maleCount;
-registeredStudents.innerHTML = (femaleCount + maleCount);
+}
+export async function getStudentsData() {
+    try {
+        const response = await fetch(`${BASE_URL}/students`);
+        const data = await response.json();
 
+        const studentsList = data.students || data;
 
+        return studentsList.map(student => {
+            return {
+                ...student,
+                classification: determineClassification(student.grades)
+            };
+        });
+    } catch (error) {
+        console.error("خطأ في جلب البيانات من الـ API:", error);
+    }
+}
+//slider clicking
+let schoolStudents;
+let studentSliderPages;
+let currentPage = 0;
+let femaleCount;
+let maleCount;
+
+async function initApp() {
+    await loadStudentsFromAPI();
+    await loadClassesToSelect();
+    controllingModify();
+
+    schoolStudents = students.length;
+    studentSliderPages = Math.ceil(schoolStudents / 10);
+
+    showStudents(0);
+    updateSliderPages(studentSliderPages);
+
+    femaleCount = students.filter(s => s.gender === 'Female').length;
+    maleCount = students.filter(s => s.gender !== 'Female').length;
+    registeredStudents.innerHTML = students.length;
+}
+
+initApp();
 
 const form = document.querySelector('#student-form');
 const saveButtons = document.querySelectorAll('.save-form-button');
@@ -68,17 +109,18 @@ const gurdianRadios = document.querySelectorAll('input[name="gurdian"]');
 const primaryGurdianSection = document.querySelector(".primary-guardian-form");
 const secondaryyGurdianSection = document.querySelector(".Secondary-guardian-form");
 const gurdianSection = document.querySelectorAll(".gurdian-section");
-const genderRadios = document.querySelectorAll('input[name="gender"]');
-//add buttons control -------------------------------
-saveButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
 
+//add buttons control  start-------------------------------
+saveButtons.forEach(btn => {
+    btn.addEventListener('click', async() => {
         if (!validateForm()) return;
 
-        const selectedGender = getSelectedGender(genderRadios);
+        // ====== Student gender & Guardian count ======
+        const studentRadios = document.querySelectorAll('input[name="gender"]');
+        const selectedGender = getSelectedGender(studentRadios);
         const selectedGurdianCount = getSelectedGurdian(gurdianRadios);
 
-        // بيانات Primary Guardian
+        // ====== Primary Guardian ======
         const primaryGurdianFirstName = document.getElementById('primaryGurdianFirstName').value.trim();
         const primaryGurdianSecondName = document.getElementById('primaryGurdianSecondName').value.trim();
         const primaryGurdianRelationship = document.getElementById('primaryseconaryGurdianRelationship').value.trim();
@@ -88,54 +130,28 @@ saveButtons.forEach(btn => {
         const primaryGurdianDob = document.getElementById('primaryGurdianDob').value.trim();
         const primaryGurdianEmail = document.getElementById('primaryGurdianEmail').value.trim();
         const primaryGurdianAddress = document.getElementById('primaryGurdianAddress').value.trim();
+        const primaryGenderRadios = document.querySelectorAll('input[name="primaryGender"]');
+        const primaryGurdianGender = getSelectedGender(primaryGenderRadios);
 
-        // بيانات Secondary Guardian
-        let seconaryGurdianFirstName = '';
-        let seconaryGurdianSecondName = '';
-        let secondaryGurdianRelationship = '';
-        let secondaryGurdianNationalId = '';
-        let secondaryGurdianPhone = '';
-        let secondaryGurdianProfession = '';
-        let secondaryGurdianDob = '';
-        let secondaryGurdianEmail = '';
-        let secondaryGurdianAddress = '';
-
+        // ====== Secondary Guardian (Logic Simplified) ======
+        let secondaryGurdianData = {};
         if (selectedGurdianCount === "2") {
-            seconaryGurdianFirstName = document.getElementById('seconaryGurdianFirstName').value.trim();
-            seconaryGurdianSecondName = document.getElementById('seconaryGurdianSecondName').value.trim();
-            secondaryGurdianRelationship = document.getElementById('seconaryGurdianRelationship').value.trim();
-            secondaryGurdianNationalId = document.getElementById('seconaryGurdianNationalId').value.trim();
-            secondaryGurdianPhone = document.getElementById('seconaryGurdianPhone').value.trim();
-            secondaryGurdianProfession = document.getElementById('secondaryGurdianProfession').value.trim();
-            secondaryGurdianDob = document.getElementById('secondaryGurdianDob').value.trim();
-            secondaryGurdianEmail = document.getElementById('seconaryGurdianEmail').value.trim();
-            secondaryGurdianAddress = document.getElementById('secondaryGurdianAddress').value.trim();
-
-            // التحقق من Secondary Guardian
-            if (!seconaryGurdianFirstName || !seconaryGurdianSecondName || !secondaryGurdianRelationship || !secondaryGurdianNationalId) {
-                showWarning(
-                    "Please fill all required secondary guardian fields",
-                    document.getElementById('seconaryGurdianFirstName')
-                );
-                document.getElementById('seconaryGurdianSecondName');
-                return;
-            }
+            secondaryGurdianData = {
+                secondaryGurdianFirstName: document.getElementById('seconaryGurdianFirstName').value.trim(),
+                secondaryGurdianSecondName: document.getElementById('seconaryGurdianSecondName').value.trim(),
+                secondaryGurdianRelationShip: document.getElementById('seconaryGurdianRelationship').value.trim(),
+                secondaryGurdianNationalId: document.getElementById('seconaryGurdianNationalId').value.trim(),
+                secondaryGurdianPhone: document.getElementById('seconaryGurdianPhone').value.trim(),
+                secondaryGurdianProffesion: document.getElementById('secondaryGurdianProfession').value.trim(),
+                secondaryGurdianDateOfBirth: document.getElementById('secondaryGurdianDob').value.trim(),
+                secondaryGurdianEmail: document.getElementById('seconaryGurdianEmail').value.trim(),
+                secondaryGurdianAddress: document.getElementById('secondaryGurdianAddress').value.trim(),
+                secondaryGurdianGender: getSelectedGender(document.querySelectorAll('input[name="secondaryGender"]'))
+            };
         }
 
-        // التحقق من Primary Guardian
-        if (!primaryGurdianFirstName || !primaryGurdianSecondName || !primaryGurdianRelationship || !primaryGurdianNationalId) {
-            showWarning(
-                "Please fill all required primary guardian fields",
-                document.getElementById('primaryGurdianFirstName')
-            );
-            document.getElementById('primaryGurdianSecondName');
-            return;
-        }
-
-        const gradeInput = document.getElementById('Grade').value;
-
+        // ====== Student Data Construction ======
         const studentData = {
-            id: '',
             firstName: form.studentFirstName.value.trim(),
             lastName: form.studentLastName.value.trim(),
             gender: selectedGender,
@@ -145,14 +161,11 @@ saveButtons.forEach(btn => {
             dateOfJoin: form.doj.value,
             Religon: form.studentReligon.value,
             NationalId: form.NationalId.value,
-            //Address: form.studentAddress.value,
+            schoolId: generateSchoolId(),
             GurdianCount: selectedGurdianCount,
-            Attendance: '94%',
-            status: 'new',
-            busStatus: 'no',
-            schoolStatus: 'no',
-            paymentDate: '',
-            paymentMethod: '',
+            Attendance: '0%',
+
+            ...secondaryGurdianData,
 
             primaryGurdianFirstName,
             primaryGurdianSecondName,
@@ -163,39 +176,31 @@ saveButtons.forEach(btn => {
             primaryGurdianProffesion: primaryGurdianProfession,
             primaryGurdianDateOfBirth: primaryGurdianDob,
             primaryGurdianAddress,
+            primaryGurdianGender
+        }
 
-            seconaryGurdianFirstName,
-            seconaryGurdianSecondName,
-            secondaryGurdianEmail,
-            secondaryGurdianNationalId,
-            secondaryGurdianRelationShip: secondaryGurdianRelationship,
-            secondaryGurdianPhone,
-            secondaryGurdianProffesion: secondaryGurdianProfession,
-            secondaryGurdianDateOfBirth: secondaryGurdianDob,
-            secondaryGurdianAddress
-        };
+        // ====== API Call  ======
+        try {
+            const savedStudent = await saveStudentToServer(studentData);
 
-        const gradeObj = subjectsByGrade.find(g => g.grade === studentData.grade);
-        const subjects = gradeObj ? gradeObj.subjects : [];
+            if (savedStudent) {
+                await loadStudentsFromAPI();
+                addNotification(`Student ${studentData.firstName} added and synced with server`);
+                form.reset();
+                updateDisplayAfterAddition();
+                gurdianSection.forEach(section => section.style.display = 'none');
+                favicon.href = "././media copy/favicons/icons8-checked-user-80.png";
 
-        // إنشاء درجات ابتدائية صفرية
-        studentData.grades = generateEmptyGrades(subjects);
-        studentData.classification = determineClassification(studentData.grades);
-
-        students.push(studentData);
-        addNotification(`Student ${studentData.firstName} ${studentData.lastName} is added `);
-        saveStudentsToStorage();
-        reassignIdAndSorting(students);
-        updateDisplayAfterAddition();
-        form.reset();
-        favicon.href = "././media copy/favicons/icons8-checked-user-80.png";
-
-        // اخفاء السكشن بعد الحفظ
-        gurdianSection.forEach(section => section.style.display = 'none');
+                // العودة لجدول الطلاب
+                studentList.style.display = 'block';
+                studentForm.style.display = 'none';
+            }
+        } catch (error) {
+            console.error("Save process failed:", error);
+            addNotification("Error: Could not save student to server");
+        }
     });
 });
-
-
 
 resetButtons.forEach(btn => {
     btn.addEventListener('click', (e) => {
@@ -213,8 +218,14 @@ resetButtons.forEach(btn => {
             document.querySelector('.reset-pop-up').style.display = 'none';
 
             form.reset();
-            genderRadios.forEach(radio => radio.checked = false);
+            const studentGenderRadios = document.querySelectorAll('input[name="gender"]');
+            const primaryGenderRadios = document.querySelectorAll('input[name="primaryGender"]');
+            const secondaryGenderRadios = document.querySelectorAll('input[name="secondaryGender"]');
 
+            // تفريغ الاختيارات
+            studentGenderRadios.forEach(radio => radio.checked = false);
+            primaryGenderRadios.forEach(radio => radio.checked = false);
+            secondaryGenderRadios.forEach(radio => radio.checked = false);
             gurdianRadios.forEach(radio => radio.checked = false);
 
             primaryGurdianSection.style.display = 'none';
@@ -222,23 +233,23 @@ resetButtons.forEach(btn => {
 
             document.body.style.overflow = 'auto';
 
-            studentList.style.display = 'block';
-            studentForm.style.display = 'none';
-            editConfirmButtons.style.display = 'none';
+            studentList.style.setProperty('display', 'block', 'important');
+            studentForm.style.setProperty('display', 'none', 'important');
+            editConfirmButtons.style.setProperty('display', 'none', 'important');
 
             allBtn.style.backgroundColor = 'rgba(244, 244, 244, 1)';
             addBtn.style.backgroundColor = 'transparent';
+
         });
 
         canceled.addEventListener('click', () => {
-            document.getElementById('blur-layer').style.display = 'none'; // يشغل البلور
-            document.querySelector('.reset-pop-up').style.display = 'none'; // يعرض البوب أب
+            document.getElementById('blur-layer').style.display = 'none';
+            document.querySelector('.reset-pop-up').style.display = 'none';
 
         });
 
     });
-})
-
+});
 cancelButtons.forEach(btn => {
     btn.addEventListener('click', () => {
 
@@ -249,8 +260,7 @@ cancelButtons.forEach(btn => {
         allBtn.style.backgroundColor = 'rgba(244, 244, 244, 1)';
         addBtn.style.backgroundColor = 'transparent';
     });
-})
-
+});
 //add buttons control  end-------------------------------
 
 // ======= Search safety check =======
@@ -266,16 +276,13 @@ if (!searchInput) {
         }
 
         const filteredStudents = students.filter(student => {
-            // بيانات الاسم والـ ID
             const fullName = `${student.firstName} ${student.lastName}`.toLowerCase();
             const id = (student.id || '').toString().toLowerCase();
 
-            // بيانات الصف والفصل (Grade & Class)
             const grade = (student.grade || '').toString().toLowerCase();
             const className = (student.class || '').toString().toLowerCase();
             const gradeAndClass = `${grade}-${className}`.toLowerCase(); // يدعم البحث عن "1-a" مثلاً
 
-            // التحقق من وجود الكلمة في أي من هذه الحقول
             return fullName.includes(query) ||
                 id.includes(query) ||
                 grade.includes(query) ||
@@ -296,33 +303,32 @@ function showFilteredStudents(list) {
     }
 
     list.forEach((student, idx) => {
-        // تحديد كلاس التصنيف بناءً على الحالة
         const statusMap = {
-            'superior': 'classification-superior',
-            'weak': 'classification-weak',
-            'talented': 'classification-talented'
+            'Superior': 'classification-superior',
+            'Weak': 'classification-weak',
+            'Talented': 'classification-talented',
+            'Fail': 'classification-fail'
         };
         const classificationclass = statusMap[student.classification] || '';
-
+        let attendanceText = student.Attendance === '0%' ? 'No Attendance' : student.Attendance;
+        let attendanceClass = student.Attendance === '0%' ? 'attendance-zero' : '';
         const rowHTML = `
             <tr data-full-student-id="${student.id}" style="cursor: pointer;">
                 <td>${idx + 1}</td>
-                <td>${student.id}</td>
+                <td>${student.schoolId}</td>
                 <td>${student.firstName} ${student.lastName}</td>
                 <td>${student.grade} - ${student.class}</td>
                 <td>${student.gender}</td>
-                <td>${student.Attendance}</td>
+                <td class="${attendanceClass}">${attendanceText}</td>
                 <td class="${classificationclass}">${student.classification}</td>
             </tr>`;
 
         studentsTableBody.insertAdjacentHTML('beforeend', rowHTML);
     });
 
-    // ربط أحداث النقر
     bindRowClicks();
 }
 
-// دالة مساعدة لربط النقر بعد البحث (عشان الكود ميتكررش)
 function bindRowClicks() {
     const allRows = studentsTableBody.querySelectorAll('tr[data-full-student-id]');
     allRows.forEach(row => {
@@ -338,45 +344,45 @@ function bindRowClicks() {
 }
 
 function updateDisplayAfterAddition() {
-    // 1. إعادة حساب متغيرات عدد الطلاب وعدد الصفحات
     schoolStudents = students.length;
     studentSliderPages = Math.ceil(schoolStudents / 10);
 
-    // 2. تحديث السلايدر بالكامل
     updateSliderPages(studentSliderPages);
-
-    // 3. عرض الطلاب (سنعرض الصفحة الأولى دائماً بعد الإضافة)
     showStudents(0);
 
-    // 4. تحديث عداد الطلاب الإجمالي
+    let femaleCount = 0;
+    let maleCount = 0;
+    students.forEach(s => {
+        if (s.gender === 'Female') femaleCount++;
+        else maleCount++;
+    });
+
     registeredStudents.innerHTML = (femaleCount + maleCount);
 }
 
-
-//برتب الطلاب واديلهم ال id مبني أيضا ع الترتيب
-function reassignIdAndSorting(students) {
-
-    //alphaptic name sorting arabic & english
-    students.sort((a, b) =>
-        a.firstName.localeCompare(b.firstName, 'ar', { sensitivity: 'base' })
-    );
-
-    students.forEach((student, index) => {
-        // ID الجديد هو رقم البداية + الـ index (الموقع الحالي للطالب)
-        const newIdNumber = ID_START + index;
-        student.id = newIdNumber.toString();
+function reassignSortingOnly(students) {
+    students.sort((a, b) => {
+        const nameA = a.firstName || "";
+        const nameB = b.firstName || "";
+        return nameA.localeCompare(nameB, 'ar', { sensitivity: 'base' });
     });
-    saveStudentsToStorage();
+    saveStudentsDisplayOrder();
 }
 
 
-function saveStudentsToStorage() {
-    // 1. تحويل المصفوفة إلى نص (String)
-    const studentsJson = JSON.stringify(students);
-    // 2. التخزين باستخدام المفتاح الثابت
-    localStorage.setItem(LOCAL_STORAGE_KEY, studentsJson);
 
-    // (اختياري: لو كانت القائمة فارغة، نمسحها من التخزين)
+function generateSchoolId() {
+    if (students.length === 0) return ID_START.toString();
+
+    const allIds = students.map(s => parseInt(s.schoolId || 0));
+    const maxId = Math.max(...allIds);
+
+    return (maxId + 1).toString();
+}
+
+function saveStudentsDisplayOrder() {
+    const studentsJson = JSON.stringify(students);
+    localStorage.setItem(LOCAL_STORAGE_KEY, studentsJson);
     if (students.length === 0) {
         localStorage.removeItem(LOCAL_STORAGE_KEY);
     }
@@ -385,7 +391,6 @@ function saveStudentsToStorage() {
 function updateSliderPages(pagesCount) {
     slider.innerHTML = '';
 
-    // 🔒 تعطيل / تفعيل الأسهم
     const backBtn = document.querySelector('.back-page');
     const afterBtn = document.querySelector('.after-page');
 
@@ -429,8 +434,7 @@ function reinitializeSliderListeners() {
 }
 
 // show/hide guardian sections based on selection
-gurdianSection.forEach(section => section.style.display = 'none'); // افتراضي مخفية
-// التحكم في ظهور السكشنات بعد اختيار العدد
+gurdianSection.forEach(section => section.style.display = 'none');
 gurdianRadios.forEach(radio => {
     radio.addEventListener('change', () => {
         const selectedCount = getSelectedGurdian(gurdianRadios);
@@ -447,7 +451,6 @@ gurdianRadios.forEach(radio => {
 });
 
 function showStudents(page) {
-    // 1. تحديد الطلاب لنسخة الديسكتوب (10 فقط)
     let startIndex = page * 10;
     let endIndex = startIndex + 10;
     let studentsOnThisPage = students.slice(startIndex, endIndex);
@@ -455,25 +458,27 @@ function showStudents(page) {
     const studentsTableBody = document.querySelector('tbody');
     const mobileContainer = document.querySelector('.table-mobile');
 
-    // تفريغ المحتوى
     studentsTableBody.innerHTML = '';
     mobileContainer.innerHTML = '';
 
-    // --- أولاً: ملء الجدول (للديسك توب فقط - 10 طلاب) ---
     studentsOnThisPage.forEach((student, index) => {
+        let attendanceText = student.Attendance === '0%' ? 'No Attendance' : student.Attendance;
+        let attendanceClass = student.Attendance === '0%' ? 'attendance-zero' : '';
         //controlling color
         let classificationclass = '';
         switch (student.classification) {
-            case 'superior':
+            case 'Superior':
                 classificationclass = 'classification-superior';
                 break;
-            case 'weak':
+            case 'Weak':
                 classificationclass = 'classification-weak';
                 break;
-            case 'talented':
+            case 'Talented':
                 classificationclass = 'classification-talented';
                 break;
-
+            case 'Fail':
+                classificationclass = 'classification-fail';
+                break;
             case 'developing':
                 classificationclass = '';
                 break;
@@ -486,32 +491,34 @@ function showStudents(page) {
         tr.style.cursor = 'pointer';
         tr.innerHTML = `
             <td>${startIndex + index + 1}</td>
-            <td>${student.id}</td>
+            <td>${student.schoolId}</td>
             <td>${student.firstName} ${student.lastName}</td>
             <td>${student.grade} - ${student.class}</td>
             <td>${student.gender}</td>
-            <td>${student.Attendance}</td>
+                <td class="${attendanceClass}">${attendanceText}</td>
             <td class="${classificationclass}">${student.classification}</td>
         `;
         tr.addEventListener('click', () => openStudentProfile(student));
         studentsTableBody.appendChild(tr);
     });
-    //`${}`
-    // --- ثانياً: ملء الكروت (للموبايل - كل الطلاب بدون تقيد بالصفحة) ---
-    // هنا نستخدم مصفوفة students الكاملة وليس الجزء المقطوع
+
     students.forEach((student) => {
+        let attendanceText = student.Attendance === '0%' ? 'No Attendance' : student.Attendance;
+        let attendanceClass = student.Attendance === '0%' ? 'attendance-zero' : '';
         let classificationclass = '';
         switch (student.classification) {
-            case 'superior':
+            case 'Superior':
                 classificationclass = 'classification-superior';
                 break;
-            case 'weak':
+            case 'Weak':
                 classificationclass = 'classification-weak';
                 break;
-            case 'talented':
+            case 'Talented':
                 classificationclass = 'classification-talented';
                 break;
-
+            case 'Fail':
+                classificationclass = 'classification-fail';
+                break;
             case 'developing':
                 classificationclass = '';
                 break;
@@ -536,7 +543,7 @@ function showStudents(page) {
             <div class="card-body">
                 <div class="info-row"><span class="label">ID Number</span> <span class="value">${student.id}</span></div>
                 <div class="info-row"><span class="label">Class</span> <span class="value">${student.grade}-${student.class}</span></div>
-                <div class="info-row"><span class="label">Attendance%</span> <span class="value">${student.Attendance}</span></div>
+                <div class="info-row"><span class="label">Attendance%</span> <span class="value ${attendanceClass}">${attendanceText}</span></div>
                 <div class="info-row"><span class="label">Classification</span> <span class="value ${classificationclass}">${student.classification}</span></div>
             </div>
         `;
@@ -545,7 +552,6 @@ function showStudents(page) {
     });
 }
 
-// دالة موحدة لفتح الملف الشخصي
 function openStudentProfile(student) {
     localStorage.setItem('selectedStudentData', JSON.stringify(student));
     window.location.href = "../studentPage.html";
@@ -573,6 +579,7 @@ function showWarning(message, inputElement = null) {
 function validateForm() {
     const gradeSelect = document.getElementById('Grade');
     const classSelect = document.getElementById('Class');
+
     if (!gradeSelect.value) {
         showWarning("Please select a Grade", gradeSelect);
         return false;
@@ -581,7 +588,8 @@ function validateForm() {
         showWarning("Please select a Class", classSelect);
         return false;
     }
-    // 1. تحقق من جميع الحقول النصية المطلوبة
+
+    // Required inputs for student
     const requiredInputs = form.querySelectorAll('input[required]');
     for (const input of requiredInputs) {
         if (!input.value.trim()) {
@@ -590,48 +598,50 @@ function validateForm() {
         }
     }
 
-    // 2. تحقق من اختيار الجنس
-    const genderRadios = document.querySelectorAll('input[name="gender"]');
-    if (!getSelectedGender(genderRadios)) {
+    // Gender
+    if (!getSelectedGender(document.querySelectorAll('input[name="gender"]'))) {
         showWarning("Please select the student's gender");
         return false;
     }
 
-    // 3. تحقق من اختيار عدد الجاردين
-    const gurdianRadios = document.querySelectorAll('input[name="gurdian"]');
+    // Guardian count
     const gurdianCount = getSelectedGurdian(gurdianRadios);
     if (!gurdianCount) {
         showWarning("Please select number of guardians");
         return false;
     }
 
-    // 4. تحقق من ملء السكشنات الخاصة بالجاردين بناءً على العدد المختار
-    if (gurdianCount === "1") {
-        const primaryInputs = primaryGurdianSection.querySelectorAll('input[required]');
-        for (const input of primaryInputs) {
-            if (!input.value.trim()) {
-                showWarning(`Please fill in primary guardian field: ${input.placeholder || input.name}`, input);
-                return false;
-            }
-        }
-    } else if (gurdianCount === "2") {
-        const primaryInputs = primaryGurdianSection.querySelectorAll('input[required]');
-        const secondaryInputs = secondaryGurdianSection.querySelectorAll('input[required]');
-        for (const input of[...primaryInputs, ...secondaryInputs]) {
-            if (!input.value.trim()) {
-                showWarning(`Please fill in guardian field: ${input.placeholder || input.name}`, input);
-                return false;
-            }
+    // Primary guardian check
+    const primaryInputs = primaryGurdianSection.querySelectorAll('input[required]');
+    for (const input of primaryInputs) {
+        if (!input.value.trim()) {
+            showWarning(`Please fill in primary guardian field: ${input.placeholder || input.name}`, input);
+            return false;
         }
     }
-    // 6. تحقق من طول الرقم القومي للجارديان
+    if (!getSelectedGender(document.querySelectorAll('input[name="primaryGender"]'))) {
+        showWarning("Please select Primary Guardian gender");
+        return false;
+    }
     const primaryGurdianNationalId = document.getElementById('primaryGurdianNationalId').value.trim();
     if (primaryGurdianNationalId.length !== 14) {
         showWarning("Primary Guardian National ID must be 14 digits", document.getElementById('primaryGurdianNationalId'));
         return false;
     }
 
+    // Secondary guardian check ONLY if count = 2
     if (gurdianCount === "2") {
+        const secondaryInputs = secondaryyGurdianSection.querySelectorAll('input[required]');
+        for (const input of secondaryInputs) {
+            if (!input.value.trim()) {
+                showWarning(`Please fill in secondary guardian field: ${input.placeholder || input.name}`, input);
+                return false;
+            }
+        }
+        if (!getSelectedGender(document.querySelectorAll('input[name="secondaryGender"]'))) {
+            showWarning("Please select Secondary Guardian gender");
+            return false;
+        }
         const secondaryGurdianNationalId = document.getElementById('seconaryGurdianNationalId').value.trim();
         if (secondaryGurdianNationalId.length !== 14) {
             showWarning("Secondary Guardian National ID must be 14 digits", document.getElementById('seconaryGurdianNationalId'));
@@ -639,7 +649,7 @@ function validateForm() {
         }
     }
 
-    // 5. تحقق من الرقم القومي
+    // National ID uniqueness
     const nationalId = form.NationalId.value;
     if (!nationalId) {
         showWarning("Please enter National ID", form.NationalId);
@@ -652,9 +662,8 @@ function validateForm() {
         return false;
     }
 
-    return true; // كل شيء تمام
+    return true;
 }
-
 
 function generateEmptyGrades(subjects) {
     const months = ['sep', 'oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
@@ -669,8 +678,110 @@ function generateEmptyGrades(subjects) {
 
     return grades;
 }
+async function loadClassesToSelect() {
+    try {
+        const res = await fetch(`${API_BASE}/classes`);
+        const data = await res.json();
 
-//Helpers
+        //console.log("البيانات القادمة من السيرفر:", data); // للتأكد من شكل البيانات في الكونسول
+
+        let classesArray = [];
+
+        // طريقة آمنة للوصول للبيانات (تجنب خطأ الـ undefined)
+        if (data && data.classes && data.classes.recordsets && data.classes.recordsets[0]) {
+            classesArray = data.classes.recordsets[0];
+        } else if (data && data.classes && Array.isArray(data.classes)) {
+            // احتمالية أخرى أن البيانات تأتي كمصفوفة مباشرة
+            classesArray = data.classes;
+        }
+
+        window.allAvailableClasses = classesArray;
+        console.log("تم تحميل الفصول بنجاح:", window.allAvailableClasses);
+
+    } catch (err) {
+        console.error("Error fetching classes:", err);
+        addNotification("Failed to load classes from server");
+    }
+}
+gradeSelect.addEventListener('change', function() {
+    const selectedGrade = this.value; // مثلا "1"
+    classSelect.innerHTML = '<option value="" disabled selected hidden>Class</option>';
+
+    if (!window.allAvailableClasses || window.allAvailableClasses.length === 0) {
+        console.warn("قائمة الفصول فارغة، تأكد من اتصال السيرفر");
+        return;
+    }
+
+    // فلترة الفصول: نبحث عن الكلاسات التي تبدأ بـ G ثم رقم المرحلة
+    const filtered = window.allAvailableClasses.filter(c => {
+        const className = c.ClassName || "";
+        return className.startsWith(`G${selectedGrade}-`);
+    });
+
+    if (filtered.length > 0) {
+        filtered.forEach(item => {
+            const option = document.createElement('option');
+            // استخراج حرف الفصل فقط (A, B, C) من الاسم الكامل (G1-A)
+            const parts = item.ClassName.split('-');
+            const displayValue = parts[1] || item.ClassName;
+
+            option.value = displayValue;
+            option.textContent = displayValue;
+            classSelect.appendChild(option);
+        });
+        classSelect.disabled = false;
+    } else {
+        classSelect.disabled = true;
+        const option = document.createElement('option');
+        option.textContent = "No sections";
+        classSelect.appendChild(option);
+    }
+});
+
+//aside mobile
+const asideMobile = document.querySelector('.mobile-aside');
+const aside = document.getElementById('aside-mobile');
+const asideClose = document.getElementById('aside-close');
+asideMobile.addEventListener('click', () => {
+    aside.style.setProperty('display', 'flex', 'important');
+});
+asideClose.addEventListener('click', () => {
+    aside.style.setProperty('display', 'none', 'important');
+
+});
+
+
+async function saveStudentToServer(studentData) {
+    try {
+        const response = await fetch(`${API_BASE}/students`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(studentData)
+        });
+        if (!response.ok) throw new Error('فشل الاتصال بالسيرفر');
+        return await response.json();
+    } catch (error) {
+        console.error("Error:", error);
+        return null;
+    }
+}
+//functions
+function controllingModify() {
+    //controlling student modify start and add buttons
+    ModifyGeneric({
+        addBtn,
+        allBtn,
+        listView: studentList,
+        formView: studentForm,
+        editConfirmButtons,
+        favicon,
+        listFavicon: '/./media copy/favicons/icons8-group-80.png',
+        formFavicon: '././media copy/favicons/stydent-add.png',
+        listTitle: 'All Students',
+        formTitle: 'Add Student',
+        darkModeToggle
+    });
+}
 const backToHome = document.querySelector('.back-to-home');
 backToHome.addEventListener('click', () => {
     const lastPage = localStorage.getItem('lastVisitedPage');
@@ -697,38 +808,16 @@ function getSelectedGurdian(gurdianRadios) {
     return selected ? selected.value : null;
 }
 
-function controllingModify() {
-    //controlling student modify start
-
-    //controlling student modify start and add buttons
-    ModifyGeneric({
-        addBtn,
-        allBtn,
-        listView: studentList,
-        formView: studentForm,
-        editConfirmButtons,
-        favicon,
-        listFavicon: '/./media copy/favicons/icons8-group-80.png',
-        formFavicon: '././media copy/favicons/stydent-add.png',
-        listTitle: 'All Students',
-        formTitle: 'Add Student',
-        darkModeToggle
-    });
-}
 
 function isNationalIdDuplicate(nationalId, studentsList) {
     if (!nationalId) return false;
     return studentsList.some(student => student.NationalId === nationalId);
 }
-
 //dark mode start--------------------------
 const body = document.body;
-// عند تحميل الصفحة، شوف لو المستخدم مفعل Dark Mode
 if (localStorage.getItem('darkMode') === 'enabled') {
     body.classList.add('dark-mode');
 }
-
-// Toggle عند الضغط على الزرار
 darkModeToggle.addEventListener('click', () => {
     body.classList.toggle('dark-mode');
 
@@ -739,75 +828,8 @@ darkModeToggle.addEventListener('click', () => {
         localStorage.setItem('darkMode', 'disabled');
     }
 });
-
 //dark mode end -----------------------------
 
-// حفظ آخر صفحة مفتوحة عند الخروج أو إعادة تحميل الصفحة
 window.addEventListener('beforeunload', () => {
     localStorage.setItem('lastVisitedPage', window.location.pathname);
 });
-// تحديث الفصول بناءً على المرحلة المختارة
-// 1. هنجيب الفصول من الـ Local Storage عشان نشوف "N" اللي ضفتيه
-const savedClasses = JSON.parse(localStorage.getItem('schoolClassesList')) || [];
-
-// 2. لما نختار الـ Grade
-if (gradeSelect) {
-    gradeSelect.addEventListener('change', function() {
-        const selectedGrade = this.value; // رقم المرحلة
-
-        // مسح القديم
-        classSelect.innerHTML = '<option value="" disabled selected hidden>Class</option>';
-
-        // فلترة من المصفوفة اللي جاية من الـ LocalStorage (اللي فيها N)
-        const available = savedClasses.filter(c => c.grade.toString() === selectedGrade.toString());
-
-        if (available.length > 0) {
-            available.forEach(item => {
-                const option = document.createElement('option');
-                option.value = item.className; // تأكدي إنها className زي ما سميناها في المصفوفة
-                option.textContent = item.className;
-                classSelect.appendChild(option);
-            });
-            classSelect.disabled = false;
-        } else {
-            classSelect.disabled = true;
-        }
-    });
-}
-
-function updateClassOptions(gradeNumber) {
-    if (!classSelect) return;
-
-    // 1. مسح الفصول القديمة
-    classSelect.innerHTML = '<option value="" disabled selected hidden>Class</option>';
-
-    // 2. فلترة الفصول المتاحة للمرحلة دي من المصفوفة بتاعتك
-    const availableClasses = classes.filter(c => c.grade === gradeNumber);
-
-    // 3. إضافة الفصول المتاحة للقائمة
-    if (availableClasses.length > 0) {
-        availableClasses.forEach(item => {
-            const option = document.createElement('option');
-            option.value = item.class;
-            option.textContent = item.class;
-            classSelect.appendChild(option);
-        });
-        classSelect.disabled = false; // تفعيل القائمة
-    } else {
-        // لو مفيش فصول للمرحلة دي
-        const option = document.createElement('option');
-        option.textContent = "No classes available";
-        classSelect.appendChild(option);
-        classSelect.disabled = true;
-    }
-}
-const asideMobile = document.querySelector('.mobile-aside');
-const aside = document.getElementById('aside-mobile');
-const asideClose = document.getElementById('aside-close');
-asideMobile.addEventListener('click', () => {
-    aside.style.setProperty('display', 'flex', 'important');
-});
-asideClose.addEventListener('click', () => {
-    aside.style.setProperty('display', 'none', 'important');
-
-})

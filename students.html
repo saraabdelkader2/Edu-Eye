@@ -72,6 +72,7 @@
             <div class="notification-content"></div>
         </div>
     </div>
+
     <!-- Aside -->
     <div class="aside" id="aside">
         <h2><img src="media copy/dashboard/icon-park-solid_fire.png" alt="logo"> Edu Eye</h2>
@@ -97,6 +98,7 @@
             <a href="settings.html"><img src="media copy/dashboard/setting-2.png" alt="home">Settings</a>
         </div>
     </div>
+
     <!-- Students Container -->
     <div class="students-container" id="students">
         <!-- Header -->
@@ -185,7 +187,6 @@
         <!-- Student Form -->
         <div class="student-form-section">
             <div class="page-blur" id="blur-layer"></div>
-
             <div class="reset-pop-up ">
                 Are you sure you want to reset the form? All data will be lost.
                 <div class="pop-up-buttons">
@@ -193,7 +194,7 @@
                     <button id="no">No</button>
                 </div>
             </div>
-            <div class="page-blur" id="blur-layer"></div>
+            <!--<div class="page-blur" id="blur-layer"></div>
 
             <div class="reset-pop-up ">
                 Are you sure you want to reset the form? All data will be lost.
@@ -201,7 +202,7 @@
                     <button id="yes">Yes</button>
                     <button id="no">No</button>
                 </div>
-            </div>
+            </div>-->
             <div class="student-form-basic">
                 <form id="student-form">
                     <h2 class="student-form-header main">Basic Information</h2>
@@ -301,7 +302,7 @@
 
             </div>
             <!-- Guardian count -->
-            <div class="student-form-basic ">
+            <div class="student-form-basic gurdianCount">
                 <h2 class="student-form-header main">Guardians count</h2>
                 <hr>
                 <div class="gender flex gurdian-number">
@@ -339,16 +340,21 @@
 
                         </div>
                         <div class="row flex">
+                            <div class="gender flex">
+                                <p>Gender :</p>
+                                <div class="gender-options flex primaryGurdian ">
+                                    <input type="radio" id="gender1" name="primaryGender" value="Female">
+                                    <label for="gender1">Female</label>
+                                    <input type="radio" id="gender2" name="primaryGender" value="Male">
+                                    <label for="gender2">Male</label>
+                                </div>
+                            </div>
                             <div class="Relationship">
                                 <label>Relationship</label>
                                 <input type="text" placeholder="Relationship" name="primaryseconaryGurdianRelationship" id="primaryseconaryGurdianRelationship" required />
                                 <p class="warning warning-primary-relationship"></p>
                             </div>
-                            <div class="National Id">
-                                <label>National Id</label>
-                                <input type="text" placeholder="National Id" name="primaryGurdianNationalId" id="primaryGurdianNationalId" required/>
-                                <p class="warning warning-primary-nationalid"></p>
-                            </div>
+
 
                         </div>
                         <div class="row flex">
@@ -377,11 +383,16 @@
 
 
                         </div>
-                        <div class="row">
+                        <div class="row flex">
                             <div class="Address">
                                 <label>Address</label>
                                 <input type="text" placeholder="Address" id="primaryGurdianAddress" name="primaryGurdianAddress" required />
                                 <p class="warning warning-address"></p>
+                            </div>
+                            <div class="National Id">
+                                <label>National Id</label>
+                                <input type="text" placeholder="National Id" name="primaryGurdianNationalId" id="primaryGurdianNationalId" required/>
+                                <p class="warning warning-primary-nationalid"></p>
                             </div>
                         </div>
                     </div>
@@ -397,27 +408,33 @@
                         <div class="row flex">
                             <div class="first-name">
                                 <label>First Name</label>
-                                <input type="text" placeholder="First Name" name="seconaryGurdianFirstName" id="seconaryGurdianFullName" required/>
+                                <input type="text" placeholder="First Name" name="seconaryGurdianFirstName" id="seconaryGurdianFirstName" required/>
                                 <p class="warning warning-secondary-fullname"></p>
                             </div>
                             <div class="second-name">
                                 <label>Second Name</label>
-                                <input type="text" placeholder="Second Name" name="seconaryGurdianSecondName" id="seconaryGurdianFullName" required/>
+                                <input type="text" placeholder="Second Name" name="seconaryGurdianSecondName" id="seconaryGurdianSecondName" required/>
                                 <p class="warning warning-secondary-fullname"></p>
                             </div>
 
                         </div>
                         <div class="row flex">
+                            <div class="gender flex">
+                                <p>Gender :</p>
+                                <div class="gender-options flex secondaryGurdian ">
+                                    <input type="radio" id="gender1" name="secondaryGender" value="Female">
+                                    <label for="gender1">Female</label>
+                                    <input type="radio" id="gender2" name="secondaryGender" value="Male">
+                                    <label for="gender2">Male</label>
+                                </div>
+                            </div>
                             <div class="Relationship">
+
                                 <label>Relationship</label>
                                 <input type="text" placeholder="Relationship" name="seconaryGurdianRelationship" id="seconaryGurdianRelationship" required />
                                 <p class="warning warning-secondary-relationship"></p>
                             </div>
-                            <div class="National Id">
-                                <label>National Id</label>
-                                <input type="text" placeholder="National Id" name="seconaryGurdianNationalId" id="seconaryGurdianNationalId" required/>
-                                <p class="warning warning-secondary-nationalid"></p>
-                            </div>
+
 
                         </div>
                         <div class="row flex">
@@ -445,16 +462,22 @@
                             </div>
 
                         </div>
-                        <div class="row">
+                        <div class="row flex">
                             <div class="Address">
                                 <label>Address</label>
                                 <input type="text" placeholder="Address" id="secondaryGurdianAddress" name="secondaryGurdianAddress" required />
                                 <p class="warning warning-address"></p>
                             </div>
+                            <div class="National Id">
+                                <label>National Id</label>
+                                <input type="text" placeholder="National Id" name="seconaryGurdianNationalId" id="seconaryGurdianNationalId" required/>
+                                <p class="warning warning-secondary-nationalid"></p>
+                            </div>
                         </div>
                     </div>
                 </form>
             </div>
+
             <div class="add-buttons add-buttons-mobile flex">
                 <button class="cancel-form-button">Cancel</button>
                 <button class="reset-form-button">Reset</button>
@@ -464,6 +487,7 @@
 
         </div>
     </div>
+
     <script type="module" src="script/notifications.js" defer></script>
     <script type="module" src="script/students.js" defer></script>
 </body>

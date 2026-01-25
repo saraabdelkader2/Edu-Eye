@@ -2,6 +2,7 @@
      :root {
         --container-bg: #f4f7f9;
         --classification-weak: #DC3545;
+        --classification-fail: #6c757d;
         --white-bg: #fff;
         --shadow-much-strong: rgba(0, 0, 0, 0.1);
         --shadow-light: rgba(0, 0, 0, 0.05);
@@ -844,6 +845,12 @@
         font-size: 10px;
     }
     
+    .classification-fail {
+        color: var(--classification-fail) !important;
+        font-weight: 600;
+        font-size: 10px;
+    }
+    
     .header-mobile {
         display: none;
     }
@@ -862,6 +869,20 @@
     
     .add-buttons-mobile {
         display: none;
+    }
+    
+    @keyframes blink {
+        0%,
+        100% {
+            opacity: 1;
+        }
+        50% {
+            opacity: 0.6;
+        }
+    }
+    
+    .attendance-zero {
+        animation: blink 1s infinite;
     }
     
     @media (max-width: 480px) {
