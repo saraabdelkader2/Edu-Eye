@@ -10,6 +10,7 @@ body {
 }
 
 :root {
+    --main-heading-color: #1E457E;
     --icon-color: #1a3b6d;
     --container-bg: #f4f7f9;
     --classification-weak: #DC3545;
@@ -969,4 +970,167 @@ body.no-scroll {
 
 .status-holiday {
     color: pink !important;
+}
+
+.mobile-aside {
+    color: var(--main-heading-color);
+}
+
+@media (max-width: 480px) {
+    .aside {
+        display: none !important;
+    }
+    .studentPage-container {
+        left: -5px;
+        top: 20px;
+    }
+    .header {
+        display: none !important;
+    }
+    .header-mobile {
+        display: flex;
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        z-index: 1000;
+        align-items: center;
+        justify-content: space-between;
+        width: 90%;
+        margin: 0 auto;
+    }
+    .header-mobile .icons.left-group {
+        gap: 12px;
+    }
+    .img-header-background {
+        padding: 5px;
+    }
+    .header-mobile .img-header-background {
+        padding: 6px;
+    }
+    .header-mobile .icons.left-group img {
+        width: 17px;
+        height: 17px;
+    }
+    .header-mobile.icons.left-group img,
+    .icons.left-group span:first-child {
+        font-size: 17px !important;
+    }
+    .header-mobile .notification-number {
+        height: 15px;
+        width: 15px;
+        font-size: 10px;
+    }
+    #aside-mobile {
+        left: 50% !important;
+        display: flex;
+        transform: translate(-50%, -50%) !important;
+        background: linear-gradient(135deg, var(--main-heading-color), var(--font-black)) !important;
+        opacity: 0.95;
+        /* شفافية بسيطة جداً */
+        top: 50% !important;
+        z-index: 10000 !important;
+        width: 100vw !important;
+        height: 100%;
+        align-items: center;
+    }
+    .options a {
+        color: var(--white-txt)!important;
+    }
+    .fa-xmark {
+        color: var(--white-txt);
+        position: fixed;
+        right: 20px;
+        top: 20px;
+        font-size: 18px;
+    }
+    .options {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    h2 {
+        color: var(--main-heading-color);
+    }
+    .profile-photo {
+        width: 66px;
+        height: 61px;
+        margin: 0;
+    }
+    .student-primary-information {
+        flex-direction: column;
+        gap: 0;
+    }
+    .student-primary-info {
+        width: 98%;
+        gap: 21px;
+        padding: 10px;
+        margin: 15px auto;
+    }
+    .student-primary-info .main {
+        font-size: 19px;
+    }
+    .text-muted {
+        font-size: 11px;
+    }
+    .grade-and-section {
+        justify-content: start;
+        transition: 300ms all ease;
+        color: var(--font-black);
+        font-size: 12px;
+        gap: 10px;
+    }
+    .buttons button {
+        gap: 10px;
+        padding: 9px 11px;
+        font-size: 13px;
+    }
+    .buttons {
+        gap: 20px;
+        flex-direction: row;
+    }
+    .students-modify button {
+        min-width: 55%;
+        font-size: 14px;
+    }
+    .information h3 {
+        font-size: 17px;
+    }
+    .information {
+        flex-direction: column;
+        gap: 28px;
+    }
+    .information>* {
+        flex: 1;
+        width: 100%;
+    }
+    .information h3 {
+        margin: 0 0 12px
+    }
+    .grades {
+        gap: 1.5rem;
+        flex-direction: column;
+        padding: 0;
+    }
+    .grades-column {
+        width: 90%;
+        margin: 10px auto;
+    }
+    .attendance-heading {
+        flex-direction: column;
+        padding: 0;
+    }
+    .color-map {
+        gap: 15px;
+        position: absolute;
+        color: var(--font-black);
+        top: 45px;
+        width: 80%;
+        margin: 0 auto;
+        font-size: 12px;
+    }
+    .color-box {
+        align-items: center;
+        gap: 4px;
+    }
 }

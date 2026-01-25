@@ -23,56 +23,59 @@ const firstPage = document.querySelector('.slider .first-page');
 const studentsTableBody = document.querySelector('tbody');
 
 const API_BASE = "https://ece2026.onrender.com/webapi";
-
 async function loadStudentsFromAPI() {
     try {
         const res = await fetch(`${API_BASE}/students`);
+        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+
         const data = await res.json();
 
-        const listFromApi = data.studentlist || [];
+        // تعديل: فحص أكثر من مسار للبيانات (studentlist أو data مباشرة)
+        const listFromApi = data.studentlist || data.students || (Array.isArray(data) ? data : []);
 
         const apiStudents = listFromApi.map(s => {
-            const fullName = s["Student Name"] || "Unknown Student";
+            const fullName = s["Student Name"] || s["StudentName"] || "Unknown Student";
             const nameParts = fullName.split(" ");
             return {
-                nationalId: s["ID Number"],
+                nationalId: s["ID Number"] || s["NationalID"],
                 schoolId: s["SchoolID"] || s["ID Number"],
                 id: s["SchoolID"] || s["ID Number"],
                 firstName: nameParts[0] || "Unknown",
                 lastName: nameParts.slice(1).join(" ") || " ",
                 gender: s["Gender"] || "Male",
-                grade: s["ClassName"] ? s["ClassName"].split("-")[0].replace("G", "") : "1",
-                class: s["ClassName"] ? s["ClassName"].split("-")[1] : "A",
-                Attendance: (s["Attendance %"] || 0) + "%",
+                // تعديل: التعامل مع ClassName بشكل آمن
+                grade: s["ClassName"] && s["ClassName"].includes("-") ? s["ClassName"].split("-")[0].replace("G", "") : "1",
+                class: s["ClassName"] && s["ClassName"].includes("-") ? s["ClassName"].split("-")[1] : "A",
+                Attendance: (s["Attendance %"] || s["AttendancePercentage"] || 0) + "%",
                 classification: s["Classification"] || determineClassification(s.grades || {})
             };
         });
 
         students = apiStudents;
-
         reassignSortingOnly(students);
         updateDisplayAfterAddition();
 
     } catch (err) {
         console.error("API Error:", err);
-        addNotification("Failed to load students from server");
+        // لا تظهري التنبيه فوراً إذا كان السيرفر يستيقظ، حاولي مرة أخرى برمجياً أو اطلبي من المستخدم التحديث
+        addNotification("Server is waking up or connection failed. Please refresh in a moment.");
     }
 }
 export async function getStudentsData() {
     try {
-        const response = await fetch(`${BASE_URL}/students`);
+        const response = await fetch(`${API_BASE}/students`); // تغيير من BASE_URL إلى API_BASE
         const data = await response.json();
+        const studentsList = data.studentlist || data.students || data;
 
-        const studentsList = data.students || data;
-
-        return studentsList.map(student => {
+        return Array.isArray(studentsList) ? studentsList.map(student => {
             return {
                 ...student,
-                classification: determineClassification(student.grades)
+                classification: determineClassification(student.grades || {})
             };
-        });
+        }) : [];
     } catch (error) {
-        console.error("خطأ في جلب البيانات من الـ API:", error);
+        console.error("Error in getStudentsData:", error);
+        return [];
     }
 }
 //slider clicking
@@ -810,8 +813,11 @@ function getSelectedGurdian(gurdianRadios) {
 
 
 function isNationalIdDuplicate(nationalId, studentsList) {
-    if (!nationalId) return false;
-    return studentsList.some(student => student.NationalId === nationalId);
+    if (!nationalId || !Array.isArray(studentsList)) return false;
+    // التأكد من فحص كلا الحقلين المحتملين للـ ID
+    return studentsList.some(student =>
+        student.nationalId === nationalId || student.NationalId === nationalId
+    );
 }
 //dark mode start--------------------------
 const body = document.body;
