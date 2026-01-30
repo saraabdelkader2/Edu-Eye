@@ -106,9 +106,7 @@ body {
     font-size: 14px;
     display: none;
     max-height: 300px;
-    /* ارتفاع ثابت للصندوق */
     overflow-y: auto;
-    /* يسمح بالتمرير عند طول الإشعارات */
     width: 220px;
     backdrop-filter: blur(6px);
     right: -12px;
@@ -836,9 +834,6 @@ select {
     gap: 1rem;
 }
 
-
-/* تلوين فئة التصنيف */
-
 .classification-superior {
     color: var(--classification-superior)!important;
     font-weight: 600;
@@ -878,7 +873,7 @@ select {
 }
 
 .add-buttons-mobile {
-    display: none;
+    display: none !important;
 }
 
 @keyframes blink {
@@ -1029,7 +1024,7 @@ select {
         box-shadow: var(--box-shadow);
         padding: 10px;
         border-radius: 5px;
-        width: 80%;
+        width: 90%;
         border: 1px solid var(--gender-border);
     }
     .student-form-header {
@@ -1073,10 +1068,10 @@ select {
         display: none !important;
     }
     .add-buttons-mobile {
-        display: flex;
+        display: flex !important;
         gap: 3%;
-        width: 93%;
-        margin: 0 auto;
+        margin: 10px auto;
+        justify-content: center;
     }
     .reset-pop-up {
         padding: 21px 14px;
@@ -1087,5 +1082,449 @@ select {
     }
     .pop-up-buttons button {
         padding: 7px 13px;
+    }
+    .card-body span {
+        font-size: 11px;
+    }
+    .row>*,
+    .grade-class>* {
+        flex: 1;
+        width: 100%;
+    }
+}
+
+@media (min-width: 481px) and (max-width: 767px) {
+    .aside {
+        display: none !important;
+    }
+    .students-container {
+        left: -5px;
+        top: 20px;
+    }
+    .header {
+        display: none !important;
+    }
+    .header-mobile {
+        display: flex;
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        z-index: 1000;
+        align-items: center;
+        justify-content: space-between;
+        width: 90%;
+        margin: 0 auto;
+    }
+    .header-mobile .icons.left-group {
+        gap: 12px;
+    }
+    .img-header-background {
+        padding: 5px;
+    }
+    .header-mobile .img-header-background {
+        padding: 6px;
+    }
+    .header-mobile .icons.left-group img {
+        width: 17px;
+        height: 17px;
+    }
+    .header-mobile.icons.left-group img,
+    .icons.left-group span:first-child {
+        font-size: 17px !important;
+    }
+    .header-mobile .notification-number {
+        height: 15px;
+        width: 15px;
+        font-size: 10px;
+    }
+    .students-modify button {
+        font-size: 13px;
+    }
+    .all-student img {
+        width: 19px;
+        height: 20px;
+    }
+    .student-heading {
+        margin: 17px 0 4px 0px;
+        font-size: 26px;
+    }
+    .resgistered-student {
+        font-size: 15px;
+        margin: 17px 0px 11px 2px;
+    }
+    .student-number {
+        display: none;
+    }
+    .student-table {
+        margin: 10px auto;
+    }
+    #aside-mobile {
+        left: 50% !important;
+        display: flex;
+        transform: translate(-50%, -50%) !important;
+        background: linear-gradient(135deg, var(--main-heading-color), var(--font-black)) !important;
+        opacity: 0.95;
+        top: 50% !important;
+        z-index: 10000 !important;
+        width: 100vw !important;
+        height: 100%;
+        align-items: center;
+    }
+    .options a {
+        color: var(--white-txt)!important;
+    }
+    .fa-xmark {
+        color: var(--white-txt);
+        position: fixed;
+        right: 20px;
+        top: 20px;
+        font-size: 18px;
+    }
+    .options {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    h2 {
+        color: var(--main-heading-color);
+    }
+    table {
+        display: none;
+    }
+    .slider {
+        display: none;
+    }
+    .table-mobile {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+    .table-mobile img {
+        width: 24px;
+        height: 24px;
+    }
+    .table-mobile h4 {
+        font-size: 12px;
+        color: var(--main-heading-color);
+    }
+    .table-mobile .label {
+        color: var(--main-heading-color);
+        font-weight: 600;
+    }
+    .table-mobile span {
+        font-size: 9px;
+        color: var(--font-black);
+    }
+    .user-icon {
+        align-items: center;
+        gap: 10px;
+    }
+    .student-card {
+        background-color: var(--white-bg);
+        box-shadow: var(--box-shadow);
+        padding: 10px;
+        border-radius: 5px;
+        width: 90%;
+        border: 1px solid var(--gender-border);
+    }
+    .student-form-header {
+        font-size: 17px;
+        padding: 5px 5px 7px 1px;
+    }
+    .row {
+        flex-direction: column;
+    }
+    .student-form-section label:not(.gender label,
+    .count) {
+        margin: 11px 0 6px 0;
+        color: var(--font-black);
+    }
+    .gender p {
+        font-size: 14px;
+    }
+    .gender {
+        gap: 11px;
+        margin: 14px 0;
+    }
+    .gender-options {
+        gap: 10px;
+        margin-top: 0;
+    }
+    .gender-options label {
+        font-size: 14px;
+    }
+    .gender-options input[type="radio"] {
+        width: 15px;
+        height: 14px;
+    }
+    .grade-class {
+        gap: 33px;
+        margin-top: 16px;
+    }
+    select {
+        padding: 7px 15px 10px 13px;
+    }
+    .add-buttons-desktop {
+        display: none !important;
+    }
+    .add-buttons-mobile {
+        display: flex !important;
+        gap: 3%;
+        margin: 10px auto;
+        justify-content: center;
+    }
+    .reset-pop-up {
+        padding: 21px 14px;
+        font-size: 13px;
+        width: fit-content;
+        padding: 14px -2px;
+        text-align: center;
+    }
+    .pop-up-buttons button {
+        padding: 7px 13px;
+    }
+    .card-body span {
+        font-size: 11px;
+    }
+    .back-icon {
+        display: block !important;
+    }
+    .row>*,
+    .grade-class>* {
+        flex: 1;
+        width: 100%;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+    .aside {
+        display: none !important;
+    }
+    .students-container {
+        left: -5px;
+        top: 20px;
+    }
+    .header {
+        display: none !important;
+    }
+    .header-mobile {
+        display: flex;
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        z-index: 1000;
+        align-items: center;
+        justify-content: space-between;
+        width: 97%;
+        margin: 0 auto;
+    }
+    .header-mobile .icons.left-group {
+        gap: 12px;
+    }
+    .img-header-background {
+        padding: 5px;
+    }
+    .header-mobile .img-header-background {
+        padding: 6px;
+    }
+    .header-mobile .icons.left-group img {
+        width: 17px;
+        height: 17px;
+    }
+    .header-mobile.icons.left-group img,
+    .icons.left-group span:first-child {
+        font-size: 17px !important;
+    }
+    .header-mobile .notification-number {
+        height: 15px;
+        width: 15px;
+        font-size: 10px;
+    }
+    .students-modify button {
+        font-size: 13px;
+    }
+    .all-student-img {
+        width: 19px;
+        height: 20px;
+    }
+    .student-heading {
+        margin: 17px 0 4px 13px;
+        font-size: 27px;
+    }
+    .resgistered-student {
+        font-size: 15px;
+        margin: 17px 0px 11px 19px;
+    }
+    .student-number {
+        display: none;
+    }
+    .student-table {
+        margin: 10px auto;
+    }
+    #aside-mobile {
+        left: 50% !important;
+        display: flex;
+        transform: translate(-50%, -50%) !important;
+        background: linear-gradient(135deg, var(--main-heading-color), var(--font-black)) !important;
+        opacity: 0.95;
+        /* شفافية بسيطة جداً */
+        top: 50% !important;
+        z-index: 10000 !important;
+        width: 100vw !important;
+        height: 100%;
+        align-items: center;
+    }
+    .options a {
+        color: var(--white-txt)!important;
+    }
+    .fa-xmark {
+        color: var(--white-txt);
+        position: fixed;
+        right: 20px;
+        top: 20px;
+        font-size: 18px;
+    }
+    .options {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    h2 {
+        color: var(--main-heading-color);
+    }
+    table {
+        display: none;
+    }
+    .slider {
+        display: none;
+    }
+    .table-mobile {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+    .table-mobile img {
+        width: 55px;
+        height: 55px;
+    }
+    .table-mobile h4 {
+        font-size: 18px;
+        color: var(--main-heading-color);
+    }
+    .table-mobile .label {
+        color: var(--main-heading-color);
+        font-weight: 600;
+    }
+    .table-mobile span {
+        font-size: 9px;
+        color: var(--font-black);
+    }
+    .user-icon {
+        align-items: center;
+        gap: 10px;
+    }
+    .student-card {
+        background-color: var(--white-bg);
+        box-shadow: var(--box-shadow);
+        padding: 19px;
+        border-radius: 5px;
+        width: 93%;
+        border: 1px solid var(--gender-border);
+    }
+    .student-form-header {
+        font-size: 17px;
+        padding: 5px 5px 7px 1px;
+    }
+    .row {
+        flex-direction: column;
+    }
+    .student-form-section label:not(.gender label,
+    .count) {
+        margin: 11px 0 6px 0;
+        color: var(--font-black);
+    }
+    .gender p {
+        font-size: 14px;
+    }
+    .gender {
+        gap: 11px;
+        margin: 14px 0;
+    }
+    .gender-options {
+        gap: 10px;
+        margin-top: 0;
+    }
+    .gender-options label {
+        font-size: 14px;
+    }
+    .gender-options input[type="radio"] {
+        width: 15px;
+        height: 14px;
+    }
+    .grade-class {
+        gap: 33px;
+        margin-top: 16px;
+    }
+    select {
+        padding: 7px 15px 10px 13px;
+    }
+    .add-buttons-desktop {
+        display: none !important;
+    }
+    .add-buttons-mobile {
+        display: flex !important;
+        gap: 3%;
+        margin: 10px auto;
+        justify-content: center;
+    }
+    .reset-pop-up {
+        padding: 21px 14px;
+        font-size: 13px;
+        width: fit-content;
+        padding: 14px -2px;
+        text-align: center;
+    }
+    .pop-up-buttons button {
+        padding: 7px 13px;
+    }
+    .card-body span {
+        font-size: 14px;
+    }
+    .back-icon {
+        display: block !important;
+    }
+    .row>*,
+    .grade-class>* {
+        flex: 1;
+        width: 100%;
+    }
+    .info-row {
+        margin: 10px 0;
+    }
+    .card-body {
+        padding-left: 10px;
+    }
+}
+
+@media (min-width: 1024px) and (max-width: 1439px) {
+    .students-modify button {
+        font-size: 15px;
+    }
+    .aside {
+        width: 182px!important;
+    }
+    .students-container {
+        left: 172px;
+        top: 71px;
+    }
+    .header {
+        left: 183px !important;
+    }
+    .student-table td {
+        font-size: 13px;
     }
 }

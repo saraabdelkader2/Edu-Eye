@@ -1,15 +1,13 @@
 import { ModifyGeneric } from "./modify.js";
 import { addNotification } from "./notifications.js";
-import { classes } from './clist.js';
-import { determineClassification } from "./sList.js";
+
 
 // --- 1. variables ---
-const LOCAL_CLASSES_KEY = 'schoolClassesList';
-const LOCAL_STORAGE_KEY = 'schoolStudentsList';
 const ITEMS_PER_PAGE = 10;
+let classesArray = [];
 let currentPage = 0;
 let searchTerm = "";
-
+let teachersArray = [];
 // DOM elements
 const searchInput = document.querySelector('.search-box input');
 const darkModeToggle = document.getElementById('darkModeToggle');
@@ -19,67 +17,50 @@ const tableBody = document.querySelector('.class-table tbody');
 const slider = document.querySelector('.slider .pages');
 const backBtn = document.querySelector('.back-page');
 const afterBtn = document.querySelector('.after-page');
+const formWarning = document.getElementById('form-warning');
 
 
-// --- 2. get information from storage & calculate counts ---
-const students = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)) || [];
-const studentCounts = {};
+const API_BASE = "https://ece2026.onrender.com/webapi";
 
-students.forEach(student => {
-    // تحديد التصنيف لكل طالب بناءً على درجاته
-    student.classification = determineClassification(student.grades);
-    const grade = student.grade ? student.grade.toString().trim() : '';
-    const cls = student.class ? student.class.toString().trim().toUpperCase() : '';
-    const key = `${grade}-${cls}`;
+async function fetchClasses() {
+    try {
+        const res = await fetch(`${API_BASE}/classes`);
+        if (!res.ok) throw new Error('Failed to fetch classes');
 
-    if (!studentCounts[key]) {
-        studentCounts[key] = { total: 0, superior: 0, talented: 0, weak: 0 };
+        const response = await res.json();
+        console.log("Classes API Response:", response);
+
+        // Use response.data instead of response directly
+        const dataArray = Array.isArray(response.data) ? response.data : [];
+
+        // داخل دالة fetchClasses
+        return dataArray.map(c => {
+            const fullClassName = c["Class"] || "";
+            const nameParts = fullClassName.split('-');
+
+            const gradePart = nameParts[0] ? nameParts[0].replace('G', '').trim() : "";
+            const classLetter = nameParts[1] ? nameParts[1].trim() : "";
+
+            return {
+                classId: c.ClassID,
+                teacherId: c.TeacherID || null,
+                grade: gradePart,
+                className: classLetter,
+                leadingTeacher: c["The leading teacher"] || "N/A",
+                room: c["Room No."] || "-",
+                total: c["Num of students"] || 0,
+                talented: c["Talent"] || 0,
+                superior: c["Superior"] || 0,
+                good: c["Good"] || 0,
+                weak: c["Weak"] || 0,
+                fail: c["Fail"] || 0
+            };
+        });
+
+    } catch (err) {
+        console.error("Fetch Classes Error:", err);
+        return [];
     }
-
-    studentCounts[key].total++;
-    const status = (student.classification || "").toLowerCase().trim();
-    if (status === 'superior') studentCounts[key].superior++;
-    else if (status === 'talented') studentCounts[key].talented++;
-    else if (status === 'weak') studentCounts[key].weak++;
-});
-
-// --- 3. make/update class array and save it to storage ---
-export let classesArray = JSON.parse(localStorage.getItem(LOCAL_CLASSES_KEY));
-
-if (!classesArray) {
-    // إنشاء المصفوفة لأول مرة من ملف clist.js
-    classesArray = classes.map(c => {
-        const key = `${c.grade}-${c.class.trim().toUpperCase()}`;
-        const counts = studentCounts[key] || { total: 0, superior: 0, talented: 0, weak: 0 };
-        return {
-            grade: c.grade,
-            className: c.class,
-            leadingTeacher: c.leadingTeacher,
-            total: counts.total,
-            superior: counts.superior,
-            talented: counts.talented,
-            weak: counts.weak
-        };
-    });
-} else {
-    // تحديث الإحصائيات للفصول الموجودة بناءً على بيانات الطلاب الحالية (لحل مشكلة التصفير)
-    classesArray = classesArray.map(cls => {
-        const key = `${cls.grade}-${cls.className.trim().toUpperCase()}`;
-        const counts = studentCounts[key] || { total: 0, superior: 0, talented: 0, weak: 0 };
-        return {
-            ...cls,
-            total: counts.total,
-            superior: counts.superior,
-            talented: counts.talented,
-            weak: counts.weak
-        };
-    });
-}
-// حفظ البيانات المحدثة
-saveToStorage();
-
-function saveToStorage() {
-    localStorage.setItem(LOCAL_CLASSES_KEY, JSON.stringify(classesArray));
 }
 
 function sortClasses() {
@@ -90,237 +71,199 @@ function sortClasses() {
     });
 }
 
-// --- 4. دوال العرض والعمليات ---
 function renderClasses() {
     tableBody.innerHTML = '';
-    const filteredData = classesArray.filter(cls => {
-        const matchString = `${cls.grade} ${cls.className} ${cls.leadingTeacher}`.toLowerCase();
-        return matchString.includes(searchTerm.toLowerCase());
-    });
-    const totalPages = Math.ceil(filteredData.length / ITEMS_PER_PAGE);
+    const filteredData = classesArray.filter(cls =>
+        `${cls.grade} ${cls.className} ${cls.leadingTeacher}`.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
     const start = currentPage * ITEMS_PER_PAGE;
     const pageData = filteredData.slice(start, start + ITEMS_PER_PAGE);
+
     pageData.forEach((cls, i) => {
-        const actualIndex = classesArray.indexOf(cls);
         const row = document.createElement('tr');
-
-        if (cls.isEditing) {
-            row.innerHTML = `
-            <td>${start + i + 1}</td>
-            <td><input type="text" value="${cls.grade}-${cls.className}" class="edit-input"></td>
-            <td><input type="text" value="${cls.leadingTeacher}" class="edit-input"></td>
-            <td>${cls.total || 0}</td>
-            <td>${cls.superior || 0}</td>
-            <td>${cls.talented || 0}</td>
-            <td>${cls.weak || 0}</td>
-            <td class="actions flex">
-                <i class="fa-solid fa-check save-btn" title="Save"></i>
-                <i class="fa-solid fa-xmark cancel-btn" title="Cancel"></i>
-            </td>`;
-
-            const saveBtn = row.querySelector('.save-btn');
-            const cancelBtn = row.querySelector('.cancel-btn');
-
-            saveBtn.addEventListener('click', (e) => {
-                e.stopPropagation(); // يمنع event row
-                saveRow(actualIndex, row);
-            });
-
-            cancelBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                delete cls.isEditing;
-                renderClasses();
-            });
-
-        } else {
-            row.innerHTML = `
+        row.innerHTML = `
             <td>${start + i + 1}</td>
             <td>${cls.grade} - ${cls.className}</td>
-            <td>${cls.leadingTeacher}</td>
-            <td>${cls.total || 0}</td>
-            <td>${cls.superior || 0}</td>
-            <td>${cls.talented || 0}</td>
-            <td>${cls.weak || 0}</td>
-            <td class="actions flex">
-                <i class="fa-regular fa-trash-can delete-btn"></i>
-                <i class="fa-solid fa-pen-to-square edit-btn"></i>
-            </td>`;
+            <td>${cls.leadingTeacher || 'N/A'}</td>
+            <td>${cls.total}</td>
+            <td>${cls.superior}</td>
+            <td>${cls.talented}</td>
+            <td>${cls.weak}</td>
+        `;
 
-            const editBtn = row.querySelector('.edit-btn');
-            const deleteBtn = row.querySelector('.delete-btn');
+        row.addEventListener('click', () => {
+            const url = `./classPage.html?id=${cls.classId}&grade=${cls.grade}&className=${cls.className}&teacher=${encodeURIComponent(cls.leadingTeacher)}`;
 
-            editBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                cls.isEditing = true;
-                renderClasses();
-            });
-
-            deleteBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                deleteRow(actualIndex);
-            });
-        }
-
+            console.log("Navigating to:", url);
+            window.location.href = url;
+        });
         tableBody.appendChild(row);
-        row.style.cursor = 'pointer';
     });
-
+    updateSliderPages(Math.ceil(filteredData.length / ITEMS_PER_PAGE));
     updateRegisteredClasses();
-    updateSliderPages(totalPages);
 }
 
-function saveRow(index, rowElement) {
-    const inputs = rowElement.querySelectorAll('input');
-    const [grade, className] = inputs[0].value.split('-').map(s => s.trim());
 
-    // عند الحفظ، نعيد ربط البيانات بالإحصائيات الحقيقية لضمان عدم ضياعها
-    const key = `${grade}-${className.toUpperCase()}`;
-    const counts = studentCounts[key] || { total: 0, superior: 0, talented: 0, weak: 0 };
 
-    classesArray[index] = {
-        ...classesArray[index],
-        grade: grade || '',
-        className: className || '',
-        leadingTeacher: inputs[1].value,
-        total: counts.total,
-        superior: counts.superior,
-        talented: counts.talented,
-        weak: counts.weak
-    };
-    delete classesArray[index].isEditing;
-    saveToStorage();
-    renderClasses();
-    addNotification('Data updated successfully', 'success');
-}
+async function populateTeachersDropdown() {
+    const select = document.getElementById('teacherSelect');
+    if (!select) return;
 
-function deleteRow(index) {
-    const popup = document.querySelector('.reset-pop-up');
-    const blurLayer = document.getElementById('blur-layer');
-    if (popup && blurLayer) {
-        popup.style.display = 'flex';
-        blurLayer.style.display = 'block';
-    }
-    document.getElementById('yes').onclick = () => {
-        const deletedClassName = `${classesArray[index].grade} - ${classesArray[index].className}`;
-        classesArray.splice(index, 1);
-        saveToStorage();
-        renderClasses();
-        closePopup();
-        if (typeof addNotification === 'function') {
-            addNotification(`Class (${deletedClassName}) is removed successfully`, 'success');
-        }
-    };
-    document.getElementById('no').onclick = closePopup;
+    try {
+        const res = await fetch(`${API_BASE}/teachersList`);
+        if (!res.ok) throw new Error('Failed to fetch teachers');
 
-    function closePopup() {
-        popup.style.display = 'none';
-        blurLayer.style.display = 'none';
+        const teachers = await res.json();
+
+        localStorage.setItem('teachersArray', JSON.stringify(teachers));
+        teachersArray = teachers;
+
+        select.innerHTML = '<option value="">-- Select Teacher --</option>';
+
+        teachers.forEach(teacher => {
+            const option = document.createElement('option');
+            option.value = teacher.TeacherID;
+            option.textContent = teacher.FullName;
+            select.appendChild(option);
+        });
+
+    } catch (err) {
+        console.error('Error fetching teachers:', err);
     }
 }
 
-// --- 5. add class form logic ---
+async function addNewClass(payload) {
+    console.log("Sending Payload to API:", JSON.stringify(payload));
+
+    try {
+        const res = await fetch(`${API_BASE}/addClass`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+
+    } catch (err) {
+        console.error("Save Error:", err);
+        addNotification("Error saving class!");
+    }
+}
+
 function initFormActions() {
-    const classForm = document.querySelector('.class-form-section form');
-    const warningElement = document.getElementById('form-warning');
-    const buttons = document.querySelectorAll('.add-buttons button');
-    const cancelBtn = buttons[0];
-    const resetBtn = buttons[1];
-    const saveBtn = buttons[2];
+    document.addEventListener('click', async(e) => {
+        if (e.target && e.target.classList.contains('save-form-button')) {
+            e.preventDefault();
 
-    if (!saveBtn) return;
+            const gradeElem = document.getElementById('grade');
+            const symbolInput = document.querySelector('input[name="className"]');
+            const teacherSelect = document.getElementById('teacherSelect');
 
-    saveBtn.onclick = (e) => {
+            const grade = gradeElem ? gradeElem.value : '';
+            const symbol = symbolInput ? symbolInput.value.trim().toUpperCase() : '';
+            const teacherID = teacherSelect ? teacherSelect.value : '';
+
+            if (!grade || !symbol || !teacherID) {
+                const formWarning = document.getElementById('form-warning');
+                if (formWarning) {
+                    formWarning.textContent = 'Please fill all fields!';
+                    formWarning.style.display = 'block';
+                }
+                return;
+            }
+
+            const payload = {
+                symbol: symbol,
+                gradeID: parseInt(grade, 10),
+                teacherID: parseInt(teacherID, 10)
+            };
+
+            // --- التعديل هنا لعمل تأثير الـ Saving ---
+            const saveBtn = e.target;
+            const originalText = saveBtn.innerHTML; // نحفظ الشكل الأصلي (ربما يحتوي على أيقونة)
+
+            saveBtn.disabled = true; // تعطيل الزر
+            saveBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Saving...`; // تغيير النص وإضافة أنيميشن تحميل
+            saveBtn.style.opacity = "0.7";
+            saveBtn.style.cursor = "not-allowed";
+
+            try {
+                await addNewClass(payload);
+
+                addNotification("Class added successfully!");
+
+                if (symbolInput) symbolInput.value = '';
+                if (teacherSelect) teacherSelect.value = '';
+
+                classesArray = await fetchClasses();
+                renderClasses();
+
+                document.querySelector('.class-list-section').style.display = 'block';
+                document.querySelector('.class-form-section').style.display = 'none';
+                document.querySelector('.add-buttons').style.display = 'none';
+
+            } catch (err) {
+                console.error("Submit Error:", err);
+                addNotification("Failed to save class", "error");
+            } finally {
+                saveBtn.disabled = false;
+                saveBtn.innerHTML = originalText;
+                saveBtn.style.opacity = "1";
+                saveBtn.style.cursor = "pointer";
+            }
+        }
+    });
+}
+const resetButton = document.querySelectorAll('.reset-form-button');
+const cancelButton = document.querySelectorAll('.cancel-form-button');
+
+resetButton.forEach(btn => {
+
+    btn.addEventListener('click', (e) => {
         e.preventDefault();
-        const classNameVal = classForm.querySelector('[name="className"]').value.trim().toUpperCase();
-        const gradeVal = classForm.querySelector('[name="grade"]').value;
-        const teacherVal = classForm.querySelector('[name="leadingTeacher"]').value.trim();
+        document.body.style.overflow = 'hidden'; // no scroll
+        document.getElementById('blur-layer').style.display = 'block';
+        document.querySelector('.reset-pop-up').style.display = 'flex';
+        const confirmed = document.getElementById('yes');
+        const canceled = document.getElementById('no');
+        confirmed.addEventListener('click', () => {
+            document.getElementById('blur-layer').style.display = 'none';
+            document.querySelector('.reset-pop-up').style.display = 'none';
+            const symbolInput = document.querySelector('input[name="className"]');
+            const teacherSelect = document.getElementById('teacherSelect');
+            if (symbolInput) symbolInput.value = '';
+            if (teacherSelect) teacherSelect.value = '';
+            document.querySelector('.class-list-section').style.display = 'block';
+            document.querySelector('.class-form-section').style.display = 'none';
+            document.querySelector('.add-buttons').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        });
+        canceled.addEventListener('click', () => {
+            document.getElementById('blur-layer').style.display = 'none';
+            document.querySelector('.reset-pop-up').style.display = 'none';
+        });
+    });
+});
+cancelButton.forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.querySelector('.class-list-section').style.display = 'block';
+        document.querySelector('.class-form-section').style.display = 'none';
+        document.querySelector('.add-buttons').style.display = 'none';
+        document.body.style.overflow = 'auto';
+    });
+});
 
-        if (warningElement) warningElement.style.display = 'none';
 
-        if (!classNameVal || !teacherVal || !gradeVal) {
-            if (warningElement) {
-                warningElement.textContent = 'Error: Please fill in all required fields.';
-                warningElement.style.backgroundColor = '#f8d7da';
-                warningElement.style.color = '#721c24';
-                warningElement.style.display = 'block';
-                warningElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }
-            return;
-        }
+function clearClassForm() {
 
-        const isDuplicate = classesArray.some(cls =>
-            cls.grade.toString() === gradeVal.toString() &&
-            cls.className.toUpperCase() === classNameVal
-        );
 
-        if (isDuplicate) {
-            if (warningElement) {
-                warningElement.textContent = `Warning: Class ${gradeVal}-${classNameVal} is already registered!`;
-                warningElement.style.backgroundColor = '#fff3cd';
-                warningElement.style.color = '#856404';
-                warningElement.style.display = 'block';
-            }
-            return;
-        }
-
-        // حساب الإحصائيات للفصل الجديد إذا كان له طلاب مسبقاً
-        const key = `${gradeVal}-${classNameVal}`;
-        const counts = studentCounts[key] || { total: 0, superior: 0, talented: 0, weak: 0 };
-
-        const newClass = {
-            grade: gradeVal,
-            className: classNameVal,
-            leadingTeacher: teacherVal,
-            total: counts.total,
-            superior: counts.superior,
-            talented: counts.talented,
-            weak: counts.weak
-        };
-
-        classesArray.push(newClass);
-        saveToStorage();
-        sortClasses();
-        renderClasses();
-        classForm.reset();
-
-        addNotification(`Class ${newClass.grade}-${newClass.className} is added successfully`, 'success');
-        document.querySelector('#all-classes').click();
-    };
-
-    if (resetBtn) resetBtn.onclick = () => {
-        const popup = document.querySelector('#reset-pop-up');
-        const blurLayer = document.getElementById('blur-layerr');
-        if (popup && blurLayer) {
-            popup.style.display = 'flex';
-            blurLayer.style.display = 'block';
-        }
-        document.getElementById('yess').onclick = () => {
-            classForm.reset();
-            closePopup();
-        };
-        document.getElementById('noo').onclick = closePopup;
-
-        function closePopup() {
-            popup.style.display = 'none';
-            blurLayer.style.display = 'none';
-        }
-
-        if (warningElement) warningElement.style.display = 'none';
-    };
-
-    if (cancelBtn) cancelBtn.onclick = () => {
-        classForm.reset();
-        if (warningElement) warningElement.style.display = 'none';
-        document.querySelector('#all-classes').click();
-    };
 }
 
-// --- 6. الإدارة والتنسيق ---
 function updateSliderPages(totalPages) {
+    const slider = document.querySelector('.slider .pages');
     slider.innerHTML = '';
+
     if (backBtn) backBtn.classList.toggle('disabled', currentPage === 0);
     if (afterBtn) afterBtn.classList.toggle('disabled', currentPage >= totalPages - 1);
-    if (totalPages <= 1) return;
 
     for (let i = 1; i <= totalPages; i++) {
         const p = document.createElement('p');
@@ -333,36 +276,42 @@ function updateSliderPages(totalPages) {
         slider.appendChild(p);
     }
 }
-
 if (backBtn) {
     backBtn.addEventListener('click', () => {
-        if (currentPage > 0) {
-            currentPage--;
-            renderClasses();
-        }
+        if (currentPage === 0) return;
+        currentPage--;
+        renderClasses();
     });
 }
 if (afterBtn) {
     afterBtn.addEventListener('click', () => {
         const totalPages = getTotalPages();
-        if (currentPage < totalPages - 1) {
-            currentPage++;
-            renderClasses();
-        }
+        if (currentPage >= totalPages - 1) return;
+        currentPage++;
+        renderClasses();
     });
 }
 
 function updateRegisteredClasses() {
+    const registeredClasses = document.querySelector('.registered-classes-number');
     if (registeredClasses) registeredClasses.textContent = classesArray.length;
 }
 
+
 function getTotalPages() {
     const filteredData = classesArray.filter(cls => {
-        const matchString = `${cls.grade} ${cls.className} ${cls.leadingTeacher}`.toLowerCase();
+        const matchString = `
+            ${cls.grade}
+            ${cls.className}
+            ${cls.leadingTeacher}
+        `.toLowerCase();
+
         return matchString.includes(searchTerm.toLowerCase());
     });
+
     return Math.ceil(filteredData.length / ITEMS_PER_PAGE);
 }
+
 
 if (searchInput) {
     searchInput.addEventListener('input', (e) => {
@@ -371,6 +320,21 @@ if (searchInput) {
         renderClasses();
     });
 }
+async function initClasses() {
+    if (!teachersArray || teachersArray.length === 0) {
+        await populateTeachersDropdown();
+    }
+    classesArray = await fetchClasses();
+    sortClasses();
+    renderClasses();
+}
+
+window.addEventListener('DOMContentLoaded', async() => {
+    initFormActions();
+    await populateTeachersDropdown();
+    await initClasses();
+    controllingModify();
+});
 
 function controllingModify() {
     ModifyGeneric({
@@ -386,18 +350,22 @@ function controllingModify() {
     });
 }
 
-// تشغيل ابتدائي
-sortClasses();
-renderClasses();
-controllingModify();
-initFormActions();
+const body = document.body;
 
-// الإعدادات الإضافية
-if (localStorage.getItem('darkMode') === 'enabled') document.body.classList.add('dark-mode');
-darkModeToggle.onclick = () => {
-    document.body.classList.toggle('dark-mode');
-    localStorage.setItem('darkMode', document.body.classList.contains('dark-mode') ? 'enabled' : 'disabled');
-};
+
+if (localStorage.getItem('darkMode') === 'enabled') {
+    body.classList.add('dark-mode');
+}
+
+darkModeToggle.addEventListener('click', () => {
+    body.classList.toggle('dark-mode');
+
+    if (body.classList.contains('dark-mode')) {
+        localStorage.setItem('darkMode', 'enabled');
+    } else {
+        localStorage.setItem('darkMode', 'disabled');
+    }
+});
 
 const lockIcon = document.getElementById('lock');
 if (lockIcon) {
@@ -418,3 +386,16 @@ backToHome.addEventListener('click', () => {
         window.location.href = "/dashboard.html"; // fallback
     }
 });
+
+//aside mobile
+const asideMobile = document.querySelector('.mobile-aside');
+const aside = document.getElementById('aside-mobile');
+const asideClose = document.getElementById('aside-close');
+asideMobile.addEventListener('click', () => {
+    aside.style.setProperty('display', 'flex', 'important');
+});
+asideClose.addEventListener('click', () => {
+    aside.style.setProperty('display', 'none', 'important');
+
+});
+aside.style.setProperty('display', 'none', 'important');

@@ -52,7 +52,6 @@ function updateNotificationBadge() {
 function renderNotificationContent(showAll = false) {
     const pending = JSON.parse(localStorage.getItem(NOTIFICATION_KEY) || '[]');
 
-    // تحديث كل قوائم الإشعارات المفتوحة في الصفحة
     notificationContents.forEach(content => {
         content.innerHTML = '';
         if (pending.length === 0) {
@@ -60,7 +59,9 @@ function renderNotificationContent(showAll = false) {
             return;
         }
 
+        // تحديد العناصر المطلوب عرضها
         const itemsToShow = showAll ? pending : pending.slice(0, 5);
+
         itemsToShow.forEach(item => {
             const itemClass = item.read ? 'read' : 'unread';
             content.innerHTML += `
@@ -71,16 +72,24 @@ function renderNotificationContent(showAll = false) {
                 </div>`;
         });
 
-        // ربط زر "View All" بالكلاس وليس بالـ ID لأنه يتكرر
+        // إضافة زر View All إذا لم نكن نعرض الكل بالفعل وهناك أكثر من 5
         if (!showAll && pending.length > 5) {
             const viewAllDiv = document.createElement('div');
             viewAllDiv.classList.add('view-all-link');
             viewAllDiv.innerHTML = `<a href="#" class="viewAllNotifications">View All (${pending.length})</a>`;
+
+            // إضافة حدث الضغط للزر
+            viewAllDiv.querySelector('.viewAllNotifications').onclick = (e) => {
+                e.preventDefault();
+                e.stopPropagation(); // لمنع إغلاق القائمة عند الضغط
+                renderNotificationContent(true); // استدعاء الدالة لعرض الكل
+            };
+
             content.appendChild(viewAllDiv);
         }
     });
 
-    // إضافة أحداث الحذف
+    // أحداث الحذف (تظل كما هي)
     document.querySelectorAll('.delete-notification').forEach(btn => {
         btn.onclick = (e) => {
             e.stopPropagation();

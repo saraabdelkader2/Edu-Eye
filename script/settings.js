@@ -57,3 +57,16 @@ backToHome.addEventListener('click', () => {
         window.location.href = "/dashboard.html"; // fallback
     }
 });
+
+
+//aside mobile
+const asideMobile = document.querySelector('.mobile-aside');
+const aside = document.getElementById('aside-mobile');
+const asideClose = document.getElementById('aside-close');
+asideMobile.addEventListener('click', () => {
+    aside.style.setProperty('display', 'flex', 'important');
+});
+asideClose.addEventListener('click', () => {
+    aside.style.setProperty('display', 'none', 'important');
+
+});

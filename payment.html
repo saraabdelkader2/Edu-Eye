@@ -28,6 +28,7 @@
 </head>
 
 <body>
+    <!-- Header -->
     <div class="header">
         <div class="right-group">
             <div class="back-icon back-to-home"><i class="fa-solid fa-arrow-left"></i></div>
@@ -52,7 +53,27 @@
             <div class="notification-content"></div>
         </div>
     </div>
-    <div class="aside">
+    <div class="header-mobile flex">
+        <i class="fa-solid fa-bars mobile-aside"></i>
+        <h2>Edu Eye</h2>
+        <div class="left-icons">
+            <div class="icons left-group">
+                <div class="img-header-background notifications">
+                    <img src="media copy/dashboard/notification.png" alt="notification" class="notification-icon">
+                    <span class="notification-number">0</span>
+                </div>
+                <!--<div class="img-header-background lock" id="lock">
+                    <span class="material-symbols-outlined">lock</span>
+                </div>
+                <div class="img-header-background">
+                    <span class="material-symbols-outlined" id="darkModeToggle">dark_mode</span>
+                </div>-->
+            </div>
+            <div class="notification-content"></div>
+        </div>
+    </div>
+    <!-- Aside -->
+    <div class="aside" id="aside">
         <h2><img src="media copy/dashboard/icon-park-solid_fire.png" alt="logo"> Edu Eye</h2>
         <div class="options">
             <a href="dashboard.html"><img src="media copy/dashboard/home-2.png" alt="home">Dashboard</a>
@@ -66,14 +87,25 @@
             <a href="settings.html"><img src="media copy/dashboard/setting-2.png" alt="home">Settings</a>
         </div>
     </div>
-
+    <div class="aside" id="aside-mobile">
+        <i class="fa-solid fa-xmark " id="aside-close"></i>
+        <div class="options">
+            <a href="dashboard.html"><img src="media copy/dashboard/home-2.png" alt="home">Dashboard</a>
+            <a href="students.html"><img src="media copy/dashboard/profile-2user.png" alt="">Students</a>
+            <a href="teacher.html"><img src="media copy/dashboard/teacher.png" alt="">Teachers</a>
+            <a href="classes.html"><img src="media copy/dashboard/Frame 32.png" alt="home" class="class">Classes</a>
+            <a href="payment.html" class="active"><span class="material-symbols-outlined">add_card</span>Payment</a>
+            <a href="Timetable.html"><img src="media copy/dashboard/Group 77.png" alt="home">Timetable</a>
+            <a href="settings.html"><img src="media copy/dashboard/setting-2.png" alt="home">Settings</a>
+        </div>
+    </div>
     <div class="payment-container" id="payment">
         <div class="payment-header flex">
             <p class="payment-heading"><span class="material-symbols-outlined icon">
                                         add_card
                                     </span> Payment
             </p>
-            <div class="add-buttons flex ">
+            <div class="add-buttons add-buttons-desktop flex ">
                 <button class="cancel-form-button">Cancel</button>
                 <button class="reset-form-button">Reset</button>
                 <button class="save-button save-form-button">Save</button></div>
@@ -88,21 +120,25 @@
 
                 <p class="resgistered-payment "><img src="media copy/students/bxs_school.png " alt="payment "> Registered Payments</p>
                 <div class="payment-section-content flex">
-                    <div class="total-students payment-section-content-box">
-                        <p>Total Students</p>
-                        <span id="total-students-count">5891</span>
+                    <div class="pay-cont flex">
+                        <div class="total-students payment-section-content-box">
+                            <p>Total Students</p>
+                            <span id="total-students-count">5891</span>
+                        </div>
+                        <div class="paid-students payment-section-content-box">
+                            <p>Paid Students</p>
+                            <span id="paid-students-count">3125</span>
+                        </div>
                     </div>
-                    <div class="paid-students payment-section-content-box">
-                        <p>Paid Students</p>
-                        <span id="paid-students-count">3125</span>
-                    </div>
-                    <div class="un-paid-students payment-section-content-box">
-                        <p>Un Paid Students</p>
-                        <span id="un-paid-students-count">2159</span>
-                    </div>
-                    <div class="bus-subscribers payment-section-content-box">
-                        <p>Bus Subscribers</p>
-                        <span id="bus-subscribers-count">1250</span>
+                    <div class="pay-cont flex">
+                        <div class="un-paid-students payment-section-content-box">
+                            <p>Un Paid Students</p>
+                            <span id="un-paid-students-count">2159</span>
+                        </div>
+                        <div class="bus-subscribers payment-section-content-box">
+                            <p>Bus Subscribers</p>
+                            <span id="bus-subscribers-count">1250</span>
+                        </div>
                     </div>
                 </div>
                 <div>
@@ -130,73 +166,7 @@
                             </tr>
                         </thead>
                         <tbody></tbody>
-                        <!--<tbody>
-                            <tr>
-                                <td>Ahmed Belal Tarek</td>
-                                <td>4 - A</td>
-                                <td>School</td>
-                                <td>3,500 EGP</td>
-                                <td>Paid</td>
-                                <td>1 October 2025</td>
 
-                            </tr>
-                            <tr>
-                                <td>Ahmed Belal Ali</td>
-                                <td>4 - A</td>
-                                <td>School</td>
-                                <td>3,500 EGP</td>
-                                <td>Paid</td>
-                                <td>1 October 2025</td>
-
-                            </tr>
-                            <tr>
-                                <td>Ahmed Belal Adel</td>
-                                <td>5 - A</td>
-                                <td>School+Bus</td>
-                                <td>3,700 EGP</td>
-                                <td>Paid</td>
-                                <td>2 October 2025</td>
-
-                            </tr>
-                            <tr>
-                                <td>Menna Hamada Ali</td>
-                                <td>4 - C</td>
-                                <td>School</td>
-                                <td>3,500 EGP</td>
-                                <td>Paid</td>
-                                <td>2 October 2025</td>
-
-                            </tr>
-                            <tr>
-                                <td>Ahmed Tarek Mostafa</td>
-                                <td>6 - A</td>
-                                <td>School</td>
-                                <td>3,500 EGP</td>
-                                <td>Paid</td>
-                                <td>3 October 2025</td>
-
-                            </tr>
-                            <tr>
-                                <td>Mostafa ELsyaed Ali</td>
-                                <td>6 - B</td>
-                                <td>School+Bus</td>
-                                <td>3,700 EGP</td>
-                                <td class="un-paid">Un Paid</td>
-                                <td>3 October 2025</td>
-
-                            </tr>
-                            <tr>
-                                <td>Malak Yehia Ibrahim</td>
-                                <td>5 - B</td>
-                                <td>School+Bus</td>
-                                <td>3,700 EGP</td>
-                                <td class="un-paid">Un Paid</td>
-                                <td>4 October 2025</td>
-
-                            </tr>
-
-
-                        </tbody>-->
                     </table>
                 </div>
                 <div class="slider">
@@ -231,7 +201,7 @@
                                 </div>
 
                                 <div class="payment-id">
-                                    <label>National ID (Verified)</label>
+                                    <label>ID (Verified)</label>
                                     <input type="text" id="id-display" placeholder="Verified ID" readonly style="background-color: #f0f0f0;" />
                                 </div>
                             </div>
@@ -246,14 +216,10 @@
 
                             </div>
                             <div class="row flex">
-                                <div class="fees">
-                                    <label>Fees Type</label>
-                                    <select name="fees" id="fees" required>
-                                        <option value="" disabled selected hidden>Select Fees Type</option>
-                                        <option value="school">School Fees</option>
-                                        <option value="bus">Bus Fees</option>
-                                        <option value="school&bus">School + Bus</option>
-                                    </select>
+                                <div class="form-group">
+                                    <label for="fees-checkboxes-container">Available Fees to Pay</label>
+                                    <div id="fees-checkboxes-container">
+                                    </div>
                                 </div>
                                 <div class="amount">
                                     <label>Amount (EGP)</label>
@@ -272,9 +238,14 @@
                         </div>
                     </form>
                 </div>
-
+                <div class="add-buttons add-buttons-mobile flex">
+                    <button class="cancel-form-button">Cancel</button>
+                    <button class="reset-form-button">Reset</button>
+                    <button class="save-form-button">Save</button>
+                </div>
 
             </div>
+
         </div>
     </div>
     <script src="script/payment.js" type="module"></script>

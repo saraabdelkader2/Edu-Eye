@@ -1,4 +1,3 @@
-import { subjectsByGrade } from "./Subjects.js";
 import { addNotification } from "./notifications.js";
 
 const favicon = document.getElementById('favicon');
@@ -16,546 +15,572 @@ const overViewSection = document.getElementById('overViewSection');
 const academicSection = document.getElementById('academicSection');
 const attendanceSection = document.getElementById('attendanceSection');
 
-const gradeMonthSelect = document.getElementById('gradeMonth');
-const gradeTable = document.getElementById('gradeTable');
-
-const examOverViewSelect = document.getElementById('examOverView');
-const subjectTable = document.querySelector('.subject-table');
-
-let studentData = JSON.parse(localStorage.getItem('selectedStudentData') || null);
 let studentImageGenderBased;
+let studentData;
+let studentScores = [];
 
-renderStudentPage();
-// default state
-modifyToggling(overViewButton, overViewSection);
+window.addEventListener('DOMContentLoaded', initPage);
 
-
-if (!studentData) {
-    console.error("Student data not found in localStorage");
-    window.location.href = "./students.html";
+function getNationalIdFromURL() {
+    const params = new URLSearchParams(window.location.search);
+    return params.get('nid');
 }
 
-//Rebuilding page
+async function initPage() {
+    const nid = getNationalIdFromURL();
+    if (!nid) {
+        alert("invalid student nid");
+        window.location.href = "./students.html";
+        return;
+    }
+
+    studentData = await fetchStudentData(nid);
+    if (!studentData) {
+        window.location.href = "./students.html";
+        return;
+    }
+
+    renderStudentPage();
+    modifyToggling(overViewButton, overViewSection);
+
+}
+
+async function fetchStudentData(nationalId) {
+    try {
+        const res = await fetch(`https://ece2026.onrender.com/webapi/studentPage/${nationalId}`);
+        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+        const data = await res.json();
+        if (!data.PersonalInfo || data.PersonalInfo.length === 0) {
+            throw new Error("No personal info found");
+        }
+
+        const student = {
+            id: data.PersonalInfo[0].StudentID,
+            fullName: data.PersonalInfo[0].FullName,
+            dateOfBirth: data.PersonalInfo[0].BirthDate,
+            gender: data.PersonalInfo[0].Gender,
+            Religion: data.PersonalInfo[0].Religion,
+            NationalId: data.PersonalInfo[0].NationalID,
+            dateOfJoin: data.PersonalInfo[0].EnrollmentDate,
+            grade: data.PersonalInfo[0].ClassName.split('-')[0].replace("G", ""),
+            class: data.PersonalInfo[0].ClassName.split('-')[1],
+            Address: data.PersonalInfo[0].FatherAddress,
+            guardians: data.GaurdInfo || []
+        };
+
+        student.primaryGuardian = student.guardians.find(g => g.IsPrimary) || null;
+        student.secondaryGuardians = student.guardians.filter(g => !g.IsPrimary);
+
+        return student;
+    } catch (err) {
+        console.error("Failed to fetch student data:", err);
+        alert("error while getting info");
+        return null;
+    }
+    document.title = `${student.fullName}`;
+
+}
+async function fetchStudentScores(studentId) {
+    try {
+        const res = await fetch(
+            `https://ece2026.onrender.com/webapi/studentScores/${studentId}`
+        );
+
+        if (!res.ok) {
+            console.error("HTTP Error:", res.status);
+            return [];
+        }
+
+        const data = await res.json();
+
+        if (!data.success) {
+            console.error("API returned success:false");
+            return [];
+        }
+
+        return data.data;
+    } catch (err) {
+        console.error("fetchStudentScores error:", err);
+        return [];
+    }
+}
+
+
 function renderStudentPage() {
     const gender = (studentData.gender || "").trim().toLowerCase();
-    const gurdianCounts = studentData.GurdianCount || (studentData.secondaryGurdianFullName ? 2 : 1);
     controllingPhoto(gender);
+    const formatDate = (date) => date ? new Date(date).toLocaleDateString() : '—';
 
-    // Basic Info
     studentPrimaryInfo.innerHTML = `
         <img src="${studentImageGenderBased}" alt="" class="profile-photo">
         <div class="basic-primary-information">
-            <h3 class="main">${studentData.firstName} ${studentData.lastName}</h3>
-            <p class="text-muted">ID Number: ${studentData.id}</p>
+            <h3 class="main">${studentData.fullName}</h3>
+            <p class="text-muted">ID: ${studentData.id}</p>
             <div class="grade-and-section flex">
-                <p class="student-grade">Grade: ${studentData.grade}</p>
-                <p class="student-class">Class: ${studentData.class}</p>
+                <p>Grade: ${studentData.grade}</p><p>Class: ${studentData.class}</p>
             </div>
         </div>
     `;
 
-    // Personal + Guardian Info
-    overViewSection.innerHTML = `
+    const personalHtml = `
         <div class="student-information">
-            <h3 class="main">Personal Information</h3>
-            <table>
-                <tr><td class="main">Full Name</td><td>${studentData.firstName} ${studentData.lastName}</td></tr>
-                <tr><td class="main">Date of Birth</td><td>${studentData.dateOfBirth}</td></tr>
-                <tr><td class="main">Gender</td><td>${studentData.gender}</td></tr>
-                <tr><td class="main">Nationality</td><td>${studentData.Nationality}</td></tr>
-                <tr><td class="main">Religion</td><td>${studentData.Religion}</td></tr>
-                <tr><td class="main">National ID</td><td>${studentData.NationalId}</td></tr>
-                <tr><td class="main">Date of Join</td><td>${studentData.dateOfJoin}</td></tr>
-                <tr><td class="main">Address</td><td>${studentData.Address}</td></tr>
-            </table>
-        </div>
-        <div class="gurdian-information">
-            <h3 class="main">Guardian Information</h3>
-            <table>
-                <tr><td class="main">Full Name</td>
-                    <td class="two-columns">
-                        <span>${studentData.primaryGurdianFullName}</span>
-                        ${gurdianCounts === 2 ? `<span>${studentData.secondaryGurdianFullName}</span>` : ""}
-                    </td>
-                </tr>
-                <tr><td class="main">Date of Birth</td>
-                    <td class="two-columns">
-                        <span>${studentData.primaryGurdianDateOfBirth}</span>
-                        ${gurdianCounts === 2 ? `<span>${studentData.secondaryGurdianDateOfBirth}</span>` : ""}
-                    </td>
-                </tr>
-                <tr><td class="main">Relationship</td>
-                    <td class="two-columns">
-                        <span>${studentData.primaryGurdianRelationShip}</span>
-                        ${gurdianCounts === 2 ? `<span>${studentData.secondaryGurdianRelationShip}</span>` : ""}
-                    </td>
-                </tr>
-                <tr><td class="main">Phone</td>
-                    <td class="two-columns">
-                        <span>${studentData.primaryGurdianPhone}</span>
-                        ${gurdianCounts === 2 ? `<span>${studentData.secondaryGurdianPhone}</span>` : ""}
-                    </td>
-                </tr>
-                <tr><td class="main">National ID</td>
-                    <td class="two-columns">
-                        <span>${studentData.primaryGurdianNationalId}</span>
-                        ${gurdianCounts === 2 ? `<span>${studentData.secondaryGurdianNationalId}</span>` : ""}
-                    </td>
-                </tr>
-                <tr><td class="main">Profession</td>
-                    <td class="two-columns">
-                        <span>${studentData.primaryGurdianProffesion}</span>
-                        ${gurdianCounts === 2 ? `<span>${studentData.secondaryGurdianProffesion}</span>` : ""}
-                    </td>
-                </tr>
-                <tr><td class="main">Email</td>
-                    <td class="two-columns">
-                        <span>${studentData.primaryGurdianEmail}</span>
-                        ${gurdianCounts === 2 ? `<span>${studentData.secondaryGurdianEmail}</span>` : ""}
-                    </td>
-                </tr>
-            </table>
+            <h3 class="main-title">Personal Details</h3>
+            <div class="info-grid">
+                <div class="info-item"><b>Full Name:</b> ${studentData.fullName}</div>
+                <div class="info-item"><b>Birth Date:</b> ${formatDate(studentData.dateOfBirth)}</div>
+                <div class="info-item"><b>Gender:</b> ${studentData.gender}</div>
+                <div class="info-item"><b>Religion:</b> ${studentData.Religion}</div>
+                <div class="info-item"><b>National ID:</b> ${studentData.NationalId}</div>
+                <div class="info-item"><b>Join Date:</b> ${formatDate(studentData.dateOfJoin)}</div>
+                <div class="info-item"><b>Address:</b> ${studentData.Address}</div>
+            </div>
         </div>
     `;
-}
 
-// --- 5. دالة عرض تفاصيل المادة (الجدول الأيسر) ---
-function renderSubjectDetails() {
-    // نستخدم قيمة الشهر الحالية من قائمة الشهور
-    const selectedMonthLower = gradeMonthSelect.value.trim().toLowerCase();
-    const selectedSubject = examOverViewSelect.value.trim();
-
-    // التحقق من أن الجدول موجود وتم اختيار شهر ومادة
-    if (!subjectTable || !selectedMonthLower || !selectedSubject || selectedMonthLower === "select month" || selectedSubject === "select subject") {
-        subjectTable.innerHTML = `
-        <thead><tr><th colspan="3">Assessment</th></tr></thead>
-        <tbody>
-            <tr><td colspan="3" class="text-muted">Select a month <span class="dangered">then</span> a subject.</td></tr>
-        </tbody>`;
-        return;
-    }
-
-    // البحث عن مفتاح الشهر (Case-Insensitive)
-    const gradesKeys = Object.keys(studentData.grades);
-    const monthKey = gradesKeys.find(key => key.toLowerCase() === selectedMonthLower);
-
-    if (!monthKey || !studentData.grades[monthKey][selectedSubject]) {
-        subjectTable.innerHTML = `
-        <thead><tr><th colspan="3">Assessment</th></tr></thead>
-        <tbody>
-            <tr><td colspan="3" class="text-muted">No details found for ${selectedSubject} in ${selectedMonthLower}.</td></tr>
-        </tbody>`;
-        return;
-    }
-
-    const subjectGrades = studentData.grades[monthKey][selectedSubject];
-    // استثناء المفتاح 'final' عند عرض التقييمات الأسبوعية/الجزئية
-    const assessmentKeys = Object.keys(subjectGrades).filter(key => key.toLowerCase() !== 'final');
-    
-    // بناء صفوف التقييمات الجزئية
-    const detailsHtml = assessmentKeys.map(key => `
-        <tr>
-            <td>${key.charAt(0).toUpperCase() + key.slice(1)}</td>
-            <td>${subjectGrades[key]}</td>
-        </tr>
+    const guardianCardsHtml = studentData.guardians.map(g => `
+        <div class="guardian-card">
+            <div class="guardian-header">
+                <span class="relation-badge">${g.Relationship}</span>
+                <span class="guardian-name">${g.GuardianName}</span>
+            </div>
+            <div class="guardian-body">
+                <p><span class="label">Phone:</span> ${g.GuardianPhone}</p>
+                <p><span class="label">N-ID:</span> ${g.GuardianNationalID}</p>
+                <p><span class="label">Job:</span> ${g.GuardianOccupation}</p>
+                <p><span class="label">Email:</span> ${g.GuardianEmail}</p>
+            </div>
+        </div>
     `).join('');
-    
-    // إضافة الصف النهائي
-    const finalGradeRow = subjectGrades.final !== undefined ? `
-        <tr>
-            <td>Monthly Grade</td>
-            <td>${subjectGrades.final}</td>
-        </tr>
-    ` : '';
 
-    subjectTable.innerHTML = `
-        <thead>
-            <tr>
-                <th>Assessment</th>
-                <th>Score</th>
+    const guardianSectionHtml = `
+        <div class="guardian-section">
+            <h3 class="main-title">Guardian Information</h3>
+            <div class="guardians-container">
+                ${guardianCardsHtml}
+            </div>
+        </div>
+    `;
 
-            </tr>
-        </thead>
-        <tbody>
-            ${detailsHtml}
-            ${finalGradeRow}
-        </tbody>`;
+    overViewSection.innerHTML = personalHtml + guardianSectionHtml;
 }
 
-
-function renderGradesForSelectedMonth() {
-
-    if (studentData.status && studentData.status.toLowerCase() === "new") {
-        gradeTable.innerHTML = `
-            <thead>
-                <tr><th colspan="2">Subject</th></tr>
-            </thead>
-            <tbody>
-                <tr><td colspan="2" class="text-muted">Student is new, no grades yet.</td></tr>
-            </tbody>`;
-        renderSubjectDetails();
-        return;
-    }
-
-    if (!gradeMonthSelect.value || gradeMonthSelect.value === "Grades") {
-        gradeTable.innerHTML = `
-            <thead>
-                <tr><th colspan="2">Subject</th></tr>
-            </thead>
-            <tbody>
-                <tr><td colspan="2" class="text-muted">No Selected Month.</td></tr>
-            </tbody>`;
-        renderSubjectDetails();
-        return;
-    }
-    if (!gradeMonthSelect.value || gradeMonthSelect.value === "Grades") {
-        gradeTable.innerHTML = `
-            <thead>
-                <tr><th colspan="2">Subject</th></tr>
-            </thead>
-            <tbody>
-                <tr><td colspan="2" class="text-muted">No Selected Month.</td></tr>
-            </tbody>`;
-        renderSubjectDetails();
-        return;
-    }
-
-    const selectedMonthLower = gradeMonthSelect.value.trim().toLowerCase();
-    const gradesKeys = Object.keys(studentData.grades);
-    // البحث عن المفتاح في البيانات (Case-Insensitive)
-    const matchingKey = gradesKeys.find(key => key.toLowerCase() === selectedMonthLower);
-
-    if (!matchingKey) {
-        gradeTable.innerHTML = `
-            <thead>
-                <tr><th colspan="2">Subject</th></tr>
-            </thead>
-            <tbody>
-                <tr><td colspan="2" class="text-muted">
-                No grades available for this month (${selectedMonthLower}).
-                </td></tr>
-            </tbody>`;
-        renderSubjectDetails();
-        return;
-    }
-
-    const monthGrades = studentData.grades[matchingKey];
-    const subjects = Object.keys(monthGrades);
-
-    gradeTable.innerHTML = `
-        <thead>
-            <tr><th>Subject</th><th>Final Grade</th></tr>
-        </thead>
-        <tbody>
-            ${subjects.map(sub => `
-                <tr>
-                    <td>${sub}</td>
-                    <td>${monthGrades[sub].final}</td>
-                </tr>`).join('')}
-        </tbody>`;
-        
-    renderSubjectDetails();
-}
-
-academicButton.addEventListener('click', () => {
-                    favicon.href="././media copy/favicons/icons8-change-user-80.png";
-
-    renderStudentPage();
+academicButton.addEventListener('click', async() => {
     modifyToggling(academicButton, academicSection);
-    buttons.style.display = 'none';
-    
-    // 1. ملء قائمة المواد
-    populateSubjectSelect();
-    
-    // 2. عرض الدرجات الشهرية والامتحانات
-    renderGradesForSelectedMonth();
-});
+    editButton.style.setProperty('display', 'none', 'important');
 
+    studentScores = await fetchStudentScores(studentData.id);
 
-if (gradeMonthSelect) {
-    gradeMonthSelect.addEventListener('change', () => {
-        renderGradesForSelectedMonth();
-    });
-}
-
-if (examOverViewSelect) {
-    examOverViewSelect.addEventListener('change', renderSubjectDetails);
-}
-
-
-editButton.addEventListener('click', () => {
-    editButton.style.display = 'none';
-    buttons.innerHTML += `
-    <button class="save-button flex">Save</button>
-    <button class="cancel-button flex">Cancel</button>
-    <button class="delete-button flex">Delete</button>`;
-        favicon.href="././media copy/favicons/icons8-edit-profile-80.png";
-
-    // 2. تحويل خلايا معلومات الطالب الأساسية والشخصية والولي إلى حقول إدخال (inputs)
-    overViewSection.querySelectorAll('td:nth-child(2)').forEach((td, i) => {
-        if (!td.querySelector('input')) {
-            if (td.classList.contains('two-columns')) {
-                const spans = td.querySelectorAll('span');
-                td.innerHTML = '';
-                spans.forEach(span => {
-                    const input = document.createElement('input');
-                    input.value = span.textContent.trim();
-                    input.classList.add('edit-input');
-                    td.appendChild(input);
-                });
-            } else {
-                const val = td.textContent.trim();
-                td.innerHTML = `<input class="edit-input" value="${val}">`;
-            }
-        }
-    });
-    // تحويل Basic Info (الاسم، الصف، القسم في الهيدر)
-    const nameElem = studentPrimaryInfo.querySelector('h3.main');
-    const gradeElem = studentPrimaryInfo.querySelector('.student-grade');
-    const classElem = studentPrimaryInfo.querySelector('.student-class');
-    const gradeSection = document.querySelector('.grade-and-section');
-
-// إضافة الكلاس الذي يلغي تأثير الـ hover
-    if (gradeSection) {
-        gradeSection.classList.add('disabled-hover');
-    }
-    //nameElem.innerHTML = `<input class="edit-input" value="${studentData.firstName} ${studentData.lastName}">`;
-    gradeElem.innerHTML = `<input class="edit-input" value="${studentData.grade}">`;
-    classElem.innerHTML = `<input class="edit-input" value="${studentData.class}">`;
-
-    const saveButton = buttons.querySelector('.save-button');
-    const deleteButton = buttons.querySelector('.delete-button');
-    const cancelButton = buttons.querySelector('.cancel-button');
-    const jsButtons = buttons.querySelector('.js-buttons');
-
-saveButton.addEventListener('click', () => {
-            favicon.href="././media copy/favicons/icons8-checked-user-80.png";
-
-        //  update Personal + Guardian 
-        overViewSection.querySelectorAll('td:nth-child(2)').forEach((td, i) => {
-            const inputs = td.querySelectorAll('input');
-            const mainRowIndex = i;
-
-            // تحديث بيانات الطالب (Personal Info) - أول 8 صفوف
-            if (inputs.length === 1 && mainRowIndex <= 7) {
-                const val = inputs[0].value.trim();
-                td.innerHTML = `<span>${val}</span>`; 
-                switch (mainRowIndex) {
-                    case 0:
-                        const parts = val.split(' ');
-                        studentData.firstName = parts[0] || '';
-                        studentData.lastName = parts.slice(1).join(' ') || '';
-                        break;
-                    case 1: studentData.dateOfBirth = val; break;
-                    case 2: studentData.gender = val; break;
-                    case 3: studentData.Nationality = val; break;
-                    case 4: studentData.Religon = val; break;
-                    case 5: studentData.NationalId = val; break;
-                    case 6: studentData.dateOfJoin = val; break;
-                    case 7: studentData.Address = val; break;
-                }
-            }
-            // تحديث بيانات أولياء الأمور (Guardian Info)
-            else if (inputs.length >= 1 && mainRowIndex > 7) {
-
-                const guardianRowIndex = mainRowIndex - 8;
-                
-                const updateTdContent = (val1, val2) => {
-                    td.innerHTML = `<span>${val1}</span>${val2 ? `<span>${val2}</span>` : ''}`;
-                };
-
-                const val1 = inputs[0] ? inputs[0].value.trim() : '';
-                const val2 = inputs[1] ? inputs[1].value.trim() : '';
-
-                switch (guardianRowIndex) {
-                    case 0: 
-                        studentData.primaryGurdianFullName = val1;
-                        studentData.secondaryGurdianFullName = val2;
-                        updateTdContent(val1, val2);
-                        break;
-                    case 1: 
-                        studentData.primaryGurdianDateOfBirth = val1;
-                        studentData.secondaryGurdianDateOfBirth = val2;
-                        updateTdContent(val1, val2);
-                        break;
-                    case 2: 
-                        studentData.primaryGurdianRelationShip = val1;
-                        studentData.secondaryGurdianRelationShip = val2;
-                        updateTdContent(val1, val2);
-                        break;
-                    case 3: 
-                        studentData.primaryGurdianPhone = val1;
-                        studentData.secondaryGurdianPhone = val2;
-                        updateTdContent(val1, val2);
-                        break;
-                    case 4: 
-                        studentData.primaryGurdianNationalId = val1;
-                        studentData.secondaryGurdianNationalId = val2;
-                        updateTdContent(val1, val2);
-                        break;
-                    case 5: 
-                        studentData.primaryGurdianProffesion = val1;
-                        studentData.secondaryGurdianProffesion = val2;
-                        updateTdContent(val1, val2);
-                        break;
-                    case 6: 
-                        studentData.primaryGurdianEmail = val1;
-                        studentData.secondaryGurdianEmail = val2;
-                        updateTdContent(val1, val2);
-                        break;
-                }
-            }
-        });
-
-        // تحديث Basic Info من حقول الإدخال في الهيدر
-        const nameInput = studentPrimaryInfo.querySelector('h3.main input');
-        const gradeInput = studentPrimaryInfo.querySelector('.student-grade input');
-        const classInput = studentPrimaryInfo.querySelector('.student-class input');
-
-        if (nameInput) {
-            const parts = nameInput.value.trim().split(' ');
-            studentData.firstName = parts[0] || '';
-            studentData.lastName = parts.slice(1).join(' ') || '';
-        }
-        if (gradeInput) studentData.grade = gradeInput.value.trim();
-        if (classInput) studentData.class = classInput.value.trim();
-
-        studentData.GurdianCount = studentData.secondaryGurdianFullName ? 2 : 1;
-
-        // تحديث البيانات في الـ Local Storage
-        const LOCAL_STORAGE_KEY = 'schoolStudentsList';
-        let allStudents = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)) || [];
-        const index = allStudents.findIndex(s => s.id === studentData.id);
-        if (index !== -1) allStudents[index] = { ...studentData };
-        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(allStudents));
-        localStorage.setItem('selectedStudentData', JSON.stringify(studentData));
-
-        renderStudentPage();
-        buttons.style.display='none';
-        addNotification(`Student ${studentData.firstName} ${studentData.lastName} updated successfully`);
-  
-});
-
-deleteButton.addEventListener('click', () => {
-         document.body.style.overflow = 'hidden'; // يمنع السكرول
-
-    document.getElementById('blur-layer').style.display = 'block'; 
-    document.querySelector('.reset-pop-up').style.display = 'flex'; 
-    const confirmed = document.getElementById('yes');
-    const canceled = document.getElementById('no');
-    
-    confirmed.addEventListener('click',()=>{
-        favicon.href="././media copy/favicons/icons8-remove-user-40.png";
-        document.title=`Student  ${studentData.firstName} ${studentData.lastName}  is removed `;
-        addNotification(`${studentData.firstName} ${studentData.lastName} student is removed`);
-
-        const LOCAL_STORAGE_KEY = 'schoolStudentsList';
-        let allStudents = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)) || [];
-        allStudents = allStudents.filter(s => s.id !== studentData.id);
-        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(allStudents));
-        localStorage.removeItem('selectedStudentData');
-        
-        setTimeout(() => {
-            window.location.href = "./students.html";
-        }, 2000); 
-            })
-
-    canceled.addEventListener('click',()=>{
-        document.getElementById('blur-layer').style.display = 'none'; 
-        document.querySelector('.reset-pop-up').style.display = 'none';
-        renderStudentPage();    
-        })
-    });
-
-cancelButton.addEventListener('click',()=>{
-        renderStudentPage();
-        buttons.style.display='none';
-    })
-});
-
-overViewButton.addEventListener('click',()=>{
-                favicon.href="././media copy/favicons/icons8-change-user-80.png";
-
-modifyToggling(overViewButton,overViewSection);
-editButton.style.display='flex';
-})
-
-attendanceButton.addEventListener('click' ,()=>{
-                    favicon.href="././media copy/favicons/icons8-change-user-80.png";
-
-    renderStudentPage();
-    buttons.style.display='none';
-    modifyToggling(attendanceButton,attendanceSection);
-    const attendanceMonthSelect = document.getElementById('attendanceMonthSelect');
-    const attendanceTable = document.getElementById('attendanceTable');
-
-// دالة توليد غياب/حضور عشوائي لمدة الشهر
-function generateAttendance(month) {
-
-     if (studentData.status && studentData.status.toLowerCase() === "new") {
-        attendanceTable.innerHTML = `
+    if (!studentScores.length) {
+        const table = document.querySelector('.grades table');
+        if (table) {
+            table.innerHTML = `
             <thead>
-                <tr><th>Day</th><th>Status</th></tr>
+                <tr>
+                    <th>Subject</th>
+                    <th>Score</th>
+                    <th>Assessment</th>
+                    <th>Notes</th>
+                    <th>Date</th>
+                </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td colspan="2" class="text-muted">Student is new, no attendance yet</td>
+                    <td colspan="5" class="text-muted" style="text-align:center;">
+                        Student has no academic records or is new.
+                    </td>
                 </tr>
             </tbody>
         `;
-        return; // ما نكملش توليد الغياب
-    }
-    const daysInMonth = {
-        'Sep': 30, 'Oct': 31, 'Nov': 30, 'Dec': 31,
-        'Jan': 31, 'Feb': 28, 'Mar': 31, 'Apr': 30,
-        'May': 31, 'Jun': 30
-    };
-
-    const monthDays = daysInMonth[month];
-    const statuses = ["Present", "Absent", "Late", "Leave"];
-    
-    let rowsHtml = '';
-    for (let day = 1; day <= monthDays; day++) {
-        const status = statuses[Math.floor(Math.random() * statuses.length)];
-        let statusClass = '';
-        switch (status) {
-            case "Present": statusClass = "status-present"; break;
-            case "Absent": statusClass = "status-absent"; break;
-            case "Late": statusClass = "status-late"; break;
-            case "Leave": statusClass = "status-leave"; break;
         }
-
-        rowsHtml += `
-            <tr>
-                <td> ${day}</td>
-                <td class="${statusClass}">${status}</td>
-            </tr>
-        `;
+        return;
     }
 
-    attendanceTable.innerHTML = `
-        <thead>
-            <tr><th>Day</th><th>Status</th></tr>
-        </thead>
-        <tbody>
-            ${rowsHtml}
-        </tbody>
+
+    renderGradesTable(studentScores);
+});
+
+function renderGradesTable(scores) {
+    const table = academicSection.querySelector(".grades table");
+    if (!table) return;
+
+    if (!scores || scores.length === 0) {
+        table.innerHTML = `<p class="text-muted">No scores recorded</p>`;
+        return;
+    }
+
+    const rowsHtml = scores.map(s => `
+    <tr>
+        <td title="Teacher: ${s.TeacherName || '-'}">${s.SubjectName}</td>
+        <td>${s.ScoreAchieved}</td>
+        <td>${s.AssessmentType}</td>            
+        <td>${s.Notes || '-'}</td>
+        <td>${new Date(s.ScoreDate).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}</td>
+    </tr>
+`).join('');
+
+
+    table.innerHTML = `
+        <table class="grade-table">
+            <thead>
+                <tr>
+                    <th title=>Subject</th>            
+                    <th>Score</th>
+                    <th>Assessment</th>
+                    <!--<th>Teacher</th>-->
+                    <th>Notes</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                ${rowsHtml}
+            </tbody>
+        </table>
     `;
 }
 
-attendanceMonthSelect.addEventListener('change', (e) => {
-    const month = e.target.value;
-    generateAttendance(month);
+editButton.addEventListener('click', () => {
+    editButton.style.display = 'none';
+
+    buttons.innerHTML = `
+        <button class="save-button">Save</button>
+        <button class="cancel-button">Cancel</button>
+        <button class="delete-button">Delete</button>
+    `;
+    buttons.style.display = 'flex';
+
+    const nameElem = studentPrimaryInfo.querySelector('h3.main');
+    const gradeElem = studentPrimaryInfo.querySelector('.grade-and-section p:nth-child(1)');
+    const classElem = studentPrimaryInfo.querySelector('.grade-and-section p:nth-child(2)');
+
+    nameElem.innerHTML = `<input class="edit-input edit-input-name" value="${studentData.fullName}">`;
+    gradeElem.innerHTML = `<input class="edit-input edit-input-grade" value="${studentData.grade}">`;
+    classElem.innerHTML = `<input class="edit-input edit-input-class" value="${studentData.class}">`;
+
+    document.querySelector('.info-grid').style.padding = '25px';
+
+    overViewSection.querySelectorAll('.info-item').forEach((div) => {
+        const parts = div.textContent.split(':');
+        const label = parts[0].trim();
+        const value = parts[1] ? parts[1].trim() : '';
+
+        if (['Birth Date', 'Religion', 'National ID'].includes(label)) {
+            div.innerHTML = `
+                <b>${label}:</b>
+                <input class="edit-input edit-input-field"
+                    data-label="${label}"
+                    value="${value}">
+            `;
+        } else {
+            div.innerHTML = `<b>${label}:</b> ${value}`;
+        }
+    });
+
+    buttons.addEventListener('click', async(e) => {
+
+        if (e.target.classList.contains('save-button')) {
+            try {
+                const payload = {};
+
+                // 1. معالجة الاسم (تقسيمه إلى 3 أجزاء كما يطلب الـ API)
+                const fullName = studentPrimaryInfo.querySelector('.edit-input-name').value.trim();
+                if (fullName !== studentData.fullName) {
+                    const parts = fullName.split(' ');
+                    payload.firstName = parts[0] || "";
+                    payload.middleName = parts[1] || "";
+                    payload.lastName = parts.slice(2).join(' ') || "";
+                }
+
+                // 2. معالجة السنة الدراسية (Grade) - التأكد أنها رقم
+                const gradeVal = studentPrimaryInfo.querySelector('.edit-input-grade').value.trim();
+                if (gradeVal && Number(gradeVal) !== Number(studentData.grade)) {
+                    payload.grade = Number(gradeVal);
+                }
+
+                // 3. معالجة رمز الفصل (Symbol) - التأكد أنه حرف واحد
+                const classVal = studentPrimaryInfo.querySelector('.edit-input-class').value.trim().toUpperCase();
+                if (classVal && classVal !== studentData.class.toUpperCase()) {
+                    payload.symbol = classVal; // أرسل الحرف كما هو (مثل A أو B)
+                }
+
+                // 4. جلب الحقول من الـ Grid
+                const inputs = overViewSection.querySelectorAll('.edit-input-field');
+                inputs.forEach(input => {
+                    const label = input.getAttribute('data-label');
+                    const val = input.value.trim();
+
+                    if (label === 'Religion' && val !== studentData.Religion) payload.religion = val;
+                    if (label === 'National ID' && val !== studentData.NationalId) payload.nationalID = val;
+                    if (label === 'Birth Date') {
+                        // تحويل التاريخ من الصيغة المحلية (Locale) إلى صيغة API (YYYY-MM-DD)
+                        const dateObj = new Date(val);
+                        if (!isNaN(dateObj)) {
+                            const isoDate = dateObj.toISOString().split('T')[0];
+                            payload.dateOfBirth = isoDate;
+                        }
+                    }
+                });
+
+                if (Object.keys(payload).length === 0) {
+                    addNotification("No changes detected");
+                    return;
+                }
+
+                // إرسال الطلب
+                const res = await fetch(`https://ece2026.onrender.com/webapi/editStudent/${studentData.id}`, {
+                    method: 'PATCH',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const result = await res.json(); // محاولة قراءة رد السيرفر لمعرفة الخطأ بالتحديد
+
+                if (!res.ok) {
+                    throw new Error(result.message || "Failed to update");
+                }
+
+                addNotification("Updated Successfully!");
+                setTimeout(() => location.reload(), 1000);
+
+            } catch (err) {
+                console.error("Update Error:", err);
+                addNotification("Error: " + err.message);
+            }
+        }
+
+        if (e.target.classList.contains('cancel-button')) {
+            renderStudentPage();
+            buttons.style.display = 'none';
+            editButton.style.display = 'flex';
+        }
+
+        if (e.target.classList.contains('delete-button')) {
+            // إظهار البوب أب
+            document.getElementById('blur-layer').style.display = 'block';
+            document.querySelector('.reset-pop-up').style.display = 'flex';
+
+            const confirmed = document.getElementById('yes');
+            const canceled = document.getElementById('no');
+
+            // عند الضغط على NO
+            canceled.addEventListener('click', () => {
+                document.getElementById('blur-layer').style.display = 'none';
+                document.querySelector('.reset-pop-up').style.display = 'none';
+                renderStudentPage();
+            });
+
+            // عند الضغط على YES
+            confirmed.addEventListener('click', async() => {
+                try {
+                    const res = await fetch(
+                        `https://ece2026.onrender.com/webapi/deleteStudent/${studentData.id}`, { method: 'DELETE' }
+                    );
+
+                    if (!res.ok) throw new Error("Delete failed");
+
+                    addNotification("Student deleted successfully!");
+                    setTimeout(() => {
+                        window.location.href = './students.html';
+                    }, 1000);
+
+                } catch (err) {
+                    console.error(err);
+                    addNotification("Delete error: " + err.message);
+                }
+            });
+        }
+
+    });
+});
+
+function formatDateToISO(dateStr) {
+    if (!dateStr) return "";
+    const date = new Date(dateStr);
+    return isNaN(date) ? dateStr : date.toISOString().split('T')[0];
+}
+overViewButton.addEventListener('click', () => {
+    favicon.href = "././media copy/favicons/icons8-change-user-80.png";
+
+    modifyToggling(overViewButton, overViewSection);
+    editButton.style.display = 'flex';
+});
+async function fetchStudentAttendance(studentId) {
+    try {
+        const res = await fetch(`https://ece2026.onrender.com/webapi/attendance/${studentId}`);
+        if (!res.ok) throw new Error(`HTTP Error: ${res.status}`);
+
+        const data = await res.json();
+
+        if (!data.success || !data.attendance) return [];
+
+        return data.attendance;
+    } catch (err) {
+        console.error("Error fetching attendance:", err);
+        return [];
+    }
+}
+
+function renderAttendanceTable(attendance = []) {
+    const tableContainer = attendanceSection.querySelector(".attendance-table-container");
+
+    if (!tableContainer) return;
+
+    if (!attendance.length) {
+        tableContainer.innerHTML = `
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Day</th>
+                        <th>Status</th>
+                        <th>Late?</th>
+                        <th>Minutes Late</th>
+                        <th>Entry Time</th>
+                        <th>Exit Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td colspan="7" style="text-align:center; color:#888;">
+                            No attendance records found or student is new.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        `;
+        return;
+    }
+
+    const rowsHtml = attendance.map(a => `
+    <tr class="${a.IsLate ? 'late' : ''}">
+    <td>${new Date(a.AttendanceDate).toLocaleDateString('en-GB', { day:'numeric', month:'long', year:'numeric' })}</td>
+    <td>${a.DayName}</td>
+    <td>${a.AttendanceStatus}</td>
+    <td>${a.IsLate ? 'Yes' : 'No'}</td>
+    <td>${a.MinutesLate || 0}</td>
+    <td>${a.SchoolEntryTime}</td>
+    <td>${a.SchoolExitTime}</td>
+</tr>
+
+    `).join('');
+
+    tableContainer.innerHTML = `
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Day</th>
+                    <th>Status</th>
+                    <th>Late?</th>
+                    <th>Minutes Late</th>
+                    <th>Entry Time</th>
+                    <th>Exit Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                ${rowsHtml}
+            </tbody>
+        </table>
+    `;
+}
+attendanceButton.addEventListener('click', async() => {
+    modifyToggling(attendanceButton, attendanceSection);
+    editButton.style.setProperty('display', 'none', 'important');
+
+    const attendanceRecords = await fetchStudentAttendance(studentData.id);
+    renderAttendanceTable(attendanceRecords);
 });
 
 
-// إضافة event listener لتحديث الجدول عند اختيار شهر
-attendanceMonthSelect.addEventListener('change', (e) => {
-    const month = e.target.value;
-    generateAttendance(month);
-});
+//    favicon.href = "././media copy/favicons/icons8-change-user-80.png";
 
-})
+//    renderStudentPage();
+//    buttons.style.display = 'none';
+//    modifyToggling(attendanceButton, attendanceSection);
+//    const attendanceMonthSelect = document.getElementById('attendanceMonthSelect');
+//    const attendanceTable = document.getElementById('attendanceTable');
+
+//    // دالة توليد غياب/حضور عشوائي لمدة الشهر
+//    function generateAttendance(month) {
+
+//        if (studentData.status && studentData.status.toLowerCase() === "new") {
+//            attendanceTable.innerHTML = `
+//            <thead>
+//                <tr><th>Day</th><th>Status</th></tr>
+//            </thead>
+//            <tbody>
+//                <tr>
+//                    <td colspan="2" class="text-muted">Student is new, no attendance yet</td>
+//                </tr>
+//            </tbody>
+//        `;
+//            return; // ما نكملش توليد الغياب
+//        }
+//        const daysInMonth = {
+//            'Sep': 30,
+//            'Oct': 31,
+//            'Nov': 30,
+//            'Dec': 31,
+//            'Jan': 31,
+//            'Feb': 28,
+//            'Mar': 31,
+//            'Apr': 30,
+//            'May': 31,
+//            'Jun': 30
+//        };
+
+//        const monthDays = daysInMonth[month];
+//        const statuses = ["Present", "Absent", "Late", "Leave"];
+
+//        let rowsHtml = '';
+//        for (let day = 1; day <= monthDays; day++) {
+//            const status = statuses[Math.floor(Math.random() * statuses.length)];
+//            let statusClass = '';
+//            switch (status) {
+//                case "Present":
+//                    statusClass = "status-present";
+//                    break;
+//                case "Absent":
+//                    statusClass = "status-absent";
+//                    break;
+//                case "Late":
+//                    statusClass = "status-late";
+//                    break;
+//                case "Leave":
+//                    statusClass = "status-leave";
+//                    break;
+//            }
+
+//            rowsHtml += `
+//            <tr>
+//                <td> ${day}</td>
+//                <td class="${statusClass}">${status}</td>
+//            </tr>
+//        `;
+//        }
+
+//        attendanceTable.innerHTML = `
+//        <thead>
+//            <tr><th>Day</th><th>Status</th></tr>
+//        </thead>
+//        <tbody>
+//            ${rowsHtml}
+//        </tbody>
+//    `;
+//    }
+
+//    attendanceMonthSelect.addEventListener('change', (e) => {
+//        const month = e.target.value;
+//        generateAttendance(month);
+//    });
+
+
+//    // إضافة event listener لتحديث الجدول عند اختيار شهر
+//    attendanceMonthSelect.addEventListener('change', (e) => {
+//        const month = e.target.value;
+//        generateAttendance(month);
+//    });
+
+//})
 
 
 //helpers
@@ -564,24 +589,23 @@ document.querySelector('.back-to-home').addEventListener('click', () => {
     window.location.href = "/students.html";
 });
 
-function deactivateAll()
-{
+function deactivateAll() {
     modifyButtons.forEach(element => {
         element.classList.remove('active-button-student-page');
     });
     modifySections.forEach(element => {
-        element.style.display='none';
+        element.style.display = 'none';
     });
 }
 
-function modifyToggling(button , section){
+function modifyToggling(button, section) {
     deactivateAll();
     button.classList.add('active-button-student-page');
-    section.style.display='flex';
+    section.style.display = 'flex';
 }
 
 function getSubjectsByGrade(grade) {
-    const numericGrade = Number(grade); 
+    const numericGrade = Number(grade);
     const gradeObj = subjectsByGrade.find(g => Number(g.grade) === numericGrade);
     return gradeObj ? gradeObj.subjects : [];
 }
@@ -594,18 +618,27 @@ function controllingPhoto(gender) {
     }
 }
 
-// --- دالة ملء قائمة المواد الدراسية (Helper) ---
-function populateSubjectSelect() {
-    if (!examOverViewSelect) return;
+//function populateSubjectSelect(scores) {
+//    const subjectSelect = academicSection.querySelector("#subjectSelect");
 
-    const subjects = getSubjectsByGrade(studentData.grade);
+//    if (!subjectSelect) {
+//        console.warn("subjectSelect not found in DOM");
+//        return;
+//    }
 
-    const optionsHtml = subjects.map(subject => 
-        `<option value="${subject}">${subject}</option>`
-    ).join('');
+//    subjectSelect.innerHTML = '';
+//    subjectSelect.innerHTML = '<option value="all">All Subjects</option>';
 
-    examOverViewSelect.innerHTML = `<option value="" disabled selected hidden>Select Subject</option>` + optionsHtml;
-}
+//    const subjects = [...new Set(scores.map(s => s.SubjectName))];
+
+//    subjects.forEach(subject => {
+//        const option = document.createElement("option");
+//        option.value = subject;
+//        option.textContent = subject;
+//        subjectSelect.appendChild(option);
+//    });
+//}
+
 
 //lock icon on click
 const lockIcon = document.getElementById('lock');
@@ -637,7 +670,6 @@ darkModeToggle.addEventListener('click', () => {
     }
 });
 
-document.title=`${studentData.firstName} ${studentData.lastName}`;
 
 
 //aside mobile

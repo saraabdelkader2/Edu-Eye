@@ -1,11 +1,9 @@
 import { ModifyGeneric } from "./modify.js";
 import { addNotification } from "./notifications.js";
-import { subjectsByGrade } from "./Subjects.js";
 import { determineClassification } from "./sList.js";
 
 //DOM elements
 let students = [];
-const ID_START = 345699855;
 export const LOCAL_STORAGE_KEY = 'schoolStudentsList';
 const favicon = document.getElementById('favicon');
 const searchInput = document.querySelector('.search-box input');
@@ -25,25 +23,22 @@ const studentsTableBody = document.querySelector('tbody');
 const API_BASE = "https://ece2026.onrender.com/webapi";
 async function loadStudentsFromAPI() {
     try {
+
         const res = await fetch(`${API_BASE}/students`);
         if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
 
         const data = await res.json();
 
-        // تعديل: فحص أكثر من مسار للبيانات (studentlist أو data مباشرة)
         const listFromApi = data.studentlist || data.students || (Array.isArray(data) ? data : []);
 
         const apiStudents = listFromApi.map(s => {
             const fullName = s["Student Name"] || s["StudentName"] || "Unknown Student";
             const nameParts = fullName.split(" ");
             return {
-                nationalId: s["ID Number"] || s["NationalID"],
-                schoolId: s["SchoolID"] || s["ID Number"],
-                id: s["SchoolID"] || s["ID Number"],
+                nationalId: s["ID Number"],
                 firstName: nameParts[0] || "Unknown",
                 lastName: nameParts.slice(1).join(" ") || " ",
                 gender: s["Gender"] || "Male",
-                // تعديل: التعامل مع ClassName بشكل آمن
                 grade: s["ClassName"] && s["ClassName"].includes("-") ? s["ClassName"].split("-")[0].replace("G", "") : "1",
                 class: s["ClassName"] && s["ClassName"].includes("-") ? s["ClassName"].split("-")[1] : "A",
                 Attendance: (s["Attendance %"] || s["AttendancePercentage"] || 0) + "%",
@@ -52,18 +47,18 @@ async function loadStudentsFromAPI() {
         });
 
         students = apiStudents;
+        console.log(students);
         reassignSortingOnly(students);
         updateDisplayAfterAddition();
-
+        //console.log(apiStudents)
     } catch (err) {
         console.error("API Error:", err);
-        // لا تظهري التنبيه فوراً إذا كان السيرفر يستيقظ، حاولي مرة أخرى برمجياً أو اطلبي من المستخدم التحديث
         addNotification("Server is waking up or connection failed. Please refresh in a moment.");
     }
 }
 export async function getStudentsData() {
     try {
-        const response = await fetch(`${API_BASE}/students`); // تغيير من BASE_URL إلى API_BASE
+        const response = await fetch(`${API_BASE}/students`);
         const data = await response.json();
         const studentsList = data.studentlist || data.students || data;
 
@@ -115,96 +110,84 @@ const gurdianSection = document.querySelectorAll(".gurdian-section");
 
 //add buttons control  start-------------------------------
 saveButtons.forEach(btn => {
-    btn.addEventListener('click', async() => {
+    btn.addEventListener('click', async(e) => {
+        if (e) e.preventDefault();
+
         if (!validateForm()) return;
 
-        // ====== Student gender & Guardian count ======
+        const currentBtn = btn;
+        const originalContent = currentBtn.innerHTML;
+
+        currentBtn.disabled = true;
+        currentBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Saving...`;
+        currentBtn.style.opacity = "0.7";
+        currentBtn.style.cursor = "not-allowed";
+
         const studentRadios = document.querySelectorAll('input[name="gender"]');
         const selectedGender = getSelectedGender(studentRadios);
         const selectedGurdianCount = getSelectedGurdian(gurdianRadios);
 
-        // ====== Primary Guardian ======
-        const primaryGurdianFirstName = document.getElementById('primaryGurdianFirstName').value.trim();
-        const primaryGurdianSecondName = document.getElementById('primaryGurdianSecondName').value.trim();
-        const primaryGurdianRelationship = document.getElementById('primaryseconaryGurdianRelationship').value.trim();
-        const primaryGurdianNationalId = document.getElementById('primaryGurdianNationalId').value.trim();
-        const primaryGurdianPhone = document.getElementById('primaryGurdianPhone').value.trim();
-        const primaryGurdianProfession = document.getElementById('primaryGurdianProfession').value.trim();
-        const primaryGurdianDob = document.getElementById('primaryGurdianDob').value.trim();
-        const primaryGurdianEmail = document.getElementById('primaryGurdianEmail').value.trim();
-        const primaryGurdianAddress = document.getElementById('primaryGurdianAddress').value.trim();
-        const primaryGenderRadios = document.querySelectorAll('input[name="primaryGender"]');
-        const primaryGurdianGender = getSelectedGender(primaryGenderRadios);
-
-        // ====== Secondary Guardian (Logic Simplified) ======
-        let secondaryGurdianData = {};
-        if (selectedGurdianCount === "2") {
-            secondaryGurdianData = {
-                secondaryGurdianFirstName: document.getElementById('seconaryGurdianFirstName').value.trim(),
-                secondaryGurdianSecondName: document.getElementById('seconaryGurdianSecondName').value.trim(),
-                secondaryGurdianRelationShip: document.getElementById('seconaryGurdianRelationship').value.trim(),
-                secondaryGurdianNationalId: document.getElementById('seconaryGurdianNationalId').value.trim(),
-                secondaryGurdianPhone: document.getElementById('seconaryGurdianPhone').value.trim(),
-                secondaryGurdianProffesion: document.getElementById('secondaryGurdianProfession').value.trim(),
-                secondaryGurdianDateOfBirth: document.getElementById('secondaryGurdianDob').value.trim(),
-                secondaryGurdianEmail: document.getElementById('seconaryGurdianEmail').value.trim(),
-                secondaryGurdianAddress: document.getElementById('secondaryGurdianAddress').value.trim(),
-                secondaryGurdianGender: getSelectedGender(document.querySelectorAll('input[name="secondaryGender"]'))
-            };
-        }
-
-        // ====== Student Data Construction ======
-        const studentData = {
-            firstName: form.studentFirstName.value.trim(),
-            lastName: form.studentLastName.value.trim(),
+        const studentInfo = {
+            firstname: document.getElementsByName('studentFirstName')[0].value.trim(),
+            lastname: document.getElementsByName('studentLastName')[0].value.trim(),
             gender: selectedGender,
-            dateOfBirth: form.dob.value,
-            grade: gradeSelect.value,
-            class: classSelect.value.toUpperCase(),
-            dateOfJoin: form.doj.value,
-            Religon: form.studentReligon.value,
-            NationalId: form.NationalId.value,
-            schoolId: generateSchoolId(),
+            nationalID: document.getElementsByName('NationalId')[0].value.trim(),
+            dateOfBirth: document.getElementsByName('dob')[0].value,
+            gradeNumber: parseInt(gradeSelect.value),
+            classSymbol: classSelect.value.toUpperCase(),
+            religion: document.getElementsByName('studentReligon')[0].value,
             GurdianCount: selectedGurdianCount,
-            Attendance: '0%',
 
-            ...secondaryGurdianData,
+            primaryGurdianFirstName: document.getElementById('primaryGurdianFirstName').value.trim(),
+            primaryGurdianLastName: document.getElementById('primaryGurdianSecondName').value.trim(),
+            primaryGurdianGender: getSelectedGender(document.querySelectorAll('input[name="primaryGender"]')),
+            primaryGurdianNationalId: document.getElementById('primaryGurdianNationalId').value.trim(),
+            primaryGurdianDob: document.getElementById('primaryGurdianDob').value.trim(),
+            primaryGurdianProfession: document.getElementById('primaryGurdianProfession').value.trim(),
+            primaryGurdianPhone: document.getElementById('primaryGurdianPhone').value.trim(),
+            primaryGurdianEmail: document.getElementById('primaryGurdianEmail').value.trim(),
+            primaryGurdianAddress: document.getElementById('primaryGurdianAddress').value.trim(),
+            primaryGurdianRelationship: document.getElementById('primaryseconaryGurdianRelationship').value.trim(),
 
-            primaryGurdianFirstName,
-            primaryGurdianSecondName,
-            primaryGurdianEmail,
-            primaryGurdianNationalId,
-            primaryGurdianRelationShip: primaryGurdianRelationship,
-            primaryGurdianPhone,
-            primaryGurdianProffesion: primaryGurdianProfession,
-            primaryGurdianDateOfBirth: primaryGurdianDob,
-            primaryGurdianAddress,
-            primaryGurdianGender
-        }
+            secondaryGurdianFirstName: document.getElementById('seconaryGurdianFirstName').value.trim(),
+            secondaryGurdianLastName: document.getElementById('seconaryGurdianSecondName').value.trim(),
+            secondaryGurdianGender: getSelectedGender(document.querySelectorAll('input[name="secondaryGender"]')),
+            secondaryGurdianNationalId: document.getElementById('seconaryGurdianNationalId').value.trim(),
+            secondaryGurdianDob: document.getElementById('secondaryGurdianDob').value.trim(),
+            secondaryGurdianProfession: document.getElementById('secondaryGurdianProfession').value.trim(),
+            secondaryGurdianPhone: document.getElementById('seconaryGurdianPhone').value.trim(),
+            secondaryGurdianEmail: document.getElementById('seconaryGurdianEmail').value.trim(),
+            secondaryGurdianAddress: document.getElementById('secondaryGurdianAddress').value.trim(),
+            secondaryGurdianRelationship: document.getElementById('seconaryGurdianRelationship').value.trim()
+        };
 
-        // ====== API Call  ======
         try {
-            const savedStudent = await saveStudentToServer(studentData);
-
+            const savedStudent = await saveStudentToServerOfficial(studentInfo);
             if (savedStudent) {
                 await loadStudentsFromAPI();
-                addNotification(`Student ${studentData.firstName} added and synced with server`);
+                addNotification(`Student ${studentInfo.firstname} added successfully`);
                 form.reset();
                 updateDisplayAfterAddition();
-                gurdianSection.forEach(section => section.style.display = 'none');
-                favicon.href = "././media copy/favicons/icons8-checked-user-80.png";
 
-                // العودة لجدول الطلاب
+                gurdianSection.forEach(section => section.style.display = 'none');
                 studentList.style.display = 'block';
                 studentForm.style.display = 'none';
+                editConfirmButtons.style.display = 'none';
+
+                allBtn.style.backgroundColor = 'rgba(244, 244, 244, 1)';
+                addBtn.style.backgroundColor = 'transparent';
             }
         } catch (error) {
             console.error("Save process failed:", error);
-            addNotification("Error: Could not save student to server");
+            addNotification("Error: Could not save student", "error");
+        } finally {
+            currentBtn.disabled = false;
+            currentBtn.innerHTML = originalContent;
+            currentBtn.style.opacity = "1";
+            currentBtn.style.cursor = "pointer";
         }
     });
 });
-
 resetButtons.forEach(btn => {
     btn.addEventListener('click', (e) => {
         e.preventDefault();
@@ -266,9 +249,8 @@ cancelButtons.forEach(btn => {
 });
 //add buttons control  end-------------------------------
 
-// ======= Search safety check =======
 if (!searchInput) {
-    console.warn('search input not found: check selector ".search-box input"');
+    console.warn('search input not found');
 } else {
     searchInput.addEventListener('input', (e) => {
         const query = e.target.value.trim().toLowerCase();
@@ -280,17 +262,18 @@ if (!searchInput) {
 
         const filteredStudents = students.filter(student => {
             const fullName = `${student.firstName} ${student.lastName}`.toLowerCase();
-            const id = (student.id || '').toString().toLowerCase();
-
+            const id = (student.nationalId || '').toString().toLowerCase();
             const grade = (student.grade || '').toString().toLowerCase();
             const className = (student.class || '').toString().toLowerCase();
-            const gradeAndClass = `${grade}-${className}`.toLowerCase(); // يدعم البحث عن "1-a" مثلاً
+            const gradeDashClass = `${grade}-${className}`;
+            const gGradeDashClass = `g${grade}-${className}`;
 
             return fullName.includes(query) ||
                 id.includes(query) ||
                 grade.includes(query) ||
                 className.includes(query) ||
-                gradeAndClass.includes(query);
+                gradeDashClass.includes(query) ||
+                gGradeDashClass.includes(query);
         });
 
         showFilteredStudents(filteredStudents);
@@ -316,9 +299,9 @@ function showFilteredStudents(list) {
         let attendanceText = student.Attendance === '0%' ? 'No Attendance' : student.Attendance;
         let attendanceClass = student.Attendance === '0%' ? 'attendance-zero' : '';
         const rowHTML = `
-            <tr data-full-student-id="${student.id}" style="cursor: pointer;">
+            <tr data-full-student-id="${student.nationalId}" style="cursor: pointer;">
                 <td>${idx + 1}</td>
-                <td>${student.schoolId}</td>
+                <td>${student.nationalId}</td>
                 <td>${student.firstName} ${student.lastName}</td>
                 <td>${student.grade} - ${student.class}</td>
                 <td>${student.gender}</td>
@@ -337,7 +320,7 @@ function bindRowClicks() {
     allRows.forEach(row => {
         row.onclick = () => {
             const studentId = row.getAttribute('data-full-student-id');
-            const clickedStudent = students.find(s => s.id === studentId);
+            const clickedStudent = students.find(s => s.nationalId === studentId);
             if (clickedStudent) {
                 localStorage.setItem('selectedStudentData', JSON.stringify(clickedStudent));
                 window.location.href = "../studentPage.html";
@@ -374,14 +357,7 @@ function reassignSortingOnly(students) {
 
 
 
-function generateSchoolId() {
-    if (students.length === 0) return ID_START.toString();
 
-    const allIds = students.map(s => parseInt(s.schoolId || 0));
-    const maxId = Math.max(...allIds);
-
-    return (maxId + 1).toString();
-}
 
 function saveStudentsDisplayOrder() {
     const studentsJson = JSON.stringify(students);
@@ -486,7 +462,7 @@ function showStudents(page) {
                 classificationclass = '';
                 break;
             default:
-                classificationclass = ''; // لأي تصنيف آخر
+                classificationclass = '';
         }
 
 
@@ -494,7 +470,7 @@ function showStudents(page) {
         tr.style.cursor = 'pointer';
         tr.innerHTML = `
             <td>${startIndex + index + 1}</td>
-            <td>${student.schoolId}</td>
+            <td>${student.nationalId}</td>
             <td>${student.firstName} ${student.lastName}</td>
             <td>${student.grade} - ${student.class}</td>
             <td>${student.gender}</td>
@@ -526,7 +502,7 @@ function showStudents(page) {
                 classificationclass = '';
                 break;
             default:
-                classificationclass = ''; // لأي تصنيف آخر
+                classificationclass = '';
         }
         const card = document.createElement('div');
         let imgSrc = '';
@@ -544,7 +520,7 @@ function showStudents(page) {
                 </div>
             </div>
             <div class="card-body">
-                <div class="info-row"><span class="label">ID Number</span> <span class="value">${student.id}</span></div>
+                <div class="info-row"><span class="label">ID Number</span> <span class="value">${student.nationalId}</span></div>
                 <div class="info-row"><span class="label">Class</span> <span class="value">${student.grade}-${student.class}</span></div>
                 <div class="info-row"><span class="label">Attendance%</span> <span class="value ${attendanceClass}">${attendanceText}</span></div>
                 <div class="info-row"><span class="label">Classification</span> <span class="value ${classificationclass}">${student.classification}</span></div>
@@ -556,9 +532,14 @@ function showStudents(page) {
 }
 
 function openStudentProfile(student) {
-    localStorage.setItem('selectedStudentData', JSON.stringify(student));
-    window.location.href = "../studentPage.html";
+    const nid = student.nationalId;
+    if (!nid) {
+        console.error("No available nid");
+        return;
+    }
+    window.location.href = "studentPage.html?nid=" + nid;
 }
+
 
 function showWarning(message, inputElement = null) {
     const warningElement = inputElement ?
@@ -668,38 +649,24 @@ function validateForm() {
     return true;
 }
 
-function generateEmptyGrades(subjects) {
-    const months = ['sep', 'oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
-    const grades = {};
 
-    months.forEach(month => {
-        grades[month] = {};
-        subjects.forEach(subject => {
-            grades[month][subject] = { week1: 0, week2: 0, week3: 0, week4: 0, final: 0 };
-        });
-    });
-
-    return grades;
-}
 async function loadClassesToSelect() {
     try {
         const res = await fetch(`${API_BASE}/classes`);
-        const data = await res.json();
+        const result = await res.json();
 
-        //console.log("البيانات القادمة من السيرفر:", data); // للتأكد من شكل البيانات في الكونسول
+        console.log("البيانات الخام من السيرفر:", result);
 
         let classesArray = [];
 
-        // طريقة آمنة للوصول للبيانات (تجنب خطأ الـ undefined)
-        if (data && data.classes && data.classes.recordsets && data.classes.recordsets[0]) {
-            classesArray = data.classes.recordsets[0];
-        } else if (data && data.classes && Array.isArray(data.classes)) {
-            // احتمالية أخرى أن البيانات تأتي كمصفوفة مباشرة
-            classesArray = data.classes;
+        if (result && result.data && Array.isArray(result.data)) {
+            classesArray = result.data;
+        } else if (Array.isArray(result)) {
+            classesArray = result;
         }
 
         window.allAvailableClasses = classesArray;
-        console.log("تم تحميل الفصول بنجاح:", window.allAvailableClasses);
+        console.log("  All Available Classes are loaded successfully :", window.allAvailableClasses);
 
     } catch (err) {
         console.error("Error fetching classes:", err);
@@ -707,37 +674,35 @@ async function loadClassesToSelect() {
     }
 }
 gradeSelect.addEventListener('change', function() {
-    const selectedGrade = this.value; // مثلا "1"
+    const selectedGrade = this.value;
     classSelect.innerHTML = '<option value="" disabled selected hidden>Class</option>';
 
     if (!window.allAvailableClasses || window.allAvailableClasses.length === 0) {
-        console.warn("قائمة الفصول فارغة، تأكد من اتصال السيرفر");
+        console.error("Be sure of loadClassesToSelect");
         return;
     }
 
-    // فلترة الفصول: نبحث عن الكلاسات التي تبدأ بـ G ثم رقم المرحلة
     const filtered = window.allAvailableClasses.filter(c => {
-        const className = c.ClassName || "";
-        return className.startsWith(`G${selectedGrade}-`);
+        const name = c[" Class "] || c["Class"] || c["ClassName"] || "";
+        return name.trim().startsWith(`G${selectedGrade}-`);
     });
 
-    if (filtered.length > 0) {
-        filtered.forEach(item => {
-            const option = document.createElement('option');
-            // استخراج حرف الفصل فقط (A, B, C) من الاسم الكامل (G1-A)
-            const parts = item.ClassName.split('-');
-            const displayValue = parts[1] || item.ClassName;
+    const uniqueClasses = [...new Set(filtered.map(c => {
+        const name = (c[" Class "] || c["Class"] || c["ClassName"] || "").trim();
+        return name.split('-')[1] || name;
+    }))];
 
-            option.value = displayValue;
-            option.textContent = displayValue;
+    if (uniqueClasses.length > 0) {
+        uniqueClasses.sort().forEach(val => {
+            const option = document.createElement('option');
+            option.value = val;
+            option.textContent = val;
             classSelect.appendChild(option);
         });
         classSelect.disabled = false;
     } else {
         classSelect.disabled = true;
-        const option = document.createElement('option');
-        option.textContent = "No sections";
-        classSelect.appendChild(option);
+        classSelect.innerHTML = '<option>No sections</option>';
     }
 });
 
@@ -753,21 +718,82 @@ asideClose.addEventListener('click', () => {
 
 });
 
-
-async function saveStudentToServer(studentData) {
-    try {
-        const response = await fetch(`${API_BASE}/students`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(studentData)
-        });
-        if (!response.ok) throw new Error('فشل الاتصال بالسيرفر');
-        return await response.json();
-    } catch (error) {
-        console.error("Error:", error);
+const formatDateISO = dateStr => {
+    if (!dateStr) return null;
+    const d = new Date(dateStr);
+    if (isNaN(d)) {
+        console.warn("Invalid date received:", dateStr);
         return null;
     }
+    return d.toISOString().split('T')[0];
 }
+async function saveStudentToServerOfficial(data) {
+    const formatDateISO = dateStr => {
+        if (!dateStr) return null;
+        const d = new Date(dateStr);
+        return isNaN(d) ? null : d.toISOString().split('T')[0];
+    };
+
+    const parents = [{
+        firstname: data.primaryGurdianFirstName,
+        lastname: data.primaryGurdianLastName,
+        phone: data.primaryGurdianPhone,
+        nationalID: data.primaryGurdianNationalId,
+        profession: data.primaryGurdianProfession,
+
+        gender: data.primaryGurdianGender,
+        dateOfBirth: formatDateISO(data.primaryGurdianDob),
+        email: data.primaryGurdianEmail,
+        address: data.primaryGurdianAddress,
+        relationship: data.primaryGurdianRelationship
+    }];
+
+    if (data.GurdianCount === "2") {
+        parents.push({
+            firstname: data.secondaryGurdianFirstName,
+            lastname: data.secondaryGurdianLastName,
+            phone: data.secondaryGurdianPhone,
+            nationalID: data.secondaryGurdianNationalId,
+            profession: data.secondaryGurdianProfession,
+            address: data.secondaryGurdianAddress,
+            relationship: data.secondaryGurdianRelationship,
+
+            gender: data.secondaryGurdianGender,
+            dateOfBirth: formatDateISO(data.secondaryGurdianDob),
+            email: data.secondaryGurdianEmail,
+        });
+    }
+    const payload = {
+        firstname: data.firstname,
+        lastname: data.lastname,
+        gender: data.gender,
+        nationalID: data.nationalID,
+        dateOfBirth: formatDateISO(data.dateOfBirth),
+        gradeNumber: data.gradeNumber,
+        classSymbol: data.classSymbol,
+        religion: data.religion,
+        parents: parents
+    };
+
+    console.log("Sending Payload to Server:", JSON.stringify(payload, null, 2));
+
+    try {
+        const response = await fetch(`https://ece2026.onrender.com/webapi/addStudent`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+
+        const result = await response.json();
+        if (!response.ok) throw new Error(result.message || "Server Error");
+        return result;
+    } catch (error) {
+        console.error("API Error:", error.message);
+        throw error;
+    }
+}
+
+
 //functions
 function controllingModify() {
     //controlling student modify start and add buttons
@@ -814,7 +840,6 @@ function getSelectedGurdian(gurdianRadios) {
 
 function isNationalIdDuplicate(nationalId, studentsList) {
     if (!nationalId || !Array.isArray(studentsList)) return false;
-    // التأكد من فحص كلا الحقلين المحتملين للـ ID
     return studentsList.some(student =>
         student.nationalId === nationalId || student.NationalId === nationalId
     );
@@ -839,3 +864,4 @@ darkModeToggle.addEventListener('click', () => {
 window.addEventListener('beforeunload', () => {
     localStorage.setItem('lastVisitedPage', window.location.pathname);
 });
+localStorage.setItem('lastVisitedPage', window.location.pathname);

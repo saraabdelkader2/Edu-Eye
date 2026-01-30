@@ -477,7 +477,8 @@ select {
     filter: invert(19%) sepia(28%) saturate(3285%) hue-rotate(188deg) brightness(93%) contrast(95%);
 }
 
-.payment-section-content {
+.payment-section-content,
+.payment-section-content>* {
     gap: 53px;
     width: 80%;
     padding-left: 13px;
@@ -550,7 +551,7 @@ select {
     font-size: 14px;
     transition: all 300ms ease;
     background: var(--white-bg);
-    color: var(--font-black);
+    color: var(--font-black) !important;
 }
 
 table tbody td:hover {
@@ -688,7 +689,7 @@ table tbody td:hover {
     height: fit-content;
 }
 
-.payment-form-section input:not(.gender input) {
+.payment-form-section input:not(.fee-input) {
     width: 100%;
     padding: 8px 10px;
     border: 1px solid var(--gender-border);
@@ -749,4 +750,282 @@ input[readonly] {
 .form-warning-message::before {
     content: "⚠️";
     margin-right: 8px;
+}
+
+.fee-item label {
+    margin: 0;
+}
+
+.fee-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 5px;
+    margin: 10px;
+}
+
+#aside-mobile {
+    display: none;
+}
+
+.header-mobile {
+    display: none;
+}
+
+.add-buttons-mobile {
+    display: none;
+}
+
+@media (max-width:320px) {
+    .payment-modify button {
+        font-size: 12px;
+        padding: 11px 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .aside {
+        display: none !important;
+    }
+    .payment-container {
+        left: -5px;
+        top: 20px;
+    }
+    .header {
+        display: none !important;
+    }
+    .header-mobile {
+        display: flex;
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        z-index: 1000;
+        align-items: center;
+        justify-content: space-between;
+        width: 90%;
+        margin: 0 auto;
+    }
+    .header-mobile .icons.left-group {
+        gap: 12px;
+    }
+    .img-header-background {
+        padding: 5px;
+    }
+    .header-mobile .img-header-background {
+        padding: 6px;
+    }
+    .header-mobile .icons.left-group img {
+        width: 17px;
+        height: 17px;
+    }
+    .header-mobile.icons.left-group img,
+    .icons.left-group span:first-child {
+        font-size: 17px !important;
+    }
+    .header-mobile .notification-number {
+        height: 15px;
+        width: 15px;
+        font-size: 10px;
+    }
+    #aside-mobile {
+        left: 50% !important;
+        display: flex;
+        transform: translate(-50%, -50%) !important;
+        background: linear-gradient(135deg, var(--main-heading-color), var(--font-black)) !important;
+        opacity: 0.95;
+        top: 50% !important;
+        z-index: 10000 !important;
+        width: 100vw !important;
+        height: 100%;
+        align-items: center;
+    }
+    .options a {
+        color: var(--white-txt)!important;
+    }
+    .fa-xmark {
+        color: var(--white-txt);
+        position: fixed;
+        right: 20px;
+        top: 20px;
+        font-size: 18px;
+    }
+    .options {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    h2 {
+        color: var(--main-heading-color);
+    }
+    .payment-heading {
+        margin: 17px 0 4px 0px;
+        font-size: 26px;
+    }
+    .payment-modify button {
+        font-size: 12px;
+        padding: 11px 8px;
+    }
+    .payment-modify {
+        background-color: var(--students-modify-bg);
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 0;
+        min-height: 41px;
+        box-shadow: 0px 4px 3px var(--shadow-medium);
+        margin: 0 auto;
+        border-radius: 3px;
+        overflow: hidden;
+        width: 98%;
+    }
+    .all-payments img {
+        width: 19px;
+        height: 20px;
+    }
+    .resgistered-payment {
+        font-size: 15px;
+        margin: 17px 0px 11px 2px;
+    }
+    .payment-section-content {
+        flex-direction: column;
+    }
+    .payment-section-content,
+    .payment-section-content>* {
+        gap: 12px;
+        width: 96%;
+        padding-left: 0;
+        margin: 0 auto;
+    }
+    .payment-section-content-box {
+        flex: 1;
+    }
+    .un-paid-students {
+        padding: 20px 28px;
+    }
+    table th,
+    table td {
+        display: none;
+    }
+    table th:nth-child(1),
+    table td:nth-child(1),
+    table th:nth-child(5),
+    table td:nth-child(5) {
+        display: table-cell;
+    }
+    .slider {
+        gap: 9px;
+    }
+    .payment-modify button {
+        max-height: 41px;
+        font-size: 13px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: all 300ms ease;
+        background-color: var(--students-modify-bg);
+        color: var(--font-black);
+    }
+    .add-buttons-mobile {
+        display: flex !important;
+        width: 100%;
+        margin: 0 auto;
+        gap: 3px;
+    }
+    .add-buttons-desktop {
+        display: none !important;
+    }
+    .row {
+        flex-direction: column;
+        width: 100%;
+    }
+    .row>* {
+        width: 100%;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+    .aside {
+        width: 196px !important;
+    }
+    .header {
+        left: 188px !important;
+        gap: 15px;
+    }
+    .payment-container {
+        left: 185px;
+    }
+    .payment-modify button {
+        font-size: 13px;
+    }
+    .class-table th:nth-child(n+5),
+    .class-table td:nth-child(n+5) {
+        display: none;
+    }
+    .icons.left-group {
+        gap: 14px !important;
+    }
+    .search-box {
+        width: 310px !important;
+    }
+    .payment-section-content,
+    .payment-section-content>* {
+        gap: 16px;
+        width: 85%;
+        padding-left: 4px;
+        flex: 1;
+    }
+    table th,
+    table td {
+        display: none;
+    }
+    table th:nth-child(1),
+    table td:nth-child(1),
+    table th:nth-child(5),
+    table td:nth-child(5) {
+        display: table-cell;
+    }
+    .payment-modify button {
+        min-width: 180px;
+    }
+    .row {
+        flex-direction: column;
+        width: 100%;
+    }
+    .row>* {
+        width: 100%;
+    }
+}
+
+@media (min-width: 1024px) and (max-width: 1439px) {
+    .aside {
+        width: 182px!important;
+    }
+    .payment-container {
+        left: 172px;
+        top: 71px;
+    }
+    .header {
+        left: 183px !important;
+    }
+    .payment-table td {
+        font-size: 13px;
+    }
+    .payment-modify button {
+        min-width: 221px;
+        border: none;
+        padding: 10px 15px;
+        font-weight: 600;
+        cursor: pointer;
+        gap: 4px;
+        flex: 1;
+        max-height: 41px;
+        font-size: 16px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: all 300ms ease;
+        background-color: var(--students-modify-bg);
+        color: var(--font-black);
+    }
 }

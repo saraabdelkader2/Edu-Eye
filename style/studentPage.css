@@ -9,7 +9,7 @@ body {
     font-family: "Inter", sans-serif;
 }
 
-:root {
+ :root {
     --main-heading-color: #1E457E;
     --icon-color: #1a3b6d;
     --container-bg: #f4f7f9;
@@ -83,7 +83,7 @@ body {
     z-index: 1;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 1.2rem;
 }
 
 
@@ -146,9 +146,7 @@ body {
     font-size: 14px;
     display: none;
     max-height: 300px;
-    /* ارتفاع ثابت للصندوق */
     overflow-y: auto;
-    /* يسمح بالتمرير عند طول الإشعارات */
     width: 220px;
     backdrop-filter: blur(6px);
     right: -12px;
@@ -400,6 +398,7 @@ body {
     justify-content: space-between;
     transition: 300ms all ease;
     color: var(--font-black);
+    gap: 35px;
 }
 
 .grade-and-section *:hover {
@@ -428,10 +427,10 @@ body {
     gap: 0;
     min-height: 41px;
     box-shadow: 0px 4px 3px var(--shadow-medium);
-    margin: 0 auto;
     border-radius: 3px;
     overflow: hidden;
-    width: 98%;
+    width: 93%;
+    margin-left: 12px;
 }
 
 .students-modify button {
@@ -479,11 +478,16 @@ body {
 /*student information start*/
 
 .information {
-    width: 98%;
-    margin: 16px auto;
+    width: 97%;
+    /*margin: 16px auto;*/
     display: flex;
-    gap: 5%;
+    gap: 24px;
     align-items: flex-start;
+    padding-right: 53px;
+}
+
+.student-information {
+    padding-left: 10px;
 }
 
 .hide {
@@ -595,7 +599,7 @@ body {
 }
 
 .academic table,
-.grades-column table {
+.attendance table {
     border-collapse: collapse;
     border-spacing: 0;
     border-radius: 1rem;
@@ -612,14 +616,14 @@ body {
 }
 
 .academic table thead,
-.grades-column table thead {
+.attendance table thead {
     background-color: var(--academic-head);
     color: var(--white-txt);
     text-align: left;
 }
 
 .academic table td,
-.grades-column table td {
+.attendance table td {
     padding: 12px 20px;
     text-align: center;
     border: 1px solid var(--table-border);
@@ -627,28 +631,29 @@ body {
 }
 
 .academic table th,
-.grades-column table th {
+.attendance table th {
     padding: 12px 20px;
     text-align: center;
     border: 1px solid var(--table-border);
 }
 
 .academic table tr:last-child td,
-.grades-column table tr:last-child td {
+.attendance table tr:last-child td {
     border-bottom: none;
     background: var(--white-bg);
 }
 
-.grade-table th:first-child,
-.grade-table td:first-child,
+.attendance th:first-child,
+.attendance td:first-child,
 .academic table th:first-child,
 .academic table td:first-child {
     width: 156px;
 }
 
 .academic table th:first-child,
-.academic table td:first-child {
-    text-align: left;
+.attendance table td:first-child {
+    text-align: center;
+    width: fit-content;
 }
 
 .edit-input {
@@ -662,63 +667,17 @@ body {
     color: var(--font-black);
 }
 
-
-/* select styling */
-
-
-/* الشكل الأساسي للـ select */
-
-#gradeMonth,
-#examOverView,
-#attendanceMonthSelect {
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    background-color: var(--container-bg);
-    border: 1px solid var(--gender-border);
-    border-radius: 8px;
-    padding: 6px 6px;
-    font-size: 16px;
-    color: var(--font-black);
-    width: fit-content;
-    cursor: pointer;
-    outline: none;
-    text-align: center;
-    box-shadow: var(--box-shadow);
+.attendance-table-container {
+    width: 87%;
+    margin: 0 auto;
 }
 
-
-/* تأثير عند المرور بالماوس */
-
-#examOverView:hover,
-#gradeMonth:hover {
-    border-color: var(--linear-gradient-1);
+.attendance table td:first-child {
+    min-width: 200px;
 }
 
-
-/* تأثير عند التركيز */
-
-#examOverView:focus,
-#gradeMonth:focus {
-    border-color: var(--academic-head);
-    box-shadow: 0 0 5px var(--profile-pic-color);
-}
-
-#gradeMonth-wrapper,
-#examOverView-wrapper {
-    position: relative;
-    display: inline-block;
-}
-
-#gradeMonth-wrapper::after,
-#examOverView-wrapper::after {
-    content: '▼';
-    position: absolute;
-    right: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    pointer-events: none;
-    color: var(--font-black);
+.attendance h3 {
+    margin: 10px 0 10px 27px;
 }
 
 
@@ -727,7 +686,6 @@ body {
 .no-scroll {
     overflow: hidden !important;
     height: 100% !important;
-    /* مهم أيضاً لمنع السكرول على iOS */
 }
 
 .page-blur {
@@ -856,28 +814,20 @@ body.no-scroll {
     color: var(--font-black)
 }
 
-.late {
-    background-color: orange;
-}
-
-.holiday {
-    background-color: pink;
-}
-
-.Apsent {
-    background-color: var(--classification-weak);
-}
-
-.present {
-    background-color: green;
-}
-
 .attendance-heading {
     width: 100%;
     gap: 50%;
     align-items: center;
     padding: 0 54px;
     position: relative;
+}
+
+.attendance table {
+    margin-top: 0;
+}
+
+.attendance h3 {
+    margin-left: 10px;
 }
 
 .color-box {
@@ -956,7 +906,8 @@ body.no-scroll {
     color: var(--font-black);
 }
 
-.status-present {
+
+/*.status-present {
     color: green !important;
 }
 
@@ -970,13 +921,89 @@ body.no-scroll {
 
 .status-holiday {
     color: pink !important;
-}
+}*/
 
-.mobile-aside {
+#aside-mobile {
     color: var(--main-heading-color);
+    display: none !important;
 }
 
-@media (max-width: 480px) {
+.info-grid {
+    display: inline-grid;
+    grid-template-columns: auto auto;
+    width: fit-content;
+    max-width: 100%;
+    gap: 15px 20px;
+    padding: 25px 32px;
+    background-color: var(--white-bg);
+    box-shadow: var(--pop-up-shadow);
+    border-radius: 8px;
+}
+
+.info-item {
+    flex: 0 1 auto;
+    white-space: nowrap;
+    color: var(--font-black);
+}
+
+.guardians-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.guardian-card {
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 15px;
+    min-width: 280px;
+    flex: 1;
+    background-color: var(--white-bg);
+    box-shadow: var(--pop-up-shadow);
+}
+
+.relation-badge {
+    background: var(--academic-head);
+    color: var(--white-txt);
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    margin: 10px;
+}
+
+.info-item {
+    color: var(--font-black);
+}
+
+b,
+.label {
+    color: var(--main-heading-color);
+    font-weight: 600;
+}
+
+.guardian-body * {
+    margin: 5px;
+}
+
+.guardian-header * {
+    margin: 5px 2px;
+    display: inline-block;
+}
+
+.info-item .edit-input {
+    width: fit-content;
+    padding: 5px;
+    border: 1px solid var(--gender-border);
+    border-radius: 5px;
+    font-size: 14px;
+    box-shadow: var(--box-shadow);
+    background: var(--white-bg);
+    color: var(--font-black);
+}
+
+@media (max-width: 480px),
+(min-width: 481px) and (max-width: 767px),
+(min-width: 768px) and (max-width: 1023px) {
     .aside {
         display: none !important;
     }
@@ -1026,7 +1053,6 @@ body.no-scroll {
         transform: translate(-50%, -50%) !important;
         background: linear-gradient(135deg, var(--main-heading-color), var(--font-black)) !important;
         opacity: 0.95;
-        /* شفافية بسيطة جداً */
         top: 50% !important;
         z-index: 10000 !important;
         width: 100vw !important;
@@ -1068,7 +1094,7 @@ body.no-scroll {
         margin: 15px auto;
     }
     .student-primary-info .main {
-        font-size: 19px;
+        font-size: 17px;
     }
     .text-muted {
         font-size: 11px;
@@ -1083,11 +1109,15 @@ body.no-scroll {
     .buttons button {
         gap: 10px;
         padding: 9px 11px;
-        font-size: 13px;
+        font-size: 12px;
     }
     .buttons {
         gap: 20px;
         flex-direction: row;
+    }
+    .students-modify {
+        width: 99%;
+        margin: 0;
     }
     .students-modify button {
         min-width: 55%;
@@ -1098,14 +1128,16 @@ body.no-scroll {
     }
     .information {
         flex-direction: column;
-        gap: 28px;
+        gap: 0 !important;
+        padding-right: 0;
     }
     .information>* {
         flex: 1;
         width: 100%;
     }
     .information h3 {
-        margin: 0 0 12px
+        margin: 0 0 12px;
+        width: 100%;
     }
     .grades {
         gap: 1.5rem;
@@ -1132,5 +1164,74 @@ body.no-scroll {
     .color-box {
         align-items: center;
         gap: 4px;
+    }
+    .info-grid {
+        grid-template-columns: 1fr;
+        padding: 20px;
+        width: 100%;
+        display: grid;
+    }
+    .info-item {
+        white-space: normal;
+        word-break: break-word;
+        font-size: 13px;
+    }
+    .guardian-card {
+        min-width: 100%;
+        font-size: 13px;
+    }
+    .student-information {
+        padding-left: 0;
+    }
+    .guardian-body * {
+        margin: 8px 1px;
+    }
+    .academic table td,
+    .attendance table {
+        padding: 12px 12px;
+        font-size: 13px;
+    }
+    .academic table th:nth-child(3),
+    .academic table th:nth-child(4),
+    .attendance table th:nth-child(2),
+    .attendance table th:nth-child(4),
+    .attendance table th:nth-child(5),
+    .attendance table th:nth-child(6),
+    .attendance table th:nth-child(7) {
+        display: none;
+    }
+    .academic table td:nth-child(3),
+    .academic table td:nth-child(4),
+    .attendance table td:nth-child(2),
+    .attendance table td:nth-child(4),
+    .attendance table td:nth-child(5),
+    .attendance table td:nth-child(6),
+    .attendance table td:nth-child(7) {
+        display: none;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+    .information {
+        flex-direction: column;
+        gap: 30px !important;
+        padding-right: 10px;
+    }
+}
+
+@media (min-width: 1024px) and (max-width: 1439px) {
+    .aside {
+        width: 182px!important;
+    }
+    .studentPage-container {
+        left: 172px;
+        top: 71px;
+    }
+    .header {
+        left: 183px !important;
+    }
+    .attendance-table-container {
+        width: 42%;
+        margin: 10PX;
     }
 }

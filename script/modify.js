@@ -12,9 +12,8 @@ function getActiveBg() {
         'rgba(0,0,0,0.07)';
 }
 
-// =============================
+
 // Generic Modify Function
-// =============================
 export function ModifyGeneric({
     addBtn,
     allBtn,
@@ -30,9 +29,8 @@ export function ModifyGeneric({
     activeClass = 'active-button'
 }) {
 
-    // -------------------------
     // Hover Effect
-    // -------------------------
+
     function hoverEffect(btn) {
         btn.addEventListener('mouseenter', () => {
             if (!btn.classList.contains(activeClass)) {
@@ -57,9 +55,9 @@ export function ModifyGeneric({
     hoverEffect(addBtn);
     hoverEffect(allBtn);
 
-    // -------------------------
+
     // Default State
-    // -------------------------
+
     function setDefault() {
         allBtn.classList.add(activeClass);
         allBtn.style.backgroundColor = getActiveBg();
@@ -78,9 +76,8 @@ export function ModifyGeneric({
         if (favicon && listFavicon) favicon.href = listFavicon;
     }
 
-    // -------------------------
+
     // Refresh Theme
-    // -------------------------
     function refreshTheme() {
         [addBtn, allBtn].forEach(btn => {
             if (btn.classList.contains(activeClass)) {
@@ -93,9 +90,8 @@ export function ModifyGeneric({
         });
     }
 
-    // -------------------------
+
     // Events
-    // -------------------------
     addBtn.addEventListener('click', () => {
         listView.style.display = 'none';
         formView.style.display = 'flex';
@@ -126,9 +122,8 @@ export function ModifyGeneric({
         refreshTheme();
     });
 
-    // -------------------------
+
     // Theme Toggle
-    // -------------------------
     if (themeToggleBtn) {
         themeToggleBtn.addEventListener('click', () => {
             document.body.classList.toggle('dark-mode');

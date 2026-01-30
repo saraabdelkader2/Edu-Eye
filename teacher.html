@@ -48,6 +48,26 @@
         </div>
 
     </div>
+    <div class="header-mobile flex">
+        <i class="fa-solid fa-bars mobile-aside"></i>
+        <h2>Edu Eye</h2>
+        <div class="left-icons">
+            <div class="icons left-group">
+                <div class="img-header-background notifications">
+                    <img src="media copy/dashboard/notification.png" alt="notification" class="notification-icon">
+                    <span class="notification-number">0</span>
+                </div>
+                <!--<div class="img-header-background lock" id="lock">
+                    <span class="material-symbols-outlined">lock</span>
+                </div>
+                <div class="img-header-background">
+                    <span class="material-symbols-outlined" id="darkModeToggle">dark_mode</span>
+                </div>-->
+            </div>
+            <div class="notification-content"></div>
+        </div>
+    </div>
+
     <div class="aside">
         <h2><img src="media copy/dashboard/icon-park-solid_fire.png" alt="logo"> Edu Eye</h2>
         <div class="options">
@@ -62,6 +82,18 @@
             <a href="settings.html"><img src="media copy/dashboard/setting-2.png" alt="home">Settings</a>
         </div>
     </div>
+    <div class="aside" id="aside-mobile">
+        <i class="fa-solid fa-xmark " id="aside-close"></i>
+        <div class="options">
+            <a href="dashboard.html"><img src="media copy/dashboard/home-2.png" alt="home">Dashboard</a>
+            <a href="students.html"><img src="media copy/dashboard/profile-2user.png" alt="">Students</a>
+            <a href="teacher.html" class="active"><img src="media copy/dashboard/teacher.png" alt="">Teachers</a>
+            <a href="classes.html"><img src="media copy/dashboard/Frame 32.png" alt="home" class="class">Classes</a>
+            <a href="payment.html"><span class="material-symbols-outlined">add_card</span>Payment</a>
+            <a href="Timetable.html"><img src="media copy/dashboard/Group 77.png" alt="home">Timetable</a>
+            <a href="settings.html"><img src="media copy/dashboard/setting-2.png" alt="home">Settings</a>
+        </div>
+    </div>
 
 
     <div class="teachers-container" id="Teachers">
@@ -71,7 +103,7 @@
                 <img src="media copy/dashboard/teacher.png" alt="" style="filter: invert(63%) sepia(83%) saturate(3847%) hue-rotate(184deg) brightness(102%) contrast(98%);"> Teachers
 
             </p>
-            <div class="add-buttons flex">
+            <div class="add-buttons add-buttons-desktop flex">
                 <button class="cancel-form-button">Cancel</button>
                 <button class="reset-form-button">Reset</button>
                 <button class="save-form-button">Save</button>
@@ -91,6 +123,39 @@
             <p class="resgistered-teacher">
                 <img src="media copy/students/bxs_school.png" alt="student"> Registered Teachers</p>
             <p class="teacher-number">Show <span class="registered-teachers-number">100</span> entries</p>
+            <div class="table-mobile flex">
+                <div class="teacher-card">
+                    <div class="card-header">
+                        <div class="user-icon flex">
+                            <img src="media copy/students/icons8-person-male-skin-type-4-80.png" alt="">
+                            <h4 class="student-name">Ahmed Belal Tarek</h2>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="info-row">
+                            <span class="label">ID Number</span>
+                            <span class="value">345699856</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="label">Class</span>
+                            <span class="value">4 - A</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="label">Gender</span>
+                            <span class="value">Male</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="label">Attendance%</span>
+                            <span class="value">90%</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="label">Classification</span>
+                            <span class="value">Superior</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <table class="teacher-table ">
                 <thead>
                     <tr>
@@ -166,10 +231,10 @@
                                 </div>
                             </div>
 
-                            <div class="nationality">
-                                <label>Nationality</label>
-                                <input type="text" placeholder="Nationality" id="Nationality" name="teacherNationality" required />
-                                <p class="warning warning-nationality"></p>
+                            <div class="phone">
+                                <label>phone</label>
+                                <input type="phone" placeholder="phone" id="phone" name="teacherPhone" required />
+                                <p class="warning warning-phone"></p>
                             </div>
                         </div>
 
@@ -224,7 +289,7 @@
                             <p class="warning warning-qualifications"></p>
                         </div>
                         <div class="grade-class-2 flex">
-                            <div class="employment-type">
+                            <!--<div class="employment-type">
                                 <label>Employment Type</label>
                                 <input list="type" name="type" placeholder="Teacher by the class" required />
                                 <datalist id="type">
@@ -233,10 +298,13 @@
                                      
                                     </datalist>
                                 <p class="warning warning-grade"></p>
-                            </div>
+                            </div>-->
                             <div class="specification">
                                 <label>Specification</label>
-                                <input type="text" name="specification" placeholder="specification" required />
+                                <select name="subjectID" id="subject-select">
+                                    <option value="">Select Subject</option>
+                                </select>
+
                                 <p class="warning warning-qualifications"></p>
                             </div>
                         </div>
@@ -244,11 +312,11 @@
 
 
                     <div class="row flex">
-                        <div class="status">
+                        <!--<div class="status">
                             <label>Status</label>
                             <input type="text" id="status" name="status" placeholder="status">
                             <p class="warning warning-status"></p>
-                        </div>
+                        </div>-->
                         <div class="email">
                             <label>Email</label>
                             <input type="email" name="Temail" placeholder="email@gmail.com" required />
@@ -259,6 +327,11 @@
             </div>
 
 
+            <div class="add-buttons add-buttons-mobile flex">
+                <button class="cancel-form-button">Cancel</button>
+                <button class="reset-form-button">Reset</button>
+                <button class="save-form-button">Save</button>
+            </div>
         </div>
 
     </div>

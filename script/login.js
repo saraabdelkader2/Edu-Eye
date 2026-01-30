@@ -1,4 +1,3 @@
-// script/login.js
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.querySelector('.login-form');
     const signInBtn = document.querySelector('.sign-in');
@@ -7,9 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const rememberMeCheckbox = document.querySelector('.square-password i');
     let notificationSound = new Audio('./sounds/successed-295058.mp3');
 
-    // -------------------------
-    //  FIXED ADMIN CREDENTIALS
-    // -------------------------
+    // mail & pass
     const VALID_EMAIL = "admin@school.edu";
     const VALID_PASSWORD = "00";
 
@@ -30,19 +27,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const email = emailInput.value.trim();
         const password = passwordInput.value.trim();
 
-        // validation
         if (!email || !password) {
             messagePara.innerText = "Please enter both email and password";
             return;
         }
 
-        // check correct credentials
         if (email !== VALID_EMAIL || password !== VALID_PASSWORD) {
             messagePara.innerText = "Incorrect email or password";
             return;
         }
 
-        // Remember me save
         if (rememberMeCheckbox.classList.contains('fa-square-check')) {
             const userData = { email, password };
             localStorage.setItem('rememberedUser', JSON.stringify(userData));
@@ -50,14 +44,23 @@ document.addEventListener('DOMContentLoaded', () => {
             localStorage.removeItem('rememberedUser');
         }
 
-        // success message
         messagePara.style.color = "green";
         messagePara.innerText = "Login successful! Redirecting...";
-        notificationSound.play().catch(() => {}); // لو المتصفح منع التشغيل
-
+        notificationSound.play().catch(() => {});
 
         setTimeout(() => {
-            window.location.href = lastPage ? lastPage : "./dashboard.html";
+            const lastPage = localStorage.getItem('lastVisitedPage');
+
+            const isValidLastPage = lastPage &&
+                !lastPage.includes('login.html') &&
+                lastPage !== '/' &&
+                lastPage !== '';
+
+            if (isValidLastPage) {
+                window.location.href = lastPage;
+            } else {
+                window.location.href = "./dashboard.html";
+            }
         }, 700);
     });
 
@@ -78,9 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
         rememberMeCheckbox.classList.add('fa-square-check');
     }
 
-    // -------------------------
     // PASSWORD TOGGLE BUTTON
-    // -------------------------
     const eyeIcon = document.createElement("i");
     eyeIcon.className = "fa-regular fa-eye password-eye";
     passwordInput.parentElement.appendChild(eyeIcon);

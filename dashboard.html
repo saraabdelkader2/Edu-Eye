@@ -1,21 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- font insertion -->
+    <title>Dashboard</title>
+
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
-    <!-- font awesome recalling -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- google icons -->
+
+    <!-- Google Material Icons -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
-    <title>Dashboard</title>
-    <!-- css insertion -->
+
+    <!-- CSS -->
     <link rel="stylesheet" href="style/dashboard.css">
     <link rel="stylesheet" href="style/aside-header.css">
+    <link rel="stylesheet" href="style/theme.css">
+    <!-- favicon -->
+    <link rel="icon" type="image/png" href="media copy/logo/icons8-dashboard-layout-96.png" id="favicon">
 
 
 </head>
@@ -23,31 +31,68 @@
 <body>
     <div class="header">
         <div class="right-group">
-            <!--<div class="back-icon"><img src="media copy/dashboard/arrow-right.png" alt="back"></div>
+            <!--<div class="back-icon back-to-home"><i class="fa-solid fa-arrow-left"></i></div>
             <div class="search-box">
                 <i class="fa-solid fa-magnifying-glass search-icon"></i>
                 <input type="search" class="search-box" placeholder="search">
             </div>-->
         </div>
-        <div class="icons left-group">
-            <div class="img-header-background"> <img src="media copy/dashboard/notification.png" alt="notification"></div>
-            <div class="img-header-background"> <img src="media copy/dashboard/message.png" alt="message" class="message-icon"></div>
-            <div class="img-header-background"> <img src="media copy/dashboard/setting-2.png" alt="setting"></div>
-
-
+        <div class="left-icons">
+            <div class="icons left-group">
+                <div class="img-header-background notifications">
+                    <img src="media copy/dashboard/notification.png" alt="notification" class="notification-icon">
+                    <span class="notification-number">0</span>
+                </div>
+                <div class="img-header-background lock" id="lock">
+                    <span class="material-symbols-outlined">lock</span>
+                </div>
+                <div class="img-header-background">
+                    <span class="material-symbols-outlined" id="darkModeToggle">dark_mode</span>
+                </div>
+            </div>
+            <div class="notification-content"></div>
         </div>
-
     </div>
-    <div class="aside">
+    <div class="header-mobile flex">
+        <i class="fa-solid fa-bars mobile-aside"></i>
+        <h2>Edu Eye</h2>
+        <div class="left-icons">
+            <div class="icons left-group">
+                <div class="img-header-background notifications">
+                    <img src="media copy/dashboard/notification.png" alt="notification" class="notification-icon">
+                    <span class="notification-number">0</span>
+                </div>
+                <!--<div class="img-header-background lock" id="lock">
+                    <span class="material-symbols-outlined">lock</span>
+                </div>
+                <div class="img-header-background">
+                    <span class="material-symbols-outlined" id="darkModeToggle">dark_mode</span>
+                </div>-->
+            </div>
+            <div class="notification-content"></div>
+        </div>
+    </div>
+    <!-- Aside -->
+    <div class="aside" id="aside">
         <h2><img src="media copy/dashboard/icon-park-solid_fire.png" alt="logo"> Edu Eye</h2>
         <div class="options">
             <a href="dashboard.html" class="active"><img src="media copy/dashboard/home-2.png" alt="home">Dashboard</a>
             <a href="students.html"><img src="media copy/dashboard/profile-2user.png" alt="">Students</a>
             <a href="teacher.html"><img src="media copy/dashboard/teacher.png" alt="">Teachers</a>
-            <a href="classes.html"><img src="media copy/dashboard/Frame 32.png" alt="home">Classes</a>
-            <a href="payment.html"><span class="material-symbols-outlined">
-                                        add_card
-                                    </span>Payment</a>
+            <a href="classes.html"><img src="media copy/dashboard/Frame 32.png" alt="home" class="class">Classes</a>
+            <a href="payment.html"><span class="material-symbols-outlined">add_card</span>Payment</a>
+            <a href="Timetable.html"><img src="media copy/dashboard/Group 77.png" alt="home">Timetable</a>
+            <a href="settings.html"><img src="media copy/dashboard/setting-2.png" alt="home">Settings</a>
+        </div>
+    </div>
+    <div class="aside" id="aside-mobile">
+        <i class="fa-solid fa-xmark " id="aside-close"></i>
+        <div class="options">
+            <a href="dashboard.html" class="active"><img src="media copy/dashboard/home-2.png" alt="home">Dashboard</a>
+            <a href="students.html"><img src="media copy/dashboard/profile-2user.png" alt="">Students</a>
+            <a href="teacher.html"><img src="media copy/dashboard/teacher.png" alt="">Teachers</a>
+            <a href="classes.html"><img src="media copy/dashboard/Frame 32.png" alt="home" class="class">Classes</a>
+            <a href="payment.html"><span class="material-symbols-outlined">add_card</span>Payment</a>
             <a href="Timetable.html"><img src="media copy/dashboard/Group 77.png" alt="home">Timetable</a>
             <a href="settings.html"><img src="media copy/dashboard/setting-2.png" alt="home">Settings</a>
         </div>
@@ -56,152 +101,180 @@
 
 
     <div class="dashboard-container" id="dashboard">
-
-        <div class="dashboard-grid">
-
-            <div class="top-stats-row">
-                <div class="card stat-card bordered">
-                    <p>
-                        <img src="media copy/dashboard/profile-2user.png" alt="" class="students"> Students</p>
-                    <div class="stat-value ">5891</div>
-                </div>
-                <div class="card stat-card bordered ">
-                    <p><img src="media copy/dashboard/teacher.png" alt="" class="teachers"> Teachers</p>
-                    <div class="stat-value ">45</div>
-                </div>
-                <div class="card stat-card bordered ">
-                    <p><img src="media copy/dashboard/Frame 32.png" alt="home" class="classes">Classes</p>
-                    <div class="stat-value ">30</div>
-                </div>
-                <div class="card stat-card bordered staffed">
-                    <p><img src="media copy/dashboard/icon-park-outline_file-staff.png" alt="" class="staff"> Staff</p>
-                    <div class="stat-value ">75</div>
-
-                </div>
-                <div class="card calendar-widget calender ">
-                    <h3 style="margin-bottom: 10px; text-align: center; ">October</h3>
-                    <div style="display: grid; grid-template-columns: repeat(7, 1fr); text-align: center; font-size: 14px; gap: 5px; ">
-                        <span>SUN</span><span>MON</span><span>TUE</span><span>WED</span><span>THU</span><span style="color: #FF6384; ">FRI</span><span>SAT</span>
-                        <span>28</span><span>29</span><span>30</span><span>1</span><span>2</span><span>3</span><span>4</span>
-                        <span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span>
-                        <span>12</span><span>13</span><span>14</span><span>15</span><span style="background-color: #FF9F40; border-radius: 5px; color: white; ">16</span><span>17</span><span>18</span>
-                        <span>19</span><span>20</span><span>21</span><span>22</span><span>23</span><span>24</span><span>25</span>
-                        <span>26</span><span>27</span><span>28</span><span>29</span><span>30</span><span>31</span><span>1</span>
+        <div class="dashboard-grid main">
+            <div class="top-stats-row flex">
+                <div class="card">
+                    <div class="card-content">
+                        <img src="media copy/dashboard/profile-2user.png" alt="" class="students">
+                        <p>Students</p>
                     </div>
+
+                    <div class="stat-value" id="countStudents">5891</div>
                 </div>
+                <div class="card">
+                    <div class="card-content">
+                        <img src="media copy/dashboard/teacher.png" alt="" class="teachers">
+                        <p>Teachers</p>
+                    </div>
+                    <div class="stat-value" id="countTeachers">45</div>
+                </div>
+                <div class="card">
+                    <div class="card-content">
+                        <img src="media copy/dashboard/Frame 32.png" alt="home" class="classes">
+                        <p>Classes</p>
+                    </div>
+                    <div class="stat-value" id="countClasses">30</div>
+                </div>
+                <div class="card">
+                    <div class="card-content">
+                        <img src="media copy/login/icon-park-outline_school.png" alt="" class="school">
+                        <p>School Fees</p>
+                    </div>
+                    <div class="stat-value" id="paidStudentsCount">75</div>
+                </div>
+                <div class="card">
+                    <div class="card-content">
+                        <img src="media copy\dahboard\icons8-bus-60.png" alt="" class="bus">
+                        <p> Bus Fees</p>
+                    </div>
+                    <div class="stat-value" id="busCount">5891</div>
+                </div>
+
             </div>
 
-            <div class="card attendance-bar ">
-                <h3>Attendance</h3>
+        </div>
+        <div class="attendance flex">
+            <div class="chart-box card">
+                <h3 class="main">Attendance</h3>
+
+                <canvas id="attendanceChart"></canvas>
             </div>
-
-            <div class="card attendance-doughnut ">
-                <div class="doughnut-heading ">
-                    <h3>Attendence</h3><i class="fa-solid fa-ellipsis "></i></div>
-                <ul>
-                    <li class="attend ">Attend</li>
-                    <li class="absent ">Absent</li>
-                </ul>
-                <div class="doughnut ">
-                    <svg>
-                    <circle cx="55 " cy="55 " r="55 "></circle>							
-                </svg>
-                    <div class="number ">
-                        <p>81%</p>
-                    </div>
-
+            <div class=" attendance-card chart-box card">
+                <h3 class="main">Attendance</h3>
+                <div class="donut-container" style="width: 200px; height: 200px; margin: auto;">
+                    <canvas id="donutChart"></canvas>
                 </div>
-                <small>October 2025 | Class 10th</small>
-            </div>
-
-            <div class="right-column-group ">
-
-
-                <div class="card payments-widget payment ">
-                    <h3>Payments</h3>
-                    <div class="Bus ">
-                        <i class="fa-regular fa-bell "></i>
-                        <div class="middle ">
-                            <p>Bus Fees</p>
-                            <p class="text-muted ">1000 students have paid </p>
-                        </div>
-                        <div class="right ">
-                            <p> 200 EGP</p>
-                            <i class="fa-solid fa-check "></i> </div>
-                    </div>
-                    <div class="School ">
-                        <i class="fa-regular fa-bell "></i>
-                        <div class="middle ">
-                            <p>School Fees</p>
-                            <p class="text-muted ">3,156 students have paid </p>
-                        </div>
-                        <div class="right ">
-                            <p> 3,500 EGP</p>
-                            <i class="fa-solid fa-check "></i> </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card students-stats ">
-
-                <div class="students-heading ">
-                    <h3>Students</h3><i class="fa-solid fa-ellipsis "></i></div>
-                <div class="students-gender ">
-
-                    <div class="gendered ">
-                        <svg>
-                    <circle cx="55 " cy="55 " r="55 "></circle>							
-                </svg>
-                        <div class="boys gender "><i class="fa-solid fa-child "></i>
-                            <p>81%</p>
-                        </div>
-
-                    </div>
-                    <div class="gendered ">
-                        <svg>
-                    <circle cx="55 " cy="55 " r="55 "></circle>							
-                </svg>
-                        <div class="girls gender ">
-                            <i class="fa-solid fa-child-dress "></i>
-                            <p>81%</p>
-                        </div>
-
-                    </div>
-                </div>
-                <ul class="genders ">
-                    <li class="boy ">3,178 ( boys )</li>
-                    <li class="girl ">2,731 ( Girls )</li>
-                </ul>
-            </div>
-
-
-            <div class="card school-events ">
-                <h3>School Events</h3>
-                <div class="events ">
-                    <div class="event ">
-                        <div class="event-date ">
-                            <p>10 NOV</p>
-                        </div>
-                        <div class="event-left ">
-                            <h4>Client Meeting</h4>
-                            <p>03.00 PM</p>
-                        </div>
-                    </div>
-                    <div class="event ">
-                        <div class="event-date ">
-                            <p>18 NOV</p>
-                        </div>
-                        <div class="event-left ">
-                            <h4>Design Review</h4>
-                            <p>10:00 AM - 11:30 AM</p>
-                        </div>
-                    </div>
+                <div class="filter-controls">
+                    <select id="monthSelect">
+            <option value="January">January</option>
+            </select>
+                    <select id="classSelect">
+            <option value="G1-A">Class G1-A</option>
+            <option value="G1-B">Class G1-B</option>
+        </select>
                 </div>
             </div>
 
         </div>
-    </div>
+        <div class="bottom flex">
+            <div class="bottom-stats-grid">
 
+                <div class="card calendar-card">
+                    <div class="calendar-header">
+                        <h2 id="currentMonthName">January</h2>
+                    </div>
+                    <div class="calendar-grid">
+                        <div class="day-name">SUN</div>
+                        <div class="day-name">MON</div>
+                        <div class="day-name">TUE</div>
+                        <div class="day-name">WED</div>
+                        <div class="day-name">THU</div>
+                        <div class="day-name">FRI</div>
+                        <div class="day-name">SAT</div>
+                        <div class="day empty">28</div>
+                        <div class="day empty">29</div>
+                        <div class="day empty">30</div>
+                        <div class="day">1</div>
+                        <div class="day">2</div>
+                        <div class="day">3</div>
+                        <div class="day">4</div>
+                        <div class="day">5</div>
+                        <div class="day">6</div>
+                        <div class="day">7</div>
+                        <div class="day">8</div>
+                        <div class="day">9</div>
+                        <div class="day">10</div>
+                        <div class="day">11</div>
+                        <div class="day">12</div>
+                        <div class="day">13</div>
+                        <div class="day">14</div>
+                        <div class="day">15</div>
+                        <div class="day">16</div>
+                        <div class="day">17</div>
+                        <div class="day">18</div>
+                        <div class="day">19</div>
+                        <div class="day">20</div>
+                        <div class="day">21</div>
+                        <div class="day">22</div>
+                        <div class="day">23</div>
+                        <div class="day">24</div>
+                        <div class="day">25</div>
+                        <div class="day">26</div>
+                        <div class="day">27</div>
+                        <div class="day">28</div>
+                        <div class="day">29</div>
+                        <div class="day">30</div>
+                        <div class="day">31</div>
+                    </div>
+                </div>
+
+                <div class="card students-card">
+                    <h3 class="main">Students Distribution</h3>
+                    <div class="gender-charts">
+                        <div class="gender-item">
+                            <div class="ring blue-ring">
+                                <i class="fas fa-mars"></i>
+                                <span id="boysPercent">0%</span>
+                            </div>
+                            <p><span class="dot blue"></span> <span id="boysCountLabel">0</span> (Boys)</p>
+                        </div>
+                        <div class="gender-item">
+                            <div class="ring pink-ring">
+                                <i class="fas fa-venus"></i>
+                                <span id="girlsPercent">0%</span>
+                            </div>
+                            <p><span class="dot pink"></span> <span id="girlsCountLabel">0</span> (Girls)</p>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="performance-card">
+                <h2 class="main">Academic Performance</h2>
+                <div class="tier-list">
+                    <div class="flex">
+                        <div class="tier-box talent">
+                            <span class="label">Talent</span>
+                            <span id="talentCount">0</span>
+                        </div>
+                        <div class="tier-box superior">
+                            <span class="label">Superior</span>
+                            <span id="superiorCount">0</span>
+                        </div>
+                    </div>
+                    <div class="flex">
+                        <div class="tier-box good">
+                            <span class="label">Good</span>
+                            <span id="goodCount">0</span>
+                        </div>
+                        <!--<div class="tier-box weak">
+                        <span class="label">Weak</span>
+                        <span id="weakCount">0</span>
+                    </div>-->
+                        <div class="tier-box fail">
+                            <span class="label">Fail</span>
+                            <span id="failCount">0</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script/dashboard.js" type="module"></script>
 </body>
 
 </html>

@@ -11,6 +11,7 @@
     }
     
      :root {
+        --main-heading-color: #1E457E;
         --icon-color: #1a3b6d;
         --container-bg: #f4f7f9;
         --classification-weak: #DC3545;
@@ -507,6 +508,7 @@
     
     .information>* {
         flex: 1;
+        width: 100%;
     }
     
     .overview table {
@@ -823,60 +825,15 @@
         color: var(--classification-weak);
         font-weight: 700;
     }
-    /*.status-present {
-    color: green !important;
-}
-
-.status-absent {
-    color: var(--classification-weak) !important;
-}
-
-.status-late {
-    color: orange !important;
-}
-
-.status-holiday {
-    color: pink !important;
-}*/
-    /*.dark-mode {
-        --icon-color: #a0b2d1;
-        --container-bg: #121212;
-        --classification-weak: #ff6b6b;
-        --white-txt: #f5f5f5;
-        --shadow-much-strong: rgba(0, 0, 0, 0.5);
-        --white-bg: #1c1c1c;
-        --shadow-light: rgba(0, 0, 0, 0.03);
-        --unread-notification: rgba(50, 130, 200, 0.25);
-        --read-notification-bg: #2c2c2c;
-        --read-notification-txt: #ccc;
-        --notification-hover: rgba(50, 130, 200, 0.3);
-        --notification-time: #aaa;
-        --viewlink-bg: #2a2a2a;
-        --viewlink-hover-bg: #3a3a3a;
-        --viewlink-top-border: #444;
-        --notification-delete: #bbb;
-        --box-shadow: 0 2rem 3rem rgba(0, 0, 0, 0.9);
-        --color-light: rgba(50, 50, 70, 0.18);
-        --linear-gradient-1: #2b5db0;
-        --linear-gradient-2: #11294b;
-        --linear-gradient-1-hover: #1d3e7a;
-        --linear-gradient-2-hover: #0d1f3c;
-        --shadow-strong: rgba(0, 0, 0, 0.7);
-        --profile-pic-color: rgba(26, 59, 109, 0.2);
-        --profile-pic-hover: rgba(26, 59, 109, 0.7);
-        --text-muted: rgba(180, 180, 180, 1);
-        --students-modify-bg: rgba(40, 40, 40, 1);
-        --shadow-medium: rgba(0, 0, 0, 0.5);
-        --students-modify-hover-bg: rgba(55, 55, 55, 1);
-        --information-headings: #cce0ff;
-        --over-view-tr: #555555;
-        --over-view-td: #cce0ff;
-        --font-black: #f5f5f5;
-        --gender-border: #555;
-        --table-border: #444;
-        --academic-head: #a0c4ff;
+    
+    .room {
+        color: var(--linear-gradient-1-hover);
+        font-weight: 600;
     }
-    */
+    
+    #aside-mobile {
+        display: none;
+    }
     
     .schedule {
         width: 100%;
@@ -909,6 +866,7 @@
         border: 1px solid var(--gender-border);
         text-align: center;
         padding: 15px 10px;
+        line-height: 25px;
     }
     
     .schedule-table td:hover {
@@ -926,4 +884,253 @@
     
     .schedule-table td {
         color: var(--font-black) !important;
+    }
+    
+    .mobile-schedule {
+        display: none;
+    }
+    
+    @media (max-width: 480px),
+    (min-width: 481px) and (max-width: 767px),
+    (min-width: 768px) and (max-width: 1023px) {
+        .aside {
+            display: none !important;
+        }
+        .teacherPage-container {
+            left: -5px;
+            top: 20px;
+        }
+        .header {
+            display: none !important;
+        }
+        .header-mobile {
+            display: flex;
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            z-index: 1000;
+            align-items: center;
+            justify-content: space-between;
+            width: 90%;
+            margin: 0 auto;
+        }
+        .header-mobile .icons.left-group {
+            gap: 12px;
+        }
+        .img-header-background {
+            padding: 5px;
+        }
+        .header-mobile .img-header-background {
+            padding: 6px;
+        }
+        .header-mobile .icons.left-group img {
+            width: 17px;
+            height: 17px;
+        }
+        .header-mobile.icons.left-group img,
+        .icons.left-group span:first-child {
+            font-size: 17px !important;
+        }
+        .header-mobile .notification-number {
+            height: 15px;
+            width: 15px;
+            font-size: 10px;
+        }
+        #aside-mobile {
+            left: 50% !important;
+            display: flex;
+            transform: translate(-50%, -50%) !important;
+            background: linear-gradient(135deg, var(--main-heading-color), var(--font-black)) !important;
+            opacity: 0.95;
+            /* شفافية بسيطة جداً */
+            top: 50% !important;
+            z-index: 10000 !important;
+            width: 100vw !important;
+            height: 100%;
+            align-items: center;
+        }
+        .options a {
+            color: var(--white-txt)!important;
+        }
+        .fa-xmark {
+            color: var(--white-txt);
+            position: fixed;
+            right: 20px;
+            top: 20px;
+            font-size: 18px;
+        }
+        .options {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        h2 {
+            color: var(--main-heading-color);
+        }
+        .profile-photo {
+            width: 66px;
+            height: 61px;
+            margin: 0;
+        }
+        .teacher-primary-information {
+            flex-direction: column;
+            gap: 0;
+        }
+        .teacher-primary-info {
+            width: 98%;
+            gap: 21px;
+            padding: 10px;
+            margin: 15px auto;
+        }
+        .teacher-primary-info .main {
+            font-size: 19px;
+        }
+        .text-muted {
+            font-size: 11px;
+        }
+        .buttons button {
+            gap: 10px;
+            padding: 9px 11px;
+        }
+        .buttons {
+            gap: 20px;
+            flex-direction: row;
+        }
+        .teachers-modify button {
+            font-size: 13px;
+            width: fit-content;
+            text-wrap: nowrap;
+        }
+        .overview {
+            flex-direction: column;
+        }
+        .overview table {
+            width: 100%;
+            border-radius: 16px;
+            padding: 8px;
+        }
+        .overview table tr {
+            display: flex;
+            align-items: center;
+            gap: 0;
+            font-size: 11px;
+            padding: 10px 2px;
+            /*margin: 10px 0;*/
+        }
+        .information table td:first-child,
+        .information table th:first-child {
+            width: 93px;
+            flex-shrink: 0;
+        }
+        .information h3 {
+            margin: 0 8px 13px;
+            font-size: 16px;
+        }
+        .day-selector {
+            justify-content: space-around;
+            background: var(--bg-card);
+            /* استبدله بمتغير اللون عندك */
+            padding: 10px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+        .day-btn {
+            border: none;
+            background: none;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-weight: bold;
+            color: #888;
+        }
+        .day-btn.active {
+            background: var(--linear-gradient-1);
+            /* لون الـ Active */
+            color: var(--white-txt);
+        }
+        .schedule-card {
+            display: flex;
+            background: var(--white-bg);
+            margin-bottom: 15px;
+            padding: 15px;
+            border-radius: 15px;
+            box-shadow: var(--pop-up-shadow);
+            border-left: 5px solid var(--gender-border);
+            /* لون افتراضي */
+            position: relative;
+        }
+        .schedule-card.ongoing {
+            border-left-color: var(--main-heading-color);
+            /* لون أخضر للحصة الحالية */
+            background: var(--container-bg);
+        }
+        .time-slot {
+            flex: 0 0 80px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+            color: var(--font-black);
+        }
+        .time-slot .line {
+            width: 2px;
+            height: 20px;
+            background: var(--white-bg);
+            margin: 5px 0;
+        }
+        .class-details {
+            padding-left: 15px;
+        }
+        .class-details h4 {
+            margin: 0 0 5px 0;
+            color: var(--academic-head);
+        }
+        .class-details p {
+            margin: 2px 0;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+        .status-indicator {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: var(--linear-gradient-1);
+            color: var(--white-txt);
+            font-size: 10px;
+            padding: 2px 8px;
+            border-radius: 10px;
+            text-transform: uppercase;
+        }
+        .mobile-schedule {
+            display: block;
+        }
+        .schedule-table {
+            display: none !important;
+        }
+    }
+    
+    @media (min-width: 768px) and (max-width :1023px) {
+        .information table td:first-child,
+        .information table th:first-child {
+            width: 133px;
+            flex-shrink: 0;
+        }
+        tr {
+            font-size: 13px;
+        }
+    }
+    
+    @media (min-width: 1024px) and (max-width: 1439px) {
+        .aside {
+            width: 182px!important;
+        }
+        .teacherPage-container {
+            left: 172px;
+            top: 71px;
+        }
+        .header {
+            left: 183px !important;
+        }
     }

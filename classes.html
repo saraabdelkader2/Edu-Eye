@@ -50,6 +50,25 @@
             <div class="notification-content"></div>
         </div>
     </div>
+    <div class="header-mobile flex">
+        <i class="fa-solid fa-bars mobile-aside"></i>
+        <h2>Edu Eye</h2>
+        <div class="left-icons">
+            <div class="icons left-group">
+                <div class="img-header-background notifications">
+                    <img src="media copy/dashboard/notification.png" alt="notification" class="notification-icon">
+                    <span class="notification-number">0</span>
+                </div>
+                <!--<div class="img-header-background lock" id="lock">
+                    <span class="material-symbols-outlined">lock</span>
+                </div>
+                <div class="img-header-background">
+                    <span class="material-symbols-outlined" id="darkModeToggle">dark_mode</span>
+                </div>-->
+            </div>
+            <div class="notification-content"></div>
+        </div>
+    </div>
     <div class="aside">
         <h2><img src="media copy/dashboard/icon-park-solid_fire.png" alt="logo"> Edu Eye</h2>
         <div class="options">
@@ -62,15 +81,27 @@
             <a href="settings.html"><img src="media copy/dashboard/setting-2.png" alt="home">Settings</a>
         </div>
     </div>
+    <div class="aside" id="aside-mobile">
+        <i class="fa-solid fa-xmark " id="aside-close"></i>
+        <div class="options">
+            <a href="dashboard.html"><img src="media copy/dashboard/home-2.png" alt="home">Dashboard</a>
+            <a href="students.html"><img src="media copy/dashboard/profile-2user.png" alt="">Students</a>
+            <a href="teacher.html" class="active"><img src="media copy/dashboard/teacher.png" alt="">Teachers</a>
+            <a href="classes.html"><img src="media copy/dashboard/Frame 32.png" alt="home" class="class">Classes</a>
+            <a href="payment.html"><span class="material-symbols-outlined">add_card</span>Payment</a>
+            <a href="Timetable.html"><img src="media copy/dashboard/Group 77.png" alt="home">Timetable</a>
+            <a href="settings.html"><img src="media copy/dashboard/setting-2.png" alt="home">Settings</a>
+        </div>
+    </div>
     <div class="classes-container" id="classes">
         <div class="class-header flex">
             <p class="class-heading">
                 <img src="media copy/dashboard/Frame 32.png" alt="home" style="filter: invert(63%) sepia(83%) saturate(3847%) hue-rotate(184deg) brightness(102%) contrast(98%); ">Classes
             </p>
             <div class="add-buttons flex ">
-                <button>Cancel</button>
-                <button>Reset</button>
-                <button class="save-button save-form-button save-form-button">Save</button></div>
+                <button class="cancel-form-button">Cancel</button>
+                <button class="reset-form-button">Reset</button>
+                <button class="save-form-button">Save</button></div>
         </div>
 
         <div class="classes-modify ">
@@ -81,16 +112,7 @@
 
 
         <div class="class-list-section ">
-            <div class="page-blur" id="blur-layer"></div>
 
-            <div class="reset-pop-up ">
-                <p class="warning-txt"> <span class="danger">Warning</span> You are about to permanently delete the student's record. All information will be lost and cannot be recovered. <br>Do you confirm the deletion?
-                </p>
-                <div class="pop-up-buttons">
-                    <button id="yes">Yes</button>
-                    <button id="no">No</button>
-                </div>
-            </div>
             <p class="resgistered-classes"><img src="media copy/students/bxs_school.png " alt="teacher "> Registered Classes</p>
             <p class="classes-number">Show <span class="registered-classes-number">100</span> entries</p>
             <div>
@@ -119,156 +141,14 @@
                             <th scope="col ">
                                 Weak
                             </th>
-                            <th scope="col ">
+                            <!--<th scope="col ">
                                 Actions
-                            </th>
+                            </th>-->
                         </tr>
                     </thead>
 
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>4 - A</td>
-                            <td>Ibrahim Ashraf Osama</td>
-                            <td>24</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>2</td>
-                            <td class="actions flex">
-                                <i class="fa-regular fa-trash-can"></i>
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>4 - B</td>
-                            <td>Ibrahim Mohammed Ibrahim</td>
-                            <td>24</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>4</td>
-                            <td class="actions flex">
-                                <i class="fa-regular fa-trash-can"></i>
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>4 - C</td>
-                            <td>Ashraf Ali Mohammed</td>
-                            <td>30</td>
-                            <td>None</td>
-                            <td>3</td>
-                            <td>5</td>
-                            <td class="actions flex">
-                                <i class="fa-regular fa-trash-can"></i>
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>4 - D</td>
-                            <td>Elsayed Mahmoud Adel</td>
-                            <td>25</td>
-                            <td>2</td>
-                            <td>1</td>
-                            <td>3</td>
-                            <td class="actions flex">
-                                <i class="fa-regular fa-trash-can"></i>
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>5</td>
-                            <td>5 - A</td>
-                            <td>Hesham Mohammed Ali</td>
-                            <td>27</td>
-                            <td>2</td>
-                            <td>None</td>
-                            <td>1</td>
-                            <td class="actions flex">
-                                <i class="fa-regular fa-trash-can"></i>
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>6</td>
-                            <td>5 - B</td>
-                            <td>Aya Mohammed ElSayed</td>
-                            <td>25</td>
-                            <td>1</td>
-                            <td>None</td>
-                            <td>5</td>
-                            <td class="actions flex">
-                                <i class="fa-regular fa-trash-can"></i>
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>7</td>
-                            <td>5 - C</td>
-                            <td>Malak Ashraf</td>
-                            <td>25</td>
-                            <td>3</td>
-                            <td>None</td>
-                            <td>3</td>
-                            <td class="actions flex">
-                                <i class="fa-regular fa-trash-can"></i>
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>8</td>
-                            <td>5 - D</td>
-                            <td>Malak Ahmed Mohammed</td>
-                            <td>26</td>
-                            <td>None</td>
-                            <td>3</td>
-                            <td>2</td>
-                            <td class="actions flex">
-                                <i class="fa-regular fa-trash-can"></i>
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>9</td>
-                            <td>6 - A</td>
-                            <td>Noran Adel Ibrahim</td>
-                            <td>27</td>
-                            <td>None</td>
-                            <td>2</td>
-                            <td>1</td>
-                            <td class="actions flex">
-                                <i class="fa-regular fa-trash-can"></i>
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>10</td>
-                            <td>6 - B</td>
-                            <td>Ahmed Awad Mostafa</td>
-                            <td>28</td>
-                            <td>None</td>
-                            <td>2</td>
-                            <td>5</td>
-                            <td class="actions flex">
-                                <i class="fa-regular fa-trash-can"></i>
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>11</td>
-                            <td>6 - C</td>
-                            <td>Mostafa Mohammed Ali</td>
-                            <td>25</td>
-                            <td>1</td>
-                            <td>2</td>
-                            <td>4</td>
-                            <td class="actions flex">
-                                <i class="fa-regular fa-trash-can"></i>
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </td>
-                        </tr>
+
                     </tbody>
                 </table>
             </div>
@@ -280,14 +160,14 @@
         </div>
 
         <div class="class-form-section">
-            <div class="page-blur" id="blur-layerr"></div>
+            <div class="page-blur" id="blur-layer"></div>
 
-            <div id="reset-pop-up" class="reset-pop-up ">
-                <p class="warning-txt"> <span class="danger">Warning</span> Are you sure changes won't be saved?
-                    <div class="pop-up-buttons">
-                        <button id="yess">Yes</button>
-                        <button id="noo">No</button>
-                    </div>
+            <div class="reset-pop-up ">
+                Are you sure you want to reset the form? All data will be lost.
+                <div class="pop-up-buttons">
+                    <button id="yes">Yes</button>
+                    <button id="no">No</button>
+                </div>
             </div>
             <div class="class-form-basic">
                 <form>
@@ -316,20 +196,24 @@
                         </div>
                         <div class="row flex ">
                             <div class="leading-teacher row-item">
-                                <label>Leading Teacher</label>
-                                <input type="text" name="leadingTeacher" placeholder="Teacher">
+                                <select id="teacherSelect" name="leadingTeacher">
+                                        <option value="">-- Select Teacher --</option>
+                                    </select>
                             </div>
-                            <!--<div class="number-of-students row-item">
-                                <label>Student Number</label>
-                                <input type="number" name="numberOfStudents" placeholder="Number" min="0">
-                            </div>-->
+
                         </div>
 
                     </div>
+
+
                 </form>
 
             </div>
-
+            <div class="add-buttons add-buttons-mobile flex">
+                <button class="cancel-form-button">Cancel</button>
+                <button class="reset-form-button">Reset</button>
+                <button class="save-form-button">Save</button>
+            </div>
 
 
         </div>

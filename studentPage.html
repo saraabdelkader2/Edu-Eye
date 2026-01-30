@@ -128,108 +128,20 @@
         </div>
 
         <div class="information academic flex " id="academicSection">
-            <div class="grades flex">
-                <div class="grades-column">
-                    <div class="grade-input-box flex">
-                        <label class="main">Grades</label>
-                        <select id="gradeMonth">
-                            <option value="" disabled selected hidden>Select Month</option>
-                            <option value="Sep">September</option>
-                            <option value="Oct">October</option>
-                            <option value="Nov">November</option>
-                            <option value="Dec">December</option>
-                            <option value="Jan">January</option>
-                            <option value="Feb">February</option>
-                            <option value="Mar">March</option>
-                            <option value="Apr">April</option>
-                            <option value="May">May</option>
-                            <option value="Jun">June</option>
-                        </select>
+            <div class="grades">
+                <h3 class="main-title">Recorded Grades</h3>
+                <table></table>
+            </div>
+        </div>
 
-                    </div>
-                    <table class="grade-table" id="gradeTable"></table>
-                </div>
+        <div class="information attendance flex" id="attendanceSection">
+            <h3 class="main-title">Recorded Attendance</h3>
 
-                <div class="grades-column">
-                    <div class="grade-input-box flex">
-                        <label class="main">Grades</label>
-                        <select id="examOverView">
-                            <option value="" disabled selected hidden>Select Subject</option>
-                            <option value="Sep">September</option>
-                            <option value="Oct">October</option>
-                            <option value="Nov">November</option>
-                            <option value="Dec">December</option>
-                            <option value="Jan">January</option>
-                            <option value="Feb">February</option>
-                            <option value="Mar">March</option>
-                            <option value="Apr">April</option>
-                            <option value="May">May</option>
-                            <option value="Jun">June</option>
-                        </select>
-
-                    </div>
-                    <table class="subject-table">
-
-                    </table>
-                </div>
+            <div class="attendance-table-container">
 
             </div>
         </div>
 
-        <div class="information attendance flex " id="attendanceSection">
-            <div class="attendance-heading flex">
-                <div class="attendance-month-selector">
-                    <label for="attendanceMonthSelect">Select Month:</label>
-                    <select id="attendanceMonthSelect">
-        <option value="" disabled selected hidden>Select Month</option>
-        <option value="Sep">September</option>
-        <option value="Oct">October</option>
-        <option value="Nov">November</option>
-        <option value="Dec">December</option>
-        <option value="Jan">January</option>
-        <option value="Feb">February</option>
-        <option value="Mar">March</option>
-        <option value="Apr">April</option>
-        <option value="May">May</option>
-        <option value="Jun">June</option>
-    </select>
-                </div>
-                <div class="color-map flex">
-                    <div class="flex color-box">
-                        <div class="status late"></div>
-                        Late
-                    </div>
-                    <div class="flex color-box">
-                        <div class="status holiday"></div>
-                        Holiday
-                    </div>
-                    <div class="flex color-box">
-                        <div class="status Apsent"></div>
-                        Apsent
-                    </div>
-                    <div class="flex color-box">
-                        <div class="status present"></div>
-                        Present
-                    </div>
-
-
-                </div>
-            </div>
-
-            <table class="attendance-table" id="attendanceTable">
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td colspan="2" class="text-muted">Select a month to see attendance</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
         <script src="script/notifications.js" type="module"></script>
         <script src="script/studentPage.js" type="module"></script>
 </body>

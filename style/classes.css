@@ -520,12 +520,14 @@ table tbody td:hover {
     display: flex;
     padding: 10px;
     flex-direction: column;
-    width: 100%;
+    width: 97%;
+    margin: 0 auto;
 }
 
 .row {
     width: 100%;
     gap: 5%;
+    align-items: center;
 }
 
 select {
@@ -544,6 +546,10 @@ select {
     text-align: center;
     box-shadow: var(--box-shadow);
     text-align: left;
+}
+
+#teacherSelect {
+    margin-top: 25px;
 }
 
 .class-form-section label:not(.gender label,
@@ -819,4 +825,191 @@ input {
 .form-warning-message::before {
     content: "⚠️";
     margin-right: 8px;
+}
+
+.mobile-aside {
+    color: var(--main-heading-color);
+}
+
+.add-buttons-mobile {
+    display: none !important;
+}
+
+@media (max-width: 320px) {
+    .add-buttons-mobile {
+        display: flex !important;
+        width: 99% !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .add-buttons {
+        display: none !important;
+    }
+    .add-buttons-mobile {
+        display: flex !important;
+        width: 80%;
+        margin: 0 auto;
+    }
+    .aside {
+        display: none !important;
+    }
+    .classes-container {
+        left: -5px;
+        top: 20px;
+    }
+    .header {
+        display: none !important;
+    }
+    .header-mobile {
+        display: flex;
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        z-index: 1000;
+        align-items: center;
+        justify-content: space-between;
+        width: 90%;
+        margin: 0 auto;
+    }
+    .header-mobile .icons.left-group {
+        gap: 12px;
+    }
+    .img-header-background {
+        padding: 5px;
+    }
+    .header-mobile .img-header-background {
+        padding: 6px;
+    }
+    .header-mobile .icons.left-group img {
+        width: 17px;
+        height: 17px;
+    }
+    .header-mobile.icons.left-group img,
+    .icons.left-group span:first-child {
+        font-size: 17px !important;
+    }
+    .header-mobile .notification-number {
+        height: 15px;
+        width: 15px;
+        font-size: 10px;
+    }
+    #aside-mobile {
+        left: 50% !important;
+        display: flex;
+        transform: translate(-50%, -50%) !important;
+        background: linear-gradient(135deg, var(--main-heading-color), var(--font-black)) !important;
+        opacity: 0.95;
+        /* شفافية بسيطة جداً */
+        top: 50% !important;
+        z-index: 10000 !important;
+        width: 100vw !important;
+        height: 100%;
+        align-items: center;
+    }
+    .options a {
+        color: var(--white-txt)!important;
+    }
+    .fa-xmark {
+        color: var(--white-txt);
+        position: fixed;
+        right: 20px;
+        top: 20px;
+        font-size: 18px;
+    }
+    .options {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    h2 {
+        color: var(--main-heading-color);
+    }
+    .class-heading {
+        margin: 17px 0 4px 0px;
+        font-size: 26px;
+    }
+    .classes-modify button {
+        font-size: 13px;
+    }
+    .resgistered-classes {
+        font-size: 15px;
+        margin: 17px 0px 11px 2px;
+    }
+    .classes-number {
+        display: none;
+    }
+    .class-table th:nth-child(n+5),
+    .class-table td:nth-child(n+5) {
+        display: none;
+    }
+    .class-table {
+        min-width: 100% !important;
+        width: 100% !important;
+        table-layout: fixed;
+    }
+    .class-table th {
+        padding: 6px 12px;
+        font-weight: 600;
+        font-size: 14px;
+        text-align: center;
+    }
+    .class-table td {
+        padding: 4px 5px;
+        font-size: 12px;
+        text-align: center;
+    }
+    .row {
+        flex-direction: column;
+    }
+    #teacherSelect {
+        margin-top: 30px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+    .aside {
+        width: 196px !important;
+    }
+    .header {
+        left: 188px !important;
+        gap: 15px;
+    }
+    .classes-container {
+        left: 185px;
+    }
+    .classes-modify button {
+        font-size: 13px;
+    }
+    .class-table th:nth-child(n+5),
+    .class-table td:nth-child(n+5) {
+        display: none;
+    }
+    .icons.left-group {
+        gap: 14px !important;
+    }
+    .search-box {
+        width: 310px !important;
+    }
+}
+
+@media (min-width: 1024px) and (max-width: 1439px) {
+    classes-modify button {
+        max-height: 41px;
+        font-size: 15px;
+    }
+    .aside {
+        width: 182px!important;
+    }
+    .classes-container {
+        left: 172px;
+        top: 71px;
+    }
+    .header {
+        left: 183px !important;
+    }
+    .class-table td {
+        font-size: 13px;
+    }
 }

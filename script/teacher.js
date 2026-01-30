@@ -1,30 +1,151 @@
-// teachers.js (CORRECTED & FULL VERSION)
-
 import { ModifyGeneric } from "./modify.js";
-import { teachers } from "./tlist.js";
 import { addNotification } from "./notifications.js";
 
-// =============================
-// Constants & Storage
-// =============================
-const ID_START = 1;
-const LOCAL_STORAGE_KEY = 'schoolTeachersList';
 
-const favicon = document.getElementById('favicon');
-const searchInput = document.querySelector('.search-box input');
-const darkModeToggle = document.getElementById('darkModeToggle');
+const API_BASE = "https://ece2026.onrender.com/webapi";
+let teachers = [];
+let originalTeachers = [];
 
-// =============================
-// Load from LocalStorage
-// =============================
-const storedTeachers = localStorage.getItem(LOCAL_STORAGE_KEY);
-if (storedTeachers) {
-    teachers.splice(0, teachers.length, ...JSON.parse(storedTeachers));
+async function fetchTeachersFromServer() {
+    try {
+        const response = await fetch(`${API_BASE}/teachers`);
+        if (!response.ok) throw new Error("Network error");
+
+        const data = await response.json();
+        console.log("API RESPONSE:", data);
+
+        if (!data || !Array.isArray(data.teachers)) {
+            throw new Error("Teachers array not found");
+        }
+
+        const serverTeachers = data.teachers;
+
+        const mappedTeachers = serverTeachers.map(t => {
+            const nameParts = t.FullName.trim().split(" ");
+
+            return {
+                id: String(t.TeacherID),
+                teacherFirstName: nameParts[0],
+                teacherLastName: nameParts.slice(1).join(" "),
+                teacherGender: t.Gender,
+                teacherAge: t.Age,
+                Specialization: t.Specialization,
+                teacherNoOfClasses: t.NumOfClasses
+            };
+        });
+
+        teachers.length = 0;
+        teachers.push(...mappedTeachers);
+        originalTeachers = [...mappedTeachers];
+
+        refreshUI();
+
+    } catch (error) {
+        console.error(error);
+        addNotification("Failed to load teachers!", "error");
+    }
 }
 
-// =============================
+
+fetchTeachersFromServer();
+fetchSubjects();
+
+function refreshUI() {
+    sortingOnly();
+    pagesCount = Math.ceil(teachers.length / 10);
+    currentPage = 0;
+    updateSliderPages();
+    showTeachers(0);
+    const registeredTeachersD = document.querySelector('.registered-teachers-number');
+    registeredTeachersD.innerHTML = teachers.length;
+}
+
+function showTeachers(page) {
+    const start = page * 10;
+    const end = start + 10;
+
+    const desktopSlice = teachers.slice(start, end);
+
+
+    const mobileData = teachers;
+
+    const tableBody = document.querySelector('tbody');
+    const tableMobileContainer = document.querySelector('.table-mobile');
+
+    if (tableBody) tableBody.innerHTML = '';
+    if (tableMobileContainer) tableMobileContainer.innerHTML = '';
+
+    desktopSlice.forEach((teacher, idx) => {
+        const fullName = `${teacher.teacherFirstName} ${teacher.teacherLastName}`;
+        if (tableBody) {
+            tableBody.innerHTML += `
+                <tr data-id="${teacher.id}">
+                    <td>${start + idx + 1}</td>
+                    <td>${fullName}</td>
+                    <td>${teacher.Specialization}</td>
+                    <td>${teacher.teacherGender}</td>
+                    <td>${teacher.teacherAge}</td>
+                    <td>${teacher.teacherNoOfClasses}</td>
+                </tr>`;
+        }
+    });
+
+    mobileData.forEach((teacher) => {
+        const fullName = `${teacher.teacherFirstName} ${teacher.teacherLastName}`;
+        if (tableMobileContainer) {
+            tableMobileContainer.innerHTML += `
+                <div class="teacher-card" data-id="${teacher.id}">
+                    <div class="card-header">
+                        <div class="user-icon flex">
+                            <img src="media copy/students/icons8-person-male-skin-type-4-80.png" alt="">
+                            <h4 class="student-name">${fullName}</h4>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="info-row"><span class="label">ID</span> <span class="value">${teacher.id}</span></div>
+                        <div class="info-row"><span class="label">Spec.</span> <span class="value">${teacher.Specialization}</span></div>
+                        <div class="info-row"><span class="label">Gender</span> <span class="value">${teacher.teacherGender}</span></div>
+                        <div class="info-row"><span class="label">Age</span> <span class="value">${teacher.teacherAge}</span></div>
+                    </div>
+                </div>`;
+        }
+    });
+
+    bindRowClicks();
+}
+
+let subjects = [];
+
+async function fetchSubjects() {
+    try {
+        const res = await fetch(`${API_BASE}/subjects`);
+        if (!res.ok) throw new Error("Failed to fetch subjects");
+
+        subjects = await res.json();
+        populateSubjectsSelect();
+
+    } catch (err) {
+        console.error(err);
+        addNotification("Failed to load subjects!", "error");
+    }
+}
+
+function populateSubjectsSelect() {
+    const select = document.getElementById("subject-select");
+    if (!select) return;
+
+    select.innerHTML = `<option value="">Select Subject</option>`;
+
+    subjects.forEach(sub => {
+        select.innerHTML += `
+            <option value="${sub.SubjectID}">
+                ${sub.SubjectName}
+            </option>
+        `;
+    });
+}
+
 // DOM Elements
-// =============================
 const addBtn = document.getElementById('add-btn');
 const allBtn = document.getElementById('all-teachers');
 const teacherList = document.querySelector('.teacher-list-section-1');
@@ -37,13 +158,14 @@ const backBtn = document.querySelector('.back-page');
 const afterBtn = document.querySelector('.after-page');
 
 const form = document.getElementById('teacher-form');
-const saveButton = document.querySelector('.save-form-button');
-const resetButton = document.querySelector('.reset-form-button');
-const cancelButton = document.querySelector('.cancel-form-button');
+const saveButton = document.querySelectorAll('.save-form-button');
+const resetButton = document.querySelectorAll('.reset-form-button');
+const cancelButton = document.querySelectorAll('.cancel-form-button');
+const favicon = document.getElementById('favicon');
+const searchInput = document.querySelector('.search-box input');
+const darkModeToggle = document.getElementById('darkModeToggle');
 
-// =============================
-// Init ModifyGeneric
-// =============================
+
 ModifyGeneric({
     addBtn,
     allBtn,
@@ -58,40 +180,25 @@ ModifyGeneric({
     darkModeToggle
 });
 
-// =============================
-// Sorting + ID Assignment
-// =============================
-function reassignIdAndSorting() {
+// Sorting 
+function sortingOnly() {
     teachers.sort((a, b) => {
         const nameA = `${a.teacherFirstName} ${a.teacherLastName}`;
         const nameB = `${b.teacherFirstName} ${b.teacherLastName}`;
         return nameA.localeCompare(nameB, 'ar', { sensitivity: 'base' });
     });
 
-    // Reassign IDs
-    teachers.forEach((teacher, index) => {
-        teacher.id = (ID_START + index).toString();
-    });
 
-    saveTeachersToStorage();
+
 }
 
-function saveTeachersToStorage() {
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(teachers));
-}
-
-reassignIdAndSorting();
-
-// =============================
 // Pagination
-// =============================
 let currentPage = 0;
 let pagesCount = Math.ceil(teachers.length / 10);
 
 function updateSliderPages() {
     slider.innerHTML = '';
 
-    // تفعيل / تعطيل الأسهم
     if (backBtn) backBtn.classList.toggle('disabled', currentPage === 0);
     if (afterBtn) afterBtn.classList.toggle('disabled', currentPage >= pagesCount - 1);
 
@@ -103,7 +210,6 @@ function updateSliderPages() {
 
     bindSliderEvents();
 }
-
 if (backBtn) {
     backBtn.addEventListener('click', () => {
         if (currentPage > 0) {
@@ -135,58 +241,42 @@ function bindSliderEvents() {
     });
 }
 
-// =============================
-// Render Teachers
-// =============================
-function showTeachers(page) {
-    const start = page * 10;
-    const end = start + 10;
-    const slice = teachers.slice(start, end);
-
-    teachersTableBody.innerHTML = '';
-
-    slice.forEach((teacher, idx) => {
-                teachersTableBody.innerHTML += `
-            <tr data-id="${teacher.id}">
-                <td>${start + idx + 1}</td>
-                <td>${`${teacher.teacherFirstName} ${teacher.teacherLastName}`}</td>
-                <td>${teacher.Specialization}</td>
-             
-                <td>${teacher.teacherGender}</td>
-                <td>${teacher.teacherAge}</td>
-                <td>${teacher.teacherNoOfClasses}</td>
-            </tr>`;
-    });
-
-    bindRowClicks();
-}
-
 function bindRowClicks() {
     const rows = teachersTableBody.querySelectorAll('tr');
     rows.forEach(row => {
         row.onclick = () => {
-            const id = row.dataset.id;
-            const teacher = teachers.find(t => t.id === id);
-            if (teacher) {
-                localStorage.setItem('selectedTeacherData', JSON.stringify(teacher));
-                window.location.href = './teacherPage.html';
-            }
+            handleRowSelection(row.dataset.id);
+        };
+    });
+
+    const cards = document.querySelectorAll('.teacher-card');
+    cards.forEach(card => {
+        card.onclick = () => {
+            handleRowSelection(card.dataset.id);
         };
     });
 }
 
-// =============================
-// Search
-// =============================
-if (searchInput) {
-    searchInput.addEventListener('input', e => {
-        const q = e.target.value.toLowerCase();
-        const filtered = teachers.filter(t =>
-            (`${t.teacherFirstName} ${t.teacherLastName}`).toLowerCase().includes(q) || t.id.includes(q)
-        );
-        renderFiltered(filtered);
-    });
+function handleRowSelection(id) {
+    const teacher = teachers.find(t => t.id === id);
+    if (teacher) {
+        localStorage.setItem('selectedTeacherData', JSON.stringify(teacher));
+        window.location.href = `./teacherPage.html?id=${teacher.id}`;
+    }
 }
+
+// Search
+searchInput.addEventListener('input', e => {
+    const q = e.target.value.toLowerCase();
+
+    teachers = q ?
+        originalTeachers.filter(t =>
+            (`${t.teacherFirstName} ${t.teacherLastName}`).toLowerCase().includes(q) ||
+            t.id.includes(q)
+        ) : [...originalTeachers];
+
+    refreshUI();
+});
 
 function renderFiltered(list) {
     teachersTableBody.innerHTML = '';
@@ -207,103 +297,124 @@ function renderFiltered(list) {
             </tr>`;
     });
 }
-
-// =============================
 // Save / Add Teacher
-// =============================
-saveButton.addEventListener('click', (e) => {
-    e.preventDefault();
+// Save / Add Teacher
+saveButton.forEach(btn => {
+    btn.addEventListener("click", async(e) => {
+        e.preventDefault();
 
-    clearWarnings(); // نضمن مسح أي تحذيرات سابقة
+        clearWarnings();
+        if (!validateTeacherForm(form)) return;
 
-    if (!validateTeacherForm(form)) return;
+        if (!form.subjectID.value) {
+            showError('.warning-subject', 'Subject is required');
+            return;
+        }
 
-    const newNationalId = form.NationalId.value.trim();
+        // --- 1. تجهيز الزر للحالة "جاري الحفظ" ---
+        const currentBtn = e.target;
+        const originalContent = currentBtn.innerHTML; // حفظ المحتوى الأصلي (النص أو الأيقونة)
 
-    // ========= Duplicate Check =========
-    const exists = teachers.some(t => t.teacherNationalId === newNationalId);
-    if (exists) {
-        // رسالة خطأ أسفل الحقل
-        showError('.warning-national-id', `National ID already exists!`);
-        return; // يمنع الإضافة
-    }
+        currentBtn.disabled = true; // تعطيل الزر
+        currentBtn.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin"></i> Saving...`;
+        currentBtn.style.opacity = "0.7";
 
-    // ========= Create Teacher Data =========
-    const teacherData = {
-        id: '',
-        teacherFirstName: form.teacherFirstName.value.trim(),
-        teacherLastName: form.teacherLastName.value.trim(),
-        teacherGender: form.gender.value,
-        teacherNationality: form.teacherNationality.value,
-        teacherReligion: form.teacherReligon.value,
-        teacherDateOfBirth: form.dob.value,
-        teacherAge: calculateAge(form.dob.value),
-      
-        teacherNationalId: newNationalId,
-        teacherAddress: form.teacherAddress.value,
-        teacherDateOfJoin: form.doj.value,
-        teacherQualification: form.qualifications.value,
-        teacherEmploymentType: form.type.value,
-        Specialization: form.specification.value,
-        teacherStatus: form.status.value,
-        teacherEmail: form.Temail.value,
-        teacherNoOfClasses: '0'
-    };
+        let genderInput = form.querySelector('input[name="gender"]:checked');
+        const teacherGender = genderInput ? genderInput.value : '';
 
-    teachers.push(teacherData);
-    reassignIdAndSorting();const counts = updateTeacherCounts();
+        const payload = {
+            firstName: form.teacherFirstName.value.trim(),
+            lastName: form.teacherLastName.value.trim(),
+            gender: teacherGender,
+            religion: form.teacherReligon.value,
+            dateOfBirth: form.dob.value,
+            nationalID: Number(form.NationalId.value),
+            email: form.Temail.value.trim(),
+            phone: form.teacherPhone.value.trim(),
+            address: form.teacherAddress.value.trim(),
+            qualification: form.qualifications.value.trim(),
+            subjectID: Number(form.subjectID.value)
+        };
 
+        try {
+            const res = await fetch(`${API_BASE}/addTeacher`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            });
 
-    pagesCount = Math.ceil(teachers.length / 10);
-    updateSliderPages();
-    showTeachers(0);
+            if (!res.ok) {
+                const errorData = await res.json().catch(() => ({}));
+                throw new Error('Server rejected the request');
+            }
 
-    form.reset();
+            // --- 2. في حالة النجاح ---
+            addNotification("Teacher added successfully");
+            form.reset();
 
-    addNotification(`${teacherData.teacherFirstName} ${teacherData.teacherLastName} Teacher added successfully`);
+            // تحديث القائمة فوراً
+            await fetchTeachersFromServer();
+
+            // العودة تلقائياً لجدول المدرسين وإخفاء الفورم
+            teacherList.style.display = 'block';
+            teacherForm.style.display = 'none';
+            editConfirmButtons.style.display = 'none';
+            favicon.href = '/./media copy/favicons/icons8-group-80.png'; // إعادة الأيقونة الأصلية
+
+        } catch (err) {
+            console.error(err);
+            addNotification("Failed to save teacher!", "error");
+        } finally {
+            // --- 3. إعادة الزر لحالته الطبيعية مهما كانت النتيجة ---
+            currentBtn.disabled = false;
+            currentBtn.innerHTML = originalContent;
+            currentBtn.style.opacity = "1";
+        }
+    });
 });
-
-
 
 // Reset / Cancel Form
+resetButton.forEach(btn => {
 
-resetButton.addEventListener('click', (e) => {
-   e.preventDefault();
+    btn.addEventListener('click', (e) => {
+        e.preventDefault();
 
-    document.body.style.overflow = 'hidden'; // no scroll
+        document.body.style.overflow = 'hidden'; // no scroll
 
-    document.getElementById('blur-layer').style.display = 'block';
+        document.getElementById('blur-layer').style.display = 'block';
 
-    document.querySelector('.reset-pop-up').style.display = 'flex';
-    const confirmed = document.getElementById('yes');
-    const canceled = document.getElementById('no');
-    confirmed.addEventListener('click', () => {
-        document.getElementById('blur-layer').style.display = 'none';
-        document.querySelector('.reset-pop-up').style.display = 'none';
+        document.querySelector('.reset-pop-up').style.display = 'flex';
+        const confirmed = document.getElementById('yes');
+        const canceled = document.getElementById('no');
+        confirmed.addEventListener('click', () => {
+            document.getElementById('blur-layer').style.display = 'none';
+            document.querySelector('.reset-pop-up').style.display = 'none';
 
-        form.reset();
-        genderRadios.forEach(radio => radio.checked = false);
+            form.reset();
+            teacherList.style.display = 'block';
+            teacherForm.style.display = 'none';
+            editConfirmButtons.style.display = 'none';
+            genderRadios.forEach(radio => radio.checked = false);
 
-        gurdianRadios.forEach(radio => radio.checked = false);
 
-        primaryGurdianSection.style.display = 'none';
-        secondaryyGurdianSection.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        });
 
-        document.body.style.overflow = 'auto';
+        canceled.addEventListener('click', () => {
+            document.getElementById('blur-layer').style.display = 'none'; // يشغل البلور
+            document.querySelector('.reset-pop-up').style.display = 'none'; // يعرض البوب أب
+
+        });
     });
-
-    canceled.addEventListener('click', () => {
-        document.getElementById('blur-layer').style.display = 'none'; // يشغل البلور
-        document.querySelector('.reset-pop-up').style.display = 'none'; // يعرض البوب أب
-
+});
+cancelButton.forEach(btn => {
+    btn.addEventListener('click', () => {
+        teacherList.style.display = 'block';
+        teacherForm.style.display = 'none';
+        editConfirmButtons.style.display = 'none';
     });
 });
 
-cancelButton.addEventListener('click', () => {
-    teacherList.style.display = 'block';
-    teacherForm.style.display = 'none';
-    editConfirmButtons.style.display = 'none';
-});
 
 // Helpers
 function clearWarnings() {
@@ -319,36 +430,55 @@ function validateTeacherForm(form) {
     clearWarnings();
     let isValid = true;
 
-    if (!form.teacherFirstName.value.trim()) { showError('.warning-firstname', 'First name is required'); isValid = false; }
-    if (!form.teacherLastName.value.trim()) { showError('.warning-lastname', 'Last name is required'); isValid = false; }
-    if (!form.querySelector('input[name="gender"]:checked')) { showError('.warning-gender', 'Please select gender'); isValid = false; }
-    if (!form.teacherNationality.value.trim()) { showError('.warning-nationality', 'Nationality is required'); isValid = false; }
-    if (!form.teacherReligon.value.trim()) { showError('.warning-religion', 'Religion is required'); isValid = false; }
-    if (!form.dob.value) { showError('.warning-dob', 'Date of birth is required'); isValid = false; }
-    if (!/^\d{14}$/.test(form.NationalId.value.trim())) { showError('.warning-national-id', 'National ID must be 14 digits'); isValid = false; }
-    if (!form.doj.value) { showError('.warning-doj', 'Join date is required'); isValid = false; }
-    if (!form.teacherAddress.value.trim()) { showError('.warning-address', 'Address is required'); isValid = false; }
-    if (!form.qualifications.value.trim()) { showError('.warning-qualifications', 'Qualifications are required'); isValid = false; }
-    if (!form.type.value.trim()) { showError('.warning-type', 'Employment type is required'); isValid = false; }
-    if (!form.status.value.trim()) { showError('.warning-status', 'Status is required'); isValid = false; }
+    if (!form.teacherFirstName.value.trim()) {
+        showError('.warning-firstname', 'First name is required');
+        isValid = false;
+    }
+    if (!form.teacherLastName.value.trim()) {
+        showError('.warning-lastname', 'Last name is required');
+        isValid = false;
+    }
+    if (!form.querySelector('input[name="gender"]:checked')) {
+        showError('.warning-gender', 'Please select gender');
+        isValid = false;
+    }
+    if (!form.teacherPhone.value.trim()) {
+        showError('.warning-phone', 'Nationality is required');
+        isValid = false;
+    }
+    if (!form.teacherReligon.value.trim()) {
+        showError('.warning-religion', 'Religion is required');
+        isValid = false;
+    }
+    if (!form.dob.value) {
+        showError('.warning-dob', 'Date of birth is required');
+        isValid = false;
+    }
+    if (!/^\d{14}$/.test(form.NationalId.value.trim())) {
+        showError('.warning-national-id', 'National ID must be 14 digits');
+        isValid = false;
+    }
+    if (!form.doj.value) {
+        showError('.warning-doj', 'Join date is required');
+        isValid = false;
+    }
+    if (!form.teacherAddress.value.trim()) {
+        showError('.warning-address', 'Address is required');
+        isValid = false;
+    }
+    if (!form.qualifications.value.trim()) {
+        showError('.warning-qualifications', 'Qualifications are required');
+        isValid = false;
+    }
+
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(form.Temail.value)) { showError('.warning-email', 'Invalid email address'); isValid = false; }
+    if (!emailRegex.test(form.Temail.value)) {
+        showError('.warning-email', 'Invalid email address');
+        isValid = false;
+    }
 
     return isValid;
 }
-
-function calculateAge(dateOfBirth) {
-    if (!dateOfBirth) return '';
-    const birthDate = new Date(dateOfBirth);
-    const today = new Date();
-    let age = today.getFullYear() - birthDate.getFullYear();
-    if (today.getMonth() < birthDate.getMonth() || 
-        (today.getMonth() === birthDate.getMonth() && today.getDate() < birthDate.getDate())) {
-        age--;
-    }
-    return age;
-}
-
 
 // Dark Mode & Back
 const body = document.body;
@@ -372,30 +502,20 @@ backToHome.addEventListener('click', () => {
         window.location.href = "/dashboard.html"; // fallback
     }
 });
-// Initial Render
-updateSliderPages();
-showTeachers(0);
-
-//count females and males count and total count
-const registeredTeachersD = document.querySelector('.registered-teachers-number');
-function updateTeacherCounts() {
-    let femaleTCount = 0;
-    let maleTCount = 0;
-
-    teachers.forEach(t => {
-        if (t.teacherGender === 'Female') femaleTCount++;
-        else maleTCount++;
-    });
-
-    registeredTeachersD.innerHTML = femaleTCount + maleTCount;
-
-    return { total: femaleTCount + maleTCount, female: femaleTCount, male: maleTCount };
-}
-updateTeacherCounts();
-
-//helpers 
 
 
 window.addEventListener('beforeunload', () => {
     localStorage.setItem('lastVisitedPage', window.location.pathname);
+});
+
+//aside mobile
+const asideMobile = document.querySelector('.mobile-aside');
+const aside = document.getElementById('aside-mobile');
+const asideClose = document.getElementById('aside-close');
+asideMobile.addEventListener('click', () => {
+    aside.style.setProperty('display', 'flex', 'important');
+});
+asideClose.addEventListener('click', () => {
+    aside.style.setProperty('display', 'none', 'important');
+
 });
