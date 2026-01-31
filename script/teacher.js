@@ -92,25 +92,30 @@ function showTeachers(page) {
 
     mobileData.forEach((teacher) => {
         const fullName = `${teacher.teacherFirstName} ${teacher.teacherLastName}`;
+
+
+        const genderImage = teacher.teacherGender === "Male" ?
+            "media copy/students/icons8-person-male-skin-type-4-80.png" :
+            "media copy/students/icons8-person-female-skin-type-4-80.png";
+
         if (tableMobileContainer) {
             tableMobileContainer.innerHTML += `
-                <div class="teacher-card" data-id="${teacher.id}">
-                    <div class="card-header">
-                        <div class="user-icon flex">
-                            <img src="media copy/students/icons8-person-male-skin-type-4-80.png" alt="">
-                            <h4 class="student-name">${fullName}</h4>
-                        </div>
+            <div class="teacher-card" data-id="${teacher.id}">
+                <div class="card-header">
+                    <div class="user-icon flex">
+                        <img src="${genderImage}" alt="${teacher.teacherGender}">
+                        <h4 class="student-name">${fullName}</h4>
                     </div>
-                    <div class="card-body">
-                        <div class="info-row"><span class="label">ID</span> <span class="value">${teacher.id}</span></div>
-                        <div class="info-row"><span class="label">Spec.</span> <span class="value">${teacher.Specialization}</span></div>
-                        <div class="info-row"><span class="label">Gender</span> <span class="value">${teacher.teacherGender}</span></div>
-                        <div class="info-row"><span class="label">Age</span> <span class="value">${teacher.teacherAge}</span></div>
-                    </div>
-                </div>`;
+                </div>
+                <div class="card-body">
+                    <div class="info-row"><span class="label">ID</span> <span class="value">${teacher.id}</span></div>
+                    <div class="info-row"><span class="label">Spec.</span> <span class="value">${teacher.Specialization}</span></div>
+                    <div class="info-row"><span class="label">Gender</span> <span class="value">${teacher.teacherGender}</span></div>
+                    <div class="info-row"><span class="label">Age</span> <span class="value">${teacher.teacherAge}</span></div>
+                </div>
+            </div>`;
         }
     });
-
     bindRowClicks();
 }
 
@@ -311,11 +316,9 @@ saveButton.forEach(btn => {
             return;
         }
 
-        // --- 1. تجهيز الزر للحالة "جاري الحفظ" ---
         const currentBtn = e.target;
-        const originalContent = currentBtn.innerHTML; // حفظ المحتوى الأصلي (النص أو الأيقونة)
-
-        currentBtn.disabled = true; // تعطيل الزر
+        const originalContent = currentBtn.innerHTML;
+        currentBtn.disabled = true;
         currentBtn.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin"></i> Saving...`;
         currentBtn.style.opacity = "0.7";
 
