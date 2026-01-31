@@ -188,7 +188,7 @@ function renderDonutChart(d) {
             labels: ['Attend', 'Absent'],
             datasets: [{
                 data: [attendance, absence],
-                backgroundColor: [mainColor, '#ef5350'],
+                backgroundColor: ['#66bb6a', '#ef5350'],
                 borderWidth: 0
             }]
         },
