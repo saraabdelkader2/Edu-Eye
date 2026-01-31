@@ -1,6 +1,5 @@
 import { addNotification } from "./notifications.js";
 
-import { periods, masterSchedule } from "./periods.js";
 
 
 const favicon = document.getElementById('favicon');

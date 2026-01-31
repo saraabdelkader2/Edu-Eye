@@ -59,6 +59,8 @@ body {
     --viewlink-top-border: #ddd;
     --notification-delete: #888;
     --pop-up-shadow: 0 15px 40px rgba(0, 0, 0, .2);
+    --font-black-edit: white;
+    --box-shadow-dark: 0px 1px 7px var(--font-black-edit);
 }
 
 .flex {
@@ -463,11 +465,11 @@ body {
 }
 
 .students-modify button:hover {
-    background-color: var(--students-modify-hover-bg);
+    background-color: var(--white-bg);
 }
 
 .students-modify .active-button-student-page {
-    background-color: var(--students-modify-hover-bg);
+    background-color: var(--students-modify-bg);
     color: var(--icon-color);
 }
 
@@ -609,6 +611,11 @@ body {
     margin-top: 13px;
     box-shadow: 0 4px 6px var(--shadow-much-strong);
     transition: all 300ms ease;
+}
+
+body.dark-mode .academic table,
+body.dark-mode .attendance table {
+    box-shadow: 1px 1px 3px var(--font-black-edit);
 }
 
 .academic table:hover {
@@ -977,17 +984,19 @@ body.no-scroll {
 
 b,
 .label {
-    color: var(--main-heading-color);
+    color: var(--main-heading-color) !important;
     font-weight: 600;
 }
 
 .guardian-body * {
     margin: 5px;
+    color: var(--font-black);
 }
 
 .guardian-header * {
     margin: 5px 2px;
     display: inline-block;
+    color: var(--font-black);
 }
 
 .info-item .edit-input {
@@ -999,6 +1008,20 @@ b,
     box-shadow: var(--box-shadow);
     background: var(--white-bg);
     color: var(--font-black);
+}
+
+body.dark-mode .info-grid,
+body.dark-mode .student-primary-info box-shadow {
+    box-shadow: var(--box-shadow-dark)!important;
+}
+
+.mobile-aside {
+    color: var(--main-heading-color);
+}
+
+body.dark-mode #aside-mobile {
+    background: linear-gradient(135deg, #1a2a44 0%, #121212 50%, #2d2d2d 100%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 @media (max-width: 480px),
@@ -1134,6 +1157,7 @@ b,
     .information>* {
         flex: 1;
         width: 100%;
+        margin: 10px;
     }
     .information h3 {
         margin: 0 0 12px;

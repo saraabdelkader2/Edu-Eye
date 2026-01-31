@@ -10,6 +10,11 @@ body {
     font-family: "Inter", sans-serif;
 }
 
+body.dark-mode #aside-mobile {
+    background: linear-gradient(135deg, #1a2a44 0%, #121212 50%, #2d2d2d 100%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
 :root {
     --container-bg: #f4f7f9;
     --classification-weak: #DC3545;

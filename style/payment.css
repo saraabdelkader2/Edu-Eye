@@ -40,6 +40,7 @@
     --trash-hover: #DC3545;
     --font-black-edit: #555;
     --pop-up-shadow: 0 15px 40px rgba(0, 0, 0, .2);
+    --box-shadow-dark: 0px 1px 7px white;
 }
 
 body {
@@ -477,21 +478,26 @@ select {
     filter: invert(19%) sepia(28%) saturate(3285%) hue-rotate(188deg) brightness(93%) contrast(95%);
 }
 
-.payment-section-content,
-.payment-section-content>* {
-    gap: 53px;
-    width: 80%;
-    padding-left: 13px;
+.payment-section-content {
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    width: 100%;
+    padding: 10px;
 }
 
 .payment-section-content-box {
+    background-color: var(--white-bg);
     border: 1px solid var(--shadow-medium);
+    padding: 20px 10px;
+    border-radius: 12px;
     text-align: center;
-    flex: 1;
-    padding: 20px;
-    border-radius: 10px;
-    transition: all 300ms ease;
-    color: var(--linear-gradient-2);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transition: transform 0.3s ease;
+    min-width: 0;
+    color: var(--font-black);
 }
 
 .un-paid {
@@ -777,9 +783,64 @@ input[readonly] {
 }
 
 @media (max-width:320px) {
+    .add-buttons-mobile {
+        display: flex !important;
+        width: 100%;
+        margin: 0 auto;
+        gap: 8px;
+    }
     .payment-modify button {
         font-size: 12px;
-        padding: 11px 8px;
+        padding: 11px 9px;
+        min-width: 133px!important;
+    }
+    .payment-form-section {
+        width: 90%;
+        box-shadow: 0px 2px 6px var(--shadow-much-strong);
+        border-radius: 30px;
+        padding: 15px;
+        transition: all 300ms ease;
+        border: 1.5px solid var(--shadow-medium);
+        margin: 15px auto;
+    }
+    .payment-form-header {
+        font-weight: 600;
+        font-size: 19px;
+        color: var(--main-heading-color);
+        padding: 9px;
+    }
+    label {
+        display: block;
+        margin: 12px 0 6px 0;
+        color: var(--font-black);
+        font-size: 14px;
+    }
+    .add-buttons button {
+        padding: 10px 17px;
+    }
+    .payment-section-content {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 10px !important;
+        width: 100% !important;
+        padding: 0 5px !important;
+    }
+    .payment-section-content-box {
+        padding: 10px 5px !important;
+        min-height: 90px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .payment-section-content-box p {
+        font-size: 11px !important;
+        margin-bottom: 5px;
+        white-space: nowrap;
+    }
+    .payment-section-content-box span {
+        font-size: 14px !important;
+        font-weight: bold;
     }
 }
 
@@ -865,6 +926,7 @@ input[readonly] {
     .payment-modify button {
         font-size: 12px;
         padding: 11px 8px;
+        min-width: 161px;
     }
     .payment-modify {
         background-color: var(--students-modify-bg);
@@ -888,17 +950,11 @@ input[readonly] {
         margin: 17px 0px 11px 2px;
     }
     .payment-section-content {
-        flex-direction: column;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
     }
-    .payment-section-content,
-    .payment-section-content>* {
-        gap: 12px;
-        width: 96%;
-        padding-left: 0;
-        margin: 0 auto;
-    }
-    .payment-section-content-box {
-        flex: 1;
+    .payment-section-content-box p {
+        font-size: 13px;
     }
     .un-paid-students {
         padding: 20px 28px;
@@ -934,6 +990,138 @@ input[readonly] {
     }
     .add-buttons-desktop {
         display: none !important;
+    }
+    .row {
+        flex-direction: column;
+        width: 100%;
+    }
+    .row>* {
+        width: 100%;
+    }
+}
+
+@media (min-width: 480px) and (max-width: 768px) {
+    .aside {
+        display: none !important;
+    }
+    .payment-container {
+        left: -5px;
+        top: 20px;
+    }
+    .header {
+        display: none !important;
+    }
+    .header-mobile {
+        display: flex;
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        z-index: 1000;
+        align-items: center;
+        justify-content: space-between;
+        width: 90%;
+        margin: 0 auto;
+    }
+    .header-mobile .icons.left-group {
+        gap: 12px;
+    }
+    .img-header-background {
+        padding: 5px;
+    }
+    .header-mobile .img-header-background {
+        padding: 6px;
+    }
+    .header-mobile .icons.left-group img {
+        width: 17px;
+        height: 17px;
+    }
+    .header-mobile.icons.left-group img,
+    .icons.left-group span:first-child {
+        font-size: 17px !important;
+    }
+    .header-mobile .notification-number {
+        height: 15px;
+        width: 15px;
+        font-size: 10px;
+    }
+    #aside-mobile {
+        left: 50% !important;
+        display: flex;
+        transform: translate(-50%, -50%) !important;
+        background: linear-gradient(135deg, var(--main-heading-color), var(--font-black)) !important;
+        opacity: 0.95;
+        top: 50% !important;
+        z-index: 10000 !important;
+        width: 100vw !important;
+        height: 100%;
+        align-items: center;
+    }
+    .options a {
+        color: var(--white-txt)!important;
+    }
+    .fa-xmark {
+        color: var(--white-txt);
+        position: fixed;
+        right: 20px;
+        top: 20px;
+        font-size: 18px;
+    }
+    .options {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    h2 {
+        color: var(--main-heading-color);
+    }
+    .payment-heading {
+        margin: 17px 0 4px 0px;
+        font-size: 26px;
+    }
+    .payment-section-content {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 10px !important;
+        padding: 5px !important;
+    }
+    .payment-section-content-box {
+        width: 100% !important;
+        min-height: 100px !important;
+        padding: 15px 5px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+    }
+    .payment-section-content-box p {
+        font-size: 12px !important;
+        margin-bottom: 5px !important;
+        text-align: center !important;
+    }
+    .payment-section-content-box span {
+        font-size: 16px !important;
+        display: block !important;
+    }
+    table th:nth-child(6),
+    table td:nth-child(6) {
+        display: none;
+    }
+    .payment-modify button {
+        min-width: 231px;
+        border: none;
+        padding: 10px 15px;
+        font-weight: 600;
+        cursor: pointer;
+        gap: 4px;
+        flex: 1;
+        max-height: 41px;
+        font-size: 17px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: all 300ms ease;
+        background-color: var(--students-modify-bg);
+        color: var(--font-black);
     }
     .row {
         flex-direction: column;
@@ -1028,4 +1216,49 @@ input[readonly] {
         background-color: var(--students-modify-bg);
         color: var(--font-black);
     }
+}
+
+body.dark-mode #aside-mobile {
+    background: linear-gradient(135deg, #1a2a44 0%, #121212 50%, #2d2d2d 100%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+#all-payments img {
+    filter: none !important;
+    -webkit-filter: none !important;
+}
+
+body.dark-mode #all-payments img {
+    filter: invert(1) !important;
+}
+
+body.dark-mode .payment-section-content-box {
+    box-shadow: var(--box-shadow-dark);
+}
+
+body.dark-mode table {
+    box-shadow: var(--box-shadow-dark);
+}
+
+.aside-mobile {
+    color: var(--main-heading-color);
+}
+
+.fees-checkboxes-container {
+    color: var(--font-black)!important;
+}
+
+input,
+input[readonly] {
+    background-color: var(--container-bg)!important;
+    border: 1px solid var(--gender-border)!important;
+    color: var(--font-black);
+}
+
+body.dark-mode .add-buttons button {
+    background-color: #555;
+}
+
+.mobile-aside {
+    color: var(--main-heading-color);
 }

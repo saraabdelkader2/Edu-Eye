@@ -40,6 +40,11 @@
     --pop-up-shadow: 0 15px 40px rgba(0, 0, 0, .2);
 }
 
+body.dark-mode #aside-mobile {
+    background: linear-gradient(135deg, #1a2a44 0%, #121212 50%, #2d2d2d 100%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
 body {
     font-family: "Inter", sans-serif;
 }
@@ -541,6 +546,7 @@ table tbody td:hover {
 .grade-class>*,
 .grade-class-2>* {
     flex: 1;
+    width: 100%;
 }
 
 .grade-class,
@@ -549,7 +555,7 @@ table tbody td:hover {
 }
 
 .grade-class-2 {
-    padding-left: 10px;
+    padding-left: 0;
 }
 
 .warning {
@@ -563,16 +569,9 @@ table tbody td:hover {
     margin-top: 30px;
 }
 
-
-/* formmmmmmmmmmmmmmmmmmmmmmmm */
-
-
-/*pop up*/
-
 .no-scroll {
     overflow: hidden !important;
     height: 100% !important;
-    /* مهم أيضاً لمنع السكرول على iOS */
 }
 
 .page-blur {
@@ -585,7 +584,6 @@ table tbody td:hover {
     background: rgba(0, 0, 0, -6.9);
     display: none;
     z-index: 998;
-    /* أقل من البوب أب */
 }
 
 .reset-pop-up {
@@ -923,6 +921,15 @@ select {
 .row>* {
     flex: 1;
     width: 100%;
+}
+
+.modify-content .all-teachers img {
+    filter: none !important;
+    -webkit-filter: none !important;
+}
+
+body.dark-mode .modify-content img {
+    filter: invert(1) !important;
 }
 
 @media (max-width: 480px) {
@@ -1267,6 +1274,9 @@ select {
         width: 90%;
         border: 1px solid var(--gender-border);
     }
+    .row {
+        flex-direction: column;
+    }
 }
 
 @media (min-width: 768px) and (max-width: 1023px) {
@@ -1310,4 +1320,8 @@ select {
     .teachers-modify button {
         font-size: 15px;
     }
+}
+
+body.dark-mode .add-buttons button {
+    background-color: #555;
 }

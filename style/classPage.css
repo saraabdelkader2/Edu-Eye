@@ -60,6 +60,8 @@ body {
     --notification-delete: #888;
     --pop-up-shadow: 0 15px 40px rgba(0, 0, 0, .2);
     --table-hover-bg: #fff2b2;
+    --font-black-edit: white;
+    --box-shadow-dark: 0px 1px 5px var(--font-black-edit);
 }
 
 .flex {
@@ -877,4 +879,22 @@ body.no-scroll {
         padding: 10px 9px;
         font-size: 13px;
     }
+}
+
+.mobile-aside {
+    color: var(--main-heading-color);
+}
+
+body.dark-mode #aside-mobile {
+    background: linear-gradient(135deg, #1a2a44 0%, #121212 50%, #2d2d2d 100%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+body.dark-mode .class-info {
+    box-shadow: var(--box-shadow-dark);
+    color: white;
+}
+
+body.dark-mode .class-info * {
+    color: white;
 }

@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
-:root {
+ :root {
     --color-light: rgba(132, 139, 200, 0.18);
     --green-color: rgba(101, 217, 115, 1);
     --red-color: rgba(225, 89, 80, 1);
@@ -51,6 +51,9 @@
     --hover-clr: black;
     --pop-up-shadow: 0 15px 40px rgba(0, 0, 0, .1);
     --main: #2c5282;
+    --aside-bg: white;
+    --font-black-edit: #1E457E;
+    --color-good: #FFB74D;
 }
 
 body {
@@ -295,7 +298,7 @@ body {
 }
 
 .card {
-    background-color: var(--white-bg);
+    background-color: var(--aside-bg);
     box-shadow: var(--pop-up-shadow);
     padding: 33px 13px;
     flex: 1;
@@ -306,7 +309,7 @@ body {
     gap: 14px;
     justify-content: center;
     font-size: 20px;
-    /*color: var(--main-heading-color);*/
+    color: var(--font-black-edit);
     font-weight: 600;
 }
 
@@ -334,7 +337,7 @@ body {
     box-sizing: border-box;
     height: 400px !important;
     width: 500px !important;
-    background-color: var(--white-bg);
+    background-color: var(--aside-bg);
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -349,16 +352,13 @@ body {
     justify-content: space-between;
 }
 
-
-/* تنسيق التقويم */
-
 .calendar-card {
     text-align: center;
     padding: 60px;
 }
 
 .calendar-header h2 {
-    color: #2c5282;
+    color: var(--main);
     margin-bottom: 20px;
 }
 
@@ -478,26 +478,6 @@ body {
     font-weight: bold;
 }
 
-.talent {
-    background: #68d391;
-}
-
-.superior {
-    background: #63b3ed;
-}
-
-.good {
-    background: #f6ad55;
-}
-
-.weak {
-    background: #f56565;
-}
-
-.fail {
-    background: #718096;
-}
-
 .bottom-stats-grid {
     display: flex;
     gap: 20px;
@@ -549,7 +529,7 @@ body {
 }
 
 .good {
-    background-color: var(--color-primary);
+    background-color: var(--color-good);
 }
 
 .weak {
@@ -621,7 +601,7 @@ select {
 .performance-card {
     padding: 80px 40px;
     flex-direction: column;
-    background-color: var(--white-bg);
+    background-color: var(--aside-bg);
     box-shadow: var(--pop-up-shadow);
     flex: 1;
     border-radius: 20px;
@@ -766,7 +746,7 @@ select {
     .performance-card {
         padding: 45px 26px;
         margin: 10px auto;
-        width: 100%;
+        width: 97%;
     }
     .performance-card h2 {
         margin-bottom: 20px;
@@ -826,4 +806,9 @@ select {
     .tier-list .flex {
         gap: 53px;
     }
+}
+
+body.dark-mode #aside-mobile {
+    background: linear-gradient(135deg, #1a2a44 0%, #121212 50%, #2d2d2d 100%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.05);
 }

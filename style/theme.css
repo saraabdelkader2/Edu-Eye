@@ -45,7 +45,7 @@ body.dark-mode {
     --font-black: #f5f5f5;
     --gender-border: #555;
     --table-border: #444;
-    --academic-head: #a0c4ff;
+    --academic-head: #83a8e5;
     --search-icon: #777;
     --table-hover-bg: rgba(30, 55, 100, 0.25) !important;
     --main-heading-color: #4682B4;
@@ -61,4 +61,10 @@ body.dark-mode {
     --border-color: #2C2C2C;
     --placeholder: #6F6F6F;
     --main-input: #1E4A89;
+    --aside-txt: white;
+    --font-black-edit: #555;
+    --main: #555!important;
+    --img-gray: 100% !important;
+    --table-border-black: #555;
+    /*--add-buttons-hover-bg: #555;*/
 }

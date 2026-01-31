@@ -178,6 +178,7 @@ function renderDonutChart(d) {
     const ctx = document.getElementById('donutChart').getContext('2d');
     if (myDonutChart) myDonutChart.destroy();
 
+    const mainColor = getComputedStyle(document.documentElement).getPropertyValue('--main').trim();
     const attendance = Math.round(Number(d["attendance Percentage"] || d.attendancePercentage || 0));
     const absence = 100 - attendance;
 
@@ -187,7 +188,7 @@ function renderDonutChart(d) {
             labels: ['Attend', 'Absent'],
             datasets: [{
                 data: [attendance, absence],
-                backgroundColor: ['#66bb6a', '#ef5350'],
+                backgroundColor: [mainColor, '#ef5350'],
                 borderWidth: 0
             }]
         },
@@ -218,7 +219,7 @@ function renderDonutChart(d) {
                 ctx.font = 'bold 28px sans-serif';
                 ctx.textAlign = 'center';
                 ctx.textBaseline = 'middle';
-                ctx.fillStyle = '#1e3a8a';
+                ctx.fillStyle = mainColor;
                 ctx.fillText(attendance + '%', width / 2, top + (height / 2));
                 ctx.restore();
             }

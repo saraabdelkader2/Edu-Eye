@@ -39,6 +39,7 @@
     --notification-delete: #888;
     --hover-clr: black;
     --pop-up-shadow: 0 15px 40px rgba(0, 0, 0, .2);
+    --font-black-edit: white;
 }
 
 body {
@@ -55,6 +56,10 @@ body {
     display: flex;
     justify-content: start;
     align-items: start;
+}
+
+body.dark-mode .add-buttons button {
+    background-color: #555;
 }
 
 .students-container {
@@ -394,6 +399,7 @@ body {
     overflow: hidden;
     border-spacing: 0;
     margin: 20px auto;
+    box-shadow: 0px 1px 7px var(--font-black-edit);
 }
 
 .student-table thead {
@@ -889,6 +895,26 @@ select {
 .attendance-zero {
     animation: blink 1s infinite;
 }
+
+.modify-content .all-student-img {
+    filter: none !important;
+    -webkit-filter: none !important;
+}
+
+body.dark-mode .modify-content .all-student-img {
+    filter: invert(1) !important;
+}
+
+body.dark-mode #aside-mobile {
+    background: linear-gradient(135deg, #1a2a44 0%, #121212 50%, #2d2d2d 100%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+
+/*
+body.dark-mode .pages * {
+    color: var(--font-black-edit);
+}*/
 
 @media (max-width: 480px) {
     .aside {

@@ -37,6 +37,9 @@
                 --viewlink-top-border: #ddd;
                 --notification-delete: #888;
                 --hover-clr: black;
+                --academic-head: #001F52;
+                --font-black-edit: white;
+                --box-shadow-dark: 0px 1px 3px var(--font-black-edit);
             }
             
             body {
@@ -1017,4 +1020,34 @@ when clicking to add timetable*/
                 .header {
                     left: 183px !important;
                 }
+                #aside-mobile {
+                    display: none !important;
+                }
+            }
+            
+            body.dark-mode .break {
+                background-color: var(--academic-head) !important;
+                color: white!important;
+            }
+            
+            body.dark-mode table {
+                box-shadow: var(--box-shadow-dark);
+            }
+            
+            body.dark-mode #aside-mobile {
+                background: linear-gradient(135deg, #1a2a44 0%, #121212 50%, #2d2d2d 100%) !important;
+                border: 1px solid rgba(255, 255, 255, 0.05);
+            }
+            
+            body.dark-mode .day-btn {
+                color: white;
+            }
+            
+            body.dark-mode .schedule-card {
+                color: white;
+                box-shadow: var(--box-shadow-dark);
+            }
+            
+            .mobile-aside {
+                color: var(--main-heading-color);
             }
