@@ -51,7 +51,6 @@
     --hover-clr: black;
     --pop-up-shadow: 0 15px 40px rgba(0, 0, 0, .1);
     --main: #2c5282;
-    --aside-bg: white;
     --font-black-edit: #1E457E;
     --color-good: #FFB74D;
 }
@@ -298,7 +297,7 @@ body {
 }
 
 .card {
-    background-color: var(--aside-bg);
+    background-color: var(--white-bg);
     box-shadow: var(--pop-up-shadow);
     padding: 33px 13px;
     flex: 1;
@@ -311,6 +310,12 @@ body {
     font-size: 20px;
     color: var(--font-black-edit);
     font-weight: 600;
+}
+
+body.dark-mode .card,
+body.dark-mode .chart-box,
+body.dark-mode .performance-card {
+    background-color: #1c1c1c !important;
 }
 
 .card:hover {
@@ -337,7 +342,7 @@ body {
     box-sizing: border-box;
     height: 400px !important;
     width: 500px !important;
-    background-color: var(--aside-bg);
+    background-color: var(--white-bg);
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -601,7 +606,7 @@ select {
 .performance-card {
     padding: 80px 40px;
     flex-direction: column;
-    background-color: var(--aside-bg);
+    background-color: var(--white-bg);
     box-shadow: var(--pop-up-shadow);
     flex: 1;
     border-radius: 20px;
