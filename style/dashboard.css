@@ -297,7 +297,7 @@ body {
 }
 
 .card {
-    background-color: var(--white-bg);
+    background-color: var(--white-bg)!important;
     box-shadow: var(--pop-up-shadow);
     padding: 33px 13px;
     flex: 1;
