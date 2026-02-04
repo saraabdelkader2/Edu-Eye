@@ -29,6 +29,13 @@
 </head>
 
 <body>
+    <div id="full-page-loader" class="loader-container">
+        <div class="logo-wrapper">
+            <img src="media copy/favicons/Logo (2).png" alt="Logo" class="pulse-logo">
+            <div class="loader-ring"></div>
+        </div>
+        <p class="loading-text">LOADING...</p>
+    </div>
     <div class="header">
         <div class="right-group">
             <!--<div class="back-icon back-to-home"><i class="fa-solid fa-arrow-left"></i></div>
@@ -109,35 +116,35 @@
                         <p>Students</p>
                     </div>
 
-                    <div class="stat-value" id="countStudents">5891</div>
+                    <div class="stat-value" id="countStudents"></div>
                 </div>
                 <div class="card">
                     <div class="card-content">
                         <img src="media copy/dashboard/teacher.png" alt="" class="teachers">
                         <p>Teachers</p>
                     </div>
-                    <div class="stat-value" id="countTeachers">45</div>
+                    <div class="stat-value" id="countTeachers"></div>
                 </div>
                 <div class="card">
                     <div class="card-content">
                         <img src="media copy/dashboard/Frame 32.png" alt="home" class="classes">
                         <p>Classes</p>
                     </div>
-                    <div class="stat-value" id="countClasses">30</div>
+                    <div class="stat-value" id="countClasses"></div>
                 </div>
                 <div class="card">
                     <div class="card-content">
                         <img src="media copy/login/icon-park-outline_school.png" alt="" class="school">
                         <p>School Fees</p>
                     </div>
-                    <div class="stat-value" id="paidStudentsCount">75</div>
+                    <div class="stat-value" id="paidStudentsCount"></div>
                 </div>
                 <div class="card">
                     <div class="card-content">
                         <img src="media copy\dahboard\icons8-bus-60.png" alt="" class="bus">
                         <p> Bus Fees</p>
                     </div>
-                    <div class="stat-value" id="busCount">5891</div>
+                    <div class="stat-value" id="busCount"></div>
                 </div>
 
             </div>
@@ -151,95 +158,55 @@
             </div>
             <div class=" attendance-card chart-box card">
                 <h3 class="main">Attendance</h3>
-                <div class="donut-container" style="width: 200px; height: 200px; margin: auto;">
-                    <canvas id="donutChart"></canvas>
+                <div class="donut-container" style="width: 200px; height: 200px; margin: auto; position: relative; display: flex; align-items: center; justify-content: center;">
+                    <canvas id="donutChart" style="position: absolute; z-index: 1;"></canvas>
+                    <span id="attendancePercentText" style="position: relative; z-index: 0; font-weight: bold; font-size: 1.2rem; color: #333;">0%</span>
                 </div>
                 <div class="filter-controls">
                     <select id="monthSelect">
-            <option value="January">January</option>
-            </select>
+                        <option value="January">January</option>
+                    </select>
                     <select id="classSelect">
-            <option value="G1-A">Class G1-A</option>
-            <option value="G1-B">Class G1-B</option>
-        </select>
+                        <option value="G1-A">Class G1-A</option>
+                        <option value="G1-B">Class G1-B</option>
+                    </select>
                 </div>
             </div>
 
         </div>
         <div class="bottom flex">
-            <div class="bottom-stats-grid">
 
-                <div class="card calendar-card">
-                    <div class="calendar-header">
-                        <h2 id="currentMonthName">January</h2>
-                    </div>
-                    <div class="calendar-grid">
-                        <div class="day-name">SUN</div>
-                        <div class="day-name">MON</div>
-                        <div class="day-name">TUE</div>
-                        <div class="day-name">WED</div>
-                        <div class="day-name">THU</div>
-                        <div class="day-name">FRI</div>
-                        <div class="day-name">SAT</div>
-                        <div class="day empty">28</div>
-                        <div class="day empty">29</div>
-                        <div class="day empty">30</div>
-                        <div class="day">1</div>
-                        <div class="day">2</div>
-                        <div class="day">3</div>
-                        <div class="day">4</div>
-                        <div class="day">5</div>
-                        <div class="day">6</div>
-                        <div class="day">7</div>
-                        <div class="day">8</div>
-                        <div class="day">9</div>
-                        <div class="day">10</div>
-                        <div class="day">11</div>
-                        <div class="day">12</div>
-                        <div class="day">13</div>
-                        <div class="day">14</div>
-                        <div class="day">15</div>
-                        <div class="day">16</div>
-                        <div class="day">17</div>
-                        <div class="day">18</div>
-                        <div class="day">19</div>
-                        <div class="day">20</div>
-                        <div class="day">21</div>
-                        <div class="day">22</div>
-                        <div class="day">23</div>
-                        <div class="day">24</div>
-                        <div class="day">25</div>
-                        <div class="day">26</div>
-                        <div class="day">27</div>
-                        <div class="day">28</div>
-                        <div class="day">29</div>
-                        <div class="day">30</div>
-                        <div class="day">31</div>
-                    </div>
+            <div class="calendar-container">
+                <div class="calendar-header">
+                    <h2 id="currentMonthName">February</h2>
                 </div>
+                <div class="calendar-grid"></div>
 
-                <div class="card students-card">
-                    <h3 class="main">Students Distribution</h3>
-                    <div class="gender-charts">
-                        <div class="gender-item">
-                            <div class="ring blue-ring">
-                                <i class="fas fa-mars"></i>
-                                <span id="boysPercent">0%</span>
-                            </div>
-                            <p><span class="dot blue"></span> <span id="boysCountLabel">0</span> (Boys)</p>
-                        </div>
-                        <div class="gender-item">
-                            <div class="ring pink-ring">
-                                <i class="fas fa-venus"></i>
-                                <span id="girlsPercent">0%</span>
-                            </div>
-                            <p><span class="dot pink"></span> <span id="girlsCountLabel">0</span> (Girls)</p>
-                        </div>
-                    </div>
-                </div>
-
-
+                <div class="calendar-days" id="days-grid"></div>
             </div>
+
+            <div class="card students-card">
+                <h2 class="main">Students Distribution</h2>
+                <div class="gender-charts">
+                    <div class="gender-item">
+                        <div class="ring blue-ring">
+                            <i class="fas fa-mars"></i>
+                            <span id="boysPercent">0%</span>
+                        </div>
+                        <p><span class="dot blue"></span> <span id="boysCountLabel">0</span> (Boys)</p>
+                    </div>
+                    <div class="gender-item">
+                        <div class="ring pink-ring">
+                            <i class="fas fa-venus"></i>
+                            <span id="girlsPercent">0%</span>
+                        </div>
+                        <p><span class="dot pink"></span> <span id="girlsCountLabel">0</span> (Girls)</p>
+                    </div>
+                </div>
+            </div>
+
+
+
             <div class="performance-card">
                 <h2 class="main">Academic Performance</h2>
                 <div class="tier-list">

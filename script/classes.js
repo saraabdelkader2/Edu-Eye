@@ -369,7 +369,7 @@ darkModeToggle.addEventListener('click', () => {
 
 const lockIcon = document.getElementById('lock');
 if (lockIcon) {
-    lockIcon.addEventListener('click', () => { window.location.href = './login.html' });
+    lockIcon.addEventListener('click', () => { window.location.href = './index.html' });
 }
 
 window.addEventListener('beforeunload', () => {

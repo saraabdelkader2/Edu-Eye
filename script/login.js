@@ -63,7 +63,52 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }, 700);
     });
+    passwordInput.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+            messagePara.innerHTML = '';
+            messagePara.style.color = "red";
 
+            const email = emailInput.value.trim();
+            const password = passwordInput.value.trim();
+
+            if (!email || !password) {
+                messagePara.innerText = "Please enter both email and password";
+                return;
+            }
+
+            if (email !== VALID_EMAIL || password !== VALID_PASSWORD) {
+                messagePara.innerText = "Incorrect email or password";
+                return;
+            }
+
+            if (rememberMeCheckbox.classList.contains('fa-square-check')) {
+                const userData = { email, password };
+                localStorage.setItem('rememberedUser', JSON.stringify(userData));
+            } else {
+                localStorage.removeItem('rememberedUser');
+            }
+
+            messagePara.style.color = "green";
+            messagePara.innerText = "Login successful! Redirecting...";
+            notificationSound.play().catch(() => {});
+
+            setTimeout(() => {
+                const lastPage = localStorage.getItem('lastVisitedPage');
+
+                const isValidLastPage = lastPage &&
+                    !lastPage.includes('login.html') &&
+                    lastPage !== '/' &&
+                    lastPage !== '';
+
+                if (isValidLastPage) {
+                    window.location.href = lastPage;
+                } else {
+                    window.location.href = "./dashboard.html";
+                }
+            }, 700);
+
+        }
+    });
     // Remember Me toggle
     rememberMeCheckbox.addEventListener('click', () => {
         rememberMeCheckbox.classList.toggle('fa-square');

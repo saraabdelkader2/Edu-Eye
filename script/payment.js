@@ -277,7 +277,7 @@ backToHome.addEventListener('click', () => {
 
 const lockIcon = document.getElementById('lock');
 lockIcon.addEventListener('click', () => {
-    window.location.href = './login.html'
+    window.location.href = './index.html'
 });
 
 //dark mode start--------------------------

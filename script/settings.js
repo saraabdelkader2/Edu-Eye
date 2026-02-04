@@ -4,7 +4,7 @@ import { addNotification } from "./notifications.js";
 //lock icon on click
 const lockIcon = document.getElementById('lock');
 lockIcon.addEventListener('click', () => {
-    window.location.href = './login.html'
+    window.location.href = './index.html'
 })
 
 // save this as last visited

@@ -53,6 +53,7 @@
     --main: #2c5282;
     --font-black-edit: #1E457E;
     --color-good: #FFB74D;
+    --color-primary: #f7b731;
 }
 
 body {
@@ -70,7 +71,7 @@ body {
 }
 
 #aside-mobile {
-    display: none!important;
+    display: none !important;
 }
 
 .mobile-aside {
@@ -84,6 +85,7 @@ body {
 
 .main {
     color: var(--main);
+    font-size: 25px !important;
 }
 
 .notification-number {
@@ -157,6 +159,13 @@ body {
     border-bottom: 1px solid var(--container-bg);
     border-radius: 8px;
     transition: background 0.2s ease;
+}
+
+#attendanceChart {
+    display: block;
+    box-sizing: border-box;
+    height: 266px!important;
+    width: 432.5px;
 }
 
 .notification-item.unread {
@@ -297,7 +306,7 @@ body {
 }
 
 .card {
-    background-color: var(--white-bg)!important;
+    background-color: var(--white-bg) !important;
     box-shadow: var(--pop-up-shadow);
     padding: 33px 13px;
     flex: 1;
@@ -314,7 +323,9 @@ body {
 
 body.dark-mode .card,
 body.dark-mode .chart-box,
-body.dark-mode .performance-card {
+body.dark-mode .performance-card,
+body.dark-mode .calendar-container,
+body.dark-mode .calendar-grid {
     background-color: #1c1c1c !important;
 }
 
@@ -357,55 +368,70 @@ body.dark-mode .performance-card {
     justify-content: space-between;
 }
 
-.calendar-card {
-    text-align: center;
-    padding: 60px;
+.calendar-container {
+    width: 350px;
+    background: var(--white-bg);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    padding: 25px;
+    font-family: 'Segoe UI', Roboto, sans-serif;
 }
 
 .calendar-header h2 {
-    color: var(--main);
+    text-align: center;
+    color: var(--main-heading-color);
     margin-bottom: 20px;
+    font-size: 25px;
 }
 
 .calendar-grid {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    gap: 10px;
+    gap: 8px;
+    background: var(--white-bg);
+    border-radius: 15px;
+    max-width: 350px;
 }
 
-.day-name {
-    font-size: 12px;
-    color: #a0aec0;
-    font-weight: bold;
+.day-header {
+    font-size: 11px;
+    font-weight: 700;
+    color: #aaa;
+    text-align: center;
     padding-bottom: 10px;
+    text-transform: uppercase;
 }
 
 .day {
-    padding: 10px;
-    font-size: 14px;
-    color: #4a5568;
-    cursor: pointer;
-}
-
-.day.empty {
-    color: #cbd5e0;
-}
-
-.day.active {
-    background: #ed8936;
-    /* اللون البرتقالي من الصورة */
-    color: white;
-    border-radius: 50%;
-    width: 35px;
-    height: 35px;
+    aspect-ratio: 2 / 1.5;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: auto;
+    cursor: pointer;
+    font-size: 13px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    color: var(--font-black);
+    font-weight: 550;
 }
 
+.day:hover:not(.prev-date) {
+    background-color: var(--bg-light);
+    color: var(--color-primary);
+}
 
-/* تنسيق دوائر الجنس */
+.prev-date {
+    color: #ccc;
+    cursor: default;
+}
+
+.today {
+    background: var(--color-primary) !important;
+    color: white !important;
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(102, 187, 106, 0.4);
+    border-radius: 50%;
+}
 
 .gender-charts {
     display: flex;
@@ -456,8 +482,20 @@ body.dark-mode .performance-card {
 }
 
 .students-card {
-    padding: 0;
-    width: fit-content;
+    background-color: var(--white-bg) !important;
+    box-shadow: var(--pop-up-shadow);
+    flex: 1;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    justify-content: space-around;
+    font-size: 20px;
+    color: var(--font-black-edit);
+    font-weight: 600;
+    height: fit-content !important;
+    padding: 30px !important;
 }
 
 .tier-list {
@@ -545,8 +583,17 @@ body.dark-mode .performance-card {
     background-color: var(--classification-fail);
 }
 
+#attendancePercentText {
+    color: var(--font-black)!important;
+    font-size: 24px;
+    font-weight: bold;
+}
+
 .bottom {
+    display: flex;
+    gap: 20px;
     align-items: center;
+    margin-left: 16px;
 }
 
 .ring {
@@ -604,7 +651,7 @@ select {
 }
 
 .performance-card {
-    padding: 80px 40px;
+    padding: 29px 0;
     flex-direction: column;
     background-color: var(--white-bg);
     box-shadow: var(--pop-up-shadow);
@@ -613,7 +660,7 @@ select {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: start;
     margin-right: 20px;
 }
 
@@ -630,11 +677,117 @@ select {
     margin-bottom: 24px;
 }
 
+.loader-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--container-bg);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 0.8s ease;
+}
+
+.donut-chart-wrapper {
+    height: 350px !important;
+    width: 100%;
+    position: relative;
+}
+
+.logo-wrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pulse-logo {
+    width: 120px;
+    height: auto;
+    z-index: 2;
+    animation: pulse 2s infinite ease-in-out;
+}
+
+.loader-ring {
+    position: absolute;
+    width: 160px;
+    height: 160px;
+    border: 3px solid transparent;
+    border-top: 3px solid var(--main-heading-color);
+    /* لون الحلقة */
+    border-radius: 50%;
+    animation: spin 1.5s linear infinite;
+}
+
+.loading-text {
+    margin-top: 30px;
+    font-family: 'Segoe UI', sans-serif;
+    color: var(--main-heading-color);
+    letter-spacing: 4px;
+    font-size: 14px;
+    font-weight: bold;
+    animation: blink 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(0.95);
+        opacity: 0.8;
+    }
+    50% {
+        transform: scale(1.05);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(0.95);
+        opacity: 0.8;
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes blink {
+    0%,
+    100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.3;
+    }
+}
+
 @media (max-width: 480px),
 (min-width: 481px) and (max-width: 767px),
 (min-width: 768px) and (max-width: 1023px) {
+    .calendar-container {
+        margin: 10px auto;
+        background: var(--white-bg);
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        padding: 25px;
+        font-family: 'Segoe UI', Roboto, sans-serif;
+        margin-right: 11px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 99%;
+        margin: 10px auto;
+    }
     .aside {
-        display: none!important;
+        display: none !important;
     }
     .header {
         display: none !important;
@@ -685,7 +838,7 @@ select {
         align-items: center;
     }
     .options a {
-        color: var(--white-txt)!important;
+        color: var(--white-txt) !important;
     }
     .fa-xmark {
         color: var(--white-txt);
@@ -715,12 +868,11 @@ select {
         width: 95% !important;
         margin: 25px auto 10px auto;
     }
-    .bottom,
-    .bottom-stats-grid {
+    .bottom {
         flex-direction: column;
     }
     .calendar-grid {
-        gap: 0;
+        gap: 4px !important;
     }
     .bottom-stats-grid {
         width: 95%;
@@ -739,18 +891,19 @@ select {
         display: flex;
         justify-content: space-around;
         padding: 8px 25px;
-        gap: 46px;
+        gap: 36px;
     }
     .main {
         color: var(--main);
         margin: 23px 0 10px 5px;
+        font-size: 20px !important;
     }
     h3 {
         font-size: 20px;
     }
     .performance-card {
-        padding: 45px 26px;
-        margin: 10px auto;
+        padding: 21px 12px;
+        margin: 0px auto;
         width: 97%;
     }
     .performance-card h2 {
@@ -758,7 +911,7 @@ select {
         font-size: 18px;
     }
     .students-card {
-        padding: 0;
+        padding: 13px 11px !important;
         width: 100%;
     }
     h2 {
@@ -767,6 +920,22 @@ select {
 }
 
 @media (min-width: 1024px) and (max-width: 1439px) {
+    .calendar-container {
+        margin: 10px auto;
+        background: var(--white-bg);
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        padding: 25px;
+        font-family: 'Segoe UI', Roboto, sans-serif;
+        margin-right: 11px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 99%;
+        margin: 10px auto;
+    }
     .aside {
         width: 175px !important;
     }
@@ -792,6 +961,7 @@ select {
     }
     .bottom>* {
         flex: 1;
+        width: 100%;
     }
     .bottom-stats-grid {
         width: 95%;
@@ -816,4 +986,15 @@ select {
 body.dark-mode #aside-mobile {
     background: linear-gradient(135deg, #1a2a44 0%, #121212 50%, #2d2d2d 100%) !important;
     border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+body.dark-mode .card p,
+body.dark-mode .card .stat-value,
+body.dark-mode .main,
+body.dark-mode #currentMonthName {
+    color: white;
+}
+
+body.dark-mode .loading-text {
+    color: white;
 }

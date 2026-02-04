@@ -97,9 +97,9 @@ function renderClassInfo(editMode = false) {
         editBtn.onclick = () => renderClassInfo(true);
         buttonsContainer.appendChild(editBtn);
 
-        favicon.href = "./media copy/favicons/default-favicon.png";
+        favicon.href = "./media copy/favicons/icons8-class-80.png";
     } else {
-        favicon.href = "./media copy/favicons/icons8-edit-profile-80.png";
+        favicon.href = "./media copy/favicons/icons8-class-80.png";
 
         //classSpan.innerHTML = `<input type="text" id="edit-class-input" value="${grade}-${symbol}" style="width: 70px;">`;
         teacherP.innerHTML = `Mrs : <select id="edit-teacher-select" ></select>`;
@@ -214,7 +214,7 @@ document.querySelector('.back-to-home').addEventListener('click', () => {
 //lock icon on click
 const lockIcon = document.getElementById('lock');
 lockIcon.addEventListener('click', () => {
-    window.location.href = './login.html'
+    window.location.href = './index.html'
 })
 
 // save this as last visited

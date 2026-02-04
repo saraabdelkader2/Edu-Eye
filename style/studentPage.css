@@ -996,7 +996,7 @@ b,
 .guardian-header * {
     margin: 5px 2px;
     display: inline-block;
-    color: var(--font-black);
+    color: white;
 }
 
 .info-item .edit-input {
@@ -1022,6 +1022,11 @@ body.dark-mode .student-primary-info box-shadow {
 body.dark-mode #aside-mobile {
     background: linear-gradient(135deg, #1a2a44 0%, #121212 50%, #2d2d2d 100%) !important;
     border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+body.dark-mode .student-primary-info {
+    box-shadow: var(--box-shadow-dark);
+    color: white;
 }
 
 @media (max-width: 480px),

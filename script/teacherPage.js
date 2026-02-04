@@ -230,6 +230,9 @@ function renderTeacherPage(editMode = false) {
     }
 }
 
+const lockIcon = document.getElementById('lock');
+lockIcon.addEventListener('click', () => { window.location.href = './index.html'; });
+
 editButton.addEventListener('click', () => {
     renderTeacherPage(true);
         favicon.href="././media copy/favicons/icons8-edit-profile-80.png";

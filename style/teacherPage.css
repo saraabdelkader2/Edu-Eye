@@ -10,6 +10,11 @@ body {
     width: 100vw;
 }
 
+body.dark-mode .teacher-primary-info {
+    box-shadow: var(--box-shadow-dark);
+    color: white;
+}
+
  :root {
     --main-heading-color: #1E457E;
     --icon-color: #1a3b6d;

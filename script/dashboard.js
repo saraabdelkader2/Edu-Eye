@@ -2,25 +2,148 @@ import { addNotification } from "./notifications.js";
 
 const BASE_URL = 'https://ece2026.onrender.com/webapi';
 
+
 let myBarChart = null;
 let myDonutChart = null;
+var ALL_DATA = {
+    students: [],
+    teachers: [],
+    classes: [],
+    subjects: [],
+    payments: []
+};
 
 async function init() {
-    fillMonths();
-    await fetchClasses();
-    setCurrentDate();
-    await fetchTotalSchoolStudents();
-
-    const classSel = document.getElementById('classSelect');
-    const monthSel = document.getElementById('monthSelect');
-
-    if (classSel && classSel.options.length > 1) {
-        classSel.selectedIndex = 1;
-        updateDashboard(monthSel.value, classSel.value);
+    var loader = document.getElementById('full-page-loader');
+    if (loader) {
+        loader.style.display = 'flex';
+        loader.style.opacity = '1';
     }
 
-    classSel.addEventListener('change', () => updateDashboard(monthSel.value, classSel.value));
-    monthSel.addEventListener('change', () => updateDashboard(monthSel.value, classSel.value));
+    try {
+        console.log("System Initializing: Loading all data...");
+
+        var results = await Promise.all([
+            fetch(BASE_URL + '/students').then(function(r) { return r.json(); }),
+            fetch(BASE_URL + '/teachers').then(function(r) { return r.json(); }),
+            fetch(BASE_URL + '/classes').then(function(r) { return r.json(); }),
+            fetch(BASE_URL + '/subjects').then(function(r) { return r.json(); }),
+            fetch(BASE_URL + '/payment').then(function(r) { return r.json(); })
+        ]);
+
+        ALL_DATA.students = results[0].studentlist || [];
+
+        var resTeachers = results[1];
+        if (resTeachers && resTeachers.teachers && resTeachers.teachers.recordsets && resTeachers.teachers.recordsets[0]) {
+            ALL_DATA.teachers = resTeachers.teachers.recordsets[0];
+        } else {
+            ALL_DATA.teachers = [];
+        }
+
+        ALL_DATA.classes = results[2].data || results[2].classes || results[2] || [];
+
+        ALL_DATA.subjects = results[3] || [];
+
+        ALL_DATA.payments = results[4].payments || [];
+
+        console.log("Data Sync Complete. Teachers found:", ALL_DATA.teachers.length);
+
+        syncInitialUI();
+
+    } catch (error) {
+        console.error("Critical Start-up Error:", error);
+    } finally {
+        if (loader) {
+            loader.style.opacity = '0';
+            setTimeout(function() {
+                loader.style.display = 'none';
+            }, 600);
+        }
+        setupEventListeners();
+    }
+}
+
+function syncInitialUI() {
+    console.log("Syncing UI with Teachers Count:", ALL_DATA.teachers.length);
+
+    // 1. الأرقام الأساسية
+    safeSetText('countStudents', ALL_DATA.students.length);
+    safeSetText('countTeachers', ALL_DATA.teachers.length); // ده هيعرض الرقم صح
+    safeSetText('countClasses', ALL_DATA.classes.length);
+
+    // 2. توزيع تصنيفات الطلاب (الموهوبين، المتفوقين...)
+    let stats = { Talented: 0, Superior: 0, Good: 0, Fail: 0 };
+    ALL_DATA.students.forEach(s => {
+        if (stats.hasOwnProperty(s.Classification)) stats[s.Classification]++;
+    });
+    safeSetText('talentCount', stats.Talented);
+    safeSetText('superiorCount', stats.Superior);
+    safeSetText('goodCount', stats.Good);
+    safeSetText('failCount', stats.Fail);
+
+    // 3. بيانات الدفع والباكي باص
+    if (ALL_DATA.payments && ALL_DATA.payments.length > 0) {
+        var p = ALL_DATA.payments[0];
+        safeSetText('busCount', p.Bus_Subscribers || 0);
+        safeSetText('paidStudentsCount', p.Paid_Students || 0);
+    }
+
+    // 4. ملء الـ Select Menu
+    var classSel = document.getElementById('classSelect');
+    if (classSel) {
+        classSel.innerHTML = '<option value="">Select Class</option>';
+        ALL_DATA.classes.forEach(function(item) {
+            var name = item.Class || item.class || "";
+            if (name) classSel.appendChild(new Option(name, name));
+        });
+        if (classSel.options.length > 1) {
+            classSel.selectedIndex = 1;
+            var monthSel = document.getElementById('monthSelect');
+            updateDashboard(monthSel ? monthSel.value : 'February', classSel.value);
+        }
+    }
+
+    fillMonths();
+    setCurrentDate();
+}
+
+function setupEventListeners() {
+    const classSel = document.getElementById('classSelect');
+    const monthSel = document.getElementById('monthSelect');
+    if (classSel && monthSel) {
+        classSel.onchange = () => updateDashboard(monthSel.value, classSel.value);
+        monthSel.onchange = () => updateDashboard(monthSel.value, classSel.value);
+    }
+}
+
+function setInitialLoading() {
+    const ids = [
+        'countStudents', 'busCount', 'paidStudentsCount', 'countClasses',
+        'talentCount', 'superiorCount', 'goodCount', 'failCount',
+        'boysCountLabel', 'girlsCountLabel', 'boysPercent', 'girlsPercent', 'attendancePercentText'
+    ];
+    ids.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.innerText = "...";
+    });
+}
+
+function getTargetMonth(monthName, year) {
+    const monthMap = {
+        January: '01',
+        February: '02',
+        March: '03',
+        April: '04',
+        May: '05',
+        June: '06',
+        July: '07',
+        August: '08',
+        September: '09',
+        October: '10',
+        November: '11',
+        December: '12'
+    };
+    return monthMap[monthName] || '01';
 }
 
 async function fetchTotalSchoolStudents() {
@@ -48,67 +171,134 @@ async function fetchTotalSchoolStudents() {
         console.error("Error in fetching bus ,payment Data", e);
     }
 }
-async function updateDashboard(month, className) {
-    if (!month) return;
-
+async function fetchClasses() {
+    const sel = document.getElementById('classSelect');
+    if (!sel) return;
     try {
-        const monthElement = document.getElementById('currentMonthName');
-        if (monthElement) monthElement.innerText = month;
+        const res = await fetch(`${BASE_URL}/classes`);
+        const result = await res.json();
+        const classesArray = result.data || result.classes || [];
 
-        const studentsRes = await fetch(`${BASE_URL}/students`);
-        const studentsData = await studentsRes.json();
-        const studentList = studentsData.studentlist || studentsData[" studentlist "] || [];
+        safeSetText('countClasses', classesArray.length);
 
-        const schoolStats = { Talent: 0, Superior: 0, Good: 0, Weak: 0, Fail: 0 };
+        sel.innerHTML = '<option value="">Select Class</option>';
 
-        studentList.forEach(student => {
-            const cls = (student.Classification || "").toString().trim().toLowerCase();
+        classesArray.forEach(item => {
+            const name = item.Class || item.class || "";
+            if (name) {
+                sel.appendChild(new Option(name, name));
+            }
+        });
+    } catch (e) {
+        console.error("Error fetching classes:", e);
+        addNotification("خطأ في جلب قائمة الفصول", "error");
+    }
+}
+async function fetchAcademicPerformance() {
+    try {
+        const res = await fetch(`${BASE_URL}/students`);
+        const result = await res.json();
 
-            if (cls.includes('talent')) schoolStats.Talent++;
-            else if (cls.includes('superior')) schoolStats.Superior++;
-            else if (cls.includes('good')) schoolStats.Good++;
-            else if (cls.includes('weak')) schoolStats.Weak++;
-            else if (cls.includes('fail')) schoolStats.Fail++;
+        const students = result.studentlist || [];
+
+        let stats = {
+            Talented: 0,
+            Superior: 0,
+            Good: 0,
+            Fail: 0,
+            Weak: 0
+        };
+
+        students.forEach(student => {
+            const classification = student.Classification;
+            if (stats.hasOwnProperty(classification)) {
+                stats[classification]++;
+            }
         });
 
-        safeSetText('talentCount', schoolStats.Talent);
-        safeSetText('superiorCount', schoolStats.Superior);
-        safeSetText('goodCount', schoolStats.Good);
-        safeSetText('weakCount', schoolStats.Weak);
-        safeSetText('failCount', schoolStats.Fail);
-        safeSetText('countStudents', studentList.length);
+        safeSetText('talentCount', stats.Talented);
+        safeSetText('superiorCount', stats.Superior);
+        safeSetText('goodCount', stats.Good);
+        safeSetText('failCount', stats.Fail);
 
-        if (className && className !== "") {
-            const dashRes = await fetch(`${BASE_URL}/dashboard/${month}/2026/${className}`);
-            if (dashRes.ok) {
-                const d = await dashRes.json();
+        console.log("Academic Performance Sync (from student list):", stats);
 
-                safeSetText('countClasses', d.countClasses || d[" countClasses "] || 0);
-                safeSetText('countTeachers', d.countTeachers || d[" countTeachers "] || 0);
+    } catch (e) {
+        console.error("Error fetching students for academic performance:", e);
+    }
+}
+async function updateDashboard(month, className) {
+    if (!month || !className) return;
 
-                const bP = Math.round(Number(d.boysPercentage || 0));
-                safeSetText('boysPercent', bP + "%");
-                safeSetText('girlsPercent', (100 - bP) + "%");
-                safeSetText('boysCountLabel', d.boysNumber || 0);
-                safeSetText('girlsCountLabel', d.girlsNumber || 0);
+    const monthElement = document.getElementById('currentMonthName');
+    if (monthElement) monthElement.innerText = month;
 
-                renderDonutChart(d);
-                renderBarChart(d);
-            }
-        } else {
-            if (myBarChart) {
-                myBarChart.destroy();
-                myBarChart = null;
-            }
-            if (myDonutChart) {
-                myDonutChart.destroy();
-                myDonutChart = null;
-            }
+    setLoading(['boysCountLabel', 'girlsCountLabel', 'boysPercent', 'girlsPercent', 'attendancePercentText']);
+    generateCalendar();
+
+    const targetMonth = getTargetMonth(month, 2026);
+    const url = `${BASE_URL}/dashboard/${targetMonth}/2026/${className}`;
+    console.log("Fetching dashboard data from:", url);
+
+    try {
+        const dashRes = await fetch(url);
+        if (!dashRes.ok) throw new Error(`HTTP error! status: ${dashRes.status}`);
+
+        const d = await dashRes.json();
+        console.log("Dashboard API response:", d);
+
+        if (d.countTeachers !== undefined) {
+            safeSetText('countTeachers', d.countTeachers);
         }
+        if (d.countStudents !== undefined) {
+            safeSetText('countStudents', d.countStudents);
+        }
+        if (d.countClasses !== undefined) {
+            safeSetText('countClasses', d.countClasses);
+
+        }
+
+        const boysNumber = Number(d.boysNumber) || 0;
+        const girlsNumber = Number(d.girlsNumber) || 0;
+        const total = boysNumber + girlsNumber;
+
+        let boysPercentage = total > 0 ? (boysNumber / total) * 100 : 0;
+        let girlsPercentage = total > 0 ? (girlsNumber / total) * 100 : 0;
+
+        safeSetText('boysPercent', Math.round(boysPercentage) + "%");
+        safeSetText('girlsPercent', Math.round(girlsPercentage) + "%");
+        safeSetText('boysCountLabel', boysNumber);
+        safeSetText('girlsCountLabel', girlsNumber);
+
+        renderBarChart(d);
+        renderDonutChart(d, month, className);
 
     } catch (e) {
         console.error("Dashboard Update Error:", e);
+        addNotification("خطأ في جلب بيانات الداشبورد", "error");
     }
+}
+
+function getAttendanceForMonth(d, monthName, className) {
+    if (!Array.isArray(d.MonthPercentage)) {
+        console.log("MonthPercentage is not an array, fallback to attendancePercentage:", d.attendancePercentage);
+        return Math.round(Number(d.attendancePercentage || 0));
+    }
+
+    const year = "2026";
+    const monthNum = String(monthNameToNumber(monthName)).padStart(2, '0');
+    const targetMonth = `${year}-${monthNum}`;
+
+    const item = d.MonthPercentage.find(mp =>
+        mp.TargetMonth === targetMonth && mp.ClassName.toLowerCase() === className.toLowerCase()
+    );
+
+    if (!item) {
+        console.log("No match for class", className, "falling back to general attendance:", d.attendancePercentage);
+        return Math.round(Number(d.attendancePercentage || 0));
+    }
+
+    return Math.round(Number(item.StudentAttendancePercentage));
 }
 
 function renderBarChart(d) {
@@ -174,82 +364,70 @@ function renderBarChart(d) {
     });
 }
 
-function renderDonutChart(d) {
-    const ctx = document.getElementById('donutChart').getContext('2d');
-    if (myDonutChart) myDonutChart.destroy();
+function renderDonutChart(d, month, className) {
+    const canvas = document.getElementById('donutChart');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
 
-    const mainColor = getComputedStyle(document.documentElement).getPropertyValue('--main').trim();
-    const attendance = Math.round(Number(d["attendance Percentage"] || d.attendancePercentage || 0));
-    const absence = 100 - attendance;
+    if (myDonutChart) {
+        myDonutChart.destroy();
+        myDonutChart = null;
+    }
+
+    let attendanceVal = getAttendanceForMonth(d, month, className);
+
+    const totalStudents = (Number(d.boysNumber) || 0) + (Number(d.girlsNumber) || 0);
+
+    if (isNaN(attendanceVal) || attendanceVal === null) attendanceVal = 0;
+    if (totalStudents === 0) attendanceVal = 0;
+
+    const presentCount = Math.round((attendanceVal / 100) * totalStudents);
+    attendanceVal = Math.round((presentCount / totalStudents) * 100);
+
+    const absenceVal = 100 - attendanceVal;
 
     myDonutChart = new Chart(ctx, {
         type: 'doughnut',
         data: {
-            labels: ['Attend', 'Absent'],
+            labels: ['Present', 'Absent'],
             datasets: [{
-                data: [attendance, absence],
+                data: [attendanceVal, absenceVal],
                 backgroundColor: ['#66bb6a', '#ef5350'],
-                borderWidth: 0
+                hoverBackgroundColor: ['#43a047', '#e53935'],
+                borderWidth: 1
             }]
         },
         options: {
-            cutout: '80%',
             responsive: true,
             maintainAspectRatio: false,
+            cutout: '70%',
             plugins: {
-                legend: {
-                    display: true,
-                    position: 'top',
-                    labels: {
-                        usePointStyle: true,
-                        pointStyle: 'rect',
-                        padding: 20,
-                        boxWidth: 12,
-                        font: { size: 12, weight: '500' }
+                legend: { display: false },
+                tooltip: {
+                    callbacks: {
+                        label: function(item) {
+                            return `${item.label}: ${item.raw}%`;
+                        }
                     }
-                },
-                tooltip: { enabled: true }
+                }
             }
-        },
-        plugins: [{
-            id: 'centerText',
-            afterDraw: (chart) => {
-                const { ctx, chartArea: { top, width, height } } = chart;
-                ctx.save();
-                ctx.font = 'bold 28px sans-serif';
-                ctx.textAlign = 'center';
-                ctx.textBaseline = 'middle';
-                ctx.fillStyle = mainColor;
-                ctx.fillText(attendance + '%', width / 2, top + (height / 2));
-                ctx.restore();
-            }
-        }]
+        }
     });
+
+    safeSetText('attendancePercentText', attendanceVal + "%");
 }
+
 
 function safeSetText(id, val) {
     const el = document.getElementById(id);
     if (el) el.innerText = (val !== undefined && val !== null) ? val : 0;
 }
 
-async function fetchClasses() {
-    const sel = document.getElementById('classSelect');
-    if (!sel) return;
-    try {
-        const res = await fetch(`${BASE_URL}/classes`);
-        const result = await res.json();
-        const classesArray = result.data || [];
-
-        safeSetText('countClasses', classesArray.length);
-
-        sel.innerHTML = '<option value="">Select Class</option>';
-        classesArray.forEach(item => {
-            const name = item.Class || item["Class "];
-            sel.appendChild(new Option(`Class ${name}`, name));
-        });
-    } catch (e) {
-        console.error(e);
-    }
+function monthNameToNumber(monthName) {
+    const months = ["January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+    ];
+    return months.indexOf(monthName) + 1; // January = 1
 }
 
 function fillMonths() {
@@ -263,27 +441,60 @@ function fillMonths() {
 function setCurrentDate() {
     const today = new Date();
     const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    const currentMonth = monthNames[today.getMonth()];
-    const currentDay = today.getDate();
 
+    const currentMonthName = monthNames[today.getMonth()];
+    const currentYear = today.getFullYear();
+
+    const monthHeader = document.getElementById('currentMonthName');
     const monthSel = document.getElementById('monthSelect');
-    if (monthSel) monthSel.value = currentMonth;
 
-    const days = document.querySelectorAll('.day');
-    days.forEach(day => {
-        if (day.innerText == currentDay && !day.classList.contains('empty')) {
-            day.classList.add('active');
-        } else {
-            day.classList.remove('active');
-        }
-    });
+    if (monthHeader) monthHeader.innerText = currentMonthName;
+    if (monthSel) monthSel.value = currentMonthName;
+
+    generateCalendar(today.getMonth(), currentYear);
 }
+
+function generateCalendar(targetMonth = null, targetYear = null) {
+    const grid = document.querySelector('.calendar-grid');
+    if (!grid) return;
+
+    const now = new Date();
+    const month = (targetMonth !== null) ? targetMonth : now.getMonth();
+    const year = (targetYear !== null) ? targetYear : now.getFullYear();
+    const today = now.getDate();
+
+    const isThisMonth = (month === now.getMonth() && year === now.getFullYear());
+
+    const firstDayIndex = new Date(year, month, 1).getDay();
+    const lastDay = new Date(year, month + 1, 0).getDate();
+    const prevLastDay = new Date(year, month, 0).getDate();
+
+    let daysHtml = "";
+    const dayNames = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+
+    dayNames.forEach(name => {
+        daysHtml += `<div class="day-header">${name}</div>`;
+    });
+
+    for (let x = firstDayIndex; x > 0; x--) {
+        daysHtml += `<div class="day prev-date">${prevLastDay - x + 1}</div>`;
+    }
+
+    for (let i = 1; i <= lastDay; i++) {
+        const isToday = (isThisMonth && i === today) ? 'today' : '';
+        daysHtml += `<div class="day ${isToday}">${i}</div>`;
+    }
+
+    grid.innerHTML = daysHtml;
+}
+
+document.addEventListener('DOMContentLoaded', generateCalendar);
 
 document.addEventListener('DOMContentLoaded', init);
 
 const lockIcon = document.getElementById('lock');
 lockIcon.addEventListener('click', () => {
-    window.location.href = './login.html'
+    window.location.href = './index.html'
 })
 
 window.addEventListener('beforeunload', () => {
@@ -321,3 +532,10 @@ asideClose.addEventListener('click', () => {
     aside.style.setProperty('display', 'none', 'important');
 
 });
+
+function setLoading(ids) {
+    ids.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.innerText = "...";
+    });
+}
